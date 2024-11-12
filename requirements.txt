@@ -1,0 +1,12 @@
+asgiref
+beautifulsoup4
+certifi
+charset-normalizer
+Django
+django-bootstrap-v5
+idna
+python-dotenv
+requests
+soupsieve
+sqlparse
+urllib3
