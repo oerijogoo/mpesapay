@@ -71,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'payments.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
