@@ -10,3 +10,4 @@ requests
 soupsieve
 sqlparse
 urllib3
+pillow
