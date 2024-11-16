@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginForm, UpdateUserForm
 from django.contrib.sites.shortcuts import get_current_site
 from .token import user_tokenizer_generate
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -9,6 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.models import auth 
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -86,18 +89,29 @@ def my_login(request):
 
     context = {'form': form}
     return render(request, 'account/my-login.html', context=context)
-
-
+@login_required(login_url='my-login')
 def user_logout(request):
-    auth.logout(request)
+    try:
+        # Call keys() method to get an iterable
+        for key in list(request.session.keys()):
+            if key == 'session_key':
+                continue
+            else:
+                del request.session[key]
 
+    except KeyError:
+        pass
+
+    
+    messages.success(request, 'Logout successful')
+    
     return redirect("store")
 
-
+@login_required(login_url='my-login')
 def dashboard(request):
     return render(request, 'account/dashboard.html')
 
-
+@login_required(login_url='my-login')
 def profile_management(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
@@ -109,7 +123,7 @@ def profile_management(request):
         user_form = UpdateUserForm(instance=request.user)
 
     return render(request, 'account/profile-management.html', {'user_form': user_form})  # Use the same variable name
-
+@login_required(login_url='my-login')
 def delete_account(request):
     user = User.objects.get(id=request.user.id)
     if request.method == "POST":
@@ -118,3 +132,32 @@ def delete_account(request):
         return redirect('store')
     
     return render(request, 'account/delete-account.html')
+
+@login_required(login_url='my-login')
+def manage_shipping(request):
+
+    try:
+        shipping = ShippingAddress.objects.get(user= request.user.id)
+
+    except ShippingAddress.DoesNotExist:
+        shipping = None
+
+
+    form = ShippingForm(instance=shipping)
+
+    if request.method == 'POST':
+
+        form = ShippingForm(request.POST, instance=shipping)
+
+        if form.is_valid():
+
+            shipping_user = form.save(commit=False)
+
+            shipping_user.user = request.user
+
+            shipping_user.save()
+
+            return redirect('dashboard')
+        
+    context = {'form':form}
+    return render(request, 'account/manage-shipping.html', context=context)
