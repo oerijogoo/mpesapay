@@ -13,4 +13,4 @@ urllib3
 pillow
 django-mathfilters
 django-crispy-forms
-crispy-bootstrap4
+crispy-bootstrap5
