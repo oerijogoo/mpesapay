@@ -23,30 +23,30 @@
                     <hr>
                     <br>
                     <div class="form-field">
-                        <input type="text" class="form-control validate" id="name" placeholder="full name", autocomplete="off" required>
+                        <input type="text" class="form-control validate" id="name" placeholder="full name", autocomplete="off" required value="{{shipping.full_name}}">
                     </div>
                     <div class="form-field">
-                        <input type="text" class="form-control validate" id="email" placeholder="email", autocomplete="off" required>
-                    </div>
-
-                    <div class="form-field">
-                        <input type="text" class="form-control validate" id="address1" placeholder="address1", autocomplete="off" required>
+                        <input type="text" class="form-control validate" id="email" placeholder="email", autocomplete="off" required value="{{shipping.email}}" required>
                     </div>
 
                     <div class="form-field">
-                        <input type="text" class="form-control validate" id="address2" placeholder="address2", autocomplete="off" required>
+                        <input type="text" class="form-control validate" id="address1" placeholder="address1", autocomplete="off" required value="{{shipping.address1}}" required>
                     </div>
 
                     <div class="form-field">
-                        <input type="text" class="form-control validate" id="city" placeholder="city", autocomplete="off" required>
+                        <input type="text" class="form-control validate" id="address2" placeholder="address2", autocomplete="off" required value="{{shipping.address2}}" required>
                     </div>
 
                     <div class="form-field">
-                        <input type="text" class="form-control validate" id="state" placeholder="state(optional)", autocomplete="off" >
+                        <input type="text" class="form-control validate" id="city" placeholder="city", autocomplete="off" required value="{{shipping.city}}" required>
                     </div>
 
                     <div class="form-field">
-                        <input type="text" class="form-control validate" id="zipcode" placeholder="zipcode(optional)", autocomplete="off">
+                        <input type="text" class="form-control validate" id="state" placeholder="state(optional)", autocomplete="off" required value="{{shipping.state}}" >
+                    </div>
+
+                    <div class="form-field">
+                        <input type="text" class="form-control validate" id="zipcode" placeholder="zipcode(optional)", autocomplete="off" required value="{{shipping.zipcode}}">
                     </div>
 
                     <button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white" >&nbsp; complete order</button>
