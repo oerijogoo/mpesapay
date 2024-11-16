@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'mpesa_express',
     'store',
     'cart',
+    'payment',
     'mathfilters',
     'account',
     'crispy_forms',

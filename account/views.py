@@ -11,6 +11,7 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 
 
+
 def register(request):
     form = CreateUserForm()  # Initialize the form
 
@@ -110,4 +111,10 @@ def profile_management(request):
     return render(request, 'account/profile-management.html', {'user_form': user_form})  # Use the same variable name
 
 def delete_account(request):
-    pass
+    user = User.objects.get(id=request.user.id)
+    if request.method == "POST":
+        user.delete()
+        messages.error(request, "account deleted!")
+        return redirect('store')
+    
+    return render(request, 'account/delete-account.html')
