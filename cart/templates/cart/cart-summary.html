@@ -52,7 +52,13 @@
 
         <div class="col-12 text-end">
             <div class="h6 fw-bold">Sub total: $<div id="total" class="d-inline-flex">{{ cart.get_total }}</div></div>
+
+            <br>
+        <a href="{%url 'checkout'%}" class="btn btn-primary navbar-btn text-white"> proceed to checkout</a>
+        <br>
+        <br>
         </div>
+        
     </div>
 </main>
 
