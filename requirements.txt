@@ -14,3 +14,4 @@ pillow
 django-mathfilters
 django-crispy-forms
 crispy-bootstrap5
+six
