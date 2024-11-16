@@ -11,3 +11,6 @@ soupsieve
 sqlparse
 urllib3
 pillow
+django-mathfilters
+crispy_forms
+crispy_bootstrap4

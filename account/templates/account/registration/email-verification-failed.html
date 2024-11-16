@@ -1,0 +1,29 @@
+{% include "store/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    body{
+        background-color: aquamarine;
+    }
+</style>
+
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <div  class="text-center">
+            <i class="fa fa-envelop fa-3x"  aria-hidden="true"></i>
+            <br> <br>
+            <h5><strong>email verification failed</strong></h5>
+            <hr>
+            <p>please contact the admin</p>
+
+        </div>
+
+    </div>
+
+</body>
+
+{% endblock %}

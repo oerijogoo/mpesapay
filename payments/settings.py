@@ -43,7 +43,13 @@ INSTALLED_APPS = [
     'mpesa_express',
     'store',
     'cart',
+    'mathfilters',
+    'account',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -137,3 +143,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# settings.py
+
+# Email backend
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'joerironald@gmail.com'  # Replace with your actual email
+EMAIL_HOST_PASSWORD = 'tfnm helr ktfx lnwt'  # Use an app password if 2-Step Verification is enabled
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# Email host settings
+# EMAIL_HOST = 'smtp.gmail.com'  # For Gmail
+# EMAIL_PORT = 587  # For TLS
+# EMAIL_USE_TLS = True  # Use TLS
+# EMAIL_HOST_USER = 'joerironaldl@gmail.com'  # Your email address
+# EMAIL_HOST_PASSWORD = 'tfnm helr ktfx lnwt'  # Your email password
+
+# Default from email
+#DEFAULT_FROM_EMAIL = 'joerironaldl@gmail.com'  # This will be used as the sender's email

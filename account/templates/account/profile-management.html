@@ -1,0 +1,29 @@
+{% include "store/base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}  <!-- Correct block name -->
+<style>
+    body {
+        background-color: antiquewhite;
+    }
+</style>
+<body>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h3>&nbsp; Profile Management</h3>
+        <p>You can change your username and email here</p>
+
+        <br><br>
+        <form action="" method="POST" autocomplete="off">
+            {% csrf_token %}
+            {{ user_form|crispy }}  <!-- Render the entire form using crispy -->
+            <br><br>
+            <li>update your username or email</li>
+
+            <li>delete your account</li>
+            <button type="submit" class="btn btn-primary navbar-btn text-white w-100 p-2">update</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

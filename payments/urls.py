@@ -26,6 +26,7 @@ urlpatterns = [
     path('mpesa/', include('mpesa_express.urls')),
     path('', include('store.urls')),
     path('cart/', include('cart.urls')),
+    path('register/', include('account.urls')),
 ]
 
 if settings.DEBUG:
