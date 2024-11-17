@@ -29,3 +29,4 @@ def list_category(request, category_slug):
 
     return render(request, 'store/list-category.html', {'category':category, 'products':products})
 
+
