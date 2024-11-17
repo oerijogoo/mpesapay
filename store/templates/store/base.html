@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -81,6 +80,11 @@
                 font-size: 0.85rem; /* Reduce font size */
                 padding: 0.2rem 0.4rem; /* Adjust padding */
             }
+
+            /* Ensure the cart icon remains visible */
+            .nav-item {
+                margin: 0.5rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -89,11 +93,28 @@
                 font-size: 0.75rem; /* Smallest size */
                 padding: 0.1rem 0.3rem; /* Tighten padding */
             }
+
+            /* Ensure the cart icon is visible on smaller screens */
+            .nav-item {
+                margin: 0.2rem;
+            }
         }
 
         /* Content Spacing */
         .content {
             margin-top: 70px; /* Leave space for fixed navbar */
+        }
+
+        /* Footer Fixed at the Bottom */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #007bff; /* Matching color to navbar */
+            padding: 10px 0;
+            z-index: 1000;
+            color: white;
+            text-align: center;
         }
     </style>
 </head>
@@ -148,10 +169,10 @@
         {% endblock %}
     </div>
 
-    <footer class="bg-primary text-white text-center py-2">
+    <footer>
         <p>&copy; {{ current_year }} Ecommerce. All rights reserved.</p>
     </footer>
-</body>
 
+</body>
 
 </html>
