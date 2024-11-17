@@ -30,3 +30,9 @@ def list_category(request, category_slug):
     return render(request, 'store/list-category.html', {'category':category, 'products':products})
 
 
+from datetime import datetime
+from django.shortcuts import render
+
+def year(request):
+    current_year = datetime.now().year  # Get the current year
+    return render(request, 'store/base.html', {'current_year': current_year})
