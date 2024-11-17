@@ -32,6 +32,20 @@
         .navbar-brand {
             color: white;
             margin-right: 1rem; /* Adjust spacing */
+            font-size: 1.5rem; /* Default font size */
+        }
+
+        /* Adjust Navbar Brand Font Size for Smaller Screens */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.2rem; /* Slightly smaller on medium screens */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1rem; /* Smaller on very small screens */
+            }
         }
 
         .navbar-collapse {
