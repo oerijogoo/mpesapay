@@ -67,13 +67,39 @@
     </div>
 </main>
 
+<!-- Toast Container -->
+<div id="toast-message" class="toast position-fixed bottom-0 end-0 p-3" style="z-index: 1050;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="me-auto">Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+
 <script>
 $(document).ready(function() {
-    // Event listener for the Add to Cart button
+    // Function to show toast
+    function showToast(message, type) {
+        // Set the message
+        $('#toast-message .toast-body').text(message);
+
+        // Set the background color based on type
+        if (type === 'success') {
+            $('#toast-message').removeClass('bg-danger').addClass('bg-success');
+        } else if (type === 'danger') {
+            $('#toast-message').removeClass('bg-success').addClass('bg-danger');
+        }
+
+        // Initialize and display the toast
+        var toast = new bootstrap.Toast($('#toast-message')[0], { delay: 3000 });
+        toast.show();
+    }
+
+    // Event listener for Add to Cart button
     $(document).on('click', '.add-to-cart-button', function(e) {
         e.preventDefault();
 
-        // Get the product ID
+        // Get product ID
         var productId = $(this).data('index');
 
         // AJAX request to add product to cart
@@ -81,19 +107,21 @@ $(document).ready(function() {
             type: 'POST',
             url: '{% url "cart-add" %}',
             data: {
-                action: 'post', // Required parameter for the view
+                action: 'post',
                 product_id: productId,
                 product_quantity: 1, // Default quantity
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             },
             success: function(json) {
-                alert('Product added to cart successfully!');
-                document.getElementById('cart-qty').textContent = json.qty; // Update cart quantity
+                // Display success message
+                showToast('Product added to cart successfully!', 'success');
+                // Update cart quantity
+                $('#cart-qty').text(json.qty);
             },
-            error: function(xhr, err) {
-                console.error("Error adding product to cart:", err);
+            error: function(xhr) {
+                // Display error message
                 let message = xhr.responseJSON?.error || 'An error occurred. Please try again.';
-                alert(message);
+                showToast(message, 'danger');
             }
         });
     });

@@ -37,24 +37,31 @@ def cart_add(request):
 
     return JsonResponse({'error': 'Invalid request.'}, status=400)
 
-   
 
 def cart_delete(request):
     cart = Cart(request)
 
     if request.POST.get('action') == 'post':
+        print("Received delete request: ", request.POST)  # Debug log
 
+        product_id = request.POST.get('product_id')
 
-        product_id = int(request.POST.get('product_id'))
+        try:
+            product_id = int(product_id)
+        except ValueError:
+            return JsonResponse({'error': 'Invalid product ID.'}, status=400)
 
-        cart.delete(product = product_id)
+        cart.delete(product=product_id)
         cart_quantity = cart.__len__()
         cart_total = cart.get_total()
-        response = JsonResponse({'qty':cart_quantity, 'total':cart_total})
+
+        print("Cart after deletion: ", cart.cart)  # Debug log
+
+        response = JsonResponse({'qty': cart_quantity, 'total': cart_total})
         return response
 
-from django.http import JsonResponse
-from .cart import Cart
+    return JsonResponse({'error': 'Invalid request.'}, status=400)
+
 
 def cart_update(request):
     cart = Cart(request)
@@ -63,10 +70,12 @@ def cart_update(request):
         product_id = request.POST.get('product_id')
         product_quantity = request.POST.get('product_quantity')
 
+        print("Received update request: ", request.POST)  # Debug log
+
         # Validate product_id and product_quantity
         if not product_id or not product_quantity:
             return JsonResponse({'error': 'Product ID and quantity are required.'}, status=400)
-        
+
         try:
             product_id = int(product_id)
             product_quantity = int(product_quantity)
@@ -77,6 +86,8 @@ def cart_update(request):
         cart.update(product=product_id, qty=product_quantity)
         cart_quantity = len(cart.cart)  # or cart.__len__()
         cart_total = cart.get_total()
+
+        print("Cart updated: ", cart.cart)  # Debug log
 
         response = JsonResponse({'qty': cart_quantity, 'total': cart_total})
         return response

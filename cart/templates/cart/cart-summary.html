@@ -26,10 +26,10 @@
                     {% with product=item.product %}
                     <tr>
                         <td class="text-center">
-                            <img 
-                                src="{{ product.image.url }}" 
-                                alt="{{ product.title }}" 
-                                class="img-fluid" 
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.title }}"
+                                class="img-fluid"
                                 style="max-width: 100px; max-height: 100px; object-fit: contain;">
                         </td>
                         <td>
@@ -39,16 +39,20 @@
                         </td>
                         <td>Kshs. {{ product.price }}</td>
                         <td>
-                            <select class="form-select form-select-sm" id="select-{{ product.id }}">
-                                <option value="1" {% if item.qty == 1 %}selected{% endif %}>1</option>
-                                <option value="2" {% if item.qty == 2 %}selected{% endif %}>2</option>
-                                <option value="3" {% if item.qty == 3 %}selected{% endif %}>3</option>
-                                <option value="4" {% if item.qty == 4 %}selected{% endif %}>4</option>
-                            </select>
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-outline-secondary decrement-btn" type="button" data-index="{{ product.id }}">-</button>
+                                <input
+                                    type="number"
+                                    class="form-control text-center quantity-input"
+                                    id="quantity-{{ product.id }}"
+                                    value="{{ item.qty }}"
+                                    min="1">
+                                <button class="btn btn-outline-secondary increment-btn" type="button" data-index="{{ product.id }}">+</button>
+                            </div>
                         </td>
                         <td>Kshs. {{ product.price|mul:item.qty }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm update-button" data-index="{{ product.id }}">
+                            <button type="button" class="btn btn-primary btn-sm update-button" data-index="{{ product.id }}" disabled>
                                 Update
                             </button>
                             <button type="button" class="btn btn-danger btn-sm delete-button" data-index="{{ product.id }}">
@@ -70,14 +74,65 @@
     </div>
 </main>
 
+<!-- Toast Notification -->
+<div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+    <div id="toast-message" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000">
+        <div class="toast-body">
+            <!-- Message will be inserted dynamically here -->
+        </div>
+    </div>
+</div>
+
 <!-- JavaScript -->
 <script>
 $(document).ready(function() {
+    // Function to show toast message
+    function showToast(message, type) {
+        $('#toast-message .toast-body').text(message);  // Insert message into toast
+        var toast = new bootstrap.Toast($('#toast-message')[0], { delay: 2000 });  // Initialize toast
+
+        // Set the color based on type: success for update, danger for delete
+        if (type === 'success') {
+            $('#toast-message').removeClass('bg-danger').addClass('bg-success');
+        } else if (type === 'danger') {
+            $('#toast-message').removeClass('bg-success').addClass('bg-danger');
+        }
+
+        toast.show();  // Show the toast
+    }
+
+    // Enable update button when quantity is changed
+    $(document).on('input', '.quantity-input', function() {
+        const productId = $(this).data('index');
+        const updateBtn = $(this).closest('tr').find('.update-button');
+        updateBtn.prop('disabled', false);  // Enable the button
+    });
+
+    // Increment quantity
+    $(document).on('click', '.increment-btn', function() {
+        const productId = $(this).data('index');
+        const input = $('#quantity-' + productId);
+        let currentVal = parseInt(input.val(), 10);
+        if (!isNaN(currentVal)) {
+            input.val(currentVal + 1).trigger('input'); // Trigger input event
+        }
+    });
+
+    // Decrement quantity
+    $(document).on('click', '.decrement-btn', function() {
+        const productId = $(this).data('index');
+        const input = $('#quantity-' + productId);
+        let currentVal = parseInt(input.val(), 10);
+        if (!isNaN(currentVal) && currentVal > 1) {
+            input.val(currentVal - 1).trigger('input'); // Trigger input event
+        }
+    });
+
     // Update cart item quantity
     $(document).on('click', '.update-button', function(e) {
         e.preventDefault();
         const productId = $(this).data('index');
-        const quantity = $('#select-' + productId).val();
+        const quantity = $('#quantity-' + productId).val();
 
         $.ajax({
             type: 'POST',
@@ -89,11 +144,14 @@ $(document).ready(function() {
                 action: 'post'
             },
             success: function(json) {
-                alert('Cart updated successfully!');
-                location.reload(); // Refresh the page to show updated totals
+                showToast('Cart updated successfully!', 'success');
+                setTimeout(function() {
+                    location.reload(); // Refresh the page after 2 seconds
+                }, 2000);
             },
-            error: function() {
-                alert('Error updating cart item.');
+            error: function(xhr, status, error) {
+                console.error('Error:', xhr.responseText);  // Log error
+                showToast('Error updating cart item.', 'danger');
             }
         });
     });
@@ -112,14 +170,19 @@ $(document).ready(function() {
                 action: 'post'
             },
             success: function(json) {
-                alert('Item removed from cart!');
-                location.reload(); // Refresh the page
+                showToast('Item removed from cart!', 'danger');
+                setTimeout(function() {
+                    location.reload(); // Refresh the page after 2 seconds
+                }, 2000);
             },
-            error: function() {
-                alert('Error removing item from cart.');
+            error: function(xhr, status, error) {
+                console.error('Error:', xhr.responseText);  // Log error
+                showToast('Error removing item from cart.', 'danger');
             }
         });
     });
 });
 </script>
+
+
 {% endblock %}

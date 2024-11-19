@@ -63,3 +63,9 @@ class Cart:
         if product_id in self.cart:
             self.cart[product_id]['qty'] = product_quantity
             self.session.modified = True
+
+    def clear(self):
+        """Clears the cart session."""
+        self.cart = {}  # Empty the cart
+        self.session['session_key'] = self.cart  # Reset the session cart
+        self.session.modified = True  # Mark the session as modified
