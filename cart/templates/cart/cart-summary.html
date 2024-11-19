@@ -1,103 +1,107 @@
-{% include "store/base.html" %}
-
+{% extends "store/base.html" %}
 {% load static %}
 {% load mathfilters %}
 
 {% block content %}
 <main class="pt-5">
     <div class="container">
-        <h1 class="h5">Shopping cart</h1>
+        <h1 class="h5">Shopping Cart Summary</h1>
         <hr>
-        {% for item in cart %}
-        {% with product=item.product %}
-        <br>
-        <div class="row mb-4 border product-item">
-            <div class="col-md-3 col-lg-2 order-md-first bg-light">
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ product.image.url }}">
-            </div>
-            <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
-                <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
-                    <h1 class="h5 pt-2">{{ product.title }}</h1>
-                </a>
-                <div class="border">
-                    <div class="col border-bottom">
-                        <div class="row p-3">
-                            <div class="col-6">Product</div>
-                            <div class="col-6 text-end"><span class="h6 fw-bold">Kshs. {{ product.price|mul:item.qty }}</span></div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row p-3">
-                            <div class="col-12">
-                                <label for="select-{{ product.id }}">Qty</label>
-                                &nbsp;
-                                <select id="select-{{ product.id }}">
-                                    <option value="1" {% if item.qty == 1 %}selected{% endif %}>1</option>
-                                    <option value="2" {% if item.qty == 2 %}selected{% endif %}>2</option>
-                                    <option value="3" {% if item.qty == 3 %}selected{% endif %}>3</option>
-                                    <option value="4" {% if item.qty == 4 %}selected{% endif %}>4</option>
-                                </select>
-                                <br><br>
-                                <button type="button" data-index="{{ product.id }}" class="btn btn-primary btn-sm update-button">Update</button>
-                                &nbsp;
-                                <button type="button" data-index="{{ product.id }}" class="btn btn-danger btn-sm delete-button">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endwith %}
-        {% endfor %}
 
-        <div class="col-12 text-end">
-            <div class="h6 fw-bold">Sub total: $<div id="total" class="d-inline-flex">{{ cart.get_total }}</div></div>
-
-            <br>
-        <a href="{%url 'checkout'%}" class="btn btn-primary navbar-btn text-white"> proceed to checkout</a>
-        <br>
-        <br>
+        <!-- Cart Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    {% with product=item.product %}
+                    <tr>
+                        <td class="text-center">
+                            <img 
+                                src="{{ product.image.url }}" 
+                                alt="{{ product.title }}" 
+                                class="img-fluid" 
+                                style="max-width: 100px; max-height: 100px; object-fit: contain;">
+                        </td>
+                        <td>
+                            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
+                                {{ product.title }}
+                            </a>
+                        </td>
+                        <td>Kshs. {{ product.price }}</td>
+                        <td>
+                            <select class="form-select form-select-sm" id="select-{{ product.id }}">
+                                <option value="1" {% if item.qty == 1 %}selected{% endif %}>1</option>
+                                <option value="2" {% if item.qty == 2 %}selected{% endif %}>2</option>
+                                <option value="3" {% if item.qty == 3 %}selected{% endif %}>3</option>
+                                <option value="4" {% if item.qty == 4 %}selected{% endif %}>4</option>
+                            </select>
+                        </td>
+                        <td>Kshs. {{ product.price|mul:item.qty }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm update-button" data-index="{{ product.id }}">
+                                Update
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm delete-button" data-index="{{ product.id }}">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        
+
+        <!-- Summary -->
+        <div class="text-end">
+            <p class="h6 fw-bold">Subtotal: Kshs. <span id="total">{{ cart.get_total }}</span></p>
+            <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
     </div>
 </main>
 
+<!-- JavaScript -->
 <script>
 $(document).ready(function() {
-    // Event listener for the update button
+    // Update cart item quantity
     $(document).on('click', '.update-button', function(e) {
-        e.preventDefault(); // Prevent the default action
+        e.preventDefault();
+        const productId = $(this).data('index');
+        const quantity = $('#select-' + productId).val();
 
-        // Get the product ID from the data attribute
-        var productId = $(this).data('index');
-        var quantity = $('#select-' + productId + ' option:selected').val(); // Get the selected value
-
-        // AJAX request to update the product
         $.ajax({
             type: 'POST',
-            url: '{% url "cart-update" %}', // URL for the update view
+            url: '{% url "cart-update" %}',
             data: {
                 product_id: productId,
                 product_quantity: quantity,
-                csrfmiddlewaretoken: '{{ csrf_token }}', // CSRF token for security
-                action: 'post' // Optional action parameter
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
             },
             success: function(json) {
-                // Handle the successful response
-                console.log(json); // Log the response for debugging
-                location.reload(); // Reload the page to see updated totals
+                alert('Cart updated successfully!');
+                location.reload(); // Refresh the page to show updated totals
             },
-            error: function(xhr, err) {
-                console.error("Error updating item:", err);
-                alert('An error occurred while updating the product. Please try again.');
+            error: function() {
+                alert('Error updating cart item.');
             }
         });
     });
 
-    // Event listener for the delete button
+    // Delete cart item
     $(document).on('click', '.delete-button', function(e) {
         e.preventDefault();
-        var productId = $(this).data('index');
+        const productId = $(this).data('index');
 
         $.ajax({
             type: 'POST',
@@ -108,16 +112,14 @@ $(document).ready(function() {
                 action: 'post'
             },
             success: function(json) {
-                document.getElementById('cart-qty').textContent = json.qty;
-                document.getElementById('total').textContent = json.total;
-                location.reload(); // Reload the page
+                alert('Item removed from cart!');
+                location.reload(); // Refresh the page
             },
-            error: function(xhr, err) {
-                console.error("Error deleting item:", err);
+            error: function() {
+                alert('Error removing item from cart.');
             }
         });
     });
 });
 </script>
-
 {% endblock %}

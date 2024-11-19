@@ -15,3 +15,5 @@ django-mathfilters
 django-crispy-forms
 crispy-bootstrap5
 six
+xhtml2pdf
+django-widget-tweaks

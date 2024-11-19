@@ -1,3 +1,4 @@
+<!--base.html-->
 <!DOCTYPE html>
 
 <html lang="en">
@@ -118,20 +119,38 @@
         /* Content Spacing */
         .content {
             margin-top: 70px; /* Leave space for fixed navbar */
-            padding-bottom: 50px; /* Reduce space at the bottom for thinner footer */
+            padding-bottom: 0px; /* Reduce space at the bottom for thinner footer */
+
         }
 
         /* Footer Fixed at the Bottom */
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #007bff; /* Matching color to navbar */
-            padding: 5px 0; /* Thinned footer */
-            z-index: 1000;
-            color: white;
-            text-align: center;
-        }
+        /* Thinner and Transparent Footer */
+  .footer-spacer {
+        height: 60px; /* Height equal to the footer's height */
+    }
+
+    /* Footer styling */
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #007bff;
+        padding: 5px 0;
+        color: white;
+        text-align: center;
+        z-index: 1000;
+        font-size: 0.85rem;
+        line-height: 1.2;
+        box-sizing: border-box;
+    }
+
+
+
+/* Auto-hide Footer on Scroll */
+.hide-footer {
+    transform: translateY(100%);
+}
+
     </style>
 </head>
 
@@ -185,9 +204,10 @@
         {% endblock %}
     </div>
 
-    <footer>
-        <p>&copy; {{ current_year }} Ecommerce. All rights reserved.</p>
-    </footer>
+    <div class="footer-spacer"></div>
+<footer>
+    <p>&copy; {{ current_year }} Ecommerce. All rights reserved.</p>
+</footer>
 
 </body>
 

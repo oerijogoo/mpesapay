@@ -14,20 +14,29 @@ def cart_add(request):
     cart = Cart(request)
 
     if request.POST.get('action') == 'post':
+        print("Request POST data:", request.POST)  # Log incoming POST data
 
-        product_id = int(request.POST.get('product_id'))
+        product_id = request.POST.get('product_id')
+        product_quantity = request.POST.get('product_quantity')
 
-        product_quantity = int(request.POST.get('product_quantity'))
+        # Validate product_id and product_quantity
+        if not product_id or not product_quantity:
+            return JsonResponse({'error': 'Product ID and quantity are required.'}, status=400)
 
-        product = get_object_or_404(Product,id=product_id)
+        try:
+            product_id = int(product_id)
+            product_quantity = int(product_quantity)
+        except ValueError:
+            return JsonResponse({'error': 'Invalid product ID or quantity.'}, status=400)
 
-        cart.add(product=product,product_qty=product_quantity)
-
+        product = get_object_or_404(Product, id=product_id)
+        cart.add(product=product, product_qty=product_quantity)
         cart_quantity = cart.__len__()
 
-        response = JsonResponse({ 'qty': cart_quantity})
+        return JsonResponse({'qty': cart_quantity})
 
-        return response
+    return JsonResponse({'error': 'Invalid request.'}, status=400)
+
    
 
 def cart_delete(request):

@@ -1,50 +1,102 @@
 {% extends "./base.html" %}
-
 {% load static %}
 
-
 {% block content %}
-
-
-<main>
-  
-  <div class="album py-5 bg-light">
+<main class="pt-5">
     <div class="container">
+        <!-- Category Name -->
+        <h1 class="h5 text-capitalize">{{ category.name }}</h1>
+        <hr>
 
-      <div class="pb-3 h5"> <!-- category.name --> </div>
-
-
-      <hr>
-
-      <br>
-
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-
-        {% for product in products %}
-
-        <div class="col">
-          <div class="card shadow-sm">
-          <img class="img-fluid" alt="Responsive image" src="{{product.image.url}}">
-
-            <div class="card-body">
-              <p class="card-text">
-                <a class="text-info text-decoration-none" href=""> {{product.title}} </a>
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <h5> Kshs. {{product.price}} </h5>
-              </div>
-            </div>
-          </div>
+        <!-- Responsive Product Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <!-- Product Image -->
+                        <td class="text-center">
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.title }}"
+                                class="img-fluid"
+                                style="max-width: 100px; max-height: 100px; object-fit: contain;">
+                        </td>
+                        <!-- Product Details -->
+                        <td>
+                            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
+                                <h1 class="h6">{{ product.title }}</h1>
+                            </a>
+                        </td>
+                        <!-- Product Price -->
+                        <td>Kshs. {{ product.price }}</td>
+                        <!-- Actions -->
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-sm"
+                                onclick="window.location.href='{{ product.get_absolute_url }}'">
+                                View Details
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-success btn-sm add-to-cart-button"
+                                data-index="{{ product.id }}">
+                                Add to Cart
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">
+                            No products available in this category.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-
-        {% endfor %}
-
-      </div>
     </div>
-  </div>
-
-
 </main>
 
+<script>
+$(document).ready(function() {
+    // Event listener for the Add to Cart button
+    $(document).on('click', '.add-to-cart-button', function(e) {
+        e.preventDefault();
+
+        // Get the product ID
+        var productId = $(this).data('index');
+
+        // AJAX request to add product to cart
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart-add" %}',
+            data: {
+                action: 'post', // Required parameter for the view
+                product_id: productId,
+                product_quantity: 1, // Default quantity
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(json) {
+                alert('Product added to cart successfully!');
+                document.getElementById('cart-qty').textContent = json.qty; // Update cart quantity
+            },
+            error: function(xhr, err) {
+                console.error("Error adding product to cart:", err);
+                let message = xhr.responseJSON?.error || 'An error occurred. Please try again.';
+                alert(message);
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
