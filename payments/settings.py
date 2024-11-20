@@ -91,12 +91,27 @@ CSRF_TRUSTED_ORIGINS = ['https://localhost:8000', 'https://oerimpesa.onrender.co
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv('DB_NAME', 'postgres'),
+            'USER': os.getenv('DB_USER', 'postgres.aluyaoqadrrevpitrfky'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'Egesusu0725#'),
+            'HOST': os.getenv('DB_HOST', 'aws-0-eu-central-1.pooler.supabase.com'),
+            'PORT': os.getenv('DB_PORT', '6543'),
+            'CONN_MAX_AGE': 600,    # Keeps connections open for 10 minutes
+            'OPTIONS': {
+                'sslmode': 'require',  # Ensures SSL connection for security
+            },
+        }
     }
-}
 
 
 # Password validation
