@@ -4,7 +4,9 @@
 
 {% block content %}
 
-<!-- Introduction Section -->
+
+
+<!-- Introduction and All Products Section -->
 <section style="
     position: fixed;
     top: 56px; /* Adjust for navbar height */
@@ -23,27 +25,27 @@
                     font-size: 1.1rem;
                     color: #00796b; /* Muted teal text */
                     margin: 0;">
-                    Welcome to Our Site!
-                    <a href="{% url 'register' %}" style="
-                        color: #004d40; /* Rich teal for link */
-                        font-weight: bold;
-                        text-decoration: none;">
-                        Create an Account
-                    </a>
-                    to explore our collection.
+                    Welcome to Our Online Shop!
+
+                    <i> explore our collection.</i>
                 </p>
+                <div class="pb-3 h5" style="
+                    font-family: 'Poppins', sans-serif;
+                    color: #00796b;
+                    margin-top: 15px;">
+                    All Products
+                </div>
+                <hr style="
+                    background-color: #00796b;
+                    margin: 0;"> <!-- Horizontal rule matching the header color -->
             </div>
         </div>
     </div>
 </section>
 
-<!-- All Products Section -->
-<div class="album py-5 bg-light" style="margin-top: 100px;"> <!-- Adjust margin for fixed section -->
+<!-- All Products Section (No need for margin-top adjustment here) -->
+<div class="album py-5 bg-light" style="margin-top: 230px;"> <!-- Adjust margin for combined fixed section -->
     <div class="container">
-        <div class="pb-3 h5" style="
-            font-family: 'Poppins', sans-serif;
-            color: #00796b;">All Products</div>
-        <hr>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
             {% for product in all_products %}
             <div class="col">
@@ -76,5 +78,7 @@
         </div>
     </div>
 </div>
+
+
 
 {% endblock %}
