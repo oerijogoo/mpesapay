@@ -1,5 +1,6 @@
 <!--base.html-->
 <!DOCTYPE html>
+{% load static %}
 
 <html lang="en">
 
@@ -206,9 +207,9 @@
 
     <div class="footer-spacer"></div>
 <footer>
-    <p>&copy; {{ current_year }} Ecommerce. All rights reserved.</p>
+    <p>&copy; <span id="current-year"></span> Jogoo Oeri. All rights reserved.</p>
 </footer>
-
+<script src="{% static 'js/app.js' %}"></script>
 </body>
 
 </html>
