@@ -101,15 +101,15 @@ import cloudinary.api
 import dj_database_url
 
 cloudinary.config(
-    cloud_name = "depxev0is",
-    api_key = "983474991237557",
-    api_secret = "97dQSZMoURBNCY-sTKQB4crtkHw",
+    cloud_name = "oeri",
+    api_key = "642847218957968",
+    api_secret = "b9U5NV2KEka8UREAU36WcVHJUD0",
 )
 
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3h',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
