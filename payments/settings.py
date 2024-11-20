@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
+
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
+    'cloudinary',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -87,9 +89,22 @@ WSGI_APPLICATION = 'payments.wsgi.application'
 
 CSRF_TRUSTED_ORIGINS = ['https://localhost:8000', 'https://oerimpesa.onrender.com','https://oerimpesa.onrender.com']
 #nbnbnbnmnnn
-
+import os
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+
+#cloudinary
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import dj_database_url
+
+cloudinary.config(
+    cloud_name = "depxev0is",
+    api_key = "983474991237557",
+    api_secret = "97dQSZMoURBNCY-sTKQB4crtkHw",
+)
 
 # DATABASES = {
 #     'default': {
