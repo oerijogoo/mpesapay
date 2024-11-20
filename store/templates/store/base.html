@@ -12,6 +12,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
@@ -25,7 +26,7 @@
             width: 100%;
             z-index: 1000;
             padding: 0.5rem 1rem;
-            background-color: #007bff; /* Bootstrap primary color */
+            background-color: #a96d22; /* Bootstrap primary color */
             display: flex;
             align-items: center;
             justify-content: space-between; /* Ensure space between groups */
@@ -135,7 +136,7 @@
         position: fixed;
         bottom: 0;
         width: 100%;
-        background-color: #007bff;
+        background-color: #a96d22;
         padding: 5px 0;
         color: white;
         text-align: center;
@@ -209,7 +210,17 @@
 <footer>
     <p>&copy; <span id="current-year"></span> Jogoo Oeri. All rights reserved.</p>
 </footer>
-<script src="{% static 'js/app.js' %}"></script>
+    <script>
+           const currentYearElement = document.getElementById('current-year');
+if (currentYearElement) {
+    currentYearElement.textContent = new Date().getFullYear();
+} else {
+    console.error('Current year element not found');
+}
+
+    </script>
+
+
 </body>
 
 </html>

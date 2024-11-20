@@ -6,22 +6,27 @@ setTimeout(function(){
 },3000)
 
 // Update copyright year
-    const currentYearElement = document.getElementById('current-year');
-    if (currentYearElement) {
-        currentYearElement.textContent = new Date().getFullYear();
-    } else {
-        console.error('Current year element not found');
-    }
-
-
-
-
-/* Thin Introduction Section */
-.intro-section {
-    padding: 0.5rem 0; /* Thin height similar to navbar */
-    font-size: 0.9rem; /* Small text size */
-    border-bottom: 1px solid #ddd; /* Subtle border for separation */
+const currentYearElement = document.getElementById('current-year');
+if (currentYearElement) {
+    currentYearElement.textContent = new Date().getFullYear();
+} else {
+    console.error('Current year element not found');
 }
+
+
+.intro-section {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    background-color: #f8f9fa; /* Matches the bg-light class */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+body {
+    padding-top: 60px; /* Adjust this based on the height of .intro-section */
+}
+
 
 /* Prevent Overlap with Navbar */
 .navbar + .intro-section {
