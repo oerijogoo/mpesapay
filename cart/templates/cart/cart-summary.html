@@ -51,13 +51,15 @@
                             </div>
                         </td>
                         <td>Kshs. {{ product.price|mul:item.qty }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm update-button" data-index="{{ product.id }}" disabled>
-                                Update
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm delete-button" data-index="{{ product.id }}">
-                                Delete
-                            </button>
+                        <td class="text-center">
+                            <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
+                                <button type="button" class="btn btn-primary btn-sm update-button w-100 w-md-auto" data-index="{{ product.id }}" disabled>
+                                    Update
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm delete-button w-100 w-md-auto" data-index="{{ product.id }}">
+                                    Delete
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     {% endwith %}
@@ -183,6 +185,5 @@ $(document).ready(function() {
     });
 });
 </script>
-
 
 {% endblock %}

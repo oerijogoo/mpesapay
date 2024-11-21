@@ -4,16 +4,15 @@
 
 {% block content %}
 
-
-
 <!-- Introduction and All Products Section -->
-<section style="
+<!-- Introduction and All Products Section -->
+<section id="intro-section" style="
     position: fixed;
-    top: 56px; /* Adjust for navbar height */
+    top: 0; /* Adjust dynamically */
     left: 0;
     width: 100%;
     background-color: #edf7f5; /* Sea spray color */
-    z-index: 1050;
+    z-index: 1030; /* Ensure it's below the navbar dropdown */
     padding: 15px 0;
     text-align: center;
     font-family: 'Poppins', sans-serif; /* Modern and clean font */
@@ -27,7 +26,7 @@
                     margin: 0;">
                     Welcome to Our Online Shop!
 
-                    <i> explore our collection.</i>
+                    <i>Explore our collection.</i>
                 </p>
                 <div class="pb-3 h5" style="
                     font-family: 'Poppins', sans-serif;
@@ -43,33 +42,59 @@
     </div>
 </section>
 
-<!-- All Products Section (No need for margin-top adjustment here) -->
+
+<!-- All Products Section -->
 <div class="album py-5 bg-light" style="margin-top: 230px;"> <!-- Adjust margin for combined fixed section -->
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+        <div class="row g-4 justify-content-center">
             {% for product in all_products %}
-            <div class="col">
-                <div class="card h-100 shadow-sm">
+            <div class="col col-sm-6 col-md-4 col-lg-3" style="max-width: 300px;"> <!-- Limit card width -->
+                <div class="card h-100 shadow-sm" style="border: none; margin: auto;"> <!-- Center cards -->
                     <!-- Product Image -->
-                    <img
-                        class="card-img-top img-fluid"
-                        src="{{ product.image.url }}"
-                        alt="{{ product.title }}"
-                        style="object-fit: cover;">
+                    <div style="
+                        width: 100%;
+                        max-width: 150px; /* Set maximum width to control growth */
+                        aspect-ratio: 1; /* Maintains a 1:1 ratio for the container */
+                        margin: 0 auto; /* Center the image */
+                        border-radius: 50%; /* Makes circular images */
+                        overflow: hidden; /* Ensures image fits in the circle */
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;">
+                        <img
+                            class="img-fluid"
+                            src="{{ product.image.url }}"
+                            alt="{{ product.title }}"
+                            style="
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;">
+                    </div>
                     <!-- Card Content -->
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body d-flex flex-column" style="
+                        background-color: #f9f9f9; /* Light background for contrast */
+                        border-radius: 10px; /* Slightly rounded corners */
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+                        padding: 15px;">
                         <h6 class="card-title" style="
                             font-family: 'Poppins', sans-serif;
-                            color: #004d40;">
+                            color: #004d40; /* Dark teal for better visibility */
+                            font-size: 1rem;">
                             <a class="text-info text-decoration-none" href="{{ product.get_absolute_url }}">
                                 {{ product.title }}
                             </a>
                         </h6>
-                        <p class="card-text text-secondary small">
-                            Price: Kshs.{{ product.price }}
+                        <p class="card-text small" style="
+                            color: #666; /* Neutral color for text readability */
+                            margin-bottom: 10px;">
+                            Price: <span style="font-weight: bold;">Kshs.{{ product.price }}</span>
                         </p>
                         <div class="mt-auto">
-                            <a href="{{ product.get_absolute_url }}" class="btn btn-sm btn-primary">View Details</a>
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-sm btn-primary" style="
+                                font-family: 'Poppins', sans-serif;
+                                font-size: 0.9rem;">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -79,6 +104,22 @@
     </div>
 </div>
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const introSection = document.getElementById("intro-section");
+        const navbar = document.querySelector(".navbar"); // Select the navbar element
+
+        function adjustIntroSection() {
+            const navbarHeight = navbar.offsetHeight;
+            introSection.style.top = `${navbarHeight}px`; // Dynamically set top value
+        }
+
+        // Adjust on load and when resizing the window
+        adjustIntroSection();
+        window.addEventListener("resize", adjustIntroSection);
+    });
+</script>
 
 
 {% endblock %}
