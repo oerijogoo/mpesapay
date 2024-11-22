@@ -17,6 +17,7 @@
                         <th scope="col">Product</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Stock Available</th>
                         <th scope="col">Total</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -47,9 +48,10 @@
                                     id="quantity-{{ product.id }}"
                                     value="{{ item.qty }}"
                                     min="1">
-                                <button class="btn btn-outline-secondary increment-btn" type="button" data-index="{{ product.id }}">+</button>
+                                <button class="btn btn-outline-secondary increment-btn" type="button" data-index="{{ product.id }}" {% if item.qty >= product.stock %}disabled{% endif %}>+</button>
                             </div>
                         </td>
+                        <td>{{ product.stock }}</td> <!-- Stock Available Column -->
                         <td>Kshs. {{ product.price|mul:item.qty }}</td>
                         <td class="text-center">
                             <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
@@ -107,7 +109,14 @@ $(document).ready(function() {
     $(document).on('input', '.quantity-input', function() {
         const productId = $(this).data('index');
         const updateBtn = $(this).closest('tr').find('.update-button');
-        updateBtn.prop('disabled', false);  // Enable the button
+        const inputQty = parseInt($(this).val());
+        const stockAvailable = parseInt($(this).closest('tr').find('td:eq(4)').text());  // Get stock available
+
+        if (inputQty <= stockAvailable) {
+            updateBtn.prop('disabled', false);  // Enable the button if within stock limit
+        } else {
+            updateBtn.prop('disabled', true);  // Disable if quantity exceeds stock
+        }
     });
 
     // Increment quantity
@@ -115,7 +124,9 @@ $(document).ready(function() {
         const productId = $(this).data('index');
         const input = $('#quantity-' + productId);
         let currentVal = parseInt(input.val(), 10);
-        if (!isNaN(currentVal)) {
+        const stockAvailable = parseInt($(this).closest('tr').find('td:eq(4)').text());  // Get stock available
+
+        if (!isNaN(currentVal) && currentVal < stockAvailable) {
             input.val(currentVal + 1).trigger('input'); // Trigger input event
         }
     });
@@ -125,6 +136,7 @@ $(document).ready(function() {
         const productId = $(this).data('index');
         const input = $('#quantity-' + productId);
         let currentVal = parseInt(input.val(), 10);
+
         if (!isNaN(currentVal) && currentVal > 1) {
             input.val(currentVal - 1).trigger('input'); // Trigger input event
         }

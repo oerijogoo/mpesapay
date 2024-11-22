@@ -15,13 +15,17 @@ def categories(request):
 
 
 def product_info(request, product_slug):
-    product = get_object_or_404(Product,slug = product_slug)
+    product = get_object_or_404(Product, slug=product_slug)
 
-    context = {'product':product}
+    # Get the available range of quantities based on stock
+    quantity_range = range(1, product.stock + 1) if product.stock > 0 else []
 
-    return render(request,'store/product-info.html', context=context)
+    context = {
+        'product': product,
+        'quantity_range': quantity_range,
+    }
 
-
+    return render(request, 'store/product-info.html', context=context)
 
 def list_category(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)

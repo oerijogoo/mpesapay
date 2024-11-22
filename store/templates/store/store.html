@@ -3,29 +3,26 @@
 {% load static %}
 
 {% block content %}
-
-<!-- Introduction and All Products Section -->
 <!-- Introduction and All Products Section -->
 <section id="intro-section" style="
     position: fixed;
-    top: 0; /* Adjust dynamically */
+    top: 0;
     left: 0;
     width: 100%;
-    background-color: #edf7f5; /* Sea spray color */
-    z-index: 1030; /* Ensure it's below the navbar dropdown */
+    background-color: #edf7f5;
+    z-index: 1030;
     padding: 15px 0;
     text-align: center;
-    font-family: 'Poppins', sans-serif; /* Modern and clean font */
+    font-family: 'Poppins', sans-serif;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
                 <p style="
                     font-size: 1.1rem;
-                    color: #00796b; /* Muted teal text */
+                    color: #00796b;
                     margin: 0;">
                     Welcome to Our Online Shop!
-
                     <i>Explore our collection.</i>
                 </p>
                 <div class="pb-3 h5" style="
@@ -34,60 +31,88 @@
                     margin-top: 15px;">
                     All Products
                 </div>
-                <hr style="
-                    background-color: #00796b;
-                    margin: 0;"> <!-- Horizontal rule matching the header color -->
+                <hr style="background-color: #00796b; margin: 0;">
             </div>
         </div>
     </div>
 </section>
 
-
 <!-- All Products Section -->
-<div class="album py-5 bg-light" style="margin-top: 230px;"> <!-- Adjust margin for combined fixed section -->
+<div class="album py-5 bg-light" style="margin-top: 230px;">
     <div class="container">
         <div class="row g-4 justify-content-center">
             {% for product in all_products %}
-            <div class="col col-sm-6 col-md-4 col-lg-3" style="max-width: 300px;"> <!-- Limit card width -->
-                <div class="card h-100 shadow-sm" style="border: none; margin: auto;"> <!-- Center cards -->
+            <div class="col col-sm-6 col-md-4 col-lg-3" style="max-width: 300px;">
+                <div class="card h-100 shadow-sm" style="border: none; margin: auto; position: relative;">
                     <!-- Product Image -->
                     <div style="
                         width: 100%;
-                        max-width: 150px; /* Set maximum width to control growth */
-                        aspect-ratio: 1; /* Maintains a 1:1 ratio for the container */
-                        margin: 0 auto; /* Center the image */
-                        border-radius: 50%; /* Makes circular images */
-                        overflow: hidden; /* Ensures image fits in the circle */
+                        max-width: 150px;
+                        aspect-ratio: 1;
+                        margin: 0 auto;
+                        border-radius: 50%;
+                        overflow: hidden;
                         display: flex;
                         justify-content: center;
-                        align-items: center;">
+                        align-items: center;
+                        position: relative;">
                         <img
                             class="img-fluid"
                             src="{{ product.image.url }}"
                             alt="{{ product.title }}"
-                            style="
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;">
+                            style="width: 100%; height: 100%; object-fit: cover;">
+
+                        <!-- Badge -->
+                        {% if product.label %}
+                        <span class="badge
+                            {% if product.label == 'P' %} bg-primary
+                            {% elif product.label == 'S' %} bg-secondary
+                            {% elif product.label == 'D' %} bg-danger
+                            {% elif product.label == 'O' %} bg-dark
+                            {% elif product.label == 'L' %} bg-warning text-dark
+                            {% endif %}" style="
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 0.9rem;
+                            padding: 5px 12px;
+                            border-radius: 12px;
+                            background-color: rgba(0, 0, 0, 0.7);
+                            color: #fff;">
+                            {% if product.label == 'P' %}
+                                Popular
+                            {% elif product.label == 'S' %}
+                                Special Offer
+                            {% elif product.label == 'D' %}
+                                New
+                            {% elif product.label == 'O' %}
+                                Out of Stock
+                            {% elif product.label == 'L' %}
+                                Low Stock
+                            {% else %}
+                                {{ product.get_label_display }}
+                            {% endif %}
+                        </span>
+                        {% endif %}
                     </div>
+
                     <!-- Card Content -->
                     <div class="card-body d-flex flex-column" style="
-                        background-color: #f9f9f9; /* Light background for contrast */
-                        border-radius: 10px; /* Slightly rounded corners */
-                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+                        background-color: #f9f9f9;
+                        border-radius: 10px;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                         padding: 15px;">
                         <h6 class="card-title" style="
                             font-family: 'Poppins', sans-serif;
-                            color: #004d40; /* Dark teal for better visibility */
+                            color: #004d40;
                             font-size: 1rem;">
                             <a class="text-info text-decoration-none" href="{{ product.get_absolute_url }}">
                                 {{ product.title }}
                             </a>
                         </h6>
-                        <p class="card-text small" style="
-                            color: #666; /* Neutral color for text readability */
-                            margin-bottom: 10px;">
-                            Price: <span style="font-weight: bold;">Kshs.{{ product.price }}</span>
+                        <p class="card-text small" style="color: #666; margin-bottom: 10px;">
+                            Price: <span style="font-weight: bold;">Kshs. {{ product.price }}</span>
                         </p>
                         <div class="mt-auto">
                             <a href="{{ product.get_absolute_url }}" class="btn btn-sm btn-primary" style="
@@ -104,22 +129,19 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const introSection = document.getElementById("intro-section");
-        const navbar = document.querySelector(".navbar"); // Select the navbar element
+        const navbar = document.querySelector(".navbar");
 
         function adjustIntroSection() {
             const navbarHeight = navbar.offsetHeight;
-            introSection.style.top = `${navbarHeight}px`; // Dynamically set top value
+            introSection.style.top = `${navbarHeight}px`;
         }
 
-        // Adjust on load and when resizing the window
         adjustIntroSection();
         window.addEventListener("resize", adjustIntroSection);
     });
 </script>
-
 
 {% endblock %}

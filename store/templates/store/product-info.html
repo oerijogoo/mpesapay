@@ -40,17 +40,23 @@
                             <div class="col-6">
                                 <label for="select" class="form-label small">Qty</label>
                                 <select id="select" class="form-select form-select-sm">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                {% for i in quantity_range %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% empty %}
+                                    <option value="0" disabled>Out of Stock</option>
+                                {% endfor %}
                                 </select>
                             </div>
 
+                            <!-- Stock Available -->
+                            <div class="col-6">
+                                <span class="small text-muted">Stock Available: {{ product.stock }}</span>
+                            </div>
+
                             <!-- Add to Cart Button -->
-                            <div class="col-6 text-end">
+                            <div class="col-12 text-end mt-2">
                                 <button type="button" id="add-button" value="{{ product.id }}"
-                                        class="btn btn-secondary btn-sm w-100">
+                                        class="btn btn-secondary btn-sm w-100" {% if product.stock == 0 %} disabled {% endif %}>
                                     Add to Cart
                                 </button>
                             </div>
@@ -64,23 +70,46 @@
 
 <!-- JavaScript -->
 <script>
-    $(document).on('click', '#add-button', function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "cart-add" %}',
-            data: {
-                product_id: $('#add-button').val(),
-                product_quantity: $('#select option:selected').val(),
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                action: 'post'
-            },
-            success: function(json) {
-                document.getElementById('cart-qty').textContent = json.qty;
-            },
-            error: function(xhr, errmsh, err) {
-                console.error("Error adding product to cart:", errmsh);
+    $(document).ready(function() {
+        // Update the Add to Cart button and quantity options based on available stock
+        const stockAvailable = {{ product.stock }};
+        const quantitySelect = $('#select');
+        const addButton = $('#add-button');
+
+        // Disable quantity options exceeding stock
+        if (stockAvailable === 0) {
+            addButton.prop('disabled', true);  // Disable the button if no stock is available
+        }
+
+        // Enable or disable the Add to Cart button based on selected quantity
+        quantitySelect.on('change', function() {
+            const selectedQuantity = parseInt($(this).val());
+            if (selectedQuantity > stockAvailable) {
+                addButton.prop('disabled', true);
+            } else {
+                addButton.prop('disabled', false);
             }
+        });
+
+        // Add product to cart
+        $(document).on('click', '#add-button', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart-add" %}',
+                data: {
+                    product_id: $('#add-button').val(),
+                    product_quantity: $('#select option:selected').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json) {
+                    document.getElementById('cart-qty').textContent = json.qty;
+                },
+                error: function(xhr, errmsh, err) {
+                    console.error("Error adding product to cart:", errmsh);
+                }
+            });
         });
     });
 </script>

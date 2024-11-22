@@ -22,13 +22,29 @@
                 <tbody>
                     {% for product in products %}
                     <tr>
-                        <!-- Product Image -->
-                        <td class="text-center">
-                            <img
-                                src="{{ product.image.url }}"
-                                alt="{{ product.title }}"
-                                class="img-fluid"
-                                style="max-width: 100px; max-height: 100px; object-fit: contain;">
+                        <!-- Product Image with Label -->
+                        <td class="text-center position-relative">
+                            <div class="position-relative d-inline-block" style="width: 100px; height: 100px;">
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.title }}"
+                                    class="img-fluid rounded"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                {% if product.label != 'N' and product.stock > 0 %}
+                                <span
+                                    class="badge position-absolute top-50 start-50 translate-middle bg-warning text-dark text-uppercase">
+                                    {% if product.label == 'P' %} Popular {% endif %}
+                                    {% if product.label == 'S' %} Special Offer {% endif %}
+                                    {% if product.label == 'D' %} New {% endif %}
+                                    {% if product.label == 'L' %} Low Stock {% endif %}
+                                </span>
+                                {% elif product.stock == 0 %}
+                                <span
+                                    class="badge position-absolute top-50 start-50 translate-middle bg-danger text-white text-uppercase">
+                                    Out of Stock
+                                </span>
+                                {% endif %}
+                            </div>
                         </td>
                         <!-- Product Details -->
                         <td>
@@ -49,7 +65,8 @@
                             <button
                                 type="button"
                                 class="btn btn-success btn-sm add-to-cart-button"
-                                data-index="{{ product.id }}">
+                                data-index="{{ product.id }}"
+                                {% if product.stock == 0 %} disabled {% endif %}>
                                 Add to Cart
                             </button>
                         </td>
@@ -80,46 +97,37 @@
 $(document).ready(function() {
     // Function to show toast
     function showToast(message, type) {
-        // Set the message
         $('#toast-message .toast-body').text(message);
 
-        // Set the background color based on type
         if (type === 'success') {
             $('#toast-message').removeClass('bg-danger').addClass('bg-success');
         } else if (type === 'danger') {
             $('#toast-message').removeClass('bg-success').addClass('bg-danger');
         }
 
-        // Initialize and display the toast
         var toast = new bootstrap.Toast($('#toast-message')[0], { delay: 3000 });
         toast.show();
     }
 
-    // Event listener for Add to Cart button
     $(document).on('click', '.add-to-cart-button', function(e) {
         e.preventDefault();
 
-        // Get product ID
         var productId = $(this).data('index');
 
-        // AJAX request to add product to cart
         $.ajax({
             type: 'POST',
             url: '{% url "cart-add" %}',
             data: {
                 action: 'post',
                 product_id: productId,
-                product_quantity: 1, // Default quantity
+                product_quantity: 1,
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             },
             success: function(json) {
-                // Display success message
                 showToast('Product added to cart successfully!', 'success');
-                // Update cart quantity
                 $('#cart-qty').text(json.qty);
             },
             error: function(xhr) {
-                // Display error message
                 let message = xhr.responseJSON?.error || 'An error occurred. Please try again.';
                 showToast(message, 'danger');
             }

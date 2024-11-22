@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-sa)ik2hslcintl4(r)_-u@nsq1m%xw16@o_ye2i34&ze^(c2#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['oerimpesa.onrender.com', 'localhost', '127.0.0.1']
 
@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['oerimpesa.onrender.com', 'localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -189,4 +190,18 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'joerironald@gmail.com'  # Replace with your actual email
 EMAIL_HOST_PASSWORD = 'tfnm helr ktfx lnwt'  # Use an app password if 2-Step Verification is enabled
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+JAZZMIN_SETTINGS = {
+    "site_title": "My Admin",
+    "site_header": "My Admin Dashboard",
+    "site_brand": "My Brand",
+    "site_logo": "path/to/logo.png",
+    "welcome_sign": "Welcome to My Admin",
+    "topmenu_links": [
+        {"name": "Home", "url": "/", "new_window": False},
+        {"name": "Docs", "url": "https://docs.djangoproject.com", "new_window": True},
+    ],
+    "nav_sidebar": True,  # Whether to display the sidebar or not
+    "theme": "default",   # You can choose from several built-in themes
+}
 

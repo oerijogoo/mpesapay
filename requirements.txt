@@ -19,3 +19,4 @@ django-widget-tweaks
 psycopg2-binary
 cloudinary
 dj_database_url
+django-jazzmin
