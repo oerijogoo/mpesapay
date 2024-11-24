@@ -94,4 +94,3 @@ def cart_update(request):
 
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
-

@@ -1,16 +1,17 @@
 from decimal import Decimal
 from store.models import Product
 
+
 class Cart:
     def __init__(self, request):
         self.session = request.session
         # Initialize cart from session or create a new one
         cart = self.session.get('session_key')
-        
+
         if cart is None:  # Check if cart is None
             cart = {}
             self.session['session_key'] = cart
-        
+
         self.cart = cart  # Assign the cart to self.cart
 
     def add(self, product, product_qty):
@@ -28,7 +29,7 @@ class Cart:
 
     def __len__(self):
         return sum(item['qty'] for item in self.cart.values())
-    
+
     def __iter__(self):
         all_products_id = self.cart.keys()
         products = Product.objects.filter(id__in=all_products_id)
@@ -43,7 +44,7 @@ class Cart:
 
     def get_total(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
-    
+
     def delete(self, product):
         product_id = str(product)
 
@@ -53,7 +54,7 @@ class Cart:
 
     def update(self, product, qty):
         product_id = str(product)
-        
+
         # Convert qty to integer to avoid issues
         try:
             product_quantity = int(qty)
