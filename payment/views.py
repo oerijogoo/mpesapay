@@ -1,19 +1,32 @@
-
+# payment/views.py
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from cart.cart import Cart
+from .forms import ShippingForm
 from .models import ShippingAddress, Order, OrderItem
+from decimal import Decimal
 
+from store.models import Product  # Import Product model for stock updates
 
+# Payment Success View
+def payment_success(request):
+    return HttpResponse("Payment Successful! Your order has been processed.")  # You can render a template instead.
 
-# Create your views here.
+# Payment Failed View
+def payment_failed(request):
+    return HttpResponse("Payment Failed! Please try again.")  # You can render a template instead.
 
-
+# Checkout View
 def checkout(request):
     cart = Cart(request)  # Get the cart instance
+    shipping_address = None
+
+    # Pre-fill form for authenticated users
+    if request.user.is_authenticated:
+        shipping_address = ShippingAddress.objects.filter(user=request.user).first()
 
     if request.method == 'POST':
-        # Get form data
         full_name = request.POST.get('name')
         email = request.POST.get('email')
         address1 = request.POST.get('address1')
@@ -21,13 +34,13 @@ def checkout(request):
         city = request.POST.get('city')
         state_name = request.POST.get('state')
         zipcode = request.POST.get('zipcode')
+        payment_method = request.POST.get('payment_method')
 
-        # Validate required fields
         if not all([full_name, email, address1, city]):
             messages.error(request, "Please fill in all required fields.")
             return render(request, 'payment/checkout.html', {'cart': cart})
 
-        # Create or update shipping address for authenticated users
+        # Save or update the shipping address
         if request.user.is_authenticated:
             shipping_address, created = ShippingAddress.objects.update_or_create(
                 user=request.user,
@@ -41,7 +54,6 @@ def checkout(request):
                 }
             )
         else:
-            # Create temporary shipping address for anonymous users
             shipping_address = ShippingAddress.objects.create(
                 full_name=full_name,
                 address1=address1,
@@ -51,39 +63,46 @@ def checkout(request):
                 zipcode=zipcode
             )
 
-        # Create an order
+        # Validate stock availability
+        for item in cart:
+            product = item['product']
+            quantity = item['qty']
+            if product.stock < quantity:
+                messages.error(
+                    request,
+                    f"Insufficient stock for {product.title}. Available: {product.stock}, Requested: {quantity}."
+                )
+                return render(request, 'payment/checkout.html', {'cart': cart})
+
+        # Create the order
         order = Order.objects.create(
             user=request.user if request.user.is_authenticated else None,
             full_name=full_name,
             email=email,
             shipping_address=f"{address1}, {address2}, {city}, {state_name}, {zipcode}",
-            amount_paid=cart.get_total()
+            amount_paid=cart.get_total(),
+            payment_method=payment_method
         )
 
-        # Add items to the order
+        # Process order items and update stock
         for item in cart:
+            product = item['product']
+            quantity = item['qty']
             OrderItem.objects.create(
                 order=order,
-                product=item['product'],
-                quantity=item['qty'],
+                product=product,
+                quantity=quantity,
                 price=item['price']
             )
+            # Reduce stock
+            product.stock -= quantity
+            product.save()
 
-        # Clear the cart after order completion
+        # Clear the cart
         cart.clear()
 
-        # Redirect to order success page
+        # Redirect to success page
         messages.success(request, "Your order has been placed successfully!")
-        return redirect('payment-success')  # Replace with the name of your success URL
+        return redirect('payment-success')
 
-    return render(request, 'payment/checkout.html', {'cart': cart})
- 
-
-def payment_success(request):
-    return  render(request, 'payment/payment-success.html')
-
-
-def payment_failed(request):
-    pass
-
-
+    return render(request, 'payment/checkout.html', {'cart': cart, 'form': ShippingForm(instance=shipping_address)})

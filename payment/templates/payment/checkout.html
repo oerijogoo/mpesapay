@@ -1,35 +1,13 @@
-{% include "store/base.html" %}
-{% load static %}
-
-{% block content %}
-<div class="container bg-white shadow-md p-5" style="width: 500px; border-radius: 20px;">
-    <form method="POST" action="{% url 'checkout' %}">
-        {% csrf_token %}
-        <h3>Complete Your Order</h3>
-        <p>Please enter relevant information below</p>
-        <hr><br>
-        <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
-        </div>
-        <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-            <input type="text" name="address1" class="form-control" placeholder="Address 1" required>
-        </div>
-        <div class="form-group">
-            <input type="text" name="address2" class="form-control" placeholder="Address 2">
-        </div>
-        <div class="form-group">
-            <input type="text" name="city" class="form-control" placeholder="City" required>
-        </div>
-        <div class="form-group">
-            <input type="text" name="state" class="form-control" placeholder="State (optional)">
-        </div>
-        <div class="form-group">
-            <input type="text" name="zipcode" class="form-control" placeholder="Zip Code (optional)">
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Complete Order</button>
-    </form>
-</div>
-{% endblock %}
+<form method="POST" action="{% url 'checkout' %}">
+    {% csrf_token %}
+    <h3>Complete Your Order</h3>
+    {{ form.as_p }}
+    <div class="form-group">
+        <label for="payment-method">Payment Method</label>
+        <select name="payment_method" id="payment-method" class="form-control">
+            <option value="CASH">Cash</option>
+            <option value="MPESA">M-Pesa</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Complete Order</button>
+</form>

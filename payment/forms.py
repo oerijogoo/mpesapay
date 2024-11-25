@@ -1,3 +1,4 @@
+# payment/forms.py
 from django import forms
 from . models import  ShippingAddress
 
@@ -8,3 +9,4 @@ class ShippingForm(forms.ModelForm):
 
 
         exclude = ['user',]
+

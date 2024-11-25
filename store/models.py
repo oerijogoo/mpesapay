@@ -70,3 +70,5 @@ class Product(models.Model):
                 self.label = 'N'
 
         super().save(*args, **kwargs)
+
+

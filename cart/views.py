@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+
+# cart/views.py
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse, HttpResponse
 from .cart import Cart
 from store.models import Product
 
@@ -112,3 +114,52 @@ def cart_update(request):
         return JsonResponse({'qty': cart_quantity, 'total': cart_total})
 
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+
+# Checkout View
+def checkout(request):
+    cart = Cart(request)
+
+    if not cart.__len__():
+        return redirect('cart-summary')  # Redirect to cart if it's empty
+
+    # Get the cart items and total cost
+    cart_items = []
+    cart_total = 0
+
+    for product_id, item in cart.cart.items():
+        product = get_object_or_404(Product, id=product_id)
+        discounted_price = product.get_discounted_price()
+        total_price = discounted_price * item['qty']
+
+        cart_items.append({
+            'product': product,
+            'quantity': item['qty'],
+            'price': discounted_price,
+            'total': total_price,
+        })
+        cart_total += total_price
+
+    # Handle form submission for checkout (e.g., shipping info)
+    if request.method == 'POST':
+        # Here you would normally capture shipping details and payment info
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+
+        if not name or not address:
+            return HttpResponse("Please provide all required information.", status=400)
+
+        # In real use, save order to the database, process payment, etc.
+        # For now, we'll just clear the cart and confirm the order
+        cart.clear()
+        return render(request, 'cart/order-confirmation.html', {
+            'cart_items': cart_items,
+            'cart_total': cart_total,
+            'name': name,
+            'address': address
+        })
+
+    return render(request, 'cart/checkout.html', {
+        'cart_items': cart_items,
+        'cart_total': cart_total
+    })
