@@ -16,6 +16,7 @@
                         <th scope="col">Image</th>
                         <th scope="col">Product</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Discount</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Stock Available</th>
                         <th scope="col">Total</th>
@@ -40,6 +41,13 @@
                         </td>
                         <td>Kshs. {{ product.price }}</td>
                         <td>
+                            {% if product.discount_percentage > 0 %}
+                                {{ product.discount_percentage }}%
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
                             <div class="input-group input-group-sm">
                                 <button class="btn btn-outline-secondary decrement-btn" type="button" data-index="{{ product.id }}">-</button>
                                 <input
@@ -51,8 +59,14 @@
                                 <button class="btn btn-outline-secondary increment-btn" type="button" data-index="{{ product.id }}" {% if item.qty >= product.stock %}disabled{% endif %}>+</button>
                             </div>
                         </td>
-                        <td>{{ product.stock }}</td> <!-- Stock Available Column -->
-                        <td>Kshs. {{ product.price|mul:item.qty }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td>
+                            {% if product.discount_percentage > 0 %}
+                                Kshs. {{ product.get_discounted_price|mul:item.qty }}
+                            {% else %}
+                                Kshs. {{ product.price|mul:item.qty }}
+                            {% endif %}
+                        </td>
                         <td class="text-center">
                             <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
                                 <button type="button" class="btn btn-primary btn-sm update-button w-100 w-md-auto" data-index="{{ product.id }}" disabled>
@@ -90,44 +104,35 @@
 <!-- JavaScript -->
 <script>
 $(document).ready(function() {
-    // Function to show toast message
+    // Show toast message
     function showToast(message, type) {
-        $('#toast-message .toast-body').text(message);  // Insert message into toast
-        var toast = new bootstrap.Toast($('#toast-message')[0], { delay: 2000 });  // Initialize toast
+        $('#toast-message .toast-body').text(message);
+        const toast = new bootstrap.Toast($('#toast-message')[0]);
 
-        // Set the color based on type: success for update, danger for delete
         if (type === 'success') {
             $('#toast-message').removeClass('bg-danger').addClass('bg-success');
-        } else if (type === 'danger') {
+        } else {
             $('#toast-message').removeClass('bg-success').addClass('bg-danger');
         }
 
-        toast.show();  // Show the toast
+        toast.show();
     }
 
     // Enable update button when quantity is changed
     $(document).on('input', '.quantity-input', function() {
-        const productId = $(this).data('index');
         const updateBtn = $(this).closest('tr').find('.update-button');
-        const inputQty = parseInt($(this).val());
-        const stockAvailable = parseInt($(this).closest('tr').find('td:eq(4)').text());  // Get stock available
-
-        if (inputQty <= stockAvailable) {
-            updateBtn.prop('disabled', false);  // Enable the button if within stock limit
-        } else {
-            updateBtn.prop('disabled', true);  // Disable if quantity exceeds stock
-        }
+        updateBtn.prop('disabled', false);
     });
 
     // Increment quantity
     $(document).on('click', '.increment-btn', function() {
         const productId = $(this).data('index');
         const input = $('#quantity-' + productId);
+        const stockAvailable = parseInt($(this).closest('tr').find('td:eq(5)').text());
         let currentVal = parseInt(input.val(), 10);
-        const stockAvailable = parseInt($(this).closest('tr').find('td:eq(4)').text());  // Get stock available
 
         if (!isNaN(currentVal) && currentVal < stockAvailable) {
-            input.val(currentVal + 1).trigger('input'); // Trigger input event
+            input.val(currentVal + 1).trigger('input');
         }
     });
 
@@ -138,11 +143,11 @@ $(document).ready(function() {
         let currentVal = parseInt(input.val(), 10);
 
         if (!isNaN(currentVal) && currentVal > 1) {
-            input.val(currentVal - 1).trigger('input'); // Trigger input event
+            input.val(currentVal - 1).trigger('input');
         }
     });
 
-    // Update cart item quantity
+    // Update cart item
     $(document).on('click', '.update-button', function(e) {
         e.preventDefault();
         const productId = $(this).data('index');
@@ -159,13 +164,11 @@ $(document).ready(function() {
             },
             success: function(json) {
                 showToast('Cart updated successfully!', 'success');
-                setTimeout(function() {
-                    location.reload(); // Refresh the page after 2 seconds
-                }, 2000);
+                setTimeout(() => location.reload(), 2000);
             },
-            error: function(xhr, status, error) {
-                console.error('Error:', xhr.responseText);  // Log error
-                showToast('Error updating cart item.', 'danger');
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                showToast('Error updating cart.', 'danger');
             }
         });
     });
@@ -185,12 +188,10 @@ $(document).ready(function() {
             },
             success: function(json) {
                 showToast('Item removed from cart!', 'danger');
-                setTimeout(function() {
-                    location.reload(); // Refresh the page after 2 seconds
-                }, 2000);
+                setTimeout(() => location.reload(), 2000);
             },
-            error: function(xhr, status, error) {
-                console.error('Error:', xhr.responseText);  // Log error
+            error: function(xhr) {
+                console.error(xhr.responseText);
                 showToast('Error removing item from cart.', 'danger');
             }
         });

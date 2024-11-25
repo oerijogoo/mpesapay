@@ -1,3 +1,4 @@
+# cart/context_processors.py
 from .cart import Cart
 
 def cart(request):

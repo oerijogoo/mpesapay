@@ -1,3 +1,4 @@
+<!--store/list-category.html-->
 {% extends "./base.html" %}
 {% load static %}
 
@@ -53,7 +54,15 @@
                             </a>
                         </td>
                         <!-- Product Price -->
-                        <td>Kshs. {{ product.price }}</td>
+                        <td>
+                        {% if product.discount_percentage > 0 %}
+                            <span style="text-decoration: line-through;">Kshs. {{ product.price }}</span><br>
+                            <span style="font-weight: bold; color: #d9534f;">Kshs. {{ product.get_discounted_price }}</span>
+                            <small style="color: #5cb85c;">({{ product.discount_percentage }}% off)</small>
+                        {% else %}
+                            <span style="font-weight: bold;">Kshs. {{ product.price }}</span>
+                        {% endif %}
+                        </td>
                         <!-- Actions -->
                         <td>
                             <button

@@ -1,3 +1,4 @@
+# store/models.py
 from django.db import models
 from django.urls import reverse
 from cloudinary.models import CloudinaryField
@@ -37,6 +38,13 @@ class Product(models.Model):
     image = CloudinaryField('image')
     label = models.CharField(choices=LABEL_CHOICES, max_length=1, default='N')
     stock = models.PositiveIntegerField(default=0)  # Field to manage inventory
+    discount_percentage = models.PositiveIntegerField(default=0)
+
+    def get_discounted_price(self):
+        if self.discount_percentage > 0:
+            discount = (self.price * self.discount_percentage) / 100
+            return self.price - discount
+        return self.price
 
     class Meta:
         verbose_name_plural = 'products'
