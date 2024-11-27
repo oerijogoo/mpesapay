@@ -69,6 +69,8 @@
                                 </button>
                             </div>
                         </div>
+                        <!-- Notification Area -->
+                        <div id="stock-notification" class="alert alert-danger mt-2" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -79,36 +81,74 @@
 <!-- JavaScript -->
 <script>
     $(document).ready(function() {
-        const stockAvailable = {{ product.stock }};
+        let stockAvailable = {{ product.stock }}; // Track remaining stock
         const quantitySelect = $('#select');
         const addButton = $('#add-button');
+        const notificationContainer = $('#stock-notification');
 
+        // Disable button if out of stock
         if (stockAvailable === 0) {
             addButton.prop('disabled', true);
         }
 
+        // Function to show and hide notification after 6 seconds
+        function showNotification(message) {
+            notificationContainer.text(message).show();
+            setTimeout(() => {
+                notificationContainer.hide();
+            }, 6000); // Hide after 6 seconds
+        }
+
+        // Handle quantity selection changes
         quantitySelect.on('change', function() {
             const selectedQuantity = parseInt($(this).val());
             if (selectedQuantity > stockAvailable) {
                 addButton.prop('disabled', true);
+                showNotification('Not enough stock available for the selected quantity.');
             } else {
                 addButton.prop('disabled', false);
+                notificationContainer.hide();
             }
         });
 
+        // Add to Cart functionality
         $(document).on('click', '#add-button', function(e) {
             e.preventDefault();
+
+            const selectedQuantity = parseInt($('#select option:selected').val());
+
+            if (selectedQuantity > stockAvailable) {
+                showNotification('Not enough stock available. Please adjust the quantity.');
+                return;
+            }
+
             $.ajax({
                 type: 'POST',
                 url: '{% url "cart-add" %}',
                 data: {
                     product_id: $('#add-button').val(),
-                    product_quantity: $('#select option:selected').val(),
+                    product_quantity: selectedQuantity,
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
                 success: function(json) {
-                    document.getElementById('cart-qty').textContent = json.qty;
+                    if (json.error) {
+                        showNotification(json.error);
+                    } else {
+                        document.getElementById('cart-qty').textContent = json.qty;
+
+                        // Decrease stock count
+                        stockAvailable -= selectedQuantity;
+
+                        // Notify user and disable button if stock reaches 0
+                        if (stockAvailable <= 0) {
+                            stockAvailable = 0;
+                            addButton.prop('disabled', true);
+                            showNotification('No more stock available.');
+                        } else {
+                            notificationContainer.hide();
+                        }
+                    }
                 },
                 error: function(xhr, errmsh, err) {
                     console.error("Error adding product to cart:", errmsh);
@@ -117,4 +157,5 @@
         });
     });
 </script>
+
 {% endblock %}

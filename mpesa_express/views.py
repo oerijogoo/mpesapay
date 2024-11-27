@@ -6,6 +6,8 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from .models import Transaction
 from .forms import PaymentForm
 from dotenv import load_dotenv
+from django.views.decorators.clickjacking import xframe_options_exempt
+
 
 
 # Load environment variables
@@ -91,6 +93,7 @@ def initiate_stk_push(phone, amount):
         return e
 
 # Payment View
+@xframe_options_exempt
 def payment_view(request):
     if request.method == "POST":
         form = PaymentForm(request.POST)

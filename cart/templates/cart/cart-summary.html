@@ -103,7 +103,7 @@
 
 <!-- JavaScript -->
 <script>
-$(document).ready(function() {
+$(document).ready(function () {
     // Show toast message
     function showToast(message, type) {
         $('#toast-message .toast-body').text(message);
@@ -118,14 +118,42 @@ $(document).ready(function() {
         toast.show();
     }
 
+    // Enable or disable the increment button based on stock
+    function toggleIncrementButton(input, stockAvailable) {
+        const productId = input.attr('id').split('-')[1];
+        const incrementButton = $(`.increment-btn[data-index="${productId}"]`);
+        const currentVal = parseInt(input.val(), 10);
+
+        if (!isNaN(currentVal) && currentVal >= stockAvailable) {
+            incrementButton.prop('disabled', true);
+        } else {
+            incrementButton.prop('disabled', false);
+        }
+    }
+
     // Enable update button when quantity is changed
-    $(document).on('input', '.quantity-input', function() {
-        const updateBtn = $(this).closest('tr').find('.update-button');
+    $(document).on('input', '.quantity-input', function () {
+        const input = $(this);
+        const stockAvailable = parseInt(input.closest('tr').find('td:eq(5)').text());
+        const updateBtn = input.closest('tr').find('.update-button');
+        let currentVal = parseInt(input.val(), 10);
+
+        if (isNaN(currentVal) || currentVal < 1) {
+            input.val(1);
+            currentVal = 1;
+        }
+
+        if (currentVal > stockAvailable) {
+            input.val(stockAvailable); // Limit to available stock
+            currentVal = stockAvailable;
+        }
+
+        toggleIncrementButton(input, stockAvailable);
         updateBtn.prop('disabled', false);
     });
 
     // Increment quantity
-    $(document).on('click', '.increment-btn', function() {
+    $(document).on('click', '.increment-btn', function () {
         const productId = $(this).data('index');
         const input = $('#quantity-' + productId);
         const stockAvailable = parseInt($(this).closest('tr').find('td:eq(5)').text());
@@ -137,7 +165,7 @@ $(document).ready(function() {
     });
 
     // Decrement quantity
-    $(document).on('click', '.decrement-btn', function() {
+    $(document).on('click', '.decrement-btn', function () {
         const productId = $(this).data('index');
         const input = $('#quantity-' + productId);
         let currentVal = parseInt(input.val(), 10);
@@ -148,7 +176,7 @@ $(document).ready(function() {
     });
 
     // Update cart item
-    $(document).on('click', '.update-button', function(e) {
+    $(document).on('click', '.update-button', function (e) {
         e.preventDefault();
         const productId = $(this).data('index');
         const quantity = $('#quantity-' + productId).val();
@@ -162,11 +190,11 @@ $(document).ready(function() {
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
-            success: function(json) {
+            success: function (json) {
                 showToast('Cart updated successfully!', 'success');
                 setTimeout(() => location.reload(), 2000);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.error(xhr.responseText);
                 showToast('Error updating cart.', 'danger');
             }
@@ -174,7 +202,7 @@ $(document).ready(function() {
     });
 
     // Delete cart item
-    $(document).on('click', '.delete-button', function(e) {
+    $(document).on('click', '.delete-button', function (e) {
         e.preventDefault();
         const productId = $(this).data('index');
 
@@ -186,17 +214,18 @@ $(document).ready(function() {
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
-            success: function(json) {
+            success: function (json) {
                 showToast('Item removed from cart!', 'danger');
                 setTimeout(() => location.reload(), 2000);
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.error(xhr.responseText);
                 showToast('Error removing item from cart.', 'danger');
             }
         });
     });
 });
+
 </script>
 
 {% endblock %}
