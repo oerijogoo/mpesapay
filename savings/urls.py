@@ -1,3 +1,4 @@
+# url.py
 from django.urls import path
 
 from .views import (saving_deposit,saving_withdrawal,
