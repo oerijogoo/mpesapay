@@ -2,6 +2,68 @@
 
 {% block content %}
 
+<style>
+    /* Base font sizes */
+    h3 {
+        font-size: 2rem; /* Default size for larger screens */
+    }
+    .text-primary {
+        font-size: 1.5rem; /* Header size */
+    }
+    .dataTables_info {
+        font-size: 1rem; /* Info text size */
+    }
+    .table th, .table td {
+        font-size: 1rem; /* Table text size */
+    }
+
+    /* Responsive font sizes */
+    @media (max-width: 1200px) {
+        h3 {
+            font-size: 1.75rem; /* Slightly smaller on medium screens */
+        }
+        .text-primary {
+            font-size: 1.25rem; /* Slightly smaller */
+        }
+        .dataTables_info {
+            font-size: 0.9rem; /* Smaller info text */
+        }
+        .table th, .table td {
+            font-size: 0.9rem; /* Smaller table text */
+        }
+    }
+
+    @media (max-width: 768px) {
+        h3 {
+            font-size: 1.5rem; /* Smaller on small screens */
+        }
+        .text-primary {
+            font-size: 1rem; /* Smaller */
+        }
+        .dataTables_info {
+            font-size: 0.8rem; /* Even smaller info text */
+        }
+        .table th, .table td {
+            font-size: 0.8rem; /* Even smaller table text */
+        }
+    }
+
+    @media (max-width: 576px) {
+        h3 {
+            font-size: 1.25rem; /* Smallest on extra small screens */
+        }
+        .text-primary {
+            font-size: 0.9rem; /* Smallest */
+        }
+        .dataTables_info {
+            font-size: 0.7rem; /* Smallest info text */
+        }
+        .table th, .table td {
+            font-size: 0.7rem; /* Smallest table text */
+        }
+    }
+</style>
+
 <div class="container-fluid">
     <h3><a href="{% url "members:create" %}">Create member +</a></h3>
     <h3 class="text-dark mb-4">Members</h3>
@@ -10,8 +72,8 @@
             <p class="text-primary m-0 font-weight-bold">Members Info</p>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 text-nowrap">
+            <div class="row mb-3">
+                <div class="col-12 col-md-6 text-nowrap">
                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
                         <label>Show&nbsp;
                             <select class="form-control form-control-sm custom-select custom-select-sm">
@@ -23,7 +85,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                     <div class="text-md-right dataTables_filter" id="dataTable_filter">
                         <label>
                             <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" name="search">
@@ -31,8 +93,8 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                <table class="table dataTable my-0" id="dataTable">
+            <div class="table-responsive">
+                <table class="table dataTable my-0">
                     <thead>
                         <tr>
                             <th>Mem. num</th>
@@ -74,10 +136,10 @@
                 </table>
             </div>
             <div class="row">
-                <div class="col-md-6 align-self-center">
+                <div class="col-12 col-md-6 align-self-center">
                     <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing {{ members.count }} member(s).</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                         <ul class="pagination">
                             {% if members.has_previous %}
