@@ -52,6 +52,14 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'widget_tweaks',
     'cloudinary',
+    #cooperative project
+    'members',
+    'savings',
+    'loans',
+    'shares',
+    'reports',
+    'accounting',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
