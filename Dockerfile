@@ -16,5 +16,5 @@ COPY . .
 # Expose the port on which your Django app will run (usually 7903)
 EXPOSE 7903
 
-# Define the command to run your Django app
+# Define thee command to run your Django app
 CMD ["python", "manage.py", "runserver", "0.0.0.0:7903"]
