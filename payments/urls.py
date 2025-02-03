@@ -34,6 +34,8 @@ urlpatterns = [
     path('members/', include('members.urls')),
     path('accounting/', include('accounting.urls')),
     path('reports/', include('reports.urls')),
+    path('search/', include('search.urls')),
+    path('sms/', include('sms.urls')),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

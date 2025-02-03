@@ -29,12 +29,16 @@
                     <div class="border-bottom p-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <span>Price</span>
-                            {% if product.discount_percentage > 0 %}
-                                <span>
-                                    <span class="text-muted" style="text-decoration: line-through;">Kshs. {{ product.price }}</span>
-                                    <span class="h6 fw-bold text-danger">Kshs. {{ product.get_discounted_price }}</span>
-                                    <small class="text-success">({{ product.discount_percentage }}% off)</small>
-                                </span>
+                            {% if product.stock > 0 %}
+                                {% if product.discount_percentage > 0 %}
+                                    <span>
+                                        <span class="text-muted" style="text-decoration: line-through;">Kshs. {{ product.price }}</span>
+                                        <span class="h6 fw-bold text-danger">Kshs. {{ product.get_discounted_price }}</span>
+                                        <small class="text-success">({{ product.discount_percentage }}% off)</small>
+                                    </span>
+                                {% else %}
+                                    <span class="h6 fw-bold">Kshs. {{ product.price }}</span>
+                                {% endif %}
                             {% else %}
                                 <span class="h6 fw-bold">Kshs. {{ product.price }}</span>
                             {% endif %}
@@ -48,11 +52,11 @@
                             <div class="col-6">
                                 <label for="select" class="form-label small">Qty</label>
                                 <select id="select" class="form-select form-select-sm">
-                                {% for i in quantity_range %}
-                                    <option value="{{ i }}">{{ i }}</option>
-                                {% empty %}
-                                    <option value="0" disabled>Out of Stock</option>
-                                {% endfor %}
+                                    {% for i in quantity_range %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% empty %}
+                                        <option value="0" disabled>Out of Stock</option>
+                                    {% endfor %}
                                 </select>
                             </div>
 
@@ -157,5 +161,4 @@
         });
     });
 </script>
-
 {% endblock %}

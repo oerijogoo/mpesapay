@@ -1,4 +1,3 @@
-<!--store/store.html-->
 {% extends "./base.html" %}
 
 {% load static %}
@@ -64,14 +63,10 @@
                             style="width: 100%; height: 100%; object-fit: cover;">
 
                         <!-- Badge -->
-                        {% if product.label %}
-                        <span class="badge
-                            {% if product.label == 'P' %} bg-primary
-                            {% elif product.label == 'S' %} bg-secondary
-                            {% elif product.label == 'D' %} bg-danger
-                            {% elif product.label == 'O' %} bg-dark
-                            {% elif product.label == 'L' %} bg-warning text-dark
-                            {% endif %}" style="
+                        <span class="badge product-badge"
+                            data-stock="{{ product.stock }}"
+                            data-discount="{{ product.discount_percentage }}"
+                            style="
                             position: absolute;
                             top: 50%;
                             left: 50%;
@@ -81,21 +76,7 @@
                             border-radius: 12px;
                             background-color: rgba(0, 0, 0, 0.7);
                             color: #fff;">
-                            {% if product.label == 'P' %}
-                                Popular
-                            {% elif product.label == 'S' %}
-                                Special Offer
-                            {% elif product.label == 'D' %}
-                                New
-                            {% elif product.label == 'O' %}
-                                Out of Stock
-                            {% elif product.label == 'L' %}
-                                Low Stock
-                            {% else %}
-                                {{ product.get_label_display }}
-                            {% endif %}
                         </span>
-                        {% endif %}
                     </div>
 
                     <!-- Card Content -->
@@ -113,14 +94,19 @@
                             </a>
                         </h6>
                         <p class="card-text small" style="color: #666; margin-bottom: 10px;">
-                        {% if product.discount_percentage > 0 %}
-                            <span style="text-decoration: line-through;">Kshs. {{ product.price }}</span>
-                            <span style="font-weight: bold; color: #d9534f;">Kshs. {{ product.get_discounted_price }}</span>
-                            <small style="color: #5cb85c;">({{ product.discount_percentage }}% off)</small>
+                        {% if product.label != 'O' %}
+                            {% if product.discount_percentage > 0 %}
+                                <span style="text-decoration: line-through;">Kshs. {{ product.price }}</span>
+                                <span style="font-weight: bold; color: #d9534f;">Kshs. {{ product.get_discounted_price }}</span>
+                                <small style="color: #5cb85c;">({{ product.discount_percentage }}% off)</small>
+                            {% else %}
+                                <span style="font-weight: bold;">Kshs. {{ product.price }}</span>
+                            {% endif %}
                         {% else %}
                             <span style="font-weight: bold;">Kshs. {{ product.price }}</span>
                         {% endif %}
-                        </p>
+                    </p>
+
                         <div class="mt-auto">
                             <a href="{{ product.get_absolute_url }}" class="btn btn-sm btn-primary" style="
                                 font-family: 'Poppins', sans-serif;
@@ -138,16 +124,28 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const introSection = document.getElementById("intro-section");
-        const navbar = document.querySelector(".navbar");
+        // Loop through each product card and dynamically set the badge
+        const badges = document.querySelectorAll('.product-badge');
 
-        function adjustIntroSection() {
-            const navbarHeight = navbar.offsetHeight;
-            introSection.style.top = `${navbarHeight}px`;
-        }
+        badges.forEach((badge) => {
+            const stock = parseInt(badge.getAttribute('data-stock'));
+            const discount = parseInt(badge.getAttribute('data-discount'));
 
-        adjustIntroSection();
-        window.addEventListener("resize", adjustIntroSection);
+            // Display badges based on stock and discount
+            if (stock === 0) {
+                badge.textContent = 'Out of Stock';
+                badge.classList.add('bg-danger');
+            } else if (stock < 5) {
+                badge.textContent = 'Low Stock';
+                badge.classList.add('bg-warning');
+            } else if (discount > 0) {
+                badge.textContent = `${discount}% Off`;
+                badge.classList.add('bg-success');
+            } else {
+                badge.textContent = 'Available';
+                badge.classList.add('bg-primary');
+            }
+        });
     });
 </script>
 

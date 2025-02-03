@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'shares',
     'reports',
     'accounting',
+    'search',
+    'sms',
+    'rest_framework',
 
 ]
 
