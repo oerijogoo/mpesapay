@@ -20,4 +20,4 @@ psycopg2-binary
 cloudinary
 dj_database_url
 django-jazzmin
-rest_framework
+djangorestframework
