@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}School Management System{% endblock %}</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.6/babel.min.js"></script>
+    <title>School Management System</title>
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <header>
+        <h1>School Management System</h1>
+        <nav>
+            <a href="{% url 'student_list' %}">Students</a> |
+            <a href="{% url 'teacher_list' %}">Teachers</a> |
+            <a href="{% url 'course_list' %}">Courses</a> |
+            <a href="{% url 'enrollment_list' %}">Enrollments</a> |
+            <a href="{% url 'attendance_list' %}">Attendance</a> |
+            <a href="{% url 'pay_fees' %}">Fees</a> |
+            <a href="{% url 'mark_list' %}">Marks</a> |
+            <a href="{% url 'report_card_list' %}">Report Cards</a> |
+            <a href="{% url 'co_curricular_activity_list' %}">Activities</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>

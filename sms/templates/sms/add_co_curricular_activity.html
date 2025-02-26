@@ -1,0 +1,7 @@
+<h1>Add Co-curricular Activity</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'co_curricular_activity_list' %}">Back to Activity List</a>

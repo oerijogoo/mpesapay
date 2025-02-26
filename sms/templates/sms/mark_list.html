@@ -1,0 +1,7 @@
+<h1>Mark List</h1>
+<ul>
+    {% for mark in marks %}
+        <li>{{ mark.student }} - {{ mark.course }} - {{ mark.term }} - {{ mark.score }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_mark' %}">Add Mark</a>

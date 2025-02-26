@@ -1,0 +1,7 @@
+<h1>Report Card List</h1>
+<ul>
+    {% for report_card in report_cards %}
+        <li>{{ report_card.student }} - {{ report_card.term }} - {{ report_card.comments }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_report_card' %}">Add Report Card</a>

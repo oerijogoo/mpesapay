@@ -1,0 +1,7 @@
+<h1>Teacher List</h1>
+<ul>
+    {% for teacher in teachers %}
+        <li>{{ teacher.first_name }} {{ teacher.last_name }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_teacher' %}">Add Teacher</a>

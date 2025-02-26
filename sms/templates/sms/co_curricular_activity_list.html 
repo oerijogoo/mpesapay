@@ -1,0 +1,7 @@
+<h1>Co-curricular Activity List</h1>
+<ul>
+    {% for activity in activities %}
+        <li>{{ activity.name }} - {{ activity.description }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_co_curricular_activity' %}">Add Activity</a>

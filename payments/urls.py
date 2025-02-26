@@ -36,6 +36,7 @@ urlpatterns = [
     path('reports/', include('reports.urls')),
     path('search/', include('search.urls')),
     path('sms/', include('sms.urls')),
+    path('hospital/', include('hospital.urls')),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

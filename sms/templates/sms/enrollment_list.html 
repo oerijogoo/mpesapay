@@ -1,0 +1,7 @@
+<h1>Enrollment List</h1>
+<ul>
+    {% for enrollment in enrollments %}
+        <li>{{ enrollment.student }} enrolled in {{ enrollment.course }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_enrollment' %}">Add Enrollment</a>

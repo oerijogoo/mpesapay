@@ -1,0 +1,7 @@
+<h1>Student Activity List</h1>
+<ul>
+    {% for student_activity in student_activities %}
+        <li>{{ student_activity.student }} - {{ student_activity.activity }} - {{ student_activity.date }} - {{ student_activity.remarks }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_student_activity' %}">Add Student Activity</a>
