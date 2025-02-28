@@ -1,55 +1,52 @@
 from django import forms
-from .models import (
-    Student, Teacher, Course, Enrollment, Attendance, FeePayment,
-    Mark, ReportCard, CoCurricularActivity, StudentActivity
-)
+from .models import Course, Student, Subject, Mark
 
-class StudentForm(forms.ModelForm):
+class SubjectForm(forms.ModelForm):
     class Meta:
-        model = Student
-        fields = '__all__'
-
-class TeacherForm(forms.ModelForm):
-    class Meta:
-        model = Teacher
+        model = Subject
         fields = '__all__'
 
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = '__all__'
+        widgets = {
+            'subjects': forms.CheckboxSelectMultiple()
+        }
 
-class EnrollmentForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
     class Meta:
-        model = Enrollment
-        fields = '__all__'
+        model = Student
+        fields = ['first_name', 'last_name', 'admission_number', 'course']
 
-class AttendanceForm(forms.ModelForm):
-    class Meta:
-        model = Attendance
-        fields = '__all__'
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['course'].queryset = Course.objects.prefetch_related('subjects')
 
-class FeePaymentForm(forms.ModelForm):
+class StudentUpdateForm(forms.ModelForm):
     class Meta:
-        model = FeePayment
-        fields = '__all__'
+        model = Student
+        fields = ['first_name', 'last_name', 'course']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['course'].disabled = True
 
 class MarkForm(forms.ModelForm):
     class Meta:
         model = Mark
-        fields = '__all__'
+        fields = ['subject', 'score']
 
-class ReportCardForm(forms.ModelForm):
-    class Meta:
-        model = ReportCard
-        fields = '__all__'
+    def __init__(self, *args, **kwargs):
+        self.student = kwargs.pop('student', None)
+        super().__init__(*args, **kwargs)
+        if self.student:
+            self.fields['subject'].queryset = self.student.enrolled_subjects.all()
+        self.fields['student'] = forms.ModelChoiceField(
+            queryset=Student.objects.all(),
+            widget=forms.HiddenInput(),
+            required=False
+        )
 
-class CoCurricularActivityForm(forms.ModelForm):
-    class Meta:
-        model = CoCurricularActivity
-        fields = '__all__'
-
-class StudentActivityForm(forms.ModelForm):
-    class Meta:
-        model = StudentActivity
-        fields = '__all__'
+    def clean_student(self):
+        return self.student

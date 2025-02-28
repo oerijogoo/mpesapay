@@ -130,8 +130,8 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.getenv('DB_NAME', 'postgres'),
-            'USER': os.getenv('DB_USER', 'postgres.nqwgmmvjijntcbodhdvr'),
-            'PASSWORD': os.getenv('DB_PASSWORD', 'tkZhcOycgH9Rta8o'),
+            'USER': os.getenv('DB_USER', 'postgres.txmpxyolfwoqbcaouaqa'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'Egesusu0725#'),
             'HOST': os.getenv('DB_HOST', 'aws-0-us-west-1.pooler.supabase.com'),
             'PORT': os.getenv('DB_PORT', '6543'),
             'CONN_MAX_AGE': 600,    # Keeps connections open for 10 minutes

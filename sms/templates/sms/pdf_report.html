@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Report</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { border: 1px solid #ddd; padding: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Student Report: {{ student.full_name }}</h1>
+    <p>Admission Number: {{ student.admission_number }}</p>
+    <p>Course: {{ student.course.name }}</p>
+
+    <h3>Marks Summary</h3>
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Score</th>
+        </tr>
+        {% for mark in student.mark_set.all %}
+        <tr>
+            <td>{{ mark.subject.name }}</td>
+            <td>{{ mark.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

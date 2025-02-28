@@ -1,0 +1,58 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Student Dashboard: {{ student }}</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6>Enrollments</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for enrollment in enrollments %}
+                        <li class="list-group-item">
+                            {{ enrollment.course }} ({{ enrollment.semester }})
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6>Academic Performance</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for mark in marks %}
+                        <li class="list-group-item">
+                            {{ mark.course }}: {{ mark.score }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6>Financial Status</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for account in fee_accounts %}
+                        <li class="list-group-item">
+                            {{ account.term }}: Ksh {{ account.balance }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

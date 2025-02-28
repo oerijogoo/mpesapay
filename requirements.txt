@@ -21,3 +21,10 @@ cloudinary
 dj_database_url
 django-jazzmin
 djangorestframework
+weasyprint
+pandas
+pydyf
+libpango
+libpangoft2
+libharfbuzz-dev
+libcairo2-dev

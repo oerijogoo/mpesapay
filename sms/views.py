@@ -1,161 +1,208 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import (
-    Student, Teacher, Course, Enrollment, Attendance, StudentFeeAccount,
-    FeePayment, Mark, GradingSystem, ReportCard, CoCurricularActivity, StudentActivity
-)
-from .forms import (
-    StudentForm, TeacherForm, CourseForm, EnrollmentForm, AttendanceForm,
-    FeePaymentForm, MarkForm, ReportCardForm, CoCurricularActivityForm, StudentActivityForm
-)
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.shortcuts import get_object_or_404, render
+from .models import Course, Student, Mark, Subject
+from .forms import CourseForm, StudentForm, MarkForm, SubjectForm, StudentUpdateForm
+from django.db.models import Prefetch
 
-# Student Views
-def student_list(request):
-    students = Student.objects.all()
-    return render(request, 'sms/student_list.html', {'students': students})
+class SubjectListView(ListView):
+    model = Subject
+    template_name = 'sms/subject_list.html'
+    context_object_name = 'subjects'
+    success_url = reverse_lazy('subject_list')
 
-def add_student(request):
-    if request.method == 'POST':
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('student_list')
-    else:
-        form = StudentForm()
-    return render(request, 'sms/add_student.html', {'form': form})
+class SubjectCreateView(CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = 'sms/generic_form.html'
+    success_url = reverse_lazy('subject_list')
 
-# Teacher Views
-def teacher_list(request):
-    teachers = Teacher.objects.all()
-    return render(request, 'sms/teacher_list.html', {'teachers': teachers})
+class CourseListView(ListView):
+    model = Course
+    template_name = 'sms/course_list.html'
+    context_object_name = 'courses'
 
-def add_teacher(request):
-    if request.method == 'POST':
-        form = TeacherForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('teacher_list')
-    else:
-        form = TeacherForm()
-    return render(request, 'sms/add_teacher.html', {'form': form})
+class CourseCreateView(CreateView):
+    model = Course
+    form_class = CourseForm
+    template_name = 'sms/generic_form.html'
+    success_url = reverse_lazy('course_list')
 
-# Course Views
-def course_list(request):
-    courses = Course.objects.all()
-    return render(request, 'sms/course_list.html', {'courses': courses})
+class CourseUpdateView(UpdateView):
+    model = Course
+    form_class = CourseForm
+    template_name = 'sms/generic_form.html'
+    success_url = reverse_lazy('course_list')
 
-def add_course(request):
-    if request.method == 'POST':
-        form = CourseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('course_list')
-    else:
-        form = CourseForm()
-    return render(request, 'sms/add_course.html', {'form': form})
 
-# Enrollment Views
-def enrollment_list(request):
-    enrollments = Enrollment.objects.all()
-    return render(request, 'sms/enrollment_list.html', {'enrollments': enrollments})
+class StudentListView(ListView):
+    model = Student
+    template_name = 'sms/student_list.html'
+    context_object_name = 'students'
 
-def add_enrollment(request):
-    if request.method == 'POST':
-        form = EnrollmentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('enrollment_list')
-    else:
-        form = EnrollmentForm()
-    return render(request, 'sms/add_enrollment.html', {'form': form})
+    def get_queryset(self):
+        course_id = self.request.GET.get('course')
+        if course_id:
+            return Student.objects.filter(course__id=course_id).select_related('course')
+        return Student.objects.all().select_related('course')
 
-# Attendance Views
-def attendance_list(request):
-    attendances = Attendance.objects.all()
-    return render(request, 'sms/attendance_list.html', {'attendances': attendances})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['courses'] = Course.objects.all()
+        return context
 
-def add_attendance(request):
-    if request.method == 'POST':
-        form = AttendanceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('attendance_list')
-    else:
-        form = AttendanceForm()
-    return render(request, 'sms/add_attendance.html', {'form': form})
+class StudentDetailView(DetailView):
+    model = Student
+    template_name = 'sms/student_detail.html'
 
-# Fee Management Views
-def student_fee_account(request, student_id):
-    fee_accounts = StudentFeeAccount.objects.filter(student_id=student_id)
-    return render(request, 'sms/student_fee_account.html', {'fee_accounts': fee_accounts})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['marks'] = Mark.objects.filter(student=self.object)
+        return context
 
-def pay_fees(request):
-    if request.method == 'POST':
-        form = FeePaymentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('fee_payment_success')
-    else:
-        form = FeePaymentForm()
-    return render(request, 'sms/pay_fees.html', {'form': form})
 
-def fee_payment_success(request):
-    return render(request, 'sms/fee_payment_success.html')
+class StudentCreateView(CreateView):
+    model = Student
+    form_class = StudentForm
+    template_name = 'sms/generic_form.html'
+    success_url = reverse_lazy('student_list')
 
-# Marks and Grading Views
-def mark_list(request):
-    marks = Mark.objects.all()
-    return render(request, 'sms/mark_list.html', {'marks': marks})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['view'] = {
+            'model': {
+                'verbose_name': self.model._meta.verbose_name
+            },
+            'success_url': self.success_url
+        }
+        return context
 
-def add_mark(request):
-    if request.method == 'POST':
-        form = MarkForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('mark_list')
-    else:
-        form = MarkForm()
-    return render(request, 'sms/add_mark.html', {'form': form})
+class StudentUpdateView(UpdateView):
+    model = Student
+    form_class = StudentUpdateForm
+    template_name = 'sms/generic_form.html'
+    success_url = reverse_lazy('student_list')
 
-# Report Card Views
-def report_card_list(request):
-    report_cards = ReportCard.objects.all()
-    return render(request, 'sms/report_card_list.html', {'report_cards': report_cards})
+class MarkCreateView(CreateView):
+    model = Mark
+    form_class = MarkForm
+    template_name = 'sms/generic_form.html'
 
-def add_report_card(request):
-    if request.method == 'POST':
-        form = ReportCardForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('report_card_list')
-    else:
-        form = ReportCardForm()
-    return render(request, 'sms/add_report_card.html', {'form': form})
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['student'] = get_object_or_404(Student, pk=self.kwargs['pk'])
+        return kwargs
 
-# Co-curricular Activities Views
-def co_curricular_activity_list(request):
-    activities = CoCurricularActivity.objects.all()
-    return render(request, 'sms/co_curricular_activity_list.html', {'activities': activities})
+    def form_valid(self, form):
+        form.instance.student = get_object_or_404(Student, pk=self.kwargs['pk'])
+        return super().form_valid(form)
 
-def add_co_curricular_activity(request):
-    if request.method == 'POST':
-        form = CoCurricularActivityForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('co_curricular_activity_list')
-    else:
-        form = CoCurricularActivityForm()
-    return render(request, 'sms/add_co_curricular_activity.html', {'form': form})
+    def get_success_url(self):
+        return reverse('student_detail', kwargs={'pk': self.kwargs['pk']})
 
-def student_activity_list(request):
-    student_activities = StudentActivity.objects.all()
-    return render(request, 'sms/student_activity_list.html', {'student_activities': student_activities})
+class MarkListView(ListView):
+    model = Mark
+    template_name = 'sms/mark_list.html'
+    context_object_name = 'marks'
 
-def add_student_activity(request):
-    if request.method == 'POST':
-        form = StudentActivityForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('student_activity_list')
-    else:
-        form = StudentActivityForm()
-    return render(request, 'sms/add_student_activity.html', {'form': form})
+
+# views.py
+class BaseCreateView(CreateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['view'] = {
+            'model': {
+                'verbose_name': self.model._meta.verbose_name
+            },
+            'success_url': self.success_url
+        }
+        return context
+
+class BaseUpdateView(UpdateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['view'] = {
+            'model': {
+                'verbose_name': self.model._meta.verbose_name
+            },
+            'success_url': self.success_url
+        }
+        return context
+
+
+def student_academic_report(request):
+    students = Student.objects.select_related('course').prefetch_related(
+        Prefetch('enrolled_subjects', queryset=Subject.objects.all()),
+        Prefetch('mark_set', queryset=Mark.objects.select_related('subject'))
+    )
+    return render(request, 'sms/academic_report.html', {'students': students})
+
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.conf import settings
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+
+
+def generate_student_report_pdf(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+
+    # Simple HTML template rendering
+    html = render_to_string('sms/pdf_report.html', {'student': student})
+
+    # Generate PDF with minimal configuration
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename="student_{pk}_report.pdf"'
+
+    HTML(string=html).write_pdf(response)
+    return response
+
+
+
+import csv
+import pandas as pd
+from django.http import HttpResponse
+from io import BytesIO
+
+
+def export_data(request, format_type, model_name):
+    model_map = {
+        'students': (Student, ['admission_number', 'first_name', 'last_name', 'course__name']),
+        'courses': (Course, ['name', 'code', 'subjects__name']),
+        'marks': (Mark, ['student__admission_number', 'subject__name', 'score', 'date_recorded']),
+    }
+
+    model_data = model_map.get(model_name.lower())
+    if not model_data:
+        return HttpResponse("Invalid model", status=400)
+
+    model, fields = model_data
+    queryset = model.objects.all().values_list(*fields)
+    columns = [f.replace('__', ' ').title() for f in fields]
+
+    if format_type == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="{model_name}_export.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(columns)
+        for row in queryset:
+            writer.writerow(row)
+        return response
+
+    elif format_type == 'excel':
+        df = pd.DataFrame(list(queryset), columns=columns)
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine='openpyxl') as writer:
+            df.to_excel(writer, index=False, sheet_name='Export')
+
+        response = HttpResponse(output.getvalue(),
+                                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = f'attachment; filename="{model_name}_export.xlsx"'
+        return response
+
+    return HttpResponse("Invalid format", status=400)

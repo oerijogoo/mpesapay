@@ -1,0 +1,20 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+
+
+<h1>Course Semesters</h1>
+<ul>
+    {% for course_semester in course_semesters %}
+        <li>
+            {{ course_semester.course }} - {{ course_semester.semester }} -
+            Subjects:
+            {% for subject in course_semester.subjects.all %}
+                {{ subject.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_course_semester' %}">Add Course Semester</a>
+
+{% endblock %}

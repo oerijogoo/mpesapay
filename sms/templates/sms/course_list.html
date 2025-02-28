@@ -1,7 +1,46 @@
-<h1>Course List</h1>
-<ul>
-    {% for course in courses %}
-        <li>{{ course.name }} ({{ course.code }})</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'add_course' %}">Add Course</a>
+{% extends 'sms/base.html' %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="mb-0"><i class="fas fa-book-open me-2"></i>Course List</h3>
+        <a href="{% url 'course_create' %}" class="btn btn-success">
+            <i class="fas fa-plus-circle me-2"></i>Add Course
+        </a>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            {% for course in courses %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            {{ course.name }}
+                            <span class="badge bg-secondary float-end">{{ course.code }}</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Subjects:</strong>
+                            {% for subject in course.subjects.all %}
+                            <span class="badge bg-primary me-1">{{ subject.code }}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{% url 'course_update' course.pk %}" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">No courses found</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

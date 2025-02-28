@@ -1,3 +1,7 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+
 <h1>Student Activity List</h1>
 <ul>
     {% for student_activity in student_activities %}
@@ -5,3 +9,5 @@
     {% endfor %}
 </ul>
 <a href="{% url 'add_student_activity' %}">Add Student Activity</a>
+
+{% endblock %}

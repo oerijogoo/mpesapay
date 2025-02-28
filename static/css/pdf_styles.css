@@ -1,0 +1,17 @@
+/* Add basic PDF styling to prevent layout issues */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 2cm;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}

@@ -1,43 +1,34 @@
 from django.urls import path
 from . import views
+from .views import (
+    CourseListView, CourseCreateView, CourseUpdateView,
+    StudentListView, StudentCreateView, StudentUpdateView,
+    MarkListView, MarkCreateView, SubjectListView,
+    SubjectCreateView, StudentDetailView
+)
 
 urlpatterns = [
-    # Student URLs
-    path('', views.student_list, name='student_list'),
-    path('add/', views.add_student, name='add_student'),
+    # Subjects
+    path('subjects/', SubjectListView.as_view(), name='subject_list'),
+    path('subjects/add/', SubjectCreateView.as_view(), name='subject_create'),
 
-    # Teacher URLs
-    path('teachers/', views.teacher_list, name='teacher_list'),
-    path('teachers/add/', views.add_teacher, name='add_teacher'),
+    # Courses
+    path('courses/', CourseListView.as_view(), name='course_list'),
+    path('courses/add/', CourseCreateView.as_view(), name='course_create'),
+    path('courses/<int:pk>/edit/', CourseUpdateView.as_view(), name='course_update'),
 
-    # Course URLs
-    path('courses/', views.course_list, name='course_list'),
-    path('courses/add/', views.add_course, name='add_course'),
+    # Students
+    path('students/', StudentListView.as_view(), name='student_list'),
+    path('students/add/', StudentCreateView.as_view(), name='student_create'),
+    path('students/<int:pk>/edit/', StudentUpdateView.as_view(), name='student_update'),
+    path('students/<int:pk>/', StudentDetailView.as_view(), name='student_detail'),
+    path('students/<int:pk>/marks/add/', MarkCreateView.as_view(), name='mark_create'),
 
-    # Enrollment URLs
-    path('enrollments/', views.enrollment_list, name='enrollment_list'),
-    path('enrollments/add/', views.add_enrollment, name='add_enrollment'),
+    # Marks
+    path('marks/', MarkListView.as_view(), name='mark_list'),
 
-    # Attendance URLs
-    path('attendance/', views.attendance_list, name='attendance_list'),
-    path('attendance/add/', views.add_attendance, name='add_attendance'),
-
-    # Fee Management URLs
-    path('fees/pay/', views.pay_fees, name='pay_fees'),
-    path('fees/success/', views.fee_payment_success, name='fee_payment_success'),
-    path('fees/account/<int:student_id>/', views.student_fee_account, name='student_fee_account'),
-
-    # Marks and Grading URLs
-    path('marks/', views.mark_list, name='mark_list'),
-    path('marks/add/', views.add_mark, name='add_mark'),
-
-    # Report Card URLs
-    path('report-cards/', views.report_card_list, name='report_card_list'),
-    path('report-cards/add/', views.add_report_card, name='add_report_card'),
-
-    # Co-curricular Activities URLs
-    path('activities/', views.co_curricular_activity_list, name='co_curricular_activity_list'),
-    path('activities/add/', views.add_co_curricular_activity, name='add_co_curricular_activity'),
-    path('student-activities/', views.student_activity_list, name='student_activity_list'),
-    path('student-activities/add/', views.add_student_activity, name='add_student_activity'),
+    # Reports & Exports
+    path('reports/academic/', views.student_academic_report, name='academic_report'),
+    path('students/<int:pk>/report/', views.generate_student_report_pdf, name='student_report_pdf'),
+    path('export/<str:format_type>/<str:model_name>/', views.export_data, name='export_data'),  # Added this line
 ]

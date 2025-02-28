@@ -1,3 +1,7 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+
 <h1>Fee Account for {{ fee_accounts.0.student }}</h1>
 <table>
     <thead>
@@ -20,3 +24,5 @@
     </tbody>
 </table>
 <a href="{% url 'pay_fees' %}">Pay Fees</a>
+
+{% endblock %}
