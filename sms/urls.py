@@ -4,7 +4,8 @@ from .views import (
     CourseListView, CourseCreateView, CourseUpdateView,
     StudentListView, StudentCreateView, StudentUpdateView,
     MarkListView, MarkCreateView, SubjectListView,
-    SubjectCreateView, StudentDetailView
+    SubjectCreateView, StudentDetailView, AttendanceListView, AttendanceCreateView, FeeStructureListView,
+    FeeStructureCreateView, PaymentListView, PaymentCreateView
 )
 
 urlpatterns = [
@@ -31,4 +32,14 @@ urlpatterns = [
     path('reports/academic/', views.student_academic_report, name='academic_report'),
     path('students/<int:pk>/report/', views.generate_student_report_pdf, name='student_report_pdf'),
     path('export/<str:format_type>/<str:model_name>/', views.export_data, name='export_data'),  # Added this line
+
+# Attendance
+path('attendance/', AttendanceListView.as_view(), name='attendance_list'),
+path('attendance/add/', AttendanceCreateView.as_view(), name='attendance_create'),
+
+# Financial
+path('fees/', FeeStructureListView.as_view(), name='fee_structure_list'),
+path('fees/add/', FeeStructureCreateView.as_view(), name='fee_structure_create'),
+path('payments/', PaymentListView.as_view(), name='payment_list'),
+path('payments/add/', PaymentCreateView.as_view(), name='payment_create'),
 ]

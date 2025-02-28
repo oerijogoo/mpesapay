@@ -2,30 +2,186 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Student Report</title>
+    <title>{{ student.full_name }} Academic Report</title>
     <style>
-        body { font-family: Arial; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        td, th { border: 1px solid #ddd; padding: 8px; }
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            margin-bottom: 20px;
+        }
+        .school-logo {
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .student-info {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            background-color: #f5f5f5;
+            padding: 8px;
+            margin: 20px 0 10px;
+            border-left: 4px solid #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .summary-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+    <style>
+    .grade-a { color: #28a745; font-weight: bold; }
+    .grade-b { color: #17a2b8; font-weight: bold; }
+    .grade-c { color: #ffc107; font-weight: bold; }
+    .grade-d { color: #fd7e14; font-weight: bold; }
+    .grade-f { color: #dc3545; font-weight: bold; }
+    .grade-absent { color: #6c757d; font-style: italic; }
     </style>
 </head>
 <body>
-    <h1>Student Report: {{ student.full_name }}</h1>
-    <p>Admission Number: {{ student.admission_number }}</p>
-    <p>Course: {{ student.course.name }}</p>
+    <div class="header">
+        <img src="file:///path/to/your/school-logo.png" class="school-logo" alt="School Logo">
+        <h1>Academic Progress Report</h1>
+        <h3>{{ student.course.name }} Program</h3>
+    </div>
 
-    <h3>Marks Summary</h3>
+    <div class="student-info">
+        <h2>Student Details</h2>
+        <p><strong>Name:</strong> {{ student.full_name }}</p>
+        <p><strong>Admission Number:</strong> {{ student.admission_number }}</p>
+        <p><strong>Year/Semester:</strong> {{ student.get_year_of_study_display }} - {{ student.get_semester_display }}</p>
+        <p><strong>Enrollment Date:</strong> {{ student.enrollment_date|date:"F j, Y" }}</p>
+    </div>
+
+    <div class="summary-box">
+    <h3>Academic Summary</h3>
+    <p><strong>Average Score:</strong> {{ student.average_score }}%</p>
+    <p><strong>Overall Grade:</strong>
+        <span class="grade-{{ student.overall_grade|lower }}">
+            {{ student.overall_grade }}
+        </span>
+    </p>
+    <p><strong>Credit Points:</strong> {{ student.credit_points|floatformat:2 }}</p>
+    </div>
+
+    <h3 class="section-title">Academic Performance</h3>
     <table>
-        <tr>
-            <th>Subject</th>
-            <th>Score</th>
-        </tr>
-        {% for mark in student.mark_set.all %}
-        <tr>
-            <td>{{ mark.subject.name }}</td>
-            <td>{{ mark.score }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Credit Hours</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mark in marks %}
+            <tr>
+                <td>{{ mark.subject.name }}</td>
+                <td>{{ mark.score }}{% if mark.is_absent %} (Absent){% endif %}</td>
+                <td>
+                    {% if mark.grade == 'A' %}<span class="grade-a">{{ mark.grade }}</span>
+                    {% elif mark.grade == 'B' %}<span class="grade-b">{{ mark.grade }}</span>
+                    {% elif mark.grade == 'C' %}<span class="grade-c">{{ mark.grade }}</span>
+                    {% elif mark.grade == 'D' %}<span class="grade-d">{{ mark.grade }}</span>
+                    {% elif mark.grade == 'F' %}<span class="grade-f">{{ mark.grade }}</span>
+                    {% else %}{{ mark.grade }}{% endif %}
+                </td>
+                <td>{{ mark.subject.credit_hours }}</td>
+                <td>{% if mark.score >= 50 %}Pass{% else %}Fail{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No marks recorded yet</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+
+    <h3 class="section-title">Attendance Summary (Last 30 Days)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance %}
+            <tr>
+                <td>{{ record.date|date:"M d, Y" }}</td>
+                <td>{{ record.subject.name }}</td>
+                <td>{{ record.get_status_display }}</td>
+                <td>{{ record.notes|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No attendance records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3 class="section-title">Payment History (Last 10 Transactions)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Receipt Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.payment_date|date:"M d, Y" }}</td>
+                <td>Ksh {{ payment.amount }}</td>
+                <td>{{ payment.payment_method }}</td>
+                <td>{{ payment.receipt_number }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No payment records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>Generated on {% now "F j, Y H:i" %}</p>
+        <p>This is an official document from {{ school_name }} - {{ school_address }}</p>
+    </div>
 </body>
 </html>
