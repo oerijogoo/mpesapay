@@ -24,7 +24,4 @@ djangorestframework
 weasyprint
 pandas
 pydyf
-libpango
-libpangoft2
-libharfbuzz-dev
-libcairo2-dev
+
