@@ -84,7 +84,7 @@ class GradeListFilter(admin.SimpleListFilter):
         return queryset
 
 
-# Register models
+# Register model
 admin.site.register(Grading, GradingAdmin)
 admin.site.register(Mark, MarkAdmin)
 admin.site.register(Student, StudentAdmin)
