@@ -25,4 +25,5 @@ weasyprint
 pandas
 pydyf
 django_select2
-
+django-import-export
+django_extensions
