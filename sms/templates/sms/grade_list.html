@@ -1,0 +1,61 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">
+            <i class="fas fa-graduation-cap me-2"></i>
+            Grade Settings
+            <a href="{% url 'sms:grade_create' %}" class="btn btn-light btn-sm float-end">
+                <i class="fas fa-plus"></i> Add Grade
+            </a>
+        </h3>
+    </div>
+    <div class="card-body">
+        {% if messages %}
+        <div class="alert alert-dismissible fade show">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Grade</th>
+                        <th>Minimum Mark</th>
+                        <th>Maximum Mark</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grade in grades %}
+                    <tr>
+                        <td>{{ grade.grade }}</td>
+                        <td>{{ grade.min_mark }}</td>
+                        <td>{{ grade.max_mark }}</td>
+                        <td>
+                            <a href="{% url 'sms:grade_update' grade.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'sms:grade_delete' grade.pk %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No grades configured yet</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

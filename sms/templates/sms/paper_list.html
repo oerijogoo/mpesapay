@@ -1,0 +1,61 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">
+            <i class="fas fa-file-alt me-2"></i>
+            Papers
+            <a href="{% url 'sms:paper_create' %}" class="btn btn-light btn-sm float-end">
+                <i class="fas fa-plus"></i> Add Paper
+            </a>
+        </h3>
+    </div>
+    <div class="card-body">
+        {% if messages %}
+        <div class="alert alert-dismissible fade show">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Paper Name</th>
+                        <th>Max Marks</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paper in papers %}
+                    <tr>
+                        <td>{{ paper.subject.name }}</td>
+                        <td>{{ paper.name }}</td>
+                        <td>{{ paper.max_mark }}</td>
+                        <td>
+                            <a href="{% url 'sms:paper_update' paper.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'sms:paper_delete' paper.pk %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No papers found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

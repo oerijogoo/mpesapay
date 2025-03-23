@@ -26,6 +26,9 @@ class Paper(models.Model):
     name = models.CharField(max_length=50)
     max_mark = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.name} ({self.subject.code})"
+
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
@@ -73,3 +76,21 @@ class Grade(models.Model):
     grade = models.CharField(max_length=2)
     min_mark = models.DecimalField(max_digits=5, decimal_places=2)
     max_mark = models.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.grade} ({self.min_mark}-{self.max_mark})"
+
+    @classmethod
+    def get_grade(cls, mark):
+        try:
+            return cls.objects.get(
+                min_mark__lte=mark,
+                max_mark__gte=mark
+            ).grade
+        except cls.DoesNotExist:
+            return 'N/A'
+        except cls.MultipleObjectsReturned:
+            return cls.objects.filter(
+                min_mark__lte=mark,
+                max_mark__gte=mark
+            ).first().grade

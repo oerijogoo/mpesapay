@@ -17,6 +17,7 @@ urlpatterns = [
     path('student/<int:pk>/delete/', views.student_delete, name='student_delete'),
     path('student/<int:pk>/report/', views.student_report, name='student_report'),
     path('student/<int:pk>/pdf/', views.generate_pdf_report, name='generate_pdf'),
+    path('load-students/', views.load_students, name='load_students'),
 
     # Course URLs
     path('courses/', views.course_list, name='course_list'),
@@ -49,13 +50,22 @@ urlpatterns = [
     path('semester/<int:pk>/edit/', views.semester_update, name='semester_update'),
     path('semester/<int:pk>/delete/', views.semester_delete, name='semester_delete'),
 
+    # Grade URLs
+    path('grades/', views.grade_list, name='grade_list'),
+    path('grade/new/', views.grade_create, name='grade_create'),
+    path('grade/<int:pk>/edit/', views.grade_update, name='grade_update'),
+    path('grade/<int:pk>/delete/', views.grade_delete, name='grade_delete'),
+
+    # Add these patterns
+    path('papers/', views.paper_list, name='paper_list'),
+    path('paper/new/', views.paper_create, name='paper_create'),
+    path('paper/<int:pk>/edit/', views.paper_update, name='paper_update'),
+    path('paper/<int:pk>/delete/', views.paper_delete, name='paper_delete'),
+    path('load-papers/', views.load_papers, name='load_papers'),
+
 
     # Mark URLs
-    path(
-        'marks/bulk-entry/',
-        views.mark_bulk_entry,
-        name='mark_bulk_entry'  # Ensure this exact name
-    ),
+    path('marks/bulk-entry/', views.bulk_mark_entry, name='mark_bulk_entry'),
     path('student/<int:pk>/progress/',
          views.student_progressive_report,
          name='student_progressive_report'),

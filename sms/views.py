@@ -10,11 +10,17 @@ from .models import *
 from .forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
-import csv
-from decimal import Decimal
-from django.db import transaction
 from django.core.exceptions import ValidationError
+from decimal import Decimal, InvalidOperation
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.db import transaction
+from .models import Student, Mark, Paper
+from .forms import BulkMarkForm
+import csv
+from django.shortcuts import render
+from django.http import HttpRequest
+from .models import Paper
 
 
 
@@ -272,21 +278,25 @@ def academic_year_delete(request, pk):
 
 
 
-def mark_bulk_entry(request):
-    def process_mark(data, paper):  # Nested function to fix 'self' reference
-        student = Student.objects.get(admission_number=data['admission_number'].strip())
-        mark = Decimal(data['marks_obtained'])
+def bulk_mark_entry(request):
+    def process_mark(student_id, mark_value, paper):
+        try:
+            student = Student.objects.get(pk=student_id)
+            mark_value = Decimal(mark_value)
 
-        if mark > paper.max_mark:
-            raise ValidationError(
-                f"Mark {mark} exceeds maximum {paper.max_mark} for {student}"
+            if mark_value > paper.max_mark:
+                raise ValidationError(
+                    f"Mark {mark_value} exceeds maximum {paper.max_mark} for {student}"
+                )
+
+            Mark.objects.update_or_create(
+                student=student,
+                paper=paper,
+                defaults={'marks_obtained': mark_value}
             )
-
-        Mark.objects.update_or_create(
-            student=student,
-            paper=paper,
-            defaults={'marks_obtained': mark}
-        )
+            return True
+        except (Student.DoesNotExist, InvalidOperation) as e:
+            raise ValidationError(f"Invalid entry: {str(e)}")
 
     if request.method == 'POST':
         form = BulkMarkForm(request.POST, request.FILES)
@@ -296,42 +306,59 @@ def mark_bulk_entry(request):
                     paper = form.cleaned_data['paper']
                     entry_type = form.cleaned_data['entry_type']
                     count = 0
+                    error_messages = []
 
-                    if entry_type == 'csv':
-                        csv_file = request.FILES['csv_file']
-                        reader = csv.DictReader(
-                            csv_file.read().decode('utf-8').splitlines(),
-                            fieldnames=['admission_number', 'marks_obtained']
-                        )
-                        for row in reader:
-                            process_mark(row, paper)  # Fixed: removed 'self.'
-                            count += 1
-
-                    elif entry_type == 'manual':
-                        for line in form.cleaned_data['marks_data'].split('\n'):
-                            adm_no, mark = line.strip().split(',')
-                            process_mark(  # Fixed: removed 'self.'
-                                {'admission_number': adm_no, 'marks_obtained': mark},
-                                paper
+                    if entry_type == 'bulk':
+                        if 'csv_file' in request.FILES:
+                            csv_file = request.FILES['csv_file']
+                            reader = csv.DictReader(
+                                csv_file.read().decode('utf-8').splitlines(),
+                                fieldnames=['admission_number', 'marks_obtained']
                             )
-                            count += 1
+                            for row_num, row in enumerate(reader, start=1):
+                                try:
+                                    student = Student.objects.get(
+                                        admission_number=row['admission_number'].strip()
+                                    )
+                                    process_mark(student.id, row['marks_obtained'], paper)
+                                    count += 1
+                                except Exception as e:
+                                    error_messages.append(f"Row {row_num}: {str(e)}")
+                    else:
+                        for key, value in request.POST.items():
+                            if key.startswith('student_'):
+                                student_id = key.split('_')[1]
+                                try:
+                                    if process_mark(student_id, value, paper):
+                                        count += 1
+                                except Exception as e:
+                                    error_messages.append(f"Student ID {student_id}: {str(e)}")
 
-                    messages.success(request,
-                                     f"Added {count} marks for {paper.subject.name} - {paper.name}")
-                    return redirect('subject_list')
+                    if count > 0:
+                        messages.success(
+                            request,
+                            f"Successfully processed {count} marks for {paper.name}"
+                        )
+                    if error_messages:
+                        messages.error(
+                            request,
+                            f"Errors occurred: {', '.join(error_messages[:5])}" +
+                            ("..." if len(error_messages) > 5 else "")
+                        )
 
-            except ValidationError as e:
-                messages.error(request, f"Validation Error: {e}")
-            except Student.DoesNotExist:
-                messages.error(request, "Invalid admission number found")
-            except ValueError:
-                messages.error(request, "Invalid mark format (must be numeric)")
+                    return redirect('sms:bulk_mark_entry')
+
             except Exception as e:
-                messages.error(request, f"Error: {str(e)}")
+                messages.error(request, f"System Error: {str(e)}")
+        else:
+            messages.error(request, "Invalid form submission. Please check your inputs.")
     else:
         form = BulkMarkForm()
 
-    return render(request, 'sms/bulk_mark_entry.html', {'form': form})
+    return render(request, 'sms/bulk_mark_entry.html', {
+        'form': form,
+        'paper': form['paper'].value()
+    })
 
 
 def student_signup(request):
@@ -462,3 +489,117 @@ def load_semesters(request):
     academic_year_id = request.GET.get('academic_year')
     semesters = Semester.objects.filter(academic_year_id=academic_year_id).order_by('name')
     return render(request, 'sms/includes/semester_options.html', {'semesters': semesters})
+
+
+
+# Grade CRUD Views
+def grade_list(request):
+    grades = Grade.objects.all().order_by('-min_mark')
+    return render(request, 'sms/grade_list.html', {'grades': grades})
+
+def grade_create(request):
+    if request.method == 'POST':
+        form = GradeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Grade created successfully!')
+            return redirect('sms:grade_list')
+    else:
+        form = GradeForm()
+    return render(request, 'sms/grade_form.html', {'form': form})
+
+def grade_update(request, pk):
+    grade = get_object_or_404(Grade, pk=pk)
+    if request.method == 'POST':
+        form = GradeForm(request.POST, instance=grade)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Grade updated successfully!')
+            return redirect('sms:grade_list')
+    else:
+        form = GradeForm(instance=grade)
+    return render(request, 'sms/grade_form.html', {'form': form})
+
+def grade_delete(request, pk):
+    grade = get_object_or_404(Grade, pk=pk)
+    if request.method == 'POST':
+        grade.delete()
+        messages.success(request, 'Grade deleted successfully!')
+        return redirect('sms:grade_list')
+    return render(request, 'sms/grade_confirm_delete.html', {'grade': grade})
+
+
+def paper_list(request):
+    papers = Paper.objects.select_related('subject').order_by('subject__name')
+    return render(request, 'sms/paper_list.html', {'papers': papers})
+
+def paper_create(request):
+    if request.method == 'POST':
+        form = PaperForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Paper created successfully!')
+            return redirect('sms:paper_list')
+    else:
+        form = PaperForm()
+    return render(request, 'sms/paper_form.html', {'form': form})
+
+def paper_update(request, pk):
+    paper = get_object_or_404(Paper, pk=pk)
+    if request.method == 'POST':
+        form = PaperForm(request.POST, instance=paper)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Paper updated successfully!')
+            return redirect('sms:paper_list')
+    else:
+        form = PaperForm(instance=paper)
+    return render(request, 'sms/paper_form.html', {'form': form})
+
+def paper_delete(request, pk):
+    paper = get_object_or_404(Paper, pk=pk)
+    if request.method == 'POST':
+        paper.delete()
+        messages.success(request, 'Paper deleted successfully!')
+        return redirect('sms:paper_list')
+    return render(request, 'sms/paper_confirm_delete.html', {'paper': paper})
+
+
+def load_papers(request: HttpRequest):
+    subject_id = request.GET.get('subject')
+    papers = Paper.objects.none()
+
+    if subject_id and subject_id.isdigit():
+        papers = Paper.objects.filter(subject_id=int(subject_id)).order_by('name')
+
+    return render(request, 'sms/includes/paper_options.html', {
+        'papers': papers
+    })
+
+# views.py
+def load_students(request):
+    paper_id = request.GET.get('paper')
+    students = Student.objects.none()
+    paper = None
+    error = None
+
+    try:
+        if paper_id:
+            paper = Paper.objects.get(pk=paper_id)
+            students = Student.objects.filter(
+                course__subjects=paper.subject
+            ).select_related('course', 'academic_year').order_by('admission_number')
+
+            if not students.exists():
+                error = "No students enrolled in courses offering this paper"
+
+    except Paper.DoesNotExist:
+        error = "Invalid paper selection"
+    except Exception as e:
+        error = f"Error loading students: {str(e)}"
+
+    return render(request, 'sms/includes/student_list.html', {
+        'students': students,
+        'paper': paper,
+        'error': error
+    })

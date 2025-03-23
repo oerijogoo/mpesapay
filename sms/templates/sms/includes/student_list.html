@@ -1,0 +1,54 @@
+{% load mark_filters %}
+<div class="student-list-container">
+    {% if error %}
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        {{ error }}
+    </div>
+    {% else %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Student Name</th>
+                    <th>Admission Number</th>
+                    <th>Current Mark</th>
+                    <th>New Mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="{{ student.picture.url|default:'/static/images/default-profile.png' }}"
+                                 class="rounded-circle me-3"
+                                 style="width: 40px; height: 40px; object-fit: cover">
+                            {{ student.full_name }}
+                        </div>
+                    </td>
+                    <td>{{ student.admission_number }}</td>
+                    <td>{{ student|get_mark:paper|default:"-" }}</td>
+                    <td>
+                        <input type="number"
+                               name="student_{{ student.id }}"
+                               class="form-control mark-input"
+                               step="0.01"
+                               min="0"
+                               max="{{ paper.max_mark }}"
+                               value="{{ student|get_mark:paper|default:'' }}">
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        <i class="fas fa-user-slash me-2"></i>
+                        No students found for this paper
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
