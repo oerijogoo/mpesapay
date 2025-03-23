@@ -1,0 +1,32 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">Academic Year Details</h3>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Year Name</dt>
+            <dd class="col-sm-9">{{ year.name }}</dd>
+
+            <dt class="col-sm-3">Start Date</dt>
+            <dd class="col-sm-9">{{ year.start_date|date:"M d, Y" }}</dd>
+
+            <dt class="col-sm-3">End Date</dt>
+            <dd class="col-sm-9">{{ year.end_date|date:"M d, Y" }}</dd>
+
+            <dt class="col-sm-3">Duration</dt>
+            <dd class="col-sm-9">{{ year.duration_days }} days</dd>
+        </dl>
+        <div class="mt-4">
+            <a href="{% url 'sms:academic_year_update' year.pk %}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <a href="{% url 'sms:academic_year_list' %}" class="btn btn-secondary">
+                Back to List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

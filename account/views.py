@@ -28,7 +28,7 @@ def register(request):
             # Email verification setup
             current_site = get_current_site(request)
             subject = "Account verification email"
-            message = render_to_string('account/registration/email-verification.html', {
+            message = render_to_string('account/auth/email-verification.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -40,7 +40,7 @@ def register(request):
             return redirect('email-verification-sent')
 
     context = {'form': form}
-    return render(request, 'account/registration/register.html', context)
+    return render(request, 'account/auth/register.html', context)
 
 def email_verification(request, uidb64, token):
     try:
@@ -61,13 +61,13 @@ def email_verification(request, uidb64, token):
         return redirect('email-verification-fail')
 
 def email_verification_sent(request):
-    return render(request, 'account/registration/email-verification-sent.html')
+    return render(request, 'account/auth/email-verification-sent.html')
 
 def email_verification_success(request):
-    return render(request, 'account/registration/email-verification-success.html')
+    return render(request, 'account/auth/email-verification-success.html')
 
 def email_verification_failed(request):
-    return render(request, 'account/registration/email-verification-failed.html')
+    return render(request, 'account/auth/email-verification-failed.html')
 
 
 def my_login(request):

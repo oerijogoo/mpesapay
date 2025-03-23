@@ -1,0 +1,13 @@
+<!-- sms/templates/admin/sms/subject/change_list.html -->
+{% extends "admin/change_list.html" %}
+{% load admin_urls %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <!-- Use the namespaced URL correctly -->
+        <a href="{% url 'sms:mark_bulk_entry' %}" class="addlink">
+            Bulk Mark Entry
+        </a>
+    </li>
+{% endblock %}

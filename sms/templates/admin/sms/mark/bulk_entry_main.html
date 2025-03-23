@@ -1,0 +1,30 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div class="module">
+    <h1>Bulk Marks Entry - {{ course }} / {{ subject }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Score</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student, form in students %}
+                <tr>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ form.score }}</td>
+                    <td>{{ form.is_absent }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="submit-row">
+            <input type="submit" value="Save All Marks" class="default">
+        </div>
+    </form>
+</div>
+{% endblock %}

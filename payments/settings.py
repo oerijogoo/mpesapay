@@ -63,8 +63,14 @@ INSTALLED_APPS = [
     'sms',
     'rest_framework',
     'hospital',
+    'django_select2',
+    'accounts',
+    'import_export',
+    'django_extensions',
+
 
 ]
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
@@ -83,7 +89,9 @@ ROOT_URLCONF = 'payments.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',  # Project-level templates
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'store.views.categories', #updated
                 'cart.context_processors.cart',
+
             ],
         },
     },

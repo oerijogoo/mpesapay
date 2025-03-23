@@ -1,0 +1,6 @@
+<!-- templates/sms/includes/semester_options.html -->
+{% for semester in semesters %}
+<option value="{{ semester.id }}">{{ semester.name }}</option>
+{% empty %}
+<option value="">No semesters available</option>
+{% endfor %}

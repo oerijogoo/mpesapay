@@ -1,0 +1,40 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3>Progress Report - {{ student.admission_number }}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Student Information</h5>
+                <p>{{ student.first_name }} {{ student.last_name }}</p>
+                <p>Course: {{ student.course.name }}</p>
+                <p>Current Semester: {{ student.semester.name }}</p>
+            </div>
+            <div class="col-md-8">
+                <h5>Academic Progress</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Semester</th>
+                            <th>Average Mark</th>
+                            <th>Subjects Taken</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in progress_data %}
+                        <tr>
+                            <td>{{ data.semester }}</td>
+                            <td>{{ data.average|floatformat:2 }}%</td>
+                            <td>{{ data.subjects_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

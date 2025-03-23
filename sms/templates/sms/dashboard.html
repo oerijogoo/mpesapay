@@ -1,0 +1,41 @@
+{% extends 'sms/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Students</h5>
+                <h2 class="card-text">{{ stats.total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Teachers</h5>
+                <h2 class="card-text">{{ stats.total_teachers }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recent Payments</h5>
+                <ul class="list-group">
+                    {% for payment in stats.recent_payments %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{{ payment.student }}</span>
+                        <span>${{ payment.amount }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

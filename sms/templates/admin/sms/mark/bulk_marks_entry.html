@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="module">
+    <h1>Bulk Marks Entry - Step 2/2</h1>
+    <h2>{{ course }} - {{ subject }}</h2>
+    <form method="post" action="{% url 'admin:save_bulk_marks' %}?course_id={{ course.id }}&subject_id={{ subject.id }}">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Score</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student, form in students %}
+                <tr>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ form.score }}</td>
+                    <td>{{ form.is_absent }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="submit-row">
+            <input type="submit" value="Save All Marks" class="default">
+        </div>
+    </form>
+</div>
+{% endblock %}

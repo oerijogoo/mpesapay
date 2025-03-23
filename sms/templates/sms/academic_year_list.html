@@ -1,0 +1,52 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">
+            Academic Years
+            <a href="{% url 'sms:academic_year_create' %}" class="btn btn-light btn-sm float-end">
+                <i class="fas fa-plus"></i> Add New
+            </a>
+        </h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for year in years %}
+                    <tr>
+                        <td>{{ year.name }}</td>
+                        <td>{{ year.start_date|date:"M d, Y" }}</td>
+                        <td>{{ year.end_date|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'sms:academic_year_detail' year.pk %}" class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'sms:academic_year_update' year.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'sms:academic_year_delete' year.pk %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No academic years found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+            <i class="fas fa-chart-line me-2"></i>Progress Report - {{ object.user.get_full_name }}
+        </h4>
+    </div>
+    <div class="card-body">
+        {% for year, terms in report_data.items %}
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">
+                Academic Year {{ year }}
+            </div>
+            <div class="card-body">
+                {% for term, reports in terms.items %}
+                <h5 class="mt-3">{{ term }} Term</h5>
+                <div class="row">
+                    {% for report in reports %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ report.subject.name }}</h6>
+                                <p class="mb-1">Marks: {{ report.marks }}</p>
+                                <p class="mb-0">Grade: <span class="badge bg-primary">{{ report.grade }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!-- sms/templates/sms/grade_overview.html -->
+{% extends 'sms/base.html' %}
+{% block title %}Grade Overview{% endblock %}
+{% block content %}
+<h1>Grade Overview</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Marks</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in grades %}
+        <tr>
+            <td>{{ record.student.name }}</td>
+            <td>{{ record.subject.name }}</td>
+            <td>{{ record.marks }}</td>
+            <td>{{ record.grade }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No grade records found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<div class="module">
+    <h1>Bulk Mark Entry: {{ subject.name }} - {{ course.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table style="width:100%" class="bulk-entry-table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Admission Number</th>
+                    <th>Score (0-100)</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
+                {% with student=form.initial.student %}
+                <tr>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.admission_number }}</td>
+                    <td>{{ form.score }}</td>
+                    <td>{{ form.is_absent }}</td>
+                    {{ form.student }}
+                    {{ form.subject }}
+                </tr>
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="Save All" class="default" style="margin-top:20px;">
+    </form>
+</div>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $('.absent-checkbox').change(function() {
+        const row = $(this).closest('tr');
+        const scoreInput = row.find('.score-input');
+        scoreInput.prop('disabled', this.checked);
+        if (this.checked) scoreInput.val('');
+    });
+
+    // Initialize disabled state for existing absents
+    $('.absent-checkbox:checked').each(function() {
+        $(this).closest('tr').find('.score-input').prop('disabled', true);
+    });
+});
+</script>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+.bulk-entry-table th, .bulk-entry-table td {
+    padding: 8px;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}
+.bulk-entry-table th {
+    background-color: #f8f9fa;
+}
+.score-input {
+    width: 80px;
+    text-align: center;
+}
+</style>
+{% endblock %}

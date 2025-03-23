@@ -1,0 +1,27 @@
+<!-- sms/templates/sms/registration_detail.html -->
+{% extends "sms/base.html" %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+            Registration Details: {{ registration.student.name }}
+        </h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Student</dt>
+            <dd class="col-sm-9">{{ registration.student.name }}</dd>
+
+            <dt class="col-sm-3">Course</dt>
+            <dd class="col-sm-9">{{ registration.course.name }}</dd>
+
+            <dt class="col-sm-3">Date Registered</dt>
+            <dd class="col-sm-9">{{ registration.date_registered|date:"Y-m-d" }}</dd>
+        </dl>
+        <a href="{% url 'sms:registration_list' %}" class="btn btn-secondary">
+            Back to List
+        </a>
+    </div>
+</div>
+{% endblock %}

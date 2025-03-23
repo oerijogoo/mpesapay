@@ -1,18 +1,47 @@
 from django import forms
-from .models import (
-    Course, Student, Subject, Mark,
-    Attendance, FeeStructure, Payment
-)
+from .models import *
 
 
-class SubjectForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
     class Meta:
-        model = Subject
+        model = Student
         fields = '__all__'
+        exclude = ['user', 'admission_number']
         widgets = {
-            'credit_hours': forms.NumberInput(attrs={'min': 1, 'max': 5})
+            'academic_year': forms.Select(attrs={
+                'class': 'form-control',
+                'hx-get': '/sms/load-semesters/',
+                'hx-target': '#id_semester',
+                'hx-trigger': 'change'
+            }),
+            'semester': forms.Select(attrs={
+                'class': 'form-control',
+                'id': 'id_semester'
+            }),
+            'course': forms.Select(attrs={'class': 'form-control'}),
+            'picture': forms.FileInput(attrs={'class': 'form-control'}),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Always start with empty semester queryset
+        self.fields['semester'].queryset = Semester.objects.none()
+
+        # Handle initial data for existing instances
+        if self.instance.pk and self.instance.academic_year:
+            self.fields['semester'].queryset = self.instance.academic_year.semester_set.order_by('name')
+
+        # Handle form submissions/validation
+        if 'academic_year' in self.data:
+            try:
+                academic_year_id = int(self.data.get('academic_year'))
+                self.fields['semester'].queryset = Semester.objects.filter(
+                    academic_year_id=academic_year_id
+                ).order_by('name')
+            except (ValueError, TypeError):
+                pass  # Maintain empty queryset
 
 class CourseForm(forms.ModelForm):
     class Meta:
@@ -20,104 +49,90 @@ class CourseForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'subjects': forms.CheckboxSelectMultiple(),
-            'duration_years': forms.NumberInput(attrs={'min': 1, 'max': 5})
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'code': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-
-class StudentForm(forms.ModelForm):
+class SubjectForm(forms.ModelForm):
     class Meta:
-        model = Student
-        fields = [
-            'first_name', 'last_name', 'admission_number',
-            'course', 'year_of_study', 'semester', 'date_of_birth'
-        ]
+        model = Subject
+        fields = '__all__'
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            'year_of_study': forms.Select(choices=Student.YEAR_CHOICES),
-            'semester': forms.Select(choices=Student.SEMESTER_CHOICES)
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'code': forms.TextInput(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['course'].queryset = Course.objects.prefetch_related('subjects')
-
-
-class StudentUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Student
-        fields = [
-            'first_name', 'last_name', 'course',
-            'year_of_study', 'semester'
-        ]
-        widgets = {
-            'year_of_study': forms.Select(choices=Student.YEAR_CHOICES),
-            'semester': forms.Select(choices=Student.SEMESTER_CHOICES)
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['course'].disabled = True
-
 
 class MarkForm(forms.ModelForm):
     class Meta:
         model = Mark
-        fields = ['subject', 'score', 'is_absent']
-        widgets = {
-            'score': forms.NumberInput(attrs={'min': 0, 'max': 100}),
-            'is_absent': forms.CheckboxInput()
-        }
-
-    def __init__(self, *args, **kwargs):
-        self.student = kwargs.pop('student', None)
-        super().__init__(*args, **kwargs)
-        if self.student:
-            self.fields['subject'].queryset = self.student.enrolled_subjects.all()
-
-    def clean(self):
-        cleaned_data = super().clean()
-        is_absent = cleaned_data.get('is_absent')
-        score = cleaned_data.get('score')
-
-        if is_absent and score is not None:
-            raise forms.ValidationError("Score must be empty when marked absent")
-        if not is_absent and score is None:
-            raise forms.ValidationError("Score is required when not absent")
-
-        return cleaned_data
-
-
-class AttendanceForm(forms.ModelForm):
-    class Meta:
-        model = Attendance
-        fields = ['student', 'date', 'subject', 'status', 'notes']
-        widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}),
-            'status': forms.Select(choices=Attendance.STATUS_CHOICES)
-        }
-
-
-class FeeStructureForm(forms.ModelForm):
-    class Meta:
-        model = FeeStructure
         fields = '__all__'
         widgets = {
-            'academic_year': forms.TextInput(attrs={'placeholder': 'YYYY-YYYY'}),
-            'tuition_fee': forms.NumberInput(attrs={'min': 0}),
-            'registration_fee': forms.NumberInput(attrs={'min': 0}),
-            'examination_fee': forms.NumberInput(attrs={'min': 0})
+            'student': forms.HiddenInput(),
+            'paper': forms.Select(attrs={'class': 'form-control'}),
+            'marks_obtained': forms.NumberInput(attrs={'class': 'form-control'}),
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class AcademicYearForm(forms.ModelForm):
+    class Meta:
+        model = AcademicYear
+        fields = '__all__'
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model = Grade
+        fields = '__all__'
+        widgets = {
+            'min_mark': forms.NumberInput(attrs={'class': 'form-control'}),
+            'max_mark': forms.NumberInput(attrs={'class': 'form-control'}),
+            'grade': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
-class PaymentForm(forms.ModelForm):
+
+class BulkMarkForm(forms.Form):
+    ENTRY_TYPE_CHOICES = [
+        ('csv', 'CS Upload'),
+        ('manual', 'Manual Entry'),
+    ]
+
+    entry_type = forms.ChoiceField(choices=ENTRY_TYPE_CHOICES, widget=forms.RadioSelect)
+    paper = forms.ModelChoiceField(queryset=Paper.objects.none())
+    csv_file = forms.FileField(required=False)
+    marks_data = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 10}),
+        required=False,
+        help_text="Format: Admission Number, Marks (one per line)"
+    )
+
+    def __init__(self, *args, **kwargs):
+        papers = kwargs.pop('papers', None)
+        super().__init__(*args, **kwargs)
+        if papers:
+            self.fields['paper'].queryset = papers
+
+
+class SemesterForm(forms.ModelForm):
     class Meta:
-        model = Payment
-        fields = ['student', 'amount', 'payment_method', 'receipt_number']
+        model = Semester
+        fields = '__all__'
         widgets = {
-            'payment_date': forms.DateInput(attrs={'type': 'date'}),
-            'payment_method': forms.Select(choices=[
-                ('MPesa', 'MPesa'),
-                ('Cash', 'Cash'),
-                ('Bank', 'Bank Transfer')
-            ])
+            'academic_year': forms.Select(attrs={
+                'class': 'form-control',
+                'hx-get': '/load-academic-years/',
+                'hx-trigger': 'change'
+            }),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'start_date': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control'
+            }),
+            'end_date': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control'
+            }),
         }

@@ -1,0 +1,11 @@
+<!-- sms/templates/sms/teacher_form.html -->
+{% extends 'sms/base.html' %}
+{% block title %}Create Teacher{% endblock %}
+{% block content %}
+<h1>Create Teacher</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Teacher</button>
+</form>
+{% endblock %}

@@ -1,143 +1,67 @@
 {% extends 'sms/base.html' %}
-{% load static %}
-
-{% block title %}Students{% endblock %}
+{% block title %}Students List{% endblock %}
 
 {% block content %}
-<div class="card">
-    <!-- Filter Section -->
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="mb-0"><i class="fas fa-users me-2"></i>Student List</h3>
-        <a href="{% url 'student_create' %}" class="btn btn-success">
-            <i class="fas fa-plus-circle me-2"></i>Add Student
-        </a>
-        <!-- Add in the header section -->
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        <i class="fas fa-download me-2"></i>Export
-    </button>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{% url 'export_data' 'csv' 'students' %}">
-            Export Students (CSV)
-        </a></li>
-        <li><a class="dropdown-item" href="{% url 'export_data' 'excel' 'students' %}">
-            Export Students (Excel)
-        </a></li>
-    </ul>
-</div>
-    </div>
-
-    <!-- Filter Form -->
-    <div class="card-body border-bottom">
-        <form method="get" class="mb-4">
-            <div class="row g-3 align-items-center">
-                <div class="col-md-4">
-                    <label class="form-label">Filter by Course:</label>
-                    <select name="course" class="form-select" onchange="this.form.submit()">
-                        <option value="">All Courses</option>
-                        {% for course in courses %}
-                        <option value="{{ course.id }}"
-                            {% if request.GET.course == course.id|stringformat:"s" %}selected{% endif %}>
-                            {{ course.name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary mt-3 mt-md-0">
-                        <i class="fas fa-filter me-2"></i>Apply
-                    </button>
-                    <a href="?" class="btn btn-outline-secondary mt-3 mt-md-0">
-                        <i class="fas fa-times me-2"></i>Clear
-                    </a>
-                </div>
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">
+            <i class="fas fa-users me-2"></i>Students
+            <a href="{% url 'sms:student_create' %}" class="btn btn-light btn-sm float-end">
+                <i class="fas fa-plus"></i> Add New
+            </a>
+        </h3>
+        <form method="get" class="mt-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search students..." 
+                       value="{{ request.GET.q }}">
+                <button class="btn btn-light" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
         </form>
-
-        <!-- Student Count -->
-        <div class="alert alert-info mb-0">
-            Showing {{ students.count }} student{{ students.count|pluralize }}
-            {% if request.GET.course %}
-                in <strong>{{ selected_course.name }}</strong>
-            {% endif %}
-        </div>
     </div>
-
-    <!-- Student Table -->
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover">
                 <thead class="table-light">
                     <tr>
-                        <th>#</th>
-                        <th>Admission Number</th>
+                        <th>Admission #</th>
                         <th>Student Name</th>
                         <th>Course</th>
-                        <th class="text-end">Actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for student in students %}
                     <tr>
-                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student.admission_number }}</td>
                         <td>
-                            <span class="badge bg-primary">
-                                {{ student.admission_number }}
-                            </span>
+                            <img src="{{ student.picture.url }}" class="rounded-circle me-2" 
+                                 style="width: 30px; height: 30px; object-fit: cover;">
+                            {{ student.first_name }} {{ student.last_name }}
                         </td>
-                        <td>{{ student.full_name }}</td>
+                        <td>{{ student.course.name }}</td>
                         <td>
-                            {% if student.course %}
-                            <span class="badge bg-info text-dark">
-                                {{ student.course.name }}
-                            </span>
-                            {% else %}
-                            <span class="text-muted">-</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-end">
-                            <div class="btn-group">
-                                <a href="{% url 'student_detail' student.pk %}"
-                                   class="btn btn-sm btn-outline-primary"
-                                   data-bs-toggle="tooltip" title="View Details">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{% url 'student_update' student.pk %}"
-                                   class="btn btn-sm btn-outline-warning"
-                                   data-bs-toggle="tooltip" title="Edit Student">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="{% url 'mark_create' student.pk %}"
-                                   class="btn btn-sm btn-outline-success"
-                                   data-bs-toggle="tooltip" title="Add Marks">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            </div>
+                            <a href="{% url 'sms:student_detail' student.pk %}" class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'sms:student_update' student.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'sms:student_report' student.pk %}" class="btn btn-sm btn-success">
+                                <i class="fas fa-file-alt"></i>
+                            </a>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center text-muted py-4">
-                            <i class="fas fa-user-slash fa-2x mb-3"></i><br>
-                            No students found matching your criteria
-                        </td>
+                        <td colspan="4" class="text-center">No students found</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+        {% include 'includes/pagination.html' %}
     </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-// Initialize Bootstrap tooltips
-document.addEventListener('DOMContentLoaded', function() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-})
-</script>
 {% endblock %}

@@ -1,0 +1,64 @@
+<!-- sms/templates/sms/bulk_mark_entry.html -->
+{% extends 'sms/base.html' %}
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3>Bulk Mark Entry - {{ subject.name }}</h3>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label class="form-label">Paper:</label>
+                {{ form.paper }}
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Entry Type:</label>
+                {{ form.entry_type }}
+            </div>
+
+            <div id="csv-section" class="entry-section">
+                <div class="mb-4">
+                    <label class="form-label">CSV File:</label>
+                    {{ form.csv_file }}
+                    <small class="form-text text-muted">
+                        CSV format: admission_number,marks
+                    </small>
+                </div>
+            </div>
+
+            <div id="manual-section" class="entry-section">
+                <div class="mb-4">
+                    <label class="form-label">Marks Data:</label>
+                    {{ form.marks_data }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Marks</button>
+            <a href="{% url 'subject_detail' subject.pk %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const entryType = document.querySelector('input[name="entry_type"]:checked').value;
+    updateSections(entryType);
+
+    document.querySelectorAll('input[name="entry_type"]').forEach(input => {
+        input.addEventListener('change', function() {
+            updateSections(this.value);
+        });
+    });
+
+    function updateSections(type) {
+        document.querySelectorAll('.entry-section').forEach(div => {
+            div.style.display = 'none';
+        });
+        document.querySelector(`#${type}-section`).style.display = 'block';
+    }
+});
+</script>
+{% endblock %}

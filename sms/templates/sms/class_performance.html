@@ -1,0 +1,30 @@
+<!-- sms/templates/sms/class_performance.html -->
+{% extends 'sms/base.html' %}
+{% block title %}Class Performance{% endblock %}
+{% block content %}
+<h1>Class Performance</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Average Marks</th>
+            <th>Highest Marks</th>
+            <th>Lowest Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for performance in performances %}
+        <tr>
+            <td>{{ performance.subject.name }}</td>
+            <td>{{ performance.average_marks }}</td>
+            <td>{{ performance.highest_marks }}</td>
+            <td>{{ performance.lowest_marks }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No performance data available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

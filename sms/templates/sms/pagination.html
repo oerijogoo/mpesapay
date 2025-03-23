@@ -1,0 +1,32 @@
+{% if students.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if students.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ students.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                Previous
+            </a>
+        </li>
+        {% endif %}
+
+        {% for num in students.paginator.page_range %}
+        <li class="page-item {% if num == students.number %}active{% endif %}">
+            <a class="page-link"
+               href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                {{ num }}
+            </a>
+        </li>
+        {% endfor %}
+
+        {% if students.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ students.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                Next
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

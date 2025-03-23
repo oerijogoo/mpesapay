@@ -1,58 +1,42 @@
+<!-- sms/templates/sms/student_dashboard.html -->
 {% extends 'sms/base.html' %}
-
+{% block title %}Student Dashboard{% endblock %}
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h5>Student Dashboard: {{ student }}</h5>
+<h1>Student Dashboard</h1>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Enrolled Courses</h3>
+        <ul class="list-group">
+            {% for course in enrolled_courses %}
+            <li class="list-group-item">
+                {{ course.name }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">Not enrolled in any courses.</li>
+            {% endfor %}
+        </ul>
     </div>
-
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h6>Enrollments</h6>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {% for enrollment in enrollments %}
-                        <li class="list-group-item">
-                            {{ enrollment.course }} ({{ enrollment.semester }})
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h6>Academic Performance</h6>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {% for mark in marks %}
-                        <li class="list-group-item">
-                            {{ mark.course }}: {{ mark.score }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h6>Financial Status</h6>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {% for account in fee_accounts %}
-                        <li class="list-group-item">
-                            {{ account.term }}: Ksh {{ account.balance }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-6">
+        <h3>Attendance Records</h3>
+        <ul class="list-group">
+            {% for record in attendance_records %}
+            <li class="list-group-item">
+                {{ record.date }} - {{ record.status }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">No attendance records found.</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
+<h3 class="mt-4">Recent Grades</h3>
+<ul class="list-group">
+    {% for grade in recent_grades %}
+    <li class="list-group-item">
+        {{ grade.subject }}: {{ grade.mark }} ({{ grade.grade }})
+    </li>
+    {% empty %}
+    <li class="list-group-item">No grades available.</li>
+    {% endfor %}
+</ul>
 {% endblock %}

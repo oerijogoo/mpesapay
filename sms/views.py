@@ -1,323 +1,464 @@
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from django.shortcuts import get_object_or_404, render
-from django.db.models import Prefetch, Q
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q, Count
 from weasyprint import HTML
+from .models import *
+from .forms import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
 import csv
-import pandas as pd
-from io import BytesIO
-
-from .models import (
-    Course, Student, Mark, Subject,
-    Attendance, FeeStructure, Payment
-)
-from .forms import (
-    CourseForm, StudentForm, MarkForm,
-    SubjectForm, StudentUpdateForm,
-    AttendanceForm, FeeStructureForm, PaymentForm
-)
+from decimal import Decimal
+from django.db import transaction
+from django.core.exceptions import ValidationError
 
 
-# ========== Subject Views ==========
-class SubjectListView(ListView):
-    model = Subject
-    template_name = 'sms/subject_list.html'
-    context_object_name = 'subjects'
-    paginate_by = 20
-    ordering = ['code']
+
+def student_list(request):
+    query = request.GET.get('q', '')
+    students = Student.objects.all().order_by('-id')
+
+    if query:
+        students = students.filter(
+            Q(admission_number__icontains=query) |
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query)
+        )
+
+    paginator = Paginator(students, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'sms/student_list.html', {'students': page_obj})
 
 
-class SubjectCreateView(CreateView):
-    model = Subject
-    form_class = SubjectForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('subject_list')
+
+def student_detail(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    return render(request, 'sms/student_detail.html', {'student': student})
 
 
-# ========== Course Views ==========
-class CourseListView(ListView):
-    model = Course
-    template_name = 'sms/course_list.html'
-    context_object_name = 'courses'
-    paginate_by = 15
+
+def student_create(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Create student without user association
+            student = form.save(commit=False)
+            student.save()
+            messages.success(request, 'Student created successfully!')
+            return redirect('sms:student_list')
+    else:
+        form = StudentForm()
+    return render(request, 'sms/student_form.html', {'form': form})
 
 
-class CourseCreateView(CreateView):
-    model = Course
-    form_class = CourseForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('course_list')
+
+def student_update(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES, instance=student)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Student updated successfully!')
+            return redirect('student_detail', pk=pk)
+    else:
+        form = StudentForm(instance=student)
+    return render(request, 'sms/student_form.html', {'form': form})
 
 
-class CourseUpdateView(UpdateView):
-    model = Course
-    form_class = CourseForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('course_list')
+
+def student_delete(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    if request.method == 'POST':
+        student.delete()
+        messages.success(request, 'Student deleted successfully!')
+        return redirect('student_list')
+    return render(request, 'sms/student_confirm_delete.html', {'student': student})
 
 
-# ========== Student Views ==========
-class StudentListView(ListView):
-    model = Student
-    template_name = 'sms/student_list.html'
-    context_object_name = 'students'
-    paginate_by = 25
 
-    def get_queryset(self):
-        queryset = super().get_queryset().select_related('course')
-        course_id = self.request.GET.get('course')
-        year = self.request.GET.get('year')
-        semester = self.request.GET.get('semester')
+def student_report(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    subjects_data = []
 
-        if course_id:
-            queryset = queryset.filter(course__id=course_id)
-        if year:
-            queryset = queryset.filter(year_of_study=year)
-        if semester:
-            queryset = queryset.filter(semester=semester)
+    for subject in student.course.subjects.all():
+        papers = Paper.objects.filter(subject=subject)
+        subject_marks = []
 
-        return queryset
+        for paper in papers:
+            try:
+                mark = Mark.objects.get(student=student, paper=paper)
+                subject_marks.append({
+                    'paper': paper.name,
+                    'marks': mark.marks_obtained,
+                    'max': paper.max_mark
+                })
+            except Mark.DoesNotExist:
+                continue
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['courses'] = Course.objects.all()
-        context['years'] = Student.YEAR_CHOICES
-        context['semesters'] = Student.SEMESTER_CHOICES
-        return context
+        if subject_marks:
+            average = sum(m['marks'] for m in subject_marks) / len(subject_marks)
+            subjects_data.append({
+                'subject': subject,
+                'papers': subject_marks,
+                'average': round(average, 2),
+                'grade': Grade.get_grade(average)
+            })
 
-
-class StudentDetailView(DetailView):
-    model = Student
-    template_name = 'sms/student_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        student = self.object
-
-        context['marks'] = Mark.objects.filter(student=student)
-        context['attendance'] = Attendance.objects.filter(student=student).order_by('-date')[:30]
-        context['payments'] = Payment.objects.filter(student=student).order_by('-payment_date')[:10]
-
-        return context
+    context = {
+        'student': student,
+        'subjects_data': subjects_data,
+        'overall_average': round(
+            sum(s['average'] for s in subjects_data) / len(subjects_data), 2
+        ) if subjects_data else 0
+    }
+    return render(request, 'sms/report.html', context)
 
 
-class StudentCreateView(CreateView):
-    model = Student
-    form_class = StudentForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('student_list')
+
+def generate_pdf_report(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    context = student_report(request, pk).context_data
+
+    html_string = render_to_string('sms/pdf_report.html', context)
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf = html.write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=report_{student.admission_number}.pdf'
+    return response
+
+# Add similar CRUD views for Course, Subject, AcademicYear, etc.
 
 
-class StudentUpdateView(UpdateView):
-    model = Student
-    form_class = StudentUpdateForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('student_list')
+def course_list(request):
+    courses = Course.objects.all().order_by('-id')
+    return render(request, 'sms/course_list.html', {'courses': courses})
 
 
-# ========== Mark Views ==========
-class MarkCreateView(CreateView):
-    model = Mark
-    form_class = MarkForm
-    template_name = 'sms/generic_form.html'
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['student'] = get_object_or_404(Student, pk=self.kwargs['pk'])
-        return kwargs
-
-    def form_valid(self, form):
-        form.instance.student = get_object_or_404(Student, pk=self.kwargs['pk'])
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('student_detail', kwargs={'pk': self.kwargs['pk']})
+def course_detail(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    return render(request, 'sms/course_detail.html', {'course': course})
 
 
-class MarkListView(ListView):
-    model = Mark
-    template_name = 'sms/mark_list.html'
-    context_object_name = 'marks'
-    paginate_by = 50
+def course_create(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Course created successfully!')
+            return redirect('sms:course_list')  # Changed to course_list
+    else:
+        form = CourseForm()
+    return render(request, 'sms/course_form.html', {'form': form})
 
 
-# ========== Attendance Views ==========
-class AttendanceListView(ListView):
-    model = Attendance
-    template_name = 'sms/attendance_list.html'
-    context_object_name = 'attendance_records'
-    paginate_by = 50
-
-    def get_queryset(self):
-        queryset = super().get_queryset().select_related('student', 'subject')
-        student_id = self.request.GET.get('student')
-        subject_id = self.request.GET.get('subject')
-
-        if student_id:
-            queryset = queryset.filter(student__id=student_id)
-        if subject_id:
-            queryset = queryset.filter(subject__id=subject_id)
-
-        return queryset
+def course_update(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Course updated successfully!')
+            return redirect('course_detail', pk=pk)
+    else:
+        form = CourseForm(instance=course)
+    return render(request, 'sms/course_form.html', {'form': form})
 
 
-class AttendanceCreateView(CreateView):
-    model = Attendance
-    form_class = AttendanceForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('attendance_list')
+def course_delete(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == 'POST':
+        course.delete()
+        messages.success(request, 'Course deleted successfully!')
+        return redirect('course_list')
+    return render(request, 'sms/course_confirm_delete.html', {'course': course})
 
 
-# ========== Financial Views ==========
-class FeeStructureListView(ListView):
-    model = FeeStructure
-    template_name = 'sms/fee_structure_list.html'
-    context_object_name = 'fee_structures'
-    ordering = ['-academic_year']
+@login_required
+def subject_list(request):
+    subjects = Subject.objects.all().order_by('-id')
+    return render(request, 'sms/subject_list.html', {'subjects': subjects})
+
+@login_required
+def subject_detail(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    return render(request, 'sms/subject_detail.html', {'subject': subject})
 
 
-class FeeStructureCreateView(CreateView):
-    model = FeeStructure
-    form_class = FeeStructureForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('fee_structure_list')
+def subject_create(request):
+    if request.method == 'POST':
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Subject created successfully!')
+            return redirect('sms:subject_list')  # Changed to subject_list
+    else:
+        form = SubjectForm()
+    return render(request, 'sms/subject_form.html', {'form': form})
 
 
-class PaymentListView(ListView):
-    model = Payment
-    template_name = 'sms/payment_list.html'
-    context_object_name = 'payments'
-    paginate_by = 50
-    ordering = ['-payment_date']
-
-    def get_queryset(self):
-        queryset = super().get_queryset().select_related('student')
-        student_id = self.request.GET.get('student')
-
-        if student_id:
-            queryset = queryset.filter(student__id=student_id)
-
-        return queryset
+def subject_update(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    if request.method == 'POST':
+        form = SubjectForm(request.POST, instance=subject)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Subject updated successfully!')
+            return redirect('subject_detail', pk=pk)
+    else:
+        form = SubjectForm(instance=subject)
+    return render(request, 'sms/subject_form.html', {'form': form})
 
 
-class PaymentCreateView(CreateView):
-    model = Payment
-    form_class = PaymentForm
-    template_name = 'sms/generic_form.html'
-    success_url = reverse_lazy('payment_list')
+def subject_delete(request, pk):
+    subject = get_object_or_404(Subject, pk=pk)
+    if request.method == 'POST':
+        subject.delete()
+        messages.success(request, 'Subject deleted successfully!')
+        return redirect('subject_list')
+    return render(request, 'sms/subject_confirm_delete.html', {'subject': subject})
 
 
-# ========== Report Generation ==========
-def student_academic_report(request):
-    students = Student.objects.select_related('course').prefetch_related(
-        Prefetch('enrolled_subjects', queryset=Subject.objects.all()),
-        Prefetch('mark_set', queryset=Mark.objects.select_related('subject'))
-    )
-    return render(request, 'sms/academic_report.html', {
-        'students': students,
-        'years': Student.YEAR_CHOICES,
-        'semesters': Student.SEMESTER_CHOICES
+
+def academic_year_list(request):
+    years = AcademicYear.objects.all().order_by('-start_date')
+    return render(request, 'sms/academic_year_list.html', {'years': years})
+
+
+def academic_year_detail(request, pk):
+    year = get_object_or_404(AcademicYear, pk=pk)
+    return render(request, 'sms/academic_year_detail.html', {'year': year})
+
+
+def academic_year_create(request):
+    if request.method == 'POST':
+        form = AcademicYearForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Academic year created successfully!')
+            return redirect('sms:academic_year_list')  # Remove the pk parameter
+    else:
+        form = AcademicYearForm()
+    return render(request, 'sms/academic_year_form.html', {'form': form})
+
+
+def academic_year_update(request, pk):
+    academic_year = get_object_or_404(AcademicYear, pk=pk)
+    if request.method == 'POST':
+        form = AcademicYearForm(request.POST, instance=academic_year)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Academic year updated successfully!')
+            return redirect('academic_year_detail', pk=pk)
+    else:
+        form = AcademicYearForm(instance=academic_year)
+    return render(request, 'sms/academic_year_form.html', {'form': form})
+
+
+def academic_year_delete(request, pk):
+    academic_year = get_object_or_404(AcademicYear, pk=pk)
+    if request.method == 'POST':
+        academic_year.delete()
+        messages.success(request, 'Academic year deleted successfully!')
+        return redirect('sms:academic_year_list')
+    return render(request, 'sms/academic_year_confirm_delete.html', {
+        'academic_year': academic_year  # Pass context with correct variable name
     })
 
 
-def generate_student_report_pdf(request, pk):
+
+def mark_bulk_entry(request):
+    def process_mark(data, paper):  # Nested function to fix 'self' reference
+        student = Student.objects.get(admission_number=data['admission_number'].strip())
+        mark = Decimal(data['marks_obtained'])
+
+        if mark > paper.max_mark:
+            raise ValidationError(
+                f"Mark {mark} exceeds maximum {paper.max_mark} for {student}"
+            )
+
+        Mark.objects.update_or_create(
+            student=student,
+            paper=paper,
+            defaults={'marks_obtained': mark}
+        )
+
+    if request.method == 'POST':
+        form = BulkMarkForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                with transaction.atomic():
+                    paper = form.cleaned_data['paper']
+                    entry_type = form.cleaned_data['entry_type']
+                    count = 0
+
+                    if entry_type == 'csv':
+                        csv_file = request.FILES['csv_file']
+                        reader = csv.DictReader(
+                            csv_file.read().decode('utf-8').splitlines(),
+                            fieldnames=['admission_number', 'marks_obtained']
+                        )
+                        for row in reader:
+                            process_mark(row, paper)  # Fixed: removed 'self.'
+                            count += 1
+
+                    elif entry_type == 'manual':
+                        for line in form.cleaned_data['marks_data'].split('\n'):
+                            adm_no, mark = line.strip().split(',')
+                            process_mark(  # Fixed: removed 'self.'
+                                {'admission_number': adm_no, 'marks_obtained': mark},
+                                paper
+                            )
+                            count += 1
+
+                    messages.success(request,
+                                     f"Added {count} marks for {paper.subject.name} - {paper.name}")
+                    return redirect('subject_list')
+
+            except ValidationError as e:
+                messages.error(request, f"Validation Error: {e}")
+            except Student.DoesNotExist:
+                messages.error(request, "Invalid admission number found")
+            except ValueError:
+                messages.error(request, "Invalid mark format (must be numeric)")
+            except Exception as e:
+                messages.error(request, f"Error: {str(e)}")
+    else:
+        form = BulkMarkForm()
+
+    return render(request, 'sms/bulk_mark_entry.html', {'form': form})
+
+
+def student_signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('sms:student_profile')
+    else:
+        form = UserCreationForm()
+
+    # Pass request context explicitly
+    return render(request, 'sms/auth/student_signup.html', {'form':form})
+
+def teacher_signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('teacher_dashboard')
+    else:
+        form = UserCreationForm()
+    return render(request, 'sms/auth/teacher_signup.html', {'form': form})
+
+
+
+def student_profile(request):
+    student = get_object_or_404(Student, user=request.user)
+    return render(request, 'sms/student_profile.html', {'student': student})
+
+
+
+def semester_list(request):
+    semesters = Semester.objects.all().order_by('-start_date')
+    return render(request, 'sms/semester_list.html', {'semesters': semesters})
+
+
+def semester_detail(request, pk):
+    semester = get_object_or_404(Semester, pk=pk)
+    return render(request, 'sms/semester_detail.html', {'semester': semester})
+
+
+def semester_create(request):
+    if request.method == 'POST':
+        form = SemesterForm(request.POST)
+        if form.is_valid():
+            semester = form.save()
+            messages.success(request, 'Semester created successfully!')
+            return redirect('sms:semester_list')
+    else:
+        form = SemesterForm()
+    return render(request, 'sms/semester_form.html', {'form': form})
+
+
+def semester_update(request, pk):
+    semester = get_object_or_404(Semester, pk=pk)
+    if request.method == 'POST':
+        form = SemesterForm(request.POST, instance=semester)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Semester updated successfully!')
+            return redirect('sms:semester_detail', pk=semester.pk)
+    else:
+        form = SemesterForm(instance=semester)
+    return render(request, 'sms/semester_form.html', {'form': form})
+
+
+def semester_delete(request, pk):
+    semester = get_object_or_404(Semester, pk=pk)
+    if request.method == 'POST':
+        semester.delete()
+        messages.success(request, 'Semester deleted successfully!')
+        return redirect('sms:semester_list')
+    return render(request, 'sms/semester_confirm_delete.html', {'semester': semester})
+
+
+def load_academic_years(request):
+    academic_years = AcademicYear.objects.all().order_by('-start_date')
+    return render(request, 'sms/includes/academic_year_options.html',
+                 {'academic_years': academic_years})
+
+
+# sms/views.py
+from django.db.models import Avg
+from weasyprint import HTML
+
+
+def student_progressive_report(request, pk):
     student = get_object_or_404(Student, pk=pk)
 
-    # Get related data
-    marks = Mark.objects.filter(student=student).select_related('subject')
-    attendance = Attendance.objects.filter(student=student).order_by('-date')[:30]
-    payments = Payment.objects.filter(student=student).order_by('-payment_date')[:10]
+    # Get all marks grouped by semester
+    progress_data = []
+    for semester in Semester.objects.filter(academic_year=student.academic_year):
+        marks = Mark.objects.filter(
+            student=student,
+            paper__subject__course=student.course,
+            date__range=[semester.start_date, semester.end_date]
+        ).aggregate(
+            avg_mark=Avg('marks_obtained'),
+            total_subjects=Count('paper__subject', distinct=True)
+        )
 
-    html = render_to_string('sms/pdf_report.html', {
+        progress_data.append({
+            'semester': semester.name,
+            'average': marks['avg_mark'] or 0,
+            'subjects_count': marks['total_subjects'] or 0
+        })
+
+    return render(request, 'sms/reports/progressive.html', {
         'student': student,
-        'marks': marks,
-        'attendance': attendance,
-        'payments': payments
+        'progress_data': progress_data
     })
 
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'filename="student_{pk}_report.pdf"'
 
-    HTML(string=html).write_pdf(response)
+def student_progressive_report_pdf(request, pk):
+    html_response = student_progressive_report(request, pk)
+    html = HTML(string=html_response.content.decode('utf-8'))
+    pdf = html.write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=progress_report_{pk}.pdf'
     return response
 
 
-# ========== Data Export ==========
-def export_data(request, format_type, model_name):
-    model_map = {
-        'students': (Student, ['admission_number', 'first_name', 'last_name',
-                               'course__name', 'year_of_study', 'semester']),
-        'courses': (Course, ['name', 'code', 'duration_years']),
-        'marks': (Mark, ['student__admission_number', 'subject__name',
-                         'score', 'is_absent', 'date_recorded']),
-        'attendance': (Attendance, ['student__admission_number', 'date',
-                                    'subject__name', 'status']),
-        'payments': (Payment, ['student__admission_number', 'amount',
-                               'payment_date', 'payment_method']),
-        'feestructures': (FeeStructure, ['course__name', 'academic_year',
-                                         'tuition_fee', 'registration_fee'])
-    }
-
-    model_data = model_map.get(model_name.lower())
-    if not model_data:
-        return HttpResponse("Invalid model", status=400)
-
-    model, fields = model_data
-    queryset = model.objects.all().values_list(*fields)
-    columns = [f.replace('__', ' ').title() for f in fields]
-
-    # CSV Export
-    if format_type == 'csv':
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = f'attachment; filename="{model_name}_export.csv"'
-
-        writer = csv.writer(response)
-        writer.writerow(columns)
-        for row in queryset:
-            writer.writerow(row)
-        return response
-
-    # Excel Export
-    elif format_type == 'excel':
-        df = pd.DataFrame(list(queryset), columns=columns)
-        output = BytesIO()
-        with pd.ExcelWriter(output, engine='openpyxl') as writer:
-            df.to_excel(writer, index=False, sheet_name='Export')
-
-        response = HttpResponse(output.getvalue(),
-                                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-        response['Content-Disposition'] = f'attachment; filename="{model_name}_export.xlsx"'
-        return response
-
-    return HttpResponse("Invalid format", status=400)
-
-
-# ========== Base Views ==========
-class BaseCreateView(CreateView):
-    template_name = 'sms/generic_form.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['view'] = {
-            'model': {
-                'verbose_name': self.model._meta.verbose_name
-            },
-            'success_url': self.success_url
-        }
-        return context
-
-
-class BaseUpdateView(UpdateView):
-    template_name = 'sms/generic_form.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['view'] = {
-            'model': {
-                'verbose_name': self.model._meta.verbose_name
-            },
-            'success_url': self.success_url
-        }
-        return context
+def load_semesters(request):
+    academic_year_id = request.GET.get('academic_year')
+    semesters = Semester.objects.filter(academic_year_id=academic_year_id).order_by('name')
+    return render(request, 'sms/includes/semester_options.html', {'semesters': semesters})

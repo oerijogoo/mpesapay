@@ -1,0 +1,48 @@
+{% extends 'sms/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                {% if object %}Update Course{% else %}Create New Course{% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                            <small class="form-text text-muted">E.g., Computer Science</small>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.code.label_tag }}
+                            {{ form.code }}
+                            <small class="form-text text-muted">E.g., CS101</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Select Subjects:</label>
+                            <div class="border p-3" style="max-height: 300px; overflow-y: auto;">
+                                {{ form.subjects }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-2"></i>Save Course
+                    </button>
+                    <a href="{% url 'sms:course_list' %}" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'sms/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Create New Course</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Course Name</label>
+            {{ form.name }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Course Code</label>
+            {{ form.code }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Duration (Semesters)</label>
+            {{ form.duration }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save Course</button>
+    </form>
+</div>
+{% endblock %}
