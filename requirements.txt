@@ -24,4 +24,5 @@ djangorestframework
 weasyprint
 pandas
 pydyf
+django_select2
 
