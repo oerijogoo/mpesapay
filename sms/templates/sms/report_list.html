@@ -1,56 +1,32 @@
-<!-- sms/templates/sms/report_list.html -->
-{% extends "sms/base.html" %}
-
-{% block title %}Academic Reports{% endblock %}
+{% extends 'sms/base.html' %}
 
 {% block content %}
 <div class="card shadow">
     <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">
-            <i class="fas fa-file-alt me-2"></i>Academic Reports
-            <div class="float-end">
-                <a href="{% url 'sms:bulk_report_upload' %}" class="btn btn-light btn-sm">
-                    <i class="fas fa-upload me-1"></i>Bulk Upload
-                </a>
-                <a href="{% url 'sms:report_create' %}" class="btn btn-light btn-sm">
-                    <i class="fas fa-plus"></i> Add New
-                </a>
-            </div>
-        </h4>
+        <h3 class="mb-0">
+            <i class="fas fa-users me-2"></i>
+            Student Reports Directory
+        </h3>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>Student</th>
-                        <th>Subject</th>
-                        <th>Semester</th>
-                        <th>Marks</th>
-                        <th>Grade</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for report in reports %}
-                    <tr>
-                        <td>{{ report.student.name }}</td>
-                        <td>{{ report.subject.name }}</td>
-                        <td>{{ report.semester }}</td>
-                        <td>{{ report.marks }}</td>
-                        <td>{{ report.get_grade_display }}</td>
-                        <td class="action-buttons">
-                            <a href="{% url 'sms:report_update' report.pk %}" class="btn btn-sm btn-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{% url 'sms:report_delete' report.pk %}" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="row">
+            {% for student in students %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ student.full_name }}</h5>
+                        <p class="card-text">
+                            {{ student.course.name }}<br>
+                            {{ student.admission_number }}
+                        </p>
+                        <a href="{% url 'sms:student_report' student.pk %}"
+                           class="btn btn-primary btn-sm">
+                           View Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

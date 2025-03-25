@@ -1,0 +1,119 @@
+{% extends 'sms/base.html' %}
+{% load report_tags %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">
+            <i class="fas fa-file-alt me-2"></i>
+            Student Performance Report
+        </h3>
+    </div>
+    <div class="card-body">
+        <form method="get">
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    {{ form.academic_year.label_tag }}
+                    {{ form.academic_year }}
+                </div>
+                <div class="col-md-4">
+                    {{ form.semester.label_tag }}
+                    {{ form.semester }}
+                </div>
+                <div class="col-md-4">
+                    {{ form.report_type.label_tag }}
+                    {{ form.report_type }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Report</button>
+        </form>
+
+        {% if report_data %}
+        <div class="mt-5">
+            <h4 class="mb-4">Performance Report for {{ student }}</h4>
+
+            <div class="row">
+                <div class="col-md-8">
+                    {% for subject in report_data.subjects %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            {{ subject.subject.name }} ({{ subject.grade }})
+                            <span class="float-end">Average: {{ subject.average|floatformat:2 }}</span>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Paper</th>
+                                        <th>Marks</th>
+                                        <th>Max</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for paper in subject.papers %}
+                                    <tr>
+                                        <td>{{ paper.paper }}</td>
+                                        <td>{{ paper.marks }}</td>
+                                        <td>{{ paper.max }}</td>
+                                        <td>{{ paper.grade }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Summary
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-6">Overall Average:</dt>
+                                <dd class="col-6">{{ report_data.overall.average|floatformat:2 }}</dd>
+
+                                <dt class="col-6">Overall Grade:</dt>
+                                <dd class="col-6">{{ report_data.overall.grade }}</dd>
+
+                                <dt class="col-6">Total Marks:</dt>
+                                <dd class="col-6">
+                                    {{ report_data.subjects|sum_attr:'total_marks' }} /
+                                    {{ report_data.subjects|sum_attr:'max_total' }}
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Add dynamic semester loading
+document.getElementById('id_academic_year').addEventListener('change', function() {
+    const yearId = this.value;
+    const semesterSelect = document.getElementById('id_semester');
+
+    if (yearId) {
+        fetch(`/sms/load-semesters/?academic_year=${yearId}`)
+            .then(response => response.text())
+            .then(html => {
+                semesterSelect.innerHTML = html;
+                semesterSelect.disabled = false;
+            });
+    } else {
+        semesterSelect.innerHTML = '<option value="">Select academic year first</option>';
+        semesterSelect.disabled = true;
+    }
+});
+</script>
+{% endblock %}

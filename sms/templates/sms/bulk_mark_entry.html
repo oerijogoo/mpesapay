@@ -7,15 +7,14 @@
         <h3 class="mb-0">
             <i class="fas fa-file-import me-2"></i>
             Mark Entry System
-            <a href="{% url 'sms:mark_bulk_entry' %}" class="btn btn-light btn-sm float-end">
+            <a href="{% url 'sms:bulk_mark_entry' %}" class="btn btn-light btn-sm float-end">
                 <i class="fas fa-sync"></i> Reset
             </a>
         </h3>
     </div>
     <div class="card-body">
-        <!-- Error Messages -->
         {% if messages %}
-        <div class="alert alert-dismissible fade show mb-4">
+        <div class="alert-container">
             {% for message in messages %}
             <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                 {{ message }}
@@ -25,24 +24,36 @@
         </div>
         {% endif %}
 
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <h5 class="alert-heading">Form Errors</h5>
+            <ul class="mb-0">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                    <li><strong>{{ field|title }}</strong>: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
         <form method="post" enctype="multipart/form-data" id="mark-entry-form">
             {% csrf_token %}
 
-            <!-- Selection Section -->
+            <!-- Subject & Paper Selection -->
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
                     <div class="form-group">
-                        {{ form.subject.label_tag }}
+                        <label class="form-label">Subject</label>
                         {{ form.subject }}
                         <small class="form-text text-muted">Select subject first</small>
                     </div>
                 </div>
-
                 <div class="col-md-6">
                     <div class="form-group">
-                        {{ form.paper.label_tag }}
+                        <label class="form-label">Paper</label>
                         {{ form.paper }}
-                        <small class="form-text text-muted">Select paper to continue</small>
+                        <small class="form-text text-muted">Select paper after subject</small>
                     </div>
                 </div>
             </div>
@@ -50,14 +61,10 @@
             <!-- Entry Type Toggle -->
             <div class="row mb-4">
                 <div class="col">
-                    <div class="btn-group w-100" role="group" aria-label="Entry type selection">
+                    <div class="btn-group w-100" role="group" aria-label="Entry type">
                         {% for choice in form.entry_type %}
-                        <input type="radio"
-                               class="btn-check"
-                               name="entry_type"
-                               id="{{ choice.id_for_label }}"
-                               value="{{ choice.data.value }}"
-                               autocomplete="off"
+                        <input type="radio" class="btn-check" name="entry_type"
+                               id="{{ choice.id_for_label }}" value="{{ choice.data.value }}"
                                {% if choice.data.selected %}checked{% endif %}>
                         <label for="{{ choice.id_for_label }}"
                                class="btn btn-outline-primary {% if choice.data.value == 'single' %}active{% endif %}">
@@ -69,33 +76,33 @@
                 </div>
             </div>
 
-            <!-- Student List Section -->
+            <!-- Dynamic Content Sections -->
             <div id="student-list" class="mb-4">
                 {% include 'sms/includes/student_list.html' %}
             </div>
 
-            <!-- CSV Upload Section -->
             <div class="csv-upload card mb-4" style="display: none;">
                 <div class="card-body">
                     <div class="form-group">
-                        {{ form.csv_file.label_tag }}
+                        <label class="form-label">CSV File</label>
                         {{ form.csv_file }}
                         <small class="form-text text-muted">
-                            CSV format: admission_number,marks_obtained<br>
-                            <a href="{% static 'samples/marks_sample.csv' %}" download class="text-decoration-none">
-                                <i class="fas fa-download me-1"></i>Download sample CSV
+                            Required format: admission_number,marks_obtained<br>
+                            <a href="{% static 'samples/marks_sample.csv' %}" download
+                               class="text-decoration-none">
+                                <i class="fas fa-download me-1"></i>Download sample
                             </a>
                         </small>
                     </div>
                 </div>
             </div>
 
-            <!-- Submission Section -->
+            <!-- Submission Buttons -->
             <div class="mt-4 d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg">
                     <i class="fas fa-save me-2"></i>Save Marks
                 </button>
-                <a href="{% url 'sms:mark_bulk_entry' %}" class="btn btn-outline-secondary">
+                <a href="{% url 'sms:bulk_mark_entry' %}" class="btn btn-outline-secondary">
                     Cancel
                 </a>
             </div>
@@ -108,60 +115,45 @@
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Toggle between entry modes
-    const entryTypeRadios = document.querySelectorAll('input[name="entry_type"]');
-    const csvSection = document.querySelector('.csv-upload');
-    const studentList = document.getElementById('student-list');
+    const form = document.getElementById('mark-entry-form');
+    const paperSelect = document.getElementById('id_paper');
 
-    function toggleEntryMode() {
-        const isBulk = document.querySelector('input[name="entry_type"]:checked').value === 'bulk';
+    // Ensure paper field is enabled before submission
+    form.addEventListener('submit', function(e) {
+        paperSelect.disabled = false;
+        const subject = document.getElementById('id_subject').value;
 
-        csvSection.style.display = isBulk ? 'block' : 'none';
-        studentList.style.display = isBulk ? 'none' : 'block';
-
-        // Reset hidden fields when switching modes
-        if(isBulk) {
-            document.querySelectorAll('#student-list input').forEach(input => input.value = '');
-        } else {
-            document.querySelector('#id_csv_file').value = '';
+        // Add hidden subject field if needed
+        if (!form.querySelector('input[name="subject"]')) {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'subject';
+            hiddenInput.value = subject;
+            form.appendChild(hiddenInput);
         }
-    }
-
-    entryTypeRadios.forEach(radio => {
-        radio.addEventListener('change', toggleEntryMode);
     });
 
-    // Initialize HTMX
+    // Initialize entry mode toggle
+    function toggleEntryMode() {
+        const isBulk = document.querySelector('input[name="entry_type"]:checked').value === 'bulk';
+        document.querySelector('.csv-upload').style.display = isBulk ? 'block' : 'none';
+        document.getElementById('student-list').style.display = isBulk ? 'none' : 'block';
+    }
+    document.querySelectorAll('input[name="entry_type"]').forEach(radio => {
+        radio.addEventListener('change', toggleEntryMode);
+    });
+    toggleEntryMode();
+
+    // HTMX configuration
     htmx.config.useTemplateFragments = true;
 
     // Handle paper selection changes
     htmx.on('htmx:afterSwap', function(event) {
-        // Enable paper select when papers load
         if (event.detail.target.id === 'id_paper') {
-            const paperSelect = document.getElementById('id_paper');
             paperSelect.disabled = false;
-
-            // Update max marks on inputs when paper changes
-            paperSelect.addEventListener('change', function() {
-                const maxMark = this.options[this.selectedIndex]?.dataset.maxMark || 100;
-                document.querySelectorAll('.mark-input').forEach(input => {
-                    input.max = maxMark;
-                });
-            });
-        }
-
-        // Initialize student list when loaded
-        if (event.detail.target.id === 'student-list') {
-            const paperSelect = document.getElementById('id_paper');
-            const maxMark = paperSelect.options[paperSelect.selectedIndex]?.dataset.maxMark || 100;
-            document.querySelectorAll('.mark-input').forEach(input => {
-                input.max = maxMark;
-            });
+            paperSelect.dispatchEvent(new Event('change'));
         }
     });
-
-    // Initial state setup
-    toggleEntryMode();
 });
 </script>
 {% endblock %}

@@ -18,6 +18,7 @@ urlpatterns = [
     path('student/<int:pk>/report/', views.student_report, name='student_report'),
     path('student/<int:pk>/pdf/', views.generate_pdf_report, name='generate_pdf'),
     path('load-students/', views.load_students, name='load_students'),
+    path('reports/students/', views.student_report_list, name='report_student_list'),
 
     # Course URLs
     path('courses/', views.course_list, name='course_list'),
@@ -50,6 +51,9 @@ urlpatterns = [
     path('semester/<int:pk>/edit/', views.semester_update, name='semester_update'),
     path('semester/<int:pk>/delete/', views.semester_delete, name='semester_delete'),
 
+    path('reports/semesters/', views.semester_report_list, name='semester_report_list'),
+    path('reports/semesters/<int:semester_id>/', views.semester_report, name='semester_report'),
+
     # Grade URLs
     path('grades/', views.grade_list, name='grade_list'),
     path('grade/new/', views.grade_create, name='grade_create'),
@@ -63,9 +67,20 @@ urlpatterns = [
     path('paper/<int:pk>/delete/', views.paper_delete, name='paper_delete'),
     path('load-papers/', views.load_papers, name='load_papers'),
 
+# Report URLs
+#     path('reports/courses/', views.course_report_list, name='course_report_list'),
+#     path('reports/courses/<int:course_id>/', views.course_report, name='course_report'),
+#     path('reports/semesters/', views.semester_report_list, name='semester_report_list'),
+#     path('reports/semesters/<int:semester_id>/', views.semester_report, name='semester_report'),
+
+    path('reports/courses/', views.course_report_list, name='course_report_list'),
+    path('reports/courses/<int:course_id>/', views.course_report, name='course_report'),
+    path('reports/semesters/', views.semester_report_list, name='semester_report_list'),
+
 
     # Mark URLs
-    path('marks/bulk-entry/', views.bulk_mark_entry, name='mark_bulk_entry'),
+    path('marks/bulk-entry/', views.bulk_mark_entry, name='bulk_mark_entry'),
+
     path('student/<int:pk>/progress/',
          views.student_progressive_report,
          name='student_progressive_report'),

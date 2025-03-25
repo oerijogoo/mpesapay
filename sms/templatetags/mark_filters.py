@@ -1,5 +1,6 @@
+# sms/templatetags/mark_filters.py
 from django import template
-from sms.models import Mark
+from ..models import Mark
 
 register = template.Library()
 
@@ -8,7 +9,4 @@ def get_mark(student, paper):
     try:
         return Mark.objects.get(student=student, paper=paper).marks_obtained
     except Mark.DoesNotExist:
-        return None
-    except Exception as e:
-        logger.error(f"Error getting mark: {str(e)}")
         return None

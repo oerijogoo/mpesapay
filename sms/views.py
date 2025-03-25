@@ -1,3 +1,4 @@
+from django.db.models.functions import Concat
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -277,29 +278,59 @@ def academic_year_delete(request, pk):
     })
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.db import transaction
+from .models import Student, Mark, Paper
+from .forms import BulkMarkForm
+from django.core.exceptions import ValidationError
+from decimal import Decimal, InvalidOperation
+import csv
+
 
 def bulk_mark_entry(request):
     def process_mark(student_id, mark_value, paper):
         try:
             student = Student.objects.get(pk=student_id)
-            mark_value = Decimal(mark_value)
+            mark_value = mark_value.strip()
 
-            if mark_value > paper.max_mark:
+            if not mark_value:
+                return False  # Skip empty values
+
+            mark_decimal = Decimal(mark_value)
+
+            if mark_decimal > paper.max_mark:
                 raise ValidationError(
-                    f"Mark {mark_value} exceeds maximum {paper.max_mark} for {student}"
+                    f"Mark {mark_decimal} exceeds maximum {paper.max_mark}"
                 )
+            if mark_decimal < 0:
+                raise ValidationError("Marks cannot be negative")
 
             Mark.objects.update_or_create(
                 student=student,
                 paper=paper,
-                defaults={'marks_obtained': mark_value}
+                defaults={'marks_obtained': mark_decimal}
             )
             return True
-        except (Student.DoesNotExist, InvalidOperation) as e:
-            raise ValidationError(f"Invalid entry: {str(e)}")
+
+        except Student.DoesNotExist:
+            raise ValidationError("Student does not exist")
+        except InvalidOperation:
+            raise ValidationError(f"Invalid number: {mark_value}")
+        except Exception as e:
+            raise ValidationError(str(e))
 
     if request.method == 'POST':
         form = BulkMarkForm(request.POST, request.FILES)
+
+        # Manually update paper queryset based on submitted subject
+        if 'subject' in request.POST:
+            try:
+                subject_id = int(request.POST.get('subject'))
+                form.fields['paper'].queryset = Paper.objects.filter(subject_id=subject_id)
+            except (ValueError, TypeError):
+                pass
+
         if form.is_valid():
             try:
                 with transaction.atomic():
@@ -307,57 +338,79 @@ def bulk_mark_entry(request):
                     entry_type = form.cleaned_data['entry_type']
                     count = 0
                     error_messages = []
+                    header_found = False
 
-                    if entry_type == 'bulk':
-                        if 'csv_file' in request.FILES:
-                            csv_file = request.FILES['csv_file']
-                            reader = csv.DictReader(
-                                csv_file.read().decode('utf-8').splitlines(),
-                                fieldnames=['admission_number', 'marks_obtained']
-                            )
-                            for row_num, row in enumerate(reader, start=1):
-                                try:
-                                    student = Student.objects.get(
-                                        admission_number=row['admission_number'].strip()
-                                    )
-                                    process_mark(student.id, row['marks_obtained'], paper)
+                    if entry_type == 'bulk' and 'csv_file' in request.FILES:
+                        csv_file = request.FILES['csv_file']
+                        decoded_file = csv_file.read().decode('utf-8-sig').splitlines()
+
+                        # Handle CSV header
+                        if decoded_file:
+                            header = decoded_file[0].lower().replace(' ', '')
+                            if 'admission_number' in header and 'marks_obtained' in header:
+                                header_found = True
+                                decoded_file = decoded_file[1:]
+
+                        reader = csv.DictReader(
+                            decoded_file,
+                            fieldnames=['admission_number', 'marks_obtained']
+                        )
+
+                        for row_num, row in enumerate(reader, start=1):
+                            actual_line = row_num + (1 if header_found else 0)
+                            try:
+                                admission_number = row['admission_number'].strip()
+                                marks = row['marks_obtained'].strip()
+
+                                if not admission_number:
+                                    raise ValidationError("Missing admission number")
+                                if not marks:
+                                    raise ValidationError("Missing marks value")
+
+                                student = Student.objects.get(admission_number=admission_number)
+                                if process_mark(student.id, marks, paper):
                                     count += 1
-                                except Exception as e:
-                                    error_messages.append(f"Row {row_num}: {str(e)}")
-                    else:
+                            except Exception as e:
+                                error_messages.append(f"CSV Line {actual_line}: {str(e)}")
+
+                    else:  # Single entry mode
                         for key, value in request.POST.items():
                             if key.startswith('student_'):
                                 student_id = key.split('_')[1]
                                 try:
-                                    if process_mark(student_id, value, paper):
-                                        count += 1
+                                    if value.strip():  # Skip empty inputs
+                                        if process_mark(student_id, value, paper):
+                                            count += 1
                                 except Exception as e:
-                                    error_messages.append(f"Student ID {student_id}: {str(e)}")
+                                    error_messages.append(f"Student {student_id}: {str(e)}")
 
+                    # Show results
                     if count > 0:
-                        messages.success(
-                            request,
-                            f"Successfully processed {count} marks for {paper.name}"
-                        )
+                        messages.success(request, f"Saved {count} marks for {paper.name}")
                     if error_messages:
-                        messages.error(
-                            request,
-                            f"Errors occurred: {', '.join(error_messages[:5])}" +
-                            ("..." if len(error_messages) > 5 else "")
-                        )
+                        messages.error(request, f"Errors ({len(error_messages)}):")
+                        for err in error_messages[:5]:
+                            messages.error(request, f"- {err}")
+                        if len(error_messages) > 5:
+                            messages.error(request, f"- ... and {len(error_messages) - 5} more")
 
                     return redirect('sms:bulk_mark_entry')
 
             except Exception as e:
                 messages.error(request, f"System Error: {str(e)}")
         else:
-            messages.error(request, "Invalid form submission. Please check your inputs.")
+            # Show form errors in detail
+            form_errors = []
+            for field, errors in form.errors.items():
+                for error in errors:
+                    field_name = field.replace('_', ' ').title()
+                    form_errors.append(f"{field_name}: {error}")
+            messages.error(request, "Form errors: " + ", ".join(form_errors))
     else:
         form = BulkMarkForm()
 
     return render(request, 'sms/bulk_mark_entry.html', {
-        'form': form,
-        'paper': form['paper'].value()
+        'form': form
     })
 
 
@@ -602,4 +655,235 @@ def load_students(request):
         'students': students,
         'paper': paper,
         'error': error
+    })
+
+
+def generate_report_data(student, academic_year, semester=None):
+    """Generate structured report data for a student"""
+    # Determine date range based on report type
+    if semester:
+        start_date = semester.start_date
+        end_date = semester.end_date
+    else:
+        start_date = academic_year.start_date
+        end_date = academic_year.end_date
+
+    report_data = {
+        'date_range': f"{start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}",
+        'subjects': [],
+        'overall': {}
+    }
+
+    # Get all subjects for the student's course
+    subjects = student.course.subjects.all()
+
+    for subject in subjects:
+        marks = Mark.objects.filter(
+            student=student,
+            paper__subject=subject,
+            date__range=(start_date, end_date)
+        ).select_related('paper')
+
+        papers_data = []
+        total_marks = 0
+        max_total = 0
+
+        for mark in marks:
+            papers_data.append({
+                'paper': mark.paper.name,
+                'marks': mark.marks_obtained,
+                'max': mark.paper.max_mark,
+                'grade': mark.grade
+            })
+            total_marks += mark.marks_obtained
+            max_total += mark.paper.max_mark
+
+        if marks.exists():
+            average = total_marks / marks.count()
+
+            report_data['subjects'].append({
+                'subject': subject,
+                'papers': papers_data,
+                'average': average,
+                'grade': Grade.get_grade(average),
+                'total_marks': total_marks,
+                'max_total': max_total
+            })
+
+    # Calculate overall averages
+    if report_data['subjects']:
+        overall_avg = sum(s['average'] for s in report_data['subjects']) / len(report_data['subjects'])
+        report_data['overall'] = {
+            'average': overall_avg,
+            'grade': Grade.get_grade(overall_avg),
+            'total_marks': sum(s['total_marks'] for s in report_data['subjects']),
+            'max_total': sum(s['max_total'] for s in report_data['subjects'])
+        }
+
+    return report_data
+
+
+def student_report(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    form = ReportForm(request.GET or None)
+    report_data = None
+
+    if form.is_valid():
+        academic_year = form.cleaned_data['academic_year']
+        semester = form.cleaned_data['semester'] if form.cleaned_data['report_type'] == 'semester' else None
+
+        report_data = generate_report_data(
+            student,
+            academic_year,
+            semester
+        )
+
+    return render(request, 'sms/student_report.html', {
+        'student': student,
+        'form': form,
+        'report_data': report_data
+    })
+def student_report_list(request):
+    students = Student.objects.select_related('course').all()
+    return render(request, 'sms/reports/student_list.html', {
+        'students': students
+    })
+
+
+# sms/views.py
+from django.core.paginator import Paginator
+
+
+from django.db.models import Count, Q
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import Course, AcademicYear
+
+def course_report_list(request):
+    # Initial queryset
+    courses = Course.objects.annotate(
+        student_count=Count('student'),
+        subject_count=Count('subjects')
+    ).order_by('name')
+
+    # Search functionality
+    search_query = request.GET.get('q')
+    if search_query:
+        courses = courses.filter(
+            Q(name__icontains=search_query) |
+            Q(code__icontains=search_query)
+        )
+
+    # Filter by academic year
+    academic_year = request.GET.get('year')
+    if academic_year:
+        courses = courses.filter(
+            student__academic_year_id=academic_year
+        ).distinct()
+
+    # Get available academic years for filter dropdown
+    academic_years = AcademicYear.objects.annotate(
+        course_count=Count('student__course', distinct=True)
+    ).order_by('-start_date')
+
+    # Pagination
+    paginator = Paginator(courses, 25)  # Show 25 courses per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'sms/reports/course_list.html', {
+        'page_obj': page_obj,
+        'search_query': search_query or '',
+        'academic_years': academic_years,
+        'selected_year': academic_year or ''
+    })
+
+
+from django.db.models import Avg, Count, F
+
+
+def course_report(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+
+    # Get students with their total marks using the correct related_name
+    students = course.student_set.annotate(
+        total_marks=Sum('marks__marks_obtained')  # Correct if related_name='marks'
+    ).select_related('academic_year', 'semester')
+
+    subjects = course.subjects.annotate(
+        average_score=Avg('papers__mark_set__marks_obtained'),  # Changed from marks__
+        total_students=Count('papers__mark_set__student', distinct=True)  # Changed
+    )
+
+    # Calculate overall statistics
+    total_students = students.count()
+    overall_average = subjects.aggregate(
+        avg=Avg('average_score')
+    )['avg'] or 0
+
+    overall_stats = {
+        'total_students': total_students,
+        'average_grade': Grade.get_grade(overall_average),
+        'top_subject': subjects.order_by(F('average_score').desc(nulls_last=True)).first()
+    }
+
+    return render(request, 'sms/reports/course_report.html', {
+        'course': course,
+        'students': students,
+        'subjects': subjects,
+        'overall_stats': overall_stats
+    })
+
+def semester_report_list(request):
+    semesters = Semester.objects.select_related('academic_year').annotate(
+        course_count=Count('student__course', distinct=True),
+        student_count=Count('student', distinct=True)
+    ).order_by('-academic_year__start_date', 'start_date')
+
+    return render(request, 'sms/reports/semester_list.html', {
+        'semesters': semesters
+    })
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Semester, Course, Mark
+
+from django.db.models import Avg, Count, Sum
+from django.shortcuts import render, get_object_or_404
+
+from django.db.models import Avg, Count, Sum, Value
+from django.db.models.functions import Concat
+
+
+def semester_report(request, semester_id):
+    semester = get_object_or_404(Semester.objects.select_related('academic_year'), pk=semester_id)
+
+    courses = Course.objects.filter(
+        student__semester=semester
+    ).annotate(
+        total_students=Count('student', distinct=True),
+        average_marks=Avg('student__marks__marks_obtained')  # Correct related_name
+    ).distinct()
+
+    top_students = (
+        Mark.objects
+        .filter(student__semester=semester)
+        .values('student')
+        .annotate(
+            total_marks=Sum('marks_obtained'),
+            full_name=Concat('student__first_name', Value(' '), 'student__last_name')
+        )
+        .order_by('-total_marks')[:5]
+    )
+
+    # Calculate total students
+    total_students = courses.aggregate(
+        total=Sum('total_students')
+    ).get('total', 0) or 0
+
+    return render(request, 'sms/reports/semester_report.html', {
+        'semester': semester,
+        'courses': courses,
+        'top_students': top_students,
+        'total_students': total_students
     })

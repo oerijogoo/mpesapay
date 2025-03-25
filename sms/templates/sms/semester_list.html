@@ -4,50 +4,18 @@
 <div class="card shadow">
     <div class="card-header bg-primary text-white">
         <h3 class="mb-0">
-            Semesters
-            <a href="{% url 'sms:semester_create' %}" class="btn btn-light btn-sm float-end">
-                <i class="fas fa-plus"></i> Add New
-            </a>
+            <i class="fas fa-calendar-alt me-2"></i>
+            Semester Reports
         </h3>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead class="table-light">
-                    <tr>
-                        <th>Name</th>
-                        <th>Academic Year</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for semester in semesters %}
-                    <tr>
-                        <td>{{ semester.name }}</td>
-                        <td>{{ semester.academic_year.name }}</td>
-                        <td>{{ semester.start_date|date:"M d, Y" }}</td>
-                        <td>{{ semester.end_date|date:"M d, Y" }}</td>
-                        <td>
-                            <a href="{% url 'sms:semester_detail' semester.pk %}" class="btn btn-sm btn-info">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="{% url 'sms:semester_update' semester.pk %}" class="btn btn-sm btn-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{% url 'sms:semester_delete' semester.pk %}" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center">No semesters found</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="list-group">
+            {% for semester in semesters %}
+            <a href="{% url 'sms:semester_report' semester.id %}"
+               class="list-group-item list-group-item-action">
+               {{ semester.name }} ({{ semester.academic_year.name }})
+            </a>
+            {% endfor %}
         </div>
     </div>
 </div>

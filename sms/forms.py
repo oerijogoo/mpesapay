@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 
 from .models import *
@@ -147,10 +148,31 @@ class BulkMarkForm(forms.Form):
             'hx-get': reverse_lazy('sms:load_students'),
             'hx-trigger': 'change',
             'hx-target': '#student-list',
-            'disabled': True
         })
     )
+
     csv_file = forms.FileField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Initialize paper queryset based on existing data
+        if 'subject' in self.data:
+            try:
+                subject_id = int(self.data.get('subject'))
+                self.fields['paper'].queryset = Paper.objects.filter(subject_id=subject_id)
+            except (ValueError, TypeError):
+                pass
+
+    def clean(self):
+        cleaned_data = super().clean()
+        paper = cleaned_data.get('paper')
+        subject = cleaned_data.get('subject')
+
+        if paper and subject and paper.subject != subject:
+            raise ValidationError("Selected paper does not belong to the chosen subject")
+
+        return cleaned_data
 
 
 class SemesterForm(forms.ModelForm):
@@ -192,3 +214,23 @@ class PaperForm(forms.ModelForm):
                 'step': '0.01'
             }),
         }
+
+
+
+class ReportForm(forms.Form):
+    academic_year = forms.ModelChoiceField(
+        queryset=AcademicYear.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    semester = forms.ModelChoiceField(
+        queryset=Semester.objects.all(),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    report_type = forms.ChoiceField(
+        choices=[
+            ('semester', 'Semester Report'),
+            ('annual', 'Annual Report')
+        ],
+        widget=forms.RadioSelect(attrs={'class': 'btn-check-input'})
+    )
