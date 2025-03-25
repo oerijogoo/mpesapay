@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.db.models import Sum, Avg
@@ -54,12 +55,14 @@ class Course(models.Model):
         return f"{self.name} ({self.code})"
 
 
+
 class Student(models.Model):
     STATUS_CHOICES = [
         ('active', 'Active'),
         ('inactive', 'Inactive'),
         ('graduated', 'Graduated'),
     ]
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -75,50 +78,26 @@ class Student(models.Model):
     academic_year = models.ForeignKey(AcademicYear, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
 
-    def get_subject_grades(self, academic_year=None, semester=None):
-        """Get grades for all subjects for a specific period"""
-        papers = Paper.objects.filter(
-            mark_set__student=self,  # Changed from mark__student
-            subject__course=self.course
-        )
-
-        if academic_year:
-            papers = papers.filter(subject__academic_year=academic_year)
-        if semester:
-            papers = papers.filter(subject__semester=semester)
-
-        return papers.values('subject').annotate(
-            total_marks=Sum('mark_set__marks_obtained'),  # Changed from mark__
-            average=Avg('mark_set__marks_obtained')
-        )
-
-    def save(self, *args, **kwargs):
-        if not self.admission_number:
-            last_student = Student.objects.order_by('-id').first()
-            last_id = last_student.id if last_student else 0
-            self.admission_number = f"SCH-{last_id + 1:03d}"
-        super().save(*args, **kwargs)
+    @property
+    def full_name(self):
+        """Return the full name of the student"""
+        return f"{self.first_name} {self.last_name}"
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.admission_number})"
+        return f"{self.full_name} ({self.admission_number})"
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
+
+    def clean(self):
+        if self.semester.academic_year != self.academic_year:
+            raise ValidationError("Semester must belong to selected academic year")
 
 
-class Mark(models.Model):
-    student = models.ForeignKey(
-        Student,
-        on_delete=models.CASCADE,
-        related_name='marks'  # This is critical for the query
-    )
-    paper = models.ForeignKey(Paper, on_delete=models.CASCADE)
-    marks_obtained = models.DecimalField(max_digits=5, decimal_places=2)
-    date = models.DateField(auto_now_add=True)
-
-    @property
-    def grade(self):
-        return Grade.get_grade(self.marks_obtained)
 
 
-class Grade(models.Model):
+
+class Grade(models.Model):  # Moved ABOVE Mark model
     grade = models.CharField(max_length=2)
     min_mark = models.DecimalField(max_digits=5, decimal_places=2)
     max_mark = models.DecimalField(max_digits=5, decimal_places=2)
@@ -132,14 +111,36 @@ class Grade(models.Model):
             return cls.objects.get(
                 min_mark__lte=mark,
                 max_mark__gte=mark
-            ).grade
+            )
         except cls.DoesNotExist:
-            return 'N/A'
+            return None
         except cls.MultipleObjectsReturned:
             return cls.objects.filter(
                 min_mark__lte=mark,
                 max_mark__gte=mark
-            ).first().grade
+            ).first()
+
+    class Meta:
+        ordering = ['-min_mark']
+
+class Mark(models.Model):
+    student = models.ForeignKey('Student', on_delete=models.CASCADE, related_name='marks')
+    paper = models.ForeignKey('Paper', on_delete=models.CASCADE, related_name='marks')
+    marks_obtained = models.DecimalField(max_digits=5, decimal_places=2)
+    grade = models.ForeignKey('Grade', on_delete=models.SET_NULL, null=True, blank=True)
+    date = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Assign grade before saving
+        if not self.grade:  # Only calculate if not already set
+            self.grade = Grade.get_grade(self.marks_obtained)
+        super().save(*args, **kwargs)
+
+    def clean(self):
+        if self.marks_obtained > self.paper.max_mark:
+            raise ValidationError("Marks obtained cannot exceed paper maximum")
+        if self.marks_obtained < 0:
+            raise ValidationError("Marks cannot be negative")
 
 
 class StudentSubjectGrade(models.Model):
@@ -157,3 +158,5 @@ class StudentSubjectGrade(models.Model):
     def save(self, *args, **kwargs):
         self.grade = Grade.get_grade(self.average)
         super().save(*args, **kwargs)
+
+

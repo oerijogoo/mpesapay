@@ -234,3 +234,5 @@ class ReportForm(forms.Form):
         ],
         widget=forms.RadioSelect(attrs={'class': 'btn-check-input'})
     )
+
+
