@@ -1,0 +1,263 @@
+{% extends "csms/base.html" %}
+{% load static %}
+
+{% block title %}Update {{ model_name }} - CSMS{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>Update {{ model_name }}</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'csms:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url list_url %}">{{ model_name|title }}s</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Update</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Update {{ model_name }}</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" id="main-form">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    {% if paper_form %}
+                    <h5 class="mt-4">Papers</h5>
+                    <div id="weight-sum-error" class="alert alert-danger d-none">
+                        Total weight of all papers cannot exceed 100%
+                    </div>
+                    {{ paper_form.management_form }}
+
+                    <div id="papers-container">
+                        {% for form in paper_form %}
+                        <div class="paper-form card mb-3">
+                            <div class="card-body">
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                                {% for field in form.visible_fields %}
+                                    <div class="mb-3">
+                                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                        {% endif %}
+                                        {% for error in field.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                                {% if form.DELETE %}
+                                    <div class="form-check">
+                                        {{ form.DELETE }}
+                                        <label class="form-check-label" for="{{ form.DELETE.id_for_label }}">Delete</label>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="button" class="btn btn-sm btn-outline-primary add-paper-form mb-3" id="add-paper-button">
+                        <i class="fas fa-plus"></i> Add Another Paper
+                    </button>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary" id="submit-button">Update</button>
+                        <a href="{% url list_url %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">{{ model_name|title }} Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            {% for field in fields_data %}
+                            <tr>
+                                <th>{{ field.verbose_name|title }}</th>
+                                <td>
+                                    {% if field.is_boolean %}
+                                        {% if field.value %}
+                                            <span class="badge bg-success">Active</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Inactive</span>
+                                        {% endif %}
+                                    {% elif field.is_image and field.value %}
+                                        <img src="{{ field.value.url }}" alt="{{ object }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                    {% else %}
+                                        {{ field.value|default:"" }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if paper_form %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('===== INITIALIZING PAPER FORM SCRIPT =====');
+
+    // Get required elements
+    const addButton = document.getElementById('add-paper-button');
+    const totalFormsInput = document.getElementById('id_paper_set-TOTAL_FORMS');
+    const container = document.getElementById('papers-container');
+    const weightError = document.getElementById('weight-sum-error');
+    const submitButton = document.getElementById('submit-button');
+    const mainForm = document.getElementById('main-form');
+
+    if (!addButton || !totalFormsInput || !container) {
+        console.error('Missing required elements');
+        return;
+    }
+
+    // Store the empty form template
+    const emptyForm = document.querySelector('.paper-form');
+    const emptyFormHtml = emptyForm.outerHTML;
+
+    // Calculate total weight
+    function calculateTotalWeight() {
+        let total = 0;
+        document.querySelectorAll('input[name*="-weight"]').forEach(input => {
+            if (!input.disabled && input.value) {
+                const weight = parseFloat(input.value) || 0;
+                total += weight;
+            }
+        });
+        return total;
+    }
+
+    // Validate weight sum
+    function validateWeights() {
+        const total = calculateTotalWeight();
+        if (total > 100) {
+            weightError.classList.remove('d-none');
+            submitButton.disabled = true;
+            return false;
+        } else {
+            weightError.classList.add('d-none');
+            submitButton.disabled = false;
+            return true;
+        }
+    }
+
+    // Add button click handler
+    addButton.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        if (!validateWeights()) return;
+
+        const formCount = parseInt(totalFormsInput.value);
+
+        // Create new form with updated indices
+        const newFormHtml = emptyFormHtml
+            .replace(/paper_set-\d+-/g, `paper_set-${formCount}-`)
+            .replace(/__prefix__/g, formCount);
+
+        // Create DOM element
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newFormHtml;
+        const newForm = tempDiv.firstElementChild;
+
+        // Clear values
+        newForm.querySelectorAll('input:not([type="hidden"]):not([name$="-DELETE"]), select').forEach(input => {
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            } else if (input.tagName === 'SELECT') {
+                input.selectedIndex = 0;
+            } else {
+                input.value = '';
+            }
+        });
+
+        // Insert the new form
+        container.appendChild(newForm);
+
+        // Update form count
+        totalFormsInput.value = formCount + 1;
+
+        // Add weight validation to new inputs
+        newForm.querySelector('input[name*="-weight"]').addEventListener('input', validateWeights);
+    });
+
+    // Delete checkbox handler
+    document.addEventListener('change', function(e) {
+        if (e.target && e.target.name && e.target.name.endsWith('-DELETE')) {
+            const form = e.target.closest('.paper-form');
+
+            if (e.target.checked) {
+                form.style.opacity = '0.5';
+                form.querySelectorAll('input:not([name$="-DELETE"]), select').forEach(el => {
+                    el.disabled = true;
+                });
+            } else {
+                form.style.opacity = '1';
+                form.querySelectorAll('input:not([name$="-DELETE"]), select').forEach(el => {
+                    el.disabled = false;
+                });
+            }
+            validateWeights();
+        }
+    });
+
+    // Validate on weight input changes
+    document.querySelectorAll('input[name*="-weight"]').forEach(input => {
+        input.addEventListener('input', validateWeights);
+    });
+
+    // Initial validation
+    validateWeights();
+
+    // Form submission handler
+    mainForm.addEventListener('submit', function(e) {
+        if (!validateWeights()) {
+            e.preventDefault();
+            weightError.classList.remove('d-none');
+            weightError.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    console.log('===== PAPER FORM SCRIPT INITIALIZED =====');
+});
+</script>
+{% endif %}
+{% endblock %}

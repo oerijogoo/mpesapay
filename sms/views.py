@@ -1,5 +1,5 @@
 
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from .forms import *
@@ -17,7 +17,7 @@ import csv
 from weasyprint import HTML
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Avg, Count, Sum, Value, IntegerField, Case, When
+from django.db.models import Avg, Count, Sum, Value, IntegerField, Case, When, Max, Min
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Count, Avg, F, Value, FloatField, Q
@@ -649,6 +649,17 @@ def load_students(request):
 
 
 def generate_report_data(student, academic_year, semester=None):
+    # Initialize all chart variables first
+    enrollment_chart = None
+    subject_chart = None
+    grade_chart = None
+    progress_chart = None
+
+    # Get filters
+    academic_year_id = request.GET.get('academic_year')
+    semester_id = request.GET.get('semester')
+    course_id = request.GET.get('course')
+    subject_id = request.GET.get('subject')
     """Generate structured report data for a student"""
     # Determine date range based on report type
     if semester:
@@ -876,143 +887,168 @@ def convert_decimals(obj):
     return obj
 
 
-# views.py
 from django.shortcuts import render
+from django.db.models import Count, Avg, Q
 from .models import *
 import pandas as pd
 import plotly.express as px
-from django.db.models import Q, Count, Avg
 
 
-def analysis_dashboard(request):
+def smart_dashboard(request):
+    # Initialize all chart variables
+    enrollment_chart = None
+    subject_chart = None
+    grade_chart = None
+    progress_chart = None
+
     # Get filter parameters
     academic_year_id = request.GET.get('academic_year')
     semester_id = request.GET.get('semester')
     course_id = request.GET.get('course')
     subject_id = request.GET.get('subject')
 
-    # Base querysets with select_related/prefetch_related
-    students = Student.objects.select_related('course', 'academic_year', 'semester')
-    marks = Mark.objects.select_related('student', 'paper__subject')
-    grades = StudentSubjectGrade.objects.select_related('subject', 'semester', 'academic_year')
+    # Filter options based on relationships
+    academic_years = AcademicYear.objects.all()
+    semesters = Semester.objects.all()
+    courses = Course.objects.all()
+    subjects = Subject.objects.all()
 
-    # Apply filters
+    # Apply academic year filter to semesters
+    if academic_year_id:
+        semesters = semesters.filter(academic_year_id=academic_year_id)
+
+    # Apply course filter to subjects
+    if course_id:
+        subjects = subjects.filter(courses__id=course_id)
+
+    # Base querysets
+    students = Student.objects.all()
+    grades = StudentSubjectGrade.objects.all()
+
+    # Apply filters to students and grades
     if academic_year_id:
         students = students.filter(academic_year_id=academic_year_id)
-        marks = marks.filter(student__academic_year_id=academic_year_id)
         grades = grades.filter(academic_year_id=academic_year_id)
 
     if semester_id:
         students = students.filter(semester_id=semester_id)
-        marks = marks.filter(student__semester_id=semester_id)
         grades = grades.filter(semester_id=semester_id)
 
     if course_id:
         students = students.filter(course_id=course_id)
-        marks = marks.filter(student__course_id=course_id)
         grades = grades.filter(student__course_id=course_id)
 
     if subject_id:
-        marks = marks.filter(paper__subject_id=subject_id)
         grades = grades.filter(subject_id=subject_id)
 
-    # Chart 1: Performance Over Time
-    performance_data = marks.values(
-        'paper__subject__name',
-        'student__semester__name'
-    ).annotate(avg_marks=Avg('marks_obtained'))
-
-    performance_chart = None
-    if performance_data:
-        df = pd.DataFrame(list(performance_data))
+    # 1. Course Enrollment Pie Chart
+    enrollment_data = students.values('course__name').annotate(total=Count('id'))
+    if enrollment_data.exists():
+        df = pd.DataFrame(list(enrollment_data))
         if not df.empty:
-            fig = px.line(
+            fig = px.pie(
                 df,
-                x='student__semester__name',
-                y='avg_marks',
-                color='paper__subject__name',
-                title='Performance Trend by Subject',
-                labels={
-                    'student__semester__name': 'Semester',
-                    'avg_marks': 'Average Marks',
-                    'paper__subject__name': 'Subject'
-                }
+                names='course__name',
+                values='total',
+                title='<b>Course Enrollment</b>',
+                hole=0.3
             )
-            performance_chart = fig.to_html()
+            fig.update_traces(
+                textposition='inside',
+                textinfo='label+value',
+                hovertemplate="<b>%{label}</b><br>Students: %{value}"
+            )
+            enrollment_chart = fig.to_html()
 
-    # Chart 2: Subject Averages
+    # 2. Subject Performance Bar Chart
     subject_avg = grades.values('subject__name').annotate(
-        avg_score=Avg('average'))
-    subject_chart = None
-    if subject_avg:
+        avg_score=Avg('average'),
+        total_students=Count('student', distinct=True)
+    )
+    if subject_avg.exists():
         df = pd.DataFrame(list(subject_avg))
-        if not df.empty:
+        if not df.empty and df['total_students'].sum() > 0:
             fig = px.bar(
                 df,
                 x='subject__name',
                 y='avg_score',
-                title='Subject-wise Average Scores',
-                labels={'subject__name': 'Subject', 'avg_score': 'Average Score'}
+                text='avg_score',
+                title='<b>Subject Performance</b>',
+                labels={'avg_score': 'Average Score'}
+            )
+            fig.update_traces(
+                texttemplate='%{y:.1f}',
+                textposition='outside',
+                marker_color='#4CAF50'
             )
             subject_chart = fig.to_html()
 
-    # Chart 3: Grade Distribution
-    grade_data = grades.values('grade').annotate(count=Count('grade'))
-    grade_chart = None
-    if grade_data:
+    # 3. Grade Distribution Column Chart
+    grade_data = grades.values('grade').annotate(total=Count('grade'))
+    if grade_data.exists():
         df = pd.DataFrame(list(grade_data))
-        if not df.empty:
-            fig = px.pie(
+        if not df.empty and df['total'].sum() > 0:
+            fig = px.bar(
                 df,
-                names='grade',
-                values='count',
-                title='Grade Distribution'
+                x='grade',
+                y='total',
+                text='total',
+                title='<b>Grade Distribution</b>',
+                color='grade',
+                labels={'total': 'Students'}
             )
+            fig.update_traces(textposition='outside')
             grade_chart = fig.to_html()
 
-    # Chart 4: Enrollment Statistics
-    enrollment_data = students.values(
-        'course__name',
-        'status'
-    ).annotate(count=Count('id'))
+    # 4. Semester Progress Line Chart
+    progress_data = grades.values('semester__name', 'semester__start_date').annotate(
+        avg_score=Avg('average'),
+        total_students=Count('student', distinct=True)
+    ).order_by('semester__start_date')
 
-    enrollment_chart = None
-    if enrollment_data:
-        df = pd.DataFrame(list(enrollment_data))
-        if not df.empty:
-            fig = px.sunburst(
+    if progress_data.exists() and len(progress_data) > 1:
+        df = pd.DataFrame(list(progress_data))
+        if not df.empty and df['total_students'].sum() > 0:
+            fig = px.line(
                 df,
-                path=['course__name', 'status'],
-                values='count',
-                title='Enrollment Overview'
+                x='semester__name',
+                y='avg_score',
+                title='<b>Academic Progress</b>',
+                markers=True,
+                labels={'avg_score': 'Average Score'}
             )
-            enrollment_chart = fig.to_html()
+            fig.update_traces(
+                line=dict(width=3, color='#FF6F00'),
+                marker=dict(size=12, color='#FFA726')
+            )
+            progress_chart = fig.to_html()
 
-    # Summary Statistics
-    summary = {
-        'total_students': students.count(),
-        'active_students': students.filter(status='active').count(),
-        'avg_score': grades.aggregate(avg=Avg('average'))['avg'] or 0,
-        'total_courses': Course.objects.count()
-    }
+            # Add to smart_dashboard() before returning context
+            print("Subject Grades Exist:", StudentSubjectGrade.objects.exists())
+            print("Semesters with Grades:",
+                  Semester.objects.annotate(grade_count=Count('studentsubjectgrade')).filter(grade_count__gt=0).count())
+            print("Unique Grades:", StudentSubjectGrade.objects.values('grade').distinct().count())
 
     context = {
-        'performance_chart': performance_chart or "No performance data available",
-        'subject_chart': subject_chart or "No subject data available",
-        'grade_chart': grade_chart or "No grade data available",
-        'enrollment_chart': enrollment_chart or "No enrollment data available",
-        'summary': summary,
+        'enrollment_chart': enrollment_chart,
+        'subject_chart': subject_chart,
+        'grade_chart': grade_chart,
+        'progress_chart': progress_chart,
         'filters': {
-            'academic_years': AcademicYear.objects.all(),
-            'semesters': Semester.objects.all(),
-            'courses': Course.objects.all(),
-            'subjects': Subject.objects.all(),
+            'academic_years': academic_years,
+            'semesters': semesters,
+            'courses': courses,
+            'subjects': subjects,
             'selected': {
-                'academic_year': int(academic_year_id) if academic_year_id else '',
-                'semester': int(semester_id) if semester_id else '',
-                'course': int(course_id) if course_id else '',
-                'subject': int(subject_id) if subject_id else '',
+                'academic_year': int(academic_year_id) if academic_year_id else None,
+                'semester': int(semester_id) if semester_id else None,
+                'course': int(course_id) if course_id else None,
+                'subject': int(subject_id) if subject_id else None,
             }
+        },
+        'counts': {
+            'students': students.count(),
+            'grades': grades.count()
         }
     }
     return render(request, 'sms/dashboard.html', context)

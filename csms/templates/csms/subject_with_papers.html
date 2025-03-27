@@ -1,0 +1,106 @@
+<!-- csms/templates/csms/subject_with_papers.html -->
+{% extends "csms/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if form.instance.pk %}Update{% else %}Create{% endif %} Subject with Papers{% endblock %}
+{% block header %}{% if form.instance.pk %}Update{% else %}Create{% endif %} Subject with Papers{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Subject Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <h5 class="mt-4">Papers</h5>
+                    {{ papers.management_form }}
+                    <div id="papers-formset">
+                        {% for paper_form in papers %}
+                        <div class="paper-form mb-3 p-3 border rounded">
+                            {{ paper_form|crispy }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <button type="button" id="add-paper" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-plus me-1"></i> Add Paper
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Save
+                        </button>
+                        <a href="{% url 'csms:subject_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-1"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Paper Requirements</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-info-circle me-2"></i>Important Notes</h6>
+                    <ul>
+                        <li>Each paper must have a unique code within the subject</li>
+                        <li>The sum of all paper weights must equal 100%</li>
+                        <li>Paper weights must be between 1% and 100%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add paper form
+    document.getElementById('add-paper').addEventListener('click', function() {
+        const formset = document.getElementById('papers-formset');
+        const totalForms = document.getElementById('id_papers-TOTAL_FORMS');
+        const formCount = parseInt(totalForms.value);
+
+        // Clone the first empty form (or last form if available)
+        const emptyForm = document.querySelector('.paper-form').cloneNode(true);
+
+        // Update form indices
+        const regex = new RegExp('(papers-)(\\d+)', 'g');
+        emptyForm.innerHTML = emptyForm.innerHTML.replace(regex, `papers-${formCount}`);
+
+        // Clear values
+        const inputs = emptyForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            if (input.type !== 'hidden' && input.name.indexOf('DELETE') === -1) {
+                input.value = '';
+            }
+        });
+
+        // Add delete checkbox if not present
+        if (!emptyForm.querySelector('input[name$="-DELETE"]')) {
+            const deleteDiv = document.createElement('div');
+            deleteDiv.className = 'form-group';
+            deleteDiv.innerHTML = `
+                <div class="form-check">
+                    <input type="checkbox" name="papers-${formCount}-DELETE" id="id_papers-${formCount}-DELETE" class="form-check-input">
+                    <label class="form-check-label" for="id_papers-${formCount}-DELETE">Delete</label>
+                </div>
+            `;
+            emptyForm.appendChild(deleteDiv);
+        }
+
+        // Append to formset
+        formset.appendChild(emptyForm);
+        totalForms.value = formCount + 1;
+    });
+});
+</script>
+{% endblock %}

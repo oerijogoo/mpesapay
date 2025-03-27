@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student }} Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .report-header img {
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .report-header h2 {
+            margin: 5px 0;
+            font-size: 24px;
+        }
+        .report-header p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .student-info {
+            margin-bottom: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-info th, .student-info td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .student-info th {
+            background-color: #f2f2f2;
+            width: 30%;
+        }
+        .student-photo {
+            text-align: center;
+        }
+        .student-photo img {
+            max-width: 120px;
+            border: 1px solid #ddd;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .results-table th {
+            background-color: #f2f2f2;
+        }
+        .results-table .grade-A {
+            background-color: #d4edda;
+        }
+        .results-table .grade-B {
+            background-color: #fff3cd;
+        }
+        .results-table .grade-C {
+            background-color: #f8d7da;
+        }
+        .section-title {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #eee;
+        }
+        .signature-area {
+            margin-top: 50px;
+            width: 100%;
+        }
+        .signature-box {
+            display: inline-block;
+            width: 30%;
+            text-align: center;
+            margin: 0 1%;
+        }
+        .signature-line {
+            border-top: 1px solid #333;
+            margin: 0 auto;
+            width: 80%;
+            height: 40px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-header">
+        {% if institution.logo %}
+            <img src="{{ institution.logo.url }}" alt="School Logo">
+        {% endif %}
+        <h2>{{ institution.name }}</h2>
+        <p>{{ institution.motto }}</p>
+        <h3>STUDENT REPORT</h3>
+    </div>
+
+    <table style="width: 100%; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 70%; vertical-align: top;">
+                <table class="student-info">
+                    <tr>
+                        <th>Admission Number</th>
+                        <td>{{ student.admission_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ student.gender }}</td>
+                    </tr>
+                    {% if student.academic_level %}
+                    <tr>
+                        <th>Class Level</th>
+                        <td>{{ student.academic_level }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if student.year_of_study %}
+                    <tr>
+                        <th>Year of Study</th>
+                        <td>{{ student.year_of_study }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if student.course %}
+                    <tr>
+                        <th>Course</th>
+                        <td>{{ student.course }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if student.current_semester %}
+                    <tr>
+                        <th>Semester</th>
+                        <td>{{ student.current_semester }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </td>
+            <td style="width: 30%; text-align: center; vertical-align: top;">
+                <div class="student-photo">
+                    {% if student.photo %}
+                        <img src="{{ student.photo.url }}" alt="Student Photo">
+                    {% else %}
+                        <div style="border: 1px solid #ddd; width: 120px; height: 120px; display: inline-flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 14px; color: #666;">No Photo</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    {% for enrollment in enrollments %}
+    <div class="exam-section">
+        <h4 class="section-title">
+            {% if enrollment.academic_level %}
+                {{ enrollment.academic_level }} -
+            {% endif %}
+            {{ enrollment.year_of_study }}
+            {% if enrollment.semester %}
+                - {{ enrollment.semester }}
+            {% endif %}
+        </h4>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Paper</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in exam_results %}
+                    {% if result.subject_enrollment.enrollment == enrollment %}
+                    <tr>
+                        <td>{{ result.subject_enrollment.subject }}</td>
+                        <td>{% if result.paper %}{{ result.paper }}{% else %}--{% endif %}</td>
+                        <td>{{ result.marks }}</td>
+                        <td class="grade-{% if result.grade %}{% if result.grade.points >= 4.0 %}A{% elif result.grade.points >= 2.0 %}B{% else %}C{% endif %}{% endif %}">
+                            {% if result.grade %}{{ result.grade.name }}{% else %}--{% endif %}
+                        </td>
+                        <td>{% if result.grade %}{{ result.grade.comment }}{% else %}--{% endif %}</td>
+                    </tr>
+                    {% endif %}
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">No exam results found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+
+    <div class="signature-area">
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p>Class Teacher</p>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p>Head of Department</p>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p>Principal/Director</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        Generated on {% now "F j, Y" %} by {{ institution.name }} - School/College Management System
+    </div>
+</body>
+</html>

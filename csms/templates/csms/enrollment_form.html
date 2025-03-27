@@ -1,0 +1,91 @@
+{% extends 'csms/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Enrollment{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mb-0">Create Enrollment</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" id="enrollment-form">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.student|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Course</label>
+                            <input type="text" class="form-control"
+                                   id="course-display" readonly
+                                   value="{{ form.instance.course|default:'' }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.academic_year|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.semester|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form.is_active|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>Select Subjects for This Term</h5>
+                    </div>
+                    <div class="card-body">
+                        {{ form.enrolled_subjects|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Save Enrollment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update course display when student changes
+    const studentSelect = document.getElementById('id_student');
+    if (studentSelect) {
+        studentSelect.addEventListener('change', function() {
+            const studentId = this.value;
+            if (studentId) {
+                fetch(`/api/students/${studentId}/course/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('course-display').value = data.name;
+                        // Update subjects queryset
+                        fetch(`/api/courses/${data.id}/subjects/`)
+                            .then(res => res.json())
+                            .then(subjects => {
+                                // Update the subjects checkboxes
+                                // This part might need adjustment based on your actual HTML structure
+                            });
+                    });
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

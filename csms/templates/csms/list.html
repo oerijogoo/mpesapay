@@ -1,0 +1,43 @@
+{% extends "csms/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>{% if object %}Update{% else %}Create{% endif %} {{ model_name }}</h2>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="{% url list_url %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    {% block form_extra %}{% endblock %}
+
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Save
+                        </button>
+                        <a href="{% url list_url %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        {% block related_items %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

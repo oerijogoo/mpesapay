@@ -1,0 +1,29 @@
+{% extends 'csms/base.html' %}
+
+{% block title %}Delete Academic Calendar Event{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mb-0">Confirm Deletion</h4>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to delete the event "{{ object }}"?</p>
+            <p><strong>Type:</strong> {{ object.get_event_type_display }}</p>
+            <p><strong>Date:</strong> {{ object.start_date|date:"M d, Y" }} to {{ object.end_date|date:"M d, Y" }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i> Delete
+                    </button>
+                    <a href="{% url 'academic_calendar_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times me-1"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

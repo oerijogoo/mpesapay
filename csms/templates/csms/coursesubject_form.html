@@ -1,0 +1,74 @@
+{% extends "csms/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ title }}</h2>
+
+    <form method="post" id="course-subject-form">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_course" class="form-label">Course</label>
+            <select name="course" id="id_course" class="form-control" required>
+                <option value="">Select a course...</option>
+                {% for course in all_courses %}
+                    <option value="{{ course.id }}">{{ course.name }} ({{ course.code }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_semester" class="form-label">Semester</label>
+            <select name="semester" id="id_semester" class="form-control" required>
+                <option value="">Select a semester...</option>
+                {% for semester in all_semesters %}
+                    <option value="{{ semester.id }}">{{ semester.name }} ({{ semester.start_date|date:"Y" }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_subjects" class="form-label">Subjects</label>
+            <select name="subjects" id="id_subjects" class="form-control" multiple required>
+                {% for subject in all_subjects %}
+                    <option value="{{ subject.id }}">{{ subject.name }} ({{ subject.code }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="is_core" id="id_is_core" class="form-check-input" checked>
+            <label for="id_is_core" class="form-check-label">Core Subject</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'csms:coursesubject_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('course-subject-form');
+
+    form.addEventListener('submit', function(e) {
+        const subjects = Array.from(document.getElementById('id_subjects').selectedOptions);
+        if (subjects.length === 0) {
+            alert('Please select at least one subject');
+            e.preventDefault();
+            return false;
+        }
+
+        console.log('Form data:', {
+            course: document.getElementById('id_course').value,
+            semester: document.getElementById('id_semester').value,
+            subjects: subjects.map(o => o.value),
+            is_core: document.getElementById('id_is_core').checked
+        });
+
+        return true;
+    });
+});
+</script>
+{% endblock %}

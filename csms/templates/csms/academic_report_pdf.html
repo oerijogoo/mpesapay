@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Academic Report - {{ academic_report.student }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 80px;
+        }
+        .header h1 {
+            margin: 5px 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .student-info {
+            margin-bottom: 20px;
+        }
+        .student-info table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-info td {
+            padding: 5px;
+            border: 1px solid #ddd;
+        }
+        .student-info td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .results-table th {
+            background-color: #f2f2f2;
+        }
+        .summary {
+            margin-top: 20px;
+        }
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature div {
+            width: 45%;
+            border-top: 1px solid #000;
+            text-align: center;
+            padding-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-content">
+        <div class="header">
+            {% with settings=SchoolSettings.objects.first %}
+                {% if settings.logo %}
+                    <img src="{{ settings.logo.url }}" alt="{{ settings.name }}">
+                {% endif %}
+                <h1>{{ settings.name|default:"College/School Management System" }}</h1>
+                <p>{{ settings.address|default:"" }}</p>
+                <p>{{ settings.phone|default:"" }} | {{ settings.email|default:"" }}</p>
+            {% endwith %}
+            <h2>Academic Report</h2>
+        </div>
+
+        <div class="student-info">
+            <table>
+                <tr>
+                    <td>Student Name</td>
+                    <td>{{ academic_report.student.get_full_name }}</td>
+                </tr>
+                <tr>
+                    <td>Admission Number</td>
+                    <td>{{ academic_report.student.admission_number }}</td>
+                </tr>
+                <tr>
+                    <td>Course</td>
+                    <td>{{ academic_report.student.course.name }}</td>
+                </tr>
+                <tr>
+                    <td>Academic Year</td>
+                    <td>{{ academic_report.academic_year.name }}</td>
+                </tr>
+                <tr>
+                    <td>Semester</td>
+                    <td>{{ academic_report.semester.name }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Code</th>
+                    <th>Total Mark</th>
+                    <th>Grade</th>
+                    <th>Points</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in exam_results %}
+                    <tr>
+                        <td>{{ result.subject.name }}</td>
+                        <td>{{ result.subject.code }}</td>
+                        <td>{{ result.total_mark }}</td>
+                        <td>{{ result.grade.name }}</td>
+                        <td>{{ result.points }}</td>
+                        <td>{{ result.remark }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <p><strong>Total Marks:</strong> {{ academic_report.total_marks }}</p>
+            <p><strong>Average:</strong> {{ academic_report.average }}</p>
+            <p><strong>Total Points:</strong> {{ academic_report.total_points }}</p>
+            <p><strong>GPA:</strong> {{ academic_report.gpa }}</p>
+            <p><strong>Position:</strong> {% if academic_report.position %}{{ academic_report.position }}{% else %}Not ranked{% endif %}</p>
+            <p><strong>Remarks:</strong> {{ academic_report.remarks }}</p>
+        </div>
+
+        <div class="signature">
+            <div>Class Teacher</div>
+            <div>Principal</div>
+        </div>
+    </div>
+</body>
+</html>

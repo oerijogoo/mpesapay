@@ -1,0 +1,31 @@
+{% extends 'csms/base.html' %}
+
+{% block title %}Delete Exam Result{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mb-0">Confirm Deletion</h4>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to delete this exam result?</p>
+            <p><strong>Exam:</strong> {{ object.exam }}</p>
+            <p><strong>Student:</strong> {{ object.student }}</p>
+            <p><strong>Subject:</strong> {{ object.subject }}</p>
+            <p><strong>Score:</strong> {{ object.score }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i> Delete
+                    </button>
+                    <a href="{% url 'exam_result_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times me-1"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

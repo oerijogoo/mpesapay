@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    @media print {
+        .no-print, nav, .btn, .alert {
+            display: none !important;
+        }
+        .school-logo {
+            max-height: 80px;
+        }
+        .report-table {
+            font-size: 0.8rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="report-container">
+    <div class="text-center mb-5">
+        {% with settings=SchoolSettings.objects.first %}
+        <img src="{{ settings.logo.url }}" alt="School Logo"
+             class="school-logo mb-3" style="height: 100px;">
+        <h2 class="mb-1">{{ settings.school_name }}</h2>
+        <p class="text-muted">{{ settings.motto }}</p>
+        {% endwith %}
+        <h4 class="mt-4">Examination Report</h4>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive report-table">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Student</th>
+                            <th>Admission No.</th>
+                            <th>Course</th>
+                            <th>Subject</th>
+                            <th>Marks</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.student.full_name }}</td>
+                            <td>{{ result.student.admission_number }}</td>
+                            <td>{{ result.course.name }}</td>
+                            <td>{{ result.subject.name }}</td>
+                            <td>{{ result.marks }}</td>
+                            <td>{{ result.grade }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 no-print text-center">
+                <button onclick="window.print()" class="btn btn-success px-4">
+                    <i class="bi bi-file-pdf"></i> Export as PDF
+                </button>
+                <a href="{% url 'csms:exam_report' %}" class="btn btn-outline-secondary">
+                    Back to Reports
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

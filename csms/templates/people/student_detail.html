@@ -1,0 +1,162 @@
+{% extends "csms/base.html" %}
+{% load static %}
+{% load cloudinary %}
+
+{% block title %}Student Details - {{ student.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'csms:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'csms:student_list' %}">Students</a></li>
+                    <li class="breadcrumb-item active">{{ student.user.get_full_name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Student Profile</h5>
+                </div>
+                <div class="card-body text-center">
+                    {% if student.photo %}
+                        {% cloudinary student.photo width=200 height=200 crop="fill" gravity="face" class="img-thumbnail mb-3" %}
+                    {% else %}
+                        <img src="{% static 'img/default-user.png' %}" class="img-thumbnail mb-3" width="200" height="200">
+                    {% endif %}
+                    <h4>{{ student.user.get_full_name }}</h4>
+                    <p class="text-muted">{{ student.admission_number }}</p>
+
+                    <div class="d-flex justify-content-center mb-3">
+                        <span class="badge {% if student.is_active %}bg-success{% else %}bg-secondary{% endif %} fs-6">
+                            {% if student.is_active %}Active{% else %}Inactive{% endif %}
+                        </span>
+                    </div>
+
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Course</span>
+                            <strong>{{ student.course }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Academic Year</span>
+                            <strong>{{ student.academic_year }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Gender</span>
+                            <strong>{{ student.get_gender_display }}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Date of Birth</span>
+                            <strong>{{ student.date_of_birth|date:"M d, Y" }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Personal Information</h5>
+                        <div>
+                            <a href="{% url 'csms:student_update' student.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit me-1"></i> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Contact Details</h6>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-envelope me-2 text-muted"></i>
+                                    {{ student.user.email|default:"Not provided" }}
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-phone me-2 text-muted"></i>
+                                    {{ student.phone|default:"Not provided" }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Address</h6>
+                            <p class="text-muted">
+                                {% if student.address %}
+                                    {{ student.address|linebreaksbr }}
+                                {% else %}
+                                    Not provided
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Academic Records</h5>
+                </div>
+                <div class="card-body">
+                    {% if student.enrollment_set.all %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Semester</th>
+                                        <th>Subjects</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for enrollment in student.enrollment_set.all %}
+                                    <tr>
+                                        <td>{{ enrollment.semester }}</td>
+                                        <td>
+                                            {% for subject in enrollment.subjects.all %}
+                                                <span class="badge bg-primary me-1">{{ subject }}</span>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if enrollment.is_active %}bg-success{% else %}bg-secondary{% endif %}">
+                                                {% if enrollment.is_active %}Active{% else %}Completed{% endif %}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            No academic records found for this student.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'csms:student_list' %}" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-arrow-left me-1"></i> Back to List
+                </a>
+                <a href="{% url 'csms:student_delete' student.pk %}" class="btn btn-outline-danger">
+                    <i class="fas fa-trash-alt me-1"></i> Delete Student
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

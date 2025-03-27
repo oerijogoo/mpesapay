@@ -1,0 +1,91 @@
+{% extends 'csms/base.html' %}
+
+{% block title %}Exam Results{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0">Exam Result List</h4>
+            <a href="{% url 'exam_result_create' %}" class="btn btn-sm btn-primary">
+                <i class="fas fa-plus me-1"></i> Add Result
+            </a>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-4">
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label for="exam" class="form-label">Exam</label>
+                        <select name="exam" id="exam" class="form-select">
+                            <option value="">All Exams</option>
+                            {% for exam in all_exams %}
+                            <option value="{{ exam.id }}" {% if request.GET.exam == exam.id|stringformat:"s" %}selected{% endif %}>{{ exam }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="student" class="form-label">Student</label>
+                        <select name="student" id="student" class="form-select">
+                            <option value="">All Students</option>
+                            {% for student in all_students %}
+                            <option value="{{ student.id }}" {% if request.GET.student == student.id|stringformat:"s" %}selected{% endif %}>{{ student }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-filter me-1"></i> Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Exam</th>
+                            <th>Student</th>
+                            <th>Subject</th>
+                            <th>Paper</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in exam_results %}
+                        <tr>
+                            <td>{{ result.exam }}</td>
+                            <td>{{ result.student }}</td>
+                            <td>{{ result.subject }}</td>
+                            <td>{{ result.paper|default:"-" }}</td>
+                            <td>{{ result.score }}</td>
+                            <td>
+                                {% if result.grade %}
+                                    <span class="badge bg-info">{{ result.grade.name }}</span>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'exam_result_update' result.pk %}" class="btn btn-sm btn-warning" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'exam_result_delete' result.pk %}" class="btn btn-sm btn-danger" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No exam results found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

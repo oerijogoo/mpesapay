@@ -1,0 +1,204 @@
+{% extends "csms/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block header_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Quick Stats -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Students</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ student_count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Teachers</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ teacher_count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Courses</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ course_count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-book fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow-sm h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Current Academic Year</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {% with settings=SchoolSettings.objects.first %}
+                                    {{ settings.current_academic_year|default:"Not set" }}
+                                {% endwith %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Students -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Recent Students</h6>
+                    <a href="{% url 'csms:student_list' %}" class="btn btn-sm btn-link">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Admission No.</th>
+                                    <th>Course</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in recent_students %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'csms:student_detail' student.pk %}">
+                                                {{ student.user.get_full_name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ student.admission_number }}</td>
+                                        <td>{{ student.course }}</td>
+                                        <td>{{ student.created_at|date:"d M Y" }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">No students found</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Upcoming Events</h6>
+                    <a href="{% url 'csms:academic_calendar_list' %}" class="btn btn-sm btn-link">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for event in upcoming_events %}
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">{{ event.title }}</h6>
+                                    <small>{{ event.start_date|date:"d M" }} - {{ event.end_date|date:"d M" }}</small>
+                                </div>
+                                <p class="mb-1 text-muted">{{ event.description|truncatechars:50 }}</p>
+                                <small class="text-muted">{{ event.event_type|title }}</small>
+                            </a>
+                        {% empty %}
+                            <div class="text-center text-muted py-3">No upcoming events</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Quick Actions -->
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'csms:student_create' %}" class="btn btn-primary btn-circle btn-lg" data-bs-toggle="tooltip" title="Add Student">
+                                <i class="fas fa-user-graduate"></i>
+                            </a>
+                            <div class="mt-2 small">Add Student</div>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'csms:teacher_create' %}" class="btn btn-success btn-circle btn-lg" data-bs-toggle="tooltip" title="Add Teacher">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </a>
+                            <div class="mt-2 small">Add Teacher</div>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'csms:course_create' %}" class="btn btn-info btn-circle btn-lg" data-bs-toggle="tooltip" title="Add Course">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <div class="mt-2 small">Add Course</div>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'csms:subject_create' %}" class="btn btn-warning btn-circle btn-lg" data-bs-toggle="tooltip" title="Add Subject">
+                                <i class="fas fa-bookmark"></i>
+                            </a>
+                            <div class="mt-2 small">Add Subject</div>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'csms:exam_create' %}" class="btn btn-danger btn-circle btn-lg" data-bs-toggle="tooltip" title="Add Exam">
+                                <i class="fas fa-clipboard-list"></i>
+                            </a>
+                            <div class="mt-2 small">Add Exam</div>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'csms:notification_create' %}" class="btn btn-secondary btn-circle btn-lg" data-bs-toggle="tooltip" title="Send Notification">
+                                <i class="fas fa-bell"></i>
+                            </a>
+                            <div class="mt-2 small">Send Notification</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

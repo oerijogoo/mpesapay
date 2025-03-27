@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if object %}Update{% else %}Create{% endif %} Grade{% endblock %}
+{% block header_title %}{% if object %}Update{% else %}Create{% endif %} Grade{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'csms:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'csms:grading_scale_list' %}">Grading Scales</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'csms:grading_scale_detail' grading_scale.pk %}">{{ grading_scale }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{% if object %}Update{% else %}Create{% endif %} Grade</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">{% if object %}Update{% else %}Create{% endif %} Grade</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> {% if object %}Update{% else %}Create{% endif %}
+                            </button>
+                            <a href="{% url 'csms:grading_scale_detail' grading_scale.pk %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

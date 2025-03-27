@@ -1,0 +1,62 @@
+{% extends "csms/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}School Settings{% endblock %}
+{% block header_title %}School Settings{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'csms:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">School Settings</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">School Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Save Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Current Logo</h5>
+                </div>
+                <div class="card-body text-center">
+                    {% if school_settings.logo %}
+                        <img src="{{ school_settings.logo.url }}" alt="School Logo" class="img-fluid mb-3" style="max-height: 200px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="logo-clear" id="logo-clear">
+                            <label class="form-check-label" for="logo-clear">
+                                Remove current logo
+                            </label>
+                        </div>
+                    {% else %}
+                        <div class="text-muted mb-3">No logo uploaded</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

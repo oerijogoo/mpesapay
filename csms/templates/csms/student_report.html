@@ -1,0 +1,199 @@
+{% extends 'scms/base.html' %}
+{% load static %}
+
+{% block title %}{{ student }} Report - SCMS{% endblock %}
+
+{% block breadcrumb_items %}
+    <li class="breadcrumb-item"><a href="{% url 'student_list' %}">Students</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'student_detail' student.pk %}">{{ student }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Report</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Student Report</h6>
+                <div>
+                    <a href="{% url 'student_report_pdf' student.pk %}" class="btn btn-sm btn-danger">
+                        <i class="fas fa-file-pdf me-1"></i> Export PDF
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="report-container">
+                    <div class="report-header text-center mb-4">
+                        {% if institution.logo %}
+                            <img src="{{ institution.logo.url }}" alt="School Logo" class="img-fluid mb-2" style="max-height: 80px;">
+                        {% endif %}
+                        <h3>{{ institution.name }}</h3>
+                        <p class="text-muted">{{ institution.motto }}</p>
+                        <h4 class="mt-4">STUDENT REPORT</h4>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th width="30%">Admission Number</th>
+                                    <td>{{ student.admission_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Gender</th>
+                                    <td>{{ student.gender }}</td>
+                                </tr>
+                                {% if student.academic_level %}
+                                <tr>
+                                    <th>Class Level</th>
+                                    <td>{{ student.academic_level }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if student.year_of_study %}
+                                <tr>
+                                    <th>Year of Study</th>
+                                    <td>{{ student.year_of_study }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if student.course %}
+                                <tr>
+                                    <th>Course</th>
+                                    <td>{{ student.course }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if student.current_semester %}
+                                <tr>
+                                    <th>Semester</th>
+                                    <td>{{ student.current_semester }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            {% if student.photo %}
+                                <img src="{{ student.photo.url }}" alt="Student Photo" class="img-thumbnail" width="150">
+                            {% else %}
+                                <div class="img-thumbnail d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                    <i class="fas fa-user fa-3x text-muted"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% for enrollment in enrollments %}
+                    <div class="exam-results mb-5">
+                        <h5 class="mb-3 border-bottom pb-2">
+                            {% if enrollment.academic_level %}
+                                {{ enrollment.academic_level }} -
+                            {% endif %}
+                            {{ enrollment.year_of_study }}
+                            {% if enrollment.semester %}
+                                - {{ enrollment.semester }}
+                            {% endif %}
+                        </h5>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Paper</th>
+                                        <th>Marks</th>
+                                        <th>Grade</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in exam_results %}
+                                        {% if result.subject_enrollment.enrollment == enrollment %}
+                                        <tr>
+                                            <td>{{ result.subject_enrollment.subject }}</td>
+                                            <td>{% if result.paper %}{{ result.paper }}{% else %}--{% endif %}</td>
+                                            <td>{{ result.marks }}</td>
+                                            <td>
+                                                {% if result.grade %}
+                                                    <span class="badge bg-{% if result.grade.points >= 4.0 %}success{% elif result.grade.points >= 2.0 %}warning{% else %}danger{% endif %}">
+                                                        {{ result.grade.name }}
+                                                    </span>
+                                                {% else %}
+                                                    --
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if result.grade %}{{ result.grade.comment }}{% else %}--{% endif %}</td>
+                                        </tr>
+                                        {% endif %}
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No exam results found</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="report-footer mt-4 pt-4 border-top">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <p>_________________________</p>
+                                <p>Class Teacher</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <p>_________________________</p>
+                                <p>Head of Department</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <p>_________________________</p>
+                                <p>Principal/Director</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .report-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .report-header {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .report-container, .report-container * {
+            visibility: visible;
+        }
+        .report-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            box-shadow: none;
+        }
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+{% endblock %}

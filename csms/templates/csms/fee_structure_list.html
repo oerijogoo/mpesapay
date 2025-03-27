@@ -1,0 +1,32 @@
+{% extends "csms/list_template.html" %}
+
+{% block title %}Fee Structures{% endblock %}
+
+{% block list_title %}Fee Structures{% endblock %}
+{% block create_url %}{% url 'fee_structure_create' %}{% endblock %}
+
+{% block headers %}
+    <th>Course</th>
+    <th>Academic Year</th>
+    <th>Semester</th>
+    <th>Fee Type</th>
+    <th>Amount</th>
+    <th>Due Date</th>
+    <th>Status</th>
+{% endblock %}
+
+{% block fields %}
+    <td>{{ object.course.name }}</td>
+    <td>{{ object.academic_year.name }}</td>
+    <td>{{ object.semester.name }}</td>
+    <td>{{ object.fee_type.name }}</td>
+    <td>{{ object.amount }}</td>
+    <td>{{ object.due_date|date:"Y-m-d" }}</td>
+    <td>
+        {% if object.is_active %}
+            <span class="badge bg-success">Active</span>
+        {% else %}
+            <span class="badge bg-danger">Inactive</span>
+        {% endif %}
+    </td>
+{% endblock %}

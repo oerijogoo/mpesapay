@@ -1,0 +1,141 @@
+{% extends "csms/base.html" %}
+
+{% block title %}{{ student.user.get_full_name }} - CSMS{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'student_list' %}">Students</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ student.user.get_full_name }}</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Student Details</h6>
+                    <div>
+                        <a href="{% url 'student_update' student.pk %}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            {% if student.photo %}
+                                <img src="{{ student.photo.url }}" alt="{{ student.user.get_full_name }}" class="img-thumbnail mb-3" width="200">
+                            {% else %}
+                                <i class="fas fa-user-circle fa-5x text-muted mb-3"></i>
+                            {% endif %}
+
+                            <h4>{{ student.user.get_full_name }}</h4>
+                            <p class="text-muted">{{ student.admission_number }}</p>
+
+                            <div class="mt-3">
+                                {% if student.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Inactive</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <strong>Date of Birth:</strong>
+                                        <span class="float-end">{{ student.date_of_birth|date:"M d, Y" }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <strong>Gender:</strong>
+                                        <span class="float-end">{{ student.get_gender_display }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <strong>Email:</strong>
+                                        <span class="float-end">{{ student.user.email }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <strong>Phone:</strong>
+                                        <span class="float-end">{{ student.phone|default:"-" }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <strong>Guardian Name:</strong>
+                                        <span class="float-end">{{ student.guardian_name|default:"-" }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <strong>Guardian Phone:</strong>
+                                        <span class="float-end">{{ student.guardian_phone|default:"-" }}</span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <strong>Date Admitted:</strong>
+                                        <span class="float-end">{{ student.date_admitted|date:"M d, Y" }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <strong>Address:</strong>
+                                <p>{{ student.address|default:"-"|linebreaks }}</p>
+                            </div>
+
+                            <hr>
+
+                            <h5 class="mt-4">Enrollment Information</h5>
+                            {% with enrollment=student.enrollment_set.first %}
+                                {% if enrollment %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <strong>Course:</strong>
+                                                <span class="float-end">{{ enrollment.course.name }}</span>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <strong>Academic Year:</strong>
+                                                <span class="float-end">{{ enrollment.academic_year.name }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <strong>Date Enrolled:</strong>
+                                                <span class="float-end">{{ enrollment.date_enrolled|date:"M d, Y" }}</span>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <strong>Status:</strong>
+                                                <span class="float-end">
+                                                    {% if enrollment.is_active %}
+                                                        <span class="badge bg-success">Active</span>
+                                                    {% else %}
+                                                        <span class="badge bg-secondary">Inactive</span>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <p class="text-muted">Student is not currently enrolled in any course</p>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

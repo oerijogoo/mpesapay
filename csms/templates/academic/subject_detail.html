@@ -1,0 +1,164 @@
+{% extends "csms/base.html" %}
+
+{% block title %}{{ object }}{% endblock %}
+{% block header_title %}{{ object }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'csms:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'csms:subject_list' %}">Subject List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ object }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ object }}</h5>
+                    <div>
+                        <a href="{% url 'csms:subject_update' object.pk %}" class="btn btn-sm btn-primary me-1">
+                            <i class="fas fa-edit me-1"></i> Edit
+                        </a>
+                        <a href="{% url 'csms:subject_list' %}" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Subject Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th width="30%">Code</th>
+                                                <td>{{ object.code }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Name</th>
+                                                <td>{{ object.name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Description</th>
+                                                <td>{{ object.description|default:"-"|linebreaks }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td>
+                                                    {% if object.is_active %}
+                                                        <span class="badge bg-success">Active</span>
+                                                    {% else %}
+                                                        <span class="badge bg-secondary">Inactive</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">Subject Papers</h6>
+                                </div>
+                                <div class="card-body">
+                                    {% if object.papers.all %}
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Paper Code</th>
+                                                        <th>Name</th>
+                                                        <th>Weight</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for paper in object.papers.all %}
+                                                        <tr>
+                                                            <td>{{ paper.code }}</td>
+                                                            <td>{{ paper.name }}</td>
+                                                            <td>{{ paper.weight }}%</td>
+                                                            <td>
+                                                                <div class="btn-group btn-group-sm" role="group">
+                                                                    <a href="#" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="Edit">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </a>
+                                                                    <a href="#" class="btn btn-outline-danger" data-bs-toggle="tooltip" title="Delete">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-info">No papers found for this subject.</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Courses Offering This Subject</h6>
+                            </div>
+                            <div class="card-body">
+                                {% if object.course_subjects.all %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Semester</th>
+                                                    <th>Credits</th>
+                                                    <th>Type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for cs in object.course_subjects.all %}
+                                                    <tr>
+                                                        <td>{{ cs.course }}</td>
+                                                        <td>{{ cs.semester }}</td>
+                                                        <td>{{ cs.credits }}</td>
+                                                        <td>
+                                                            {% if cs.is_core %}
+                                                                <span class="badge bg-primary">Core</span>
+                                                            {% else %}
+                                                                <span class="badge bg-secondary">Elective</span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">This subject is not assigned to any courses.</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

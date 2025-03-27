@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{ object }}{% endblock %}
+{% block header_title %}Delete {{ object }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'csms:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'csms:grading_scale_list' %}">Grading Scales</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Confirm Deletion</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Are you sure you want to delete "{{ object }}"?</p>
+
+                        {% if object.grades.all %}
+                            <div class="alert alert-warning">
+                                <strong>Warning!</strong> This grading scale has {{ object.grades.count }} grades defined.
+                            </div>
+                        {% endif %}
+
+                        {% if object.subject_gradings.all %}
+                            <div class="alert alert-warning">
+                                <strong>Warning!</strong> This grading scale is used by {{ object.subject_gradings.count }} subjects.
+                            </div>
+                        {% endif %}
+
+                        <p class="text-danger">This action cannot be undone.</p>
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-1"></i> Confirm Delete
+                            </button>
+                            <a href="{% url 'csms:grading_scale_detail' object.pk %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'csms/base.html' %}
+
+{% block title %}Delete Subject - CSMS{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item"><a href="{% url 'csms:subject_list' %}">Subjects</a></li>
+<li class="breadcrumb-item active" aria-current="page">Delete</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 mx-auto">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">Confirm Deletion</h6>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to delete the subject <strong>"{{ object.name }}"</strong>?</p>
+                <p class="text-danger">This action cannot be undone.</p>
+
+                {% if object.course_subjects.all %}
+                <div class="alert alert-warning">
+                    <strong>Warning!</strong> This subject is associated with {{ object.course_subjects.count }} course(s). Deleting it will remove these associations.
+                </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-2"></i>Delete
+                        </button>
+                        <a href="{% url 'csms:subject_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

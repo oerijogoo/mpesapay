@@ -1,0 +1,196 @@
+{% extends "csms/base.html" %}
+{% load static %}
+
+{% block title %}Create {{ model_name }} - CSMS{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>Create {{ model_name }}</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'csms:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url list_url %}">{{ model_name|title }}s</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Create</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Create {{ model_name }}</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" id="main-form">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    {% if paper_form %}
+                    <h5 class="mt-4">Papers</h5>
+                    {{ paper_form.management_form }}
+
+                    <div id="papers-container">
+                        {% for form in paper_form %}
+                        <div class="paper-form card mb-3">
+                            <div class="card-body">
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                                {% for field in form.visible_fields %}
+                                    <div class="mb-3">
+                                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                        {% endif %}
+                                        {% for error in field.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                                {% if form.DELETE %}
+                                    <div class="form-check">
+                                        {{ form.DELETE }}
+                                        <label class="form-check-label" for="{{ form.DELETE.id_for_label }}">Delete</label>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="button" class="btn btn-sm btn-outline-primary add-paper-form mb-3" id="add-paper-button">
+                        <i class="fas fa-plus"></i> Add Another Paper
+                    </button>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a href="{% url list_url %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if paper_form %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('===== INITIALIZING PAPER FORM SCRIPT =====');
+
+    // Get elements using the correct prefix (paper_set instead of papers)
+    const addButton = document.getElementById('add-paper-button');
+    const totalFormsInput = document.getElementById('id_paper_set-TOTAL_FORMS');
+    const container = document.getElementById('papers-container');
+
+    console.log('Add button:', addButton);
+    console.log('Total forms input:', totalFormsInput);
+    console.log('Container:', container);
+
+    if (!addButton || !totalFormsInput || !container) {
+        console.error('Missing required elements:', {
+            addButton: !!addButton,
+            totalFormsInput: !!totalFormsInput,
+            container: !!container
+        });
+        return;
+    }
+
+    // Get first form template
+    const formTemplate = document.querySelector('.paper-form');
+    if (!formTemplate) {
+        console.error('No paper form template found');
+        return;
+    }
+
+    // Store the empty form HTML
+    const emptyFormHtml = formTemplate.outerHTML;
+    console.log('Form template stored');
+
+    // Add button click handler
+    addButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Add button clicked');
+
+        const formCount = parseInt(totalFormsInput.value);
+        console.log('Current form count:', formCount);
+
+        // Create new form with updated indices
+        const newFormHtml = emptyFormHtml
+            .replace(/paper_set-\d+-/g, `paper_set-${formCount}-`)
+            .replace(/__prefix__/g, formCount);
+
+        // Create DOM element
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newFormHtml;
+        const newForm = tempDiv.firstElementChild;
+
+        // Clear input values
+        newForm.querySelectorAll('input:not([type="hidden"]):not([name$="-DELETE"]), select').forEach(input => {
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            } else if (input.tagName === 'SELECT') {
+                input.selectedIndex = 0;
+            } else {
+                input.value = '';
+            }
+        });
+
+        // Insert the new form
+        container.appendChild(newForm);
+        console.log('New form added');
+
+        // Update total forms count
+        totalFormsInput.value = formCount + 1;
+        console.log('Updated form count to:', totalFormsInput.value);
+    });
+
+    // Delete checkbox handler
+    document.addEventListener('change', function(e) {
+        if (e.target && e.target.name && e.target.name.endsWith('-DELETE')) {
+            console.log('Delete checkbox changed:', e.target);
+            const form = e.target.closest('.paper-form');
+
+            if (e.target.checked) {
+                form.style.opacity = '0.5';
+                form.querySelectorAll('input:not([name$="-DELETE"]), select').forEach(el => {
+                    el.disabled = true;
+                });
+                console.log('Form marked for deletion');
+            } else {
+                form.style.opacity = '1';
+                form.querySelectorAll('input:not([name$="-DELETE"]), select').forEach(el => {
+                    el.disabled = false;
+                });
+                console.log('Form unmarked for deletion');
+            }
+        }
+    });
+
+    console.log('===== PAPER FORM SCRIPT INITIALIZED =====');
+});
+</script>
+{% endif %}
+{% endblock %}

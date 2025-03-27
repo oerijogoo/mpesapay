@@ -1,0 +1,115 @@
+{% extends 'scms/base.html' %}
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Subject Enrollment - SCMS{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    {% if form.instance.pk %}Edit{% else %}Add{% endif %} Subject Enrollment
+                </h6>
+            </div>
+            <div class="card-body">
+                <form method="post" id="subjectEnrollmentForm">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.enrollment.label_tag }}
+                                {{ form.enrollment }}
+                                {% if form.enrollment.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.enrollment.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.subject.label_tag }}
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.subject.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.teacher.label_tag }}
+                            {{ form.teacher }}
+                            {% if form.teacher.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.teacher.errors.as_text }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.papers.label_tag }}
+                            <div class="paper-checkboxes">
+                                {{ form.papers }}
+                            </div>
+                            {% if form.papers.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.papers.errors.as_text }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'subject_enrollment_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Dynamic filtering of papers based on subject selection
+    const subjectSelect = document.getElementById('id_subject');
+    const paperCheckboxes = document.querySelectorAll('input[name="papers"]');
+
+    if (subjectSelect) {
+        subjectSelect.addEventListener('change', function() {
+            const subjectId = this.value;
+            if (subjectId) {
+                // In a real implementation, you would fetch papers via AJAX
+                // This is a simplified version
+                fetch(`/api/papers/?subject_id=${subjectId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update paper checkboxes here
+                    });
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

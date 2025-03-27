@@ -1,4 +1,5 @@
 # payment/models.py
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -16,7 +17,7 @@ class ShippingAddress(models.Model):
     state_name = models.CharField(max_length=255, null=True, blank=True)
     zipcode = models.CharField(max_length=255, null=True, blank=True)
 
-    user= models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
     class Mata:
@@ -41,7 +42,7 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=10, choices=PAYMENT_CHOICES, default='CASH')
     date_orderd = models.DateTimeField(auto_now_add=True)
 
-    user= models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'Order -#'+ str(self.id)
@@ -57,7 +58,7 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
 
     # ForeignKey to User (optional)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'Order -'+ str(self.id)

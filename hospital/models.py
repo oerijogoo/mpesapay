@@ -1,4 +1,4 @@
-
+from django.conf import settings
 # hospital/models.py
 from django.db import models
 from django.contrib.auth.models import User
@@ -12,7 +12,7 @@ class Branch(models.Model):
         return self.name
 
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')])
     contact_number = models.CharField(max_length=15)
@@ -29,7 +29,7 @@ class Patient(models.Model):
         return today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
 
 class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     profession = models.CharField(max_length=100)  # Doctor's profession (e.g., Cardiologist, Surgeon)
     specialization = models.CharField(max_length=100)
     contact_number = models.CharField(max_length=15)

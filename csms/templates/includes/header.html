@@ -1,0 +1,32 @@
+<header class="header d-flex align-items-center shadow-sm">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <button id="mobileToggleSidebar" class="btn btn-link d-lg-none me-2">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="toggleSidebar" class="btn btn-link d-none d-lg-block me-2">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h5 class="mb-0">{% block header_title %}{% endblock %}</h5>
+        </div>
+
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if request.user.teacher.photo %}
+                    <img src="{{ request.user.teacher.photo.url }}" alt="User Photo" class="rounded-circle me-2">
+                {% else %}
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+                <span class="d-none d-md-inline">{{ request.user.get_full_name|default:request.user.username }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'csms:password_change' %}"><i class="fas fa-key me-2"></i> Change Password</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'csms:logout' %}"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</header>

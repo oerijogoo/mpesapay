@@ -1,0 +1,73 @@
+{% extends 'scms/base.html' %}
+{% load static %}
+
+{% block title %}Institutions - SCMS{% endblock %}
+
+{% block breadcrumb_items %}
+    <li class="breadcrumb-item active" aria-current="page">Institutions</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Institution List</h6>
+                <div>
+                    <a href="{% url 'institution_add' %}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus me-1"></i> Add Institution
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Logo</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Admission Prefix</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for institution in institutions %}
+                            <tr>
+                                <td class="text-center">
+                                    {% if institution.logo %}
+                                        <img src="{{ institution.logo.url }}" alt="Logo" width="40">
+                                    {% else %}
+                                        <i class="fas fa-school fa-2x text-muted"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{{ institution.name }}</td>
+                                <td>{{ institution.type }}</td>
+                                <td>{{ institution.admission_prefix }}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="{% url 'institution_detail' institution.pk %}" class="btn btn-info" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{% url 'institution_edit' institution.pk %}" class="btn btn-primary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'institution_delete' institution.pk %}" class="btn btn-danger" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No institutions found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

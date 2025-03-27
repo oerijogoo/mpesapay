@@ -38,6 +38,7 @@ urlpatterns = [
     path('reports/', include('reports.urls')),
     path('search/', include('search.urls')),
     path('sms/', include('sms.urls')),
+    path('csms/', include('csms.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('hospital/', include('hospital.urls')),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),

@@ -1,0 +1,137 @@
+{% extends "csms/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Subject{% endblock %}
+{% block header_title %}Create Subject{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'csms:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'csms:subject_list' %}">Subject List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Create New Subject</h5>
+                    <a href="{% url 'csms:subject_list' %}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Subject Information</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ form|crispy }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">Subject Papers</h6>
+                                        <button type="button" class="btn btn-sm btn-primary" id="addMorePapers">
+                                            <i class="fas fa-plus me-1"></i> Add Paper
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="paperFormset">
+                                            {{ paper_formset.management_form }}
+                                            {% for form in paper_formset %}
+                                                <div class="paper-form mb-3 p-3 border rounded">
+                                                    {{ form|crispy }}
+                                                    {% if not forloop.first %}
+                                                        <button type="button" class="btn btn-sm btn-danger remove-paper">
+                                                            <i class="fas fa-trash me-1"></i> Remove
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Create Subject
+                            </button>
+                            <a href="{% url 'csms:subject_list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Add more papers
+    $('#addMorePapers').click(function() {
+        var form_idx = $('#id_papers-TOTAL_FORMS').val();
+        var new_form = $('.paper-form:first').clone();
+
+        // Update all the names/ids in the cloned form
+        new_form.find(':input').each(function() {
+            var name = $(this).attr('name').replace(/-\d+-/, '-' + form_idx + '-');
+            var id = $(this).attr('id').replace(/-\d+-/, '-' + form_idx + '-');
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        });
+
+        // Clear the values
+        new_form.find('input, textarea').val('');
+        new_form.find('select').prop('selectedIndex', 0);
+
+        // Add remove button
+        new_form.append('<button type="button" class="btn btn-sm btn-danger remove-paper">' +
+                       '<i class="fas fa-trash me-1"></i> Remove</button>');
+
+        // Append to formset
+        new_form.appendTo('#paperFormset');
+
+        // Update total form count
+        $('#id_papers-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    // Remove paper form
+    $(document).on('click', '.remove-paper', function() {
+        $(this).closest('.paper-form').remove();
+        var form_count = $('.paper-form').length;
+        $('#id_papers-TOTAL_FORMS').val(form_count);
+
+        // Reindex all forms
+        $('.paper-form').each(function(i) {
+            $(this).find(':input').each(function() {
+                var name = $(this).attr('name').replace(/-\d+-/, '-' + i + '-');
+                var id = $(this).attr('id').replace(/-\d+-/, '-' + i + '-');
+                $(this).attr({'name': name, 'id': id});
+            });
+        });
+    });
+
+    // Initialize tooltips
+    $('[data-bs-toggle="tooltip"]').tooltip();
+});
+</script>
+{% endblock %}

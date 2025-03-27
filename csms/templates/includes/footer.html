@@ -1,0 +1,12 @@
+<footer class="footer mt-auto py-3 bg-light border-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <span class="text-muted">&copy; {% now "Y" %} {% with settings=SchoolSettings.objects.first %}{{ settings.name|default:"CSMS" }}{% endwith %}. All rights reserved.</span>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <span class="text-muted">College School Management System v1.0</span>
+            </div>
+        </div>
+    </div>
+</footer>

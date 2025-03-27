@@ -1,0 +1,287 @@
+{% extends 'scms/base.html' %}
+{% load static %}
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Institution - SCMS{% endblock %}
+
+{% block breadcrumb_items %}
+    <li class="breadcrumb-item"><a href="{% url 'institution_list' %}">Institutions</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% if form.instance.pk %}Edit{% else %}Add{% endif %}</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">{% if form.instance.pk %}Edit Institution{% else %}Add New Institution{% endif %}</h6>
+                {% if form.instance.pk %}
+                <a href="{% url 'institution_detail' form.instance.pk %}" class="btn btn-sm btn-info">
+                    <i class="fas fa-eye me-1"></i> View Details
+                </a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <strong>Error!</strong> Please correct the following errors:
+                    <ul class="mb-0">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field|title }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+
+                <form id="institutionForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_name" class="form-label">Name *</label>
+                                <input type="text" class="form-control {% if form.name.errors %}is-invalid{% endif %}"
+                                       id="id_name" name="name"
+                                       value="{{ form.name.value|default_if_none:'' }}" required>
+                                {% if form.name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.name.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_type" class="form-label">Type *</label>
+                                <select class="form-control {% if form.type.errors %}is-invalid{% endif %}"
+                                        id="id_type" name="type" required>
+                                    <option value="">Select Institution Type</option>
+                                    {% for choice in form.type.field.choices %}
+                                        <option value="{{ choice.0 }}"
+                                            {% if form.type.value == choice.0 %}selected{% endif %}>
+                                            {{ choice.1 }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                {% if form.type.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.type.errors.as_text }}
+                                </div>
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    <a href="{% url 'institution_type_add' %}" target="_blank">Add new institution type</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_admission_prefix" class="form-label">Admission Prefix *</label>
+                                <input type="text" class="form-control {% if form.admission_prefix.errors %}is-invalid{% endif %}"
+                                       id="id_admission_prefix" name="admission_prefix"
+                                       value="{{ form.admission_prefix.value|default_if_none:'' }}" required>
+                                {% if form.admission_prefix.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.admission_prefix.errors.as_text }}
+                                </div>
+                                {% endif %}
+                                <small class="form-text text-muted">Prefix for auto-generated admission numbers</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_logo" class="form-label">Logo</label>
+                                <input type="file" class="form-control {% if form.logo.errors %}is-invalid{% endif %}"
+                                       id="id_logo" name="logo">
+                                {% if form.logo.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.logo.errors.as_text }}
+                                </div>
+                                {% endif %}
+                                {% if form.instance.logo %}
+                                <div class="mt-2">
+                                    <img src="{{ form.instance.logo.url }}" alt="Current logo" class="img-thumbnail" width="100">
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="logo-clear" id="logo-clear">
+                                        <label class="form-check-label" for="logo-clear">
+                                            Remove current logo
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="id_motto" class="form-label">Motto</label>
+                                <textarea class="form-control {% if form.motto.errors %}is-invalid{% endif %}"
+                                          id="id_motto" name="motto" rows="2">{{ form.motto.value|default_if_none:'' }}</textarea>
+                                {% if form.motto.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.motto.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_address" class="form-label">Address</label>
+                                <textarea class="form-control {% if form.address.errors %}is-invalid{% endif %}"
+                                          id="id_address" name="address" rows="3">{{ form.address.value|default_if_none:'' }}</textarea>
+                                {% if form.address.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.address.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control {% if form.phone.errors %}is-invalid{% endif %}"
+                                       id="id_phone" name="phone"
+                                       value="{{ form.phone.value|default_if_none:'' }}">
+                                {% if form.phone.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.phone.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_email" class="form-label">Email</label>
+                                <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                                       id="id_email" name="email"
+                                       value="{{ form.email.value|default_if_none:'' }}">
+                                {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.email.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_website" class="form-label">Website</label>
+                                <input type="url" class="form-control {% if form.website.errors %}is-invalid{% endif %}"
+                                       id="id_website" name="website"
+                                       value="{{ form.website.value|default_if_none:'' }}">
+                                {% if form.website.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.website.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_established_date" class="form-label">Established Date</label>
+                                <input type="date" class="form-control {% if form.established_date.errors %}is-invalid{% endif %}"
+                                       id="id_established_date" name="established_date"
+                                       value="{{ form.established_date.value|date:'Y-m-d'|default_if_none:'' }}">
+                                {% if form.established_date.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.established_date.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'institution_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                        <div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> {% if form.instance.pk %}Update{% else %}Create{% endif %} Institution
+                            </button>
+                            {% if form.instance.pk %}
+                            <a href="{% url 'institution_delete' form.instance.pk %}" class="btn btn-danger ms-2">
+                                <i class="fas fa-trash me-1"></i> Delete
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Debugging function to log form submission
+function setupFormDebugging() {
+    const form = document.getElementById('institutionForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (form && submitBtn) {
+        // Debug: Log when form is submitted
+        form.addEventListener('submit', function(e) {
+            console.log('Form submission initiated');
+
+            // Validate required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill all required fields (marked with *)');
+                return false;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        });
+
+        // Debug: Log when button is clicked
+        submitBtn.addEventListener('click', function() {
+            console.log('Submit button clicked');
+        });
+    } else {
+        console.error('Form or submit button not found');
+    }
+}
+
+// Initialize when document is ready
+document.addEventListener('DOMContentLoaded', function() {
+    setupFormDebugging();
+
+    // File input change handler
+    const fileInput = document.getElementById('id_logo');
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'Choose file...';
+            this.nextElementSibling.textContent = fileName;
+        });
+    }
+});
+</script>
+{% endblock %}

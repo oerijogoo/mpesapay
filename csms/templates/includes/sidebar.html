@@ -1,0 +1,306 @@
+<div class="sidebar">
+    <a href="{% url 'csms:dashboard' %}" class="sidebar-brand d-flex align-items-center">
+        {% with settings=SchoolSettings.objects.first %}
+            {% if settings.logo %}
+                <img src="{{ settings.logo.url }}" alt="School Logo">
+            {% else %}
+                <i class="fas fa-school me-2"></i>
+            {% endif %}
+            <span class="brand-text">{{ settings.name|default:"CSMS" }}</span>
+        {% endwith %}
+    </a>
+
+    <div class="px-3 py-2">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'csms:dashboard' %}">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Academic -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'academic_year' in request.resolver_match.url_name or 'semester' in request.resolver_match.url_name or 'academic_level' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#academicMenu">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Academic</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="academicMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'academic_year' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:academic_year_list' %}">
+                                <i class="fas fa-calendar"></i>
+                                <span>Academic Years</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'semester' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:semester_list' %}">
+                                <i class="fas fa-calendar-week"></i>
+                                <span>Semesters</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'academic_level' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:academic_level_list' %}">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Academic Levels</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Courses & Subjects -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'course' in request.resolver_match.url_name or 'subject' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#courseMenu">
+                    <i class="fas fa-book-open"></i>
+                    <span>Courses & Subjects</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="courseMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'course' in request.resolver_match.url_name and 'subject' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:course_list' %}">
+                                <i class="fas fa-book"></i>
+                                <span>Courses</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'subject' in request.resolver_match.url_name and 'course_subject' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:subject_list' %}">
+                                <i class="fas fa-bookmark"></i>
+                                <span>Subjects</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'course_subject' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:course_subject_list' %}">
+                                <i class="fas fa-link"></i>
+                                <span>Course Subjects</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Grading -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'grading' in request.resolver_match.url_name or 'grade_allocation' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#gradingMenu">
+                    <i class="fas fa-star"></i>
+                    <span>Grading</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="gradingMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'grading_scale' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:grading_scale_list' %}">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Grading Scales</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'subject_grading' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:subject_grading_list' %}">
+                                <i class="fas fa-cog"></i>
+                                <span>Subject Grading</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- People -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'teacher' in request.resolver_match.url_name or 'student' in request.resolver_match.url_name or 'enrollment' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#peopleMenu">
+                    <i class="fas fa-users"></i>
+                    <span>People</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="peopleMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'teacher' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:teacher_list' %}">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Teachers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'student' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:student_list' %}">
+                                <i class="fas fa-user-graduate"></i>
+                                <span>Students</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'enrollment' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:enrollment_list' %}">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Enrollments</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Classes -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'class' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#classMenu">
+                    <i class="fas fa-chalkboard"></i>
+                    <span>Classes</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="classMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'class' in request.resolver_match.url_name and 'class_subject' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:class_list' %}">
+                                <i class="fas fa-door-open"></i>
+                                <span>Classes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'class_subject' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:class_subject_list' %}">
+                                <i class="fas fa-tasks"></i>
+                                <span>Class Subjects</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Exams -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'exam' in request.resolver_match.url_name or 'mark' in request.resolver_match.url_name or 'academic_report' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#examMenu">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Exams</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="examMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'exam_type' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:exam_type_list' %}">
+                                <i class="fas fa-list-alt"></i>
+                                <span>Exam Types</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'exam' in request.resolver_match.url_name and 'exam_type' not in request.resolver_match.url_name and 'exam_schedule' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:exam_list' %}">
+                                <i class="fas fa-clipboard"></i>
+                                <span>Exams</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'exam_schedule' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:exam_schedule_list' %}">
+                                <i class="fas fa-calendar-day"></i>
+                                <span>Exam Schedules</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'mark' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:mark_list' %}">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Marks</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'academic_report' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:academic_report_list' %}">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Reports</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Finance -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'fee' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#financeMenu">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Finance</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="financeMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'fee_type' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:fee_type_list' %}">
+                                <i class="fas fa-tags"></i>
+                                <span>Fee Types</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'fee_structure' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:fee_structure_list' %}">
+                                <i class="fas fa-receipt"></i>
+                                <span>Fee Structures</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'student_fee' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:student_fee_list' %}">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                <span>Student Fees</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Calendar -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'academic_calendar' in request.resolver_match.url_name or 'attendance' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#calendarMenu">
+                    <i class="fas fa-calendar"></i>
+                    <span>Calendar</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="calendarMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'academic_calendar' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:academic_calendar_list' %}">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Academic Calendar</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'attendance' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:attendance_list' %}">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span>Attendance</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Notifications -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'notification' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:notification_list' %}">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+            </li>
+
+            <!-- Bulk Operations -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'bulk' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#bulkMenu">
+                    <i class="fas fa-file-import"></i>
+                    <span>Bulk Operations</span>
+                    <i class="fas fa-angle-down float-end mt-1"></i>
+                </a>
+                <div class="collapse show" id="bulkMenu">
+                    <ul class="nav flex-column ps-4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'bulk_mark_entry' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:bulk_mark_entry' %}">
+                                <i class="fas fa-file-csv"></i>
+                                <span>Bulk Mark Entry</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'bulk_student_creation' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:bulk_student_creation' %}">
+                                <i class="fas fa-users"></i>
+                                <span>Bulk Student Creation</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Settings -->
+            <li class="nav-item">
+                <a class="nav-link {% if 'school_settings' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'csms:school_settings' %}">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
