@@ -93,7 +93,7 @@ urlpatterns = [
     # path('marks/add/', views.mark_create, name='mark_create'),
     # path('mark/<int:pk>/edit/', views.mark_update, name='mark_update'),
     # path('mark/<int:pk>/delete/', views.mark_delete, name='mark_delete'),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/', views.analysis_dashboard, name='dashboard'),
 
-    path('filter-data/', views.get_filtered_data, name='filter_data'),
+
 ]

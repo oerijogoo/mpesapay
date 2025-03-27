@@ -1,29 +1,30 @@
-from django.db.models.functions import Concat, ExtractYear, ExtractMonth, TruncMonth
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from django.core.paginator import Paginator
+
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q, Count, ExpressionWrapper, FloatField
-from weasyprint import HTML
-from .models import *
 from .forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.core.exceptions import ValidationError
-from decimal import Decimal, InvalidOperation
+from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import transaction
 from .models import Student, Mark, Paper
 from .forms import BulkMarkForm
+from django.core.exceptions import ValidationError
+from decimal import Decimal, InvalidOperation
 import csv
+from weasyprint import HTML
+from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Avg, Count, Sum, Value, IntegerField, Case, When
 from django.shortcuts import render
-from django.http import HttpRequest
-from .models import Paper
-
-
+from django.http import JsonResponse
+from django.db.models import Count, Avg, F, Value, FloatField, Q
+from django.db.models.functions import Concat, Cast
+from decimal import Decimal
+import json
+from django.db.models import Q
 
 def student_list(request):
     query = request.GET.get('q', '')
@@ -278,14 +279,7 @@ def academic_year_delete(request, pk):
     })
 
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.db import transaction
-from .models import Student, Mark, Paper
-from .forms import BulkMarkForm
-from django.core.exceptions import ValidationError
-from decimal import Decimal, InvalidOperation
-import csv
+
 
 
 def bulk_mark_entry(request):
@@ -495,10 +489,6 @@ def load_academic_years(request):
     return render(request, 'sms/includes/academic_year_options.html',
                  {'academic_years': academic_years})
 
-
-# sms/views.py
-from django.db.models import Avg
-from weasyprint import HTML
 
 
 def student_progressive_report(request, pk):
@@ -750,15 +740,6 @@ def student_report_list(request):
     })
 
 
-# sms/views.py
-from django.core.paginator import Paginator
-
-
-from django.db.models import Count, Q
-from django.core.paginator import Paginator
-from django.shortcuts import render
-from .models import Course, AcademicYear
-
 def course_report_list(request):
     # Initial queryset
     courses = Course.objects.annotate(
@@ -846,14 +827,6 @@ def semester_report_list(request):
     })
 
 
-from django.shortcuts import render, get_object_or_404
-from .models import Semester, Course, Mark
-
-from django.db.models import Avg, Count, Sum
-from django.shortcuts import render, get_object_or_404
-
-from django.db.models import Avg, Count, Sum, Value
-from django.db.models.functions import Concat
 
 
 def semester_report(request, semester_id):
@@ -890,221 +863,157 @@ def semester_report(request, semester_id):
     })
 
 
-from django.db.models import Count, Avg, Q, Value, FloatField
-from django.db.models.functions import Concat, Cast
-from django.http import JsonResponse
-from django.shortcuts import render
-import json
+
+
+def convert_decimals(obj):
+    """Recursively convert Decimals to floats"""
+    if isinstance(obj, Decimal):
+        return float(obj)
+    elif isinstance(obj, dict):
+        return {k: convert_decimals(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_decimals(item) for item in obj]
+    return obj
+
 
 # views.py
-from django.http import JsonResponse
-from django.db.models import Count, Avg, F, Value, FloatField
-from django.db.models.functions import Concat, Cast
-import json
-from decimal import Decimal
-
-
-def convert_decimals(obj):
-    """Recursively convert Decimals to floats"""
-    if isinstance(obj, Decimal):
-        return float(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_decimals(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimals(item) for item in obj]
-    return obj
-
-
 from django.shortcuts import render
-from django.http import JsonResponse
-from django.db.models import Count, Avg, F, Value, FloatField
-from django.db.models.functions import Concat, Cast
-from decimal import Decimal
-import json
-from .models import AcademicYear, Course, Semester, Subject, Mark, Student
+from .models import *
+import pandas as pd
+import plotly.express as px
+from django.db.models import Q, Count, Avg
 
 
-from decimal import Decimal
+def analysis_dashboard(request):
+    # Get filter parameters
+    academic_year_id = request.GET.get('academic_year')
+    semester_id = request.GET.get('semester')
+    course_id = request.GET.get('course')
+    subject_id = request.GET.get('subject')
 
-def convert_decimals(obj):
-    if isinstance(obj, Decimal):
-        return float(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_decimals(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimals(item) for item in obj]
-    return obj
+    # Base querysets with select_related/prefetch_related
+    students = Student.objects.select_related('course', 'academic_year', 'semester')
+    marks = Mark.objects.select_related('student', 'paper__subject')
+    grades = StudentSubjectGrade.objects.select_related('subject', 'semester', 'academic_year')
 
+    # Apply filters
+    if academic_year_id:
+        students = students.filter(academic_year_id=academic_year_id)
+        marks = marks.filter(student__academic_year_id=academic_year_id)
+        grades = grades.filter(academic_year_id=academic_year_id)
 
-from django.db.models import Q
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.db.models import Count, Avg, F, Value, FloatField, Q
-from django.db.models.functions import Concat, Cast
-from decimal import Decimal
-import json
-from .models import AcademicYear, Course, Semester, Subject, Mark, Student
+    if semester_id:
+        students = students.filter(semester_id=semester_id)
+        marks = marks.filter(student__semester_id=semester_id)
+        grades = grades.filter(semester_id=semester_id)
 
-def convert_decimals(obj):
-    """Recursively convert Decimals to floats"""
-    if isinstance(obj, Decimal):
-        return float(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_decimals(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimals(item) for item in obj]
-    return obj
+    if course_id:
+        students = students.filter(course_id=course_id)
+        marks = marks.filter(student__course_id=course_id)
+        grades = grades.filter(student__course_id=course_id)
 
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.db.models import Count, Avg, F, Value, FloatField, Q
-from django.db.models.functions import Concat, Cast
-from decimal import Decimal
-import json
-from .models import AcademicYear, Course, Semester, Subject, Mark, Student
-def convert_decimals(obj):
-    """Recursively convert Decimals to floats"""
-    if isinstance(obj, Decimal):
-        return float(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_decimals(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimals(item) for item in obj]
-    return obj
+    if subject_id:
+        marks = marks.filter(paper__subject_id=subject_id)
+        grades = grades.filter(subject_id=subject_id)
 
+    # Chart 1: Performance Over Time
+    performance_data = marks.values(
+        'paper__subject__name',
+        'student__semester__name'
+    ).annotate(avg_marks=Avg('marks_obtained'))
 
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.db.models import Count, Avg, F, Value, FloatField
-from django.db.models.functions import Concat, Cast
-from decimal import Decimal
-import json
-from .models import AcademicYear, Course, Semester, Subject, Mark, Student
+    performance_chart = None
+    if performance_data:
+        df = pd.DataFrame(list(performance_data))
+        if not df.empty:
+            fig = px.line(
+                df,
+                x='student__semester__name',
+                y='avg_marks',
+                color='paper__subject__name',
+                title='Performance Trend by Subject',
+                labels={
+                    'student__semester__name': 'Semester',
+                    'avg_marks': 'Average Marks',
+                    'paper__subject__name': 'Subject'
+                }
+            )
+            performance_chart = fig.to_html()
 
+    # Chart 2: Subject Averages
+    subject_avg = grades.values('subject__name').annotate(
+        avg_score=Avg('average'))
+    subject_chart = None
+    if subject_avg:
+        df = pd.DataFrame(list(subject_avg))
+        if not df.empty:
+            fig = px.bar(
+                df,
+                x='subject__name',
+                y='avg_score',
+                title='Subject-wise Average Scores',
+                labels={'subject__name': 'Subject', 'avg_score': 'Average Score'}
+            )
+            subject_chart = fig.to_html()
 
-from decimal import Decimal
+    # Chart 3: Grade Distribution
+    grade_data = grades.values('grade').annotate(count=Count('grade'))
+    grade_chart = None
+    if grade_data:
+        df = pd.DataFrame(list(grade_data))
+        if not df.empty:
+            fig = px.pie(
+                df,
+                names='grade',
+                values='count',
+                title='Grade Distribution'
+            )
+            grade_chart = fig.to_html()
 
-def convert_decimals(obj):
-    if isinstance(obj, Decimal):
-        return float(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_decimals(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimals(item) for item in obj]
-    return obj
+    # Chart 4: Enrollment Statistics
+    enrollment_data = students.values(
+        'course__name',
+        'status'
+    ).annotate(count=Count('id'))
 
+    enrollment_chart = None
+    if enrollment_data:
+        df = pd.DataFrame(list(enrollment_data))
+        if not df.empty:
+            fig = px.sunburst(
+                df,
+                path=['course__name', 'status'],
+                values='count',
+                title='Enrollment Overview'
+            )
+            enrollment_chart = fig.to_html()
 
-from django.db.models import Q
+    # Summary Statistics
+    summary = {
+        'total_students': students.count(),
+        'active_students': students.filter(status='active').count(),
+        'avg_score': grades.aggregate(avg=Avg('average'))['avg'] or 0,
+        'total_courses': Course.objects.count()
+    }
 
-def dashboard(request):
-    try:
-        # Get filter parameters
-        ay_id = request.GET.get('academic_year')
-        course_id = request.GET.get('course')
-        semester_id = request.GET.get('semester')
-        subject_id = request.GET.get('subject')
-
-        # Grade Distribution Data
-        grade_data = Mark.objects.filter(
-            student__academic_year=ay_id if ay_id else Q(),
-            student__course=course_id if course_id else Q(),
-            student__semester=semester_id if semester_id else Q(),
-            paper__subject=subject_id if subject_id else Q()
-        ).values('grade__grade').annotate(
-            count=Count('id')
-        ).order_by('grade__min_mark')
-
-        # Course Enrollment Data
-        enrollment_data = Student.objects.filter(
-            academic_year=ay_id if ay_id else Q(),
-            semester=semester_id if semester_id else Q(),
-            course__subjects=subject_id if subject_id else Q()
-        ).values('course__name').annotate(
-            total=Count('id')
-        ).order_by('-total')[:10]
-
-        # Student Performance Data
-        performance_data = Student.objects.filter(
-            academic_year=ay_id if ay_id else Q(),
-            course=course_id if course_id else Q(),
-            semester=semester_id if semester_id else Q(),
-            marks__paper__subject=subject_id if subject_id else Q()
-        ).annotate(
-            full_name=Concat(F('first_name'), Value(' '), F('last_name')),
-            avg_score=Cast(Avg('marks__marks_obtained'), FloatField())
-        ).values('full_name', 'avg_score', 'course__name').distinct().order_by('-avg_score')[:10]
-
-        context = {
-            'grade_data': json.dumps(convert_decimals(list(grade_data))),
-            'enrollment_data': json.dumps(convert_decimals(list(enrollment_data))),
-            'performance_data': json.dumps(convert_decimals(list(performance_data))),
-            'filters': {
-                'academic_years': AcademicYear.objects.values(),
-                'courses': Course.objects.values(),
-                'semesters': Semester.objects.values(),
-                'subjects': Subject.objects.values()
+    context = {
+        'performance_chart': performance_chart or "No performance data available",
+        'subject_chart': subject_chart or "No subject data available",
+        'grade_chart': grade_chart or "No grade data available",
+        'enrollment_chart': enrollment_chart or "No enrollment data available",
+        'summary': summary,
+        'filters': {
+            'academic_years': AcademicYear.objects.all(),
+            'semesters': Semester.objects.all(),
+            'courses': Course.objects.all(),
+            'subjects': Subject.objects.all(),
+            'selected': {
+                'academic_year': int(academic_year_id) if academic_year_id else '',
+                'semester': int(semester_id) if semester_id else '',
+                'course': int(course_id) if course_id else '',
+                'subject': int(subject_id) if subject_id else '',
             }
         }
-        return render(request, 'sms/dashboard.html', context)
+    }
+    return render(request, 'sms/dashboard.html', context)
 
-    except Exception as e:
-        return render(request, 'sms/error.html', {'error': str(e)})
-
-
-def get_filtered_data(request):
-    try:
-        # Get filter parameters
-        ay_id = request.GET.get('academic_year')
-        course_id = request.GET.get('course')
-        semester_id = request.GET.get('semester')
-        subject_id = request.GET.get('subject')
-
-        # Build filters dynamically
-        grade_filter = Q()
-        enrollment_filter = Q()
-        performance_filter = Q()
-
-        # Grade Distribution Data
-        if ay_id: grade_filter &= Q(student__academic_year=ay_id)
-        if course_id: grade_filter &= Q(student__course=course_id)
-        if semester_id: grade_filter &= Q(student__semester=semester_id)
-        if subject_id: grade_filter &= Q(paper__subject=subject_id)
-
-        grade_data = list(Mark.objects.filter(grade_filter)
-                          .values('grade__grade')
-                          .annotate(count=Count('id'))
-                          .order_by('grade__min_mark'))
-
-        # Course Enrollment Data
-        if ay_id: enrollment_filter &= Q(academic_year=ay_id)
-        if semester_id: enrollment_filter &= Q(semester=semester_id)
-        if subject_id: enrollment_filter &= Q(course__subjects=subject_id)
-
-        enrollment_data = list(Student.objects.filter(enrollment_filter)
-                               .values('course__name')
-                               .annotate(total=Count('id'))
-                               .order_by('-total')[:10])
-
-        # Student Performance Data
-        if ay_id: performance_filter &= Q(academic_year=ay_id)
-        if course_id: performance_filter &= Q(course=course_id)
-        if semester_id: performance_filter &= Q(semester=semester_id)
-        if subject_id: performance_filter &= Q(marks__paper__subject=subject_id)
-
-        performance_data = list(Student.objects.filter(performance_filter)
-                                .annotate(
-            full_name=Concat(F('first_name'), Value(' '), F('last_name')),
-            avg_score=Cast(Avg('marks__marks_obtained'), FloatField())
-        )
-                                .values('full_name', 'avg_score', 'course__name')
-                                .distinct()
-                                .order_by('-avg_score')[:10])
-
-        return JsonResponse({
-            'grade_data': convert_decimals(grade_data),
-            'enrollment_data': convert_decimals(enrollment_data),
-            'performance_data': convert_decimals(performance_data)
-        })
-
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
