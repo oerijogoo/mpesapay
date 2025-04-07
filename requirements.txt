@@ -28,4 +28,4 @@ django_select2
 django-import-export
 django_extensions
 plotly
-django_filters
+django-filter
