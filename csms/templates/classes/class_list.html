@@ -1,76 +1,108 @@
-{% extends 'csms/base.html' %}
-{% load crispy_forms_tags %}
+{% extends "csms/base.html" %}
 
-{% block title %}Class List{% endblock %}
+{% block title %}Classes{% endblock %}
 
 {% block content %}
-<div class="container">
-    {% if messages %}
-    <div class="mt-3">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    <div class="card mt-3">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="card-title mb-0">Classes</h4>
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Classes</h5>
+        <div>
             <a href="{% url 'csms:class_create' %}" class="btn btn-primary btn-sm">
-                <i class="fas fa-plus me-1"></i> Add Class
+                <i class="fas fa-plus"></i> Add Class
             </a>
         </div>
-
-        <div class="card-body">
-            {% if classes %}
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Course</th>
-                            <th>Academic Year</th>
-                            <th>Semester</th>
-                            <th>Teacher</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for class in classes %}
-                        <tr>
-                            <td>{{ class.name }}</td>
-                            <td>{{ class.course }}</td>
-                            <td>{{ class.academic_year }}</td>
-                            <td>{{ class.semester }}</td>
-                            <td>{{ class.teacher }}</td>
-                            <td>
-                                <span class="badge bg-{% if class.is_active %}success{% else %}danger{% endif %}">
-                                    {% if class.is_active %}Active{% else %}Inactive{% endif %}
-                                </span>
-                            </td>
-                            <td>
-                                <a href="{% url 'csms:class_detail' class.pk %}" class="btn btn-sm btn-info">
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Academic Year</th>
+                        <th>Semester</th>
+                        <th>Teacher</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for class in classes %}
+                    <tr>
+                        <td>{{ class.name }}</td>
+                        <td>{{ class.course.name }}</td>
+                        <td>{{ class.academic_year.name }}</td>
+                        <td>{{ class.semester.name }}</td>
+                        <td>{{ class.teacher.user.get_full_name }}</td>
+                        <td>
+                            {% if class.is_active %}
+                                <span class="badge bg-success">Active</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{% url 'csms:class_detail' class.pk %}" class="btn btn-outline-primary">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{% url 'csms:class_update' class.pk %}" class="btn btn-sm btn-warning">
+                                <a href="{% url 'csms:class_update' class.pk %}" class="btn btn-outline-secondary">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% else %}
-            <div class="alert alert-info">
-                No classes found. <a href="{% url 'csms:class_create' %}" class="alert-link">Create one now</a>.
-            </div>
-            {% endif %}
+                                <a href="{% url 'csms:class_delete' class.pk %}" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No classes found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for i in paginator.page_range %}
+                <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

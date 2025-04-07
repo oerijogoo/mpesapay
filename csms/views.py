@@ -734,12 +734,20 @@ class EnrollmentDeleteView(BaseDeleteView):
 # ======================
 class ClassListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Class
-    template_name = 'class/class_list.html'
+    template_name = 'classes/class_list.html'
     permission_required = 'csms.view_class'
-    context_object_name = 'csms:classes'
+    context_object_name = 'classes'  # Standard naming (no colon)
 
     def get_queryset(self):
-        return super().get_queryset().select_related('course', 'academic_year', 'semester', 'teacher')
+        # Debug output to console
+        queryset = Class.objects.all().select_related(
+            'course',
+            'academic_year',
+            'semester',
+            'teacher'
+        )
+        print("Classes in queryset:", queryset.count())
+        return queryset
 
 
 from django.db.models import Q  # Add this import at the top
@@ -778,29 +786,40 @@ class ClassCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ClassUpdateView(BaseUpdateView):
-    model = Class
-    form_class = ClassForm
-    permission_required = 'csms.change_class'
-    list_url_name = 'csms:class_list'
-    detail_url_name = 'csms:class_detail'
-
-    def get_success_url(self):
-        return reverse('csms:class_list')  # Redirect to list view after update
-
-
-class ClassDeleteView(BaseDeleteView):
-    model = Class
-    permission_required = 'csms.delete_class'
-    list_url_name = 'csms:class_list'
-
-
 class ClassDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Class
-    template_name = 'class/class_detail.html'
+    template_name = 'classes/class_detail.html'  # Corrected path
     permission_required = 'csms.view_class'
-    context_object_name = 'csms:class'
+    context_object_name = 'class_obj'  # Changed from 'csms:class' to standard name
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['class_subjects'] = self.object.class_subjects.all()
+        return context
+
+class ClassUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Class
+    form_class = ClassForm
+    template_name = 'classes/class_form.html'
+    permission_required = 'csms.change_class'
+
+    def get_success_url(self):
+        messages.success(self.request, "Class updated successfully!")
+        return reverse('csms:class_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f"Update {self.object}"
+        return context
+
+class ClassDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Class
+    template_name = 'classes/class_confirm_delete.html'
+    permission_required = 'csms.delete_class'
+
+    def get_success_url(self):
+        messages.success(self.request, "Class deleted successfully!")
+        return reverse('csms:class_list')
 
 class ClassSubjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ClassSubject
