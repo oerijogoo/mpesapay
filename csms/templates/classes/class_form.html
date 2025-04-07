@@ -1,0 +1,97 @@
+{% extends 'csms/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mb-0">
+                {% if object %}Edit{% else %}Create{% endif %} Class
+            </h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Main Class Information -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        {{ form.name|as_crispy_field }}
+                        {{ form.course|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.academic_year|as_crispy_field }}
+                        {{ form.semester|as_crispy_field }}
+                    </div>
+                </div>
+
+                <!-- Teacher and Status -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        {{ form.teacher|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.is_active|as_crispy_field }}
+                    </div>
+                </div>
+
+                <!-- Subject Assignments Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Subject Assignments</h5>
+                    </div>
+                    <div class="card-body">
+                        {{ formset.management_form }}
+                        {% for form in formset %}
+                            <div class="formset-form border-bottom pb-3 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form.subject|as_crispy_field }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.teacher|as_crispy_field }}
+                                    </div>
+                                </div>
+                                {% if form.DELETE %}
+                                    <div class="form-check">
+                                        {{ form.DELETE|as_crispy_field }}
+                                        <label class="form-check-label text-danger">
+                                            Remove this subject
+                                        </label>
+                                    </div>
+                                {% endif %}
+                                {{ form.id }}  <!-- Hidden ID field for existing instances -->
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Save
+                    </button>
+                    <a href="{% url 'csms:class_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times me-1"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript for dynamic form handling -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Example: Show delete checkbox only for existing records
+    document.querySelectorAll('.formset-form').forEach(form => {
+        const idField = form.querySelector('[id$="-id"]');
+        const deleteCheckbox = form.querySelector('[id$="-DELETE"]');
+
+        if (deleteCheckbox && (!idField || !idField.value)) {
+            deleteCheckbox.closest('.form-check').style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

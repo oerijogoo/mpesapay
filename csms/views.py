@@ -1,6 +1,6 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView, FormView
 )
@@ -138,7 +138,7 @@ class SchoolSettingsView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     form_class = SchoolSettingsForm
     template_name = 'configuration/school_settings.html'
     permission_required = 'csms.change_schoolsettings'
-    success_url = reverse_lazy('school_settings')
+    success_url = reverse_lazy('csms:school_settings')  # Add the namespace here
 
     def get_object(self):
         return SchoolSettings.objects.first()
@@ -402,36 +402,36 @@ class GradingScaleListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
     model = GradingScale
     template_name = 'grading/grading_scale_list.html'
     permission_required = 'csms.view_gradingscale'
-    context_object_name = 'grading_scales'
+    context_object_name = 'csms:grading_scales'
 
 
 class GradingScaleCreateView(BaseCreateView):
     model = GradingScale
     form_class = GradingScaleForm
     permission_required = 'csms.add_gradingscale'
-    list_url_name = 'grading_scale_list'
-    detail_url_name = 'grading_scale_detail'
+    list_url_name = 'csms:grading_scale_list'
+    detail_url_name = 'csms:grading_scale_detail'
 
 
 class GradingScaleUpdateView(BaseUpdateView):
     model = GradingScale
     form_class = GradingScaleForm
     permission_required = 'csms.change_gradingscale'
-    list_url_name = 'grading_scale_list'
-    detail_url_name = 'grading_scale_detail'
+    list_url_name = 'csms:grading_scale_list'
+    detail_url_name = 'csms:grading_scale_detail'
 
 
 class GradingScaleDeleteView(BaseDeleteView):
     model = GradingScale
     permission_required = 'csms.delete_gradingscale'
-    list_url_name = 'grading_scale_list'
+    list_url_name = 'csms:grading_scale_list'
 
 
 class GradingScaleDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = GradingScale
     template_name = 'grading/grading_scale_detail.html'
     permission_required = 'csms.view_gradingscale'
-    context_object_name = 'grading_scale'
+    context_object_name = 'csms:grading_scale'
 
 
 class GradeCreateView(BaseCreateView):
@@ -439,10 +439,6 @@ class GradeCreateView(BaseCreateView):
     form_class = GradeForm
     permission_required = 'csms.add_grade'
     template_name = 'grading/grade_form.html'
-    detail_url_name = 'grading_scale_detail'
-
-    def get_success_url(self):
-        return reverse_lazy('grading_scale_detail', kwargs={'pk': self.object.grading_scale.pk})
 
     def get_initial(self):
         initial = super().get_initial()
@@ -458,33 +454,40 @@ class GradeCreateView(BaseCreateView):
             context['grading_scale'] = get_object_or_404(GradingScale, pk=grading_scale_id)
         return context
 
+    def get_success_url(self):
+        return reverse_lazy('csms:grading_scale_detail', kwargs={'pk': self.object.grading_scale.pk})
+
 
 class GradeUpdateView(BaseUpdateView):
     model = Grade
     form_class = GradeForm
     permission_required = 'csms.change_grade'
     template_name = 'grading/grade_form.html'
-    detail_url_name = 'grading_scale_detail'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['grading_scale'] = self.object.grading_scale  # Add grading_scale to context
+        return context
 
     def get_success_url(self):
-        return reverse_lazy('grading_scale_detail', kwargs={'pk': self.object.grading_scale.pk})
+        return reverse_lazy('csms:grading_scale_detail', kwargs={'pk': self.object.grading_scale.pk})
 
 
 class GradeDeleteView(BaseDeleteView):
     model = Grade
     permission_required = 'csms.delete_grade'
     template_name = 'grading/grade_confirm_delete.html'
-    detail_url_name = 'grading_scale_detail'
+    detail_url_name = 'csms:grading_scale_detail'
 
     def get_success_url(self):
-        return reverse_lazy('grading_scale_detail', kwargs={'pk': self.object.grading_scale.pk})
+        return reverse_lazy('csms:grading_scale_detail', kwargs={'pk': self.object.grading_scale.pk})
 
 
 class SubjectGradingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = SubjectGrading
     template_name = 'grading/subject_grading_list.html'
     permission_required = 'csms.view_subjectgrading'
-    context_object_name = 'subject_gradings'
+    context_object_name = 'csms:subject_gradings'
 
     def get_queryset(self):
         return super().get_queryset().select_related('subject', 'grading_scale')
@@ -494,20 +497,20 @@ class SubjectGradingCreateView(BaseCreateView):
     model = SubjectGrading
     form_class = SubjectGradingForm
     permission_required = 'csms.add_subjectgrading'
-    list_url_name = 'subject_grading_list'
+    list_url_name = 'csms:subject_grading_list'
 
 
 class SubjectGradingUpdateView(BaseUpdateView):
     model = SubjectGrading
     form_class = SubjectGradingForm
     permission_required = 'csms.change_subjectgrading'
-    list_url_name = 'subject_grading_list'
+    list_url_name = 'csms:subject_grading_list'
 
 
 class SubjectGradingDeleteView(BaseDeleteView):
     model = SubjectGrading
     permission_required = 'csms.delete_subjectgrading'
-    list_url_name = 'subject_grading_list'
+    list_url_name = 'csms:subject_grading_list'
 
 
 # ======================
@@ -733,46 +736,77 @@ class ClassListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Class
     template_name = 'class/class_list.html'
     permission_required = 'csms.view_class'
-    context_object_name = 'classes'
+    context_object_name = 'csms:classes'
 
     def get_queryset(self):
         return super().get_queryset().select_related('course', 'academic_year', 'semester', 'teacher')
 
 
-class ClassCreateView(BaseCreateView):
+from django.db.models import Q  # Add this import at the top
+from django.forms import inlineformset_factory
+
+ClassSubjectFormSet = inlineformset_factory(
+    Class,
+    ClassSubject,
+    form=ClassSubjectForm,
+    extra=1,
+    can_delete=True,
+    fields=['subject', 'teacher']
+)
+
+
+class ClassCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Class
     form_class = ClassForm
+    template_name = 'classes/class_form.html'
     permission_required = 'csms.add_class'
-    list_url_name = 'class_list'
-    detail_url_name = 'class_detail'
+
+    def get_success_url(self):
+        messages.success(self.request, "Class created successfully!")
+        return reverse('csms:class_list')
+
+    def form_valid(self, form):
+        # Save the class first
+        self.object = form.save()
+
+        # Process subject assignments if using formset
+        if hasattr(self, 'formset'):
+            formset = self.formset(self.request.POST, instance=self.object)
+            if formset.is_valid():
+                formset.save()
+
+        return super().form_valid(form)
 
 
 class ClassUpdateView(BaseUpdateView):
     model = Class
     form_class = ClassForm
     permission_required = 'csms.change_class'
-    list_url_name = 'class_list'
-    detail_url_name = 'class_detail'
+    list_url_name = 'csms:class_list'
+    detail_url_name = 'csms:class_detail'
+
+    def get_success_url(self):
+        return reverse('csms:class_list')  # Redirect to list view after update
 
 
 class ClassDeleteView(BaseDeleteView):
     model = Class
     permission_required = 'csms.delete_class'
-    list_url_name = 'class_list'
+    list_url_name = 'csms:class_list'
 
 
 class ClassDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Class
     template_name = 'class/class_detail.html'
     permission_required = 'csms.view_class'
-    context_object_name = 'class'
+    context_object_name = 'csms:class'
 
 
 class ClassSubjectListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = ClassSubject
     template_name = 'class/class_subject_list.html'
     permission_required = 'csms.view_classsubject'
-    context_object_name = 'class_subjects'
+    context_object_name = 'csms:class_subjects'
 
     def get_queryset(self):
         return super().get_queryset().select_related('class_obj', 'subject', 'teacher')
@@ -782,20 +816,20 @@ class ClassSubjectCreateView(BaseCreateView):
     model = ClassSubject
     form_class = ClassSubjectForm
     permission_required = 'csms.add_classsubject'
-    list_url_name = 'class_subject_list'
+    list_url_name = 'csms:class_subject_list'
 
 
 class ClassSubjectUpdateView(BaseUpdateView):
     model = ClassSubject
     form_class = ClassSubjectForm
     permission_required = 'csms.change_classsubject'
-    list_url_name = 'class_subject_list'
+    list_url_name = 'csms:class_subject_list'
 
 
 class ClassSubjectDeleteView(BaseDeleteView):
     model = ClassSubject
     permission_required = 'csms.delete_classsubject'
-    list_url_name = 'class_subject_list'
+    list_url_name = 'csms:class_subject_list'
 
 
 # ======================

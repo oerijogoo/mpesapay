@@ -370,6 +370,9 @@ class Class(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.PROTECT)
     teacher = models.ForeignKey(Teacher, on_delete=models.PROTECT, related_name='classes')
     subjects = models.ManyToManyField(Subject, through='ClassSubject')
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = "Classes"
@@ -386,7 +389,7 @@ class Class(models.Model):
 class ClassSubject(models.Model):
     class_obj = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='class_subjects')
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
-    teacher = models.ForeignKey(Teacher, on_delete=models.PROTECT)
+    teacher = models.ForeignKey(Teacher, on_delete=models.PROTECT)  # Required field
 
     class Meta:
         verbose_name = "Class Subject"
@@ -394,7 +397,7 @@ class ClassSubject(models.Model):
         unique_together = ['class_obj', 'subject']
 
     def __str__(self):
-        return f"{self.class_obj} - {self.subject}"
+        return f"{self.class_obj} - {self.subject} (Teacher: {self.teacher})"
 
 
 class ExamType(models.Model):

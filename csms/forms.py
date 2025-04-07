@@ -11,8 +11,10 @@ from .models import (
 )
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q  # Add this import
 
 User = get_user_model()
+
 
 
 # Helper forms and mixins
@@ -212,13 +214,52 @@ class EnrollmentForm(forms.ModelForm, BootstrapFormMixin):
 class ClassForm(forms.ModelForm, BootstrapFormMixin):
     class Meta:
         model = Class
-        fields = '__all__'
+        fields = ['name', 'course', 'academic_year', 'semester', 'teacher', 'is_active']
+        widgets = {
+            'course': forms.Select(attrs={'class': 'form-select'}),
+            'academic_year': forms.Select(attrs={'class': 'form-select'}),
+            'semester': forms.Select(attrs={'class': 'form-select'}),
+            'teacher': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Order teacher choices by last name
+        self.fields['teacher'].queryset = Teacher.objects.all().order_by('user__last_name')
 
 
 class ClassSubjectForm(forms.ModelForm, BootstrapFormMixin):
     class Meta:
         model = ClassSubject
         fields = '__all__'
+        widgets = {
+            'teacher': forms.Select(attrs={'class': 'form-select'}),
+            'class_obj': forms.Select(attrs={'class': 'form-select'}),
+            'subject': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'teacher' in self.fields:
+            self.fields['teacher'].queryset = Teacher.objects.all().order_by('user__last_name')  # Changed here too
+
+    def clean(self):
+        cleaned_data = super().clean()
+        class_obj = cleaned_data.get('class_obj')
+        subject = cleaned_data.get('subject')
+
+        # Check for existing class-subject combination
+        if class_obj and subject:
+            existing = ClassSubject.objects.filter(
+                class_obj=class_obj,
+                subject=subject
+            ).exclude(pk=self.instance.pk if self.instance else None)
+
+            if existing.exists():
+                raise ValidationError(
+                    "This subject is already assigned to this class"
+                )
+        return cleaned_data
 
 
 # Exam System Forms

@@ -48,9 +48,9 @@
                                         <h6 class="mb-0">Student Profile</h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="text-center mb-3">
-                                            {% if student.photo %}
-                                                {% cloudinary student.photo width=150 height=150 crop="fill" gravity="face" class="img-thumbnail" %}
+                                       <div class="text-center mb-3">
+                                            {% if student.photo and student.photo.url %}
+                                                {% cloudinary student.photo.url width=150 height=150 crop="fill" gravity="face" class="img-thumbnail" %}
                                             {% else %}
                                                 <img src="{% static 'img/default-user.png' %}" class="img-thumbnail" width="150">
                                             {% endif %}
