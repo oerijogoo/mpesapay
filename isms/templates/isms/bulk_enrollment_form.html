@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+Bulk Enrollment
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Bulk Enrollment Form</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Enroll Students</button>
+            <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'school_detail' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url view.model|lower|add:'_list' %}">{{ view.model|title }}s</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 mb-4 sidebar">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Actions</h5>
+            </div>
+            <div class="card-body">
+                <a href="{% url view.model|lower|add:'_edit' object.pk %}" class="btn btn-primary w-100 mb-2">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </a>
+                <a href="{% url view.model|lower|add:'_delete' object.pk %}" class="btn btn-danger w-100 mb-2">
+                    <i class="bi bi-trash"></i> Delete
+                </a>
+                {% block detail_actions %}{% endblock %}
+            </div>
+        </div>
+
+        {% block detail_sidebar %}{% endblock %}
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ view.model|title }} Details</h5>
+                <span class="badge bg-light text-dark">ID: {{ object.pk }}</span>
+            </div>
+            <div class="card-body">
+                {% block detail_content %}
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            {% for field, value in object.get_fields %}
+                                <tr>
+                                    <th width="30%">{{ field.verbose_name|title }}</th>
+                                    <td>
+                                        {% if field.name in 'logo,photo,image' and value %}
+                                            <img src="{{ value.url }}" alt="{{ object }}" class="img-fluid" style="max-height: 150px;">
+                                        {% else %}
+                                            {{ value|default:"-" }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        {% block detail_extra %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

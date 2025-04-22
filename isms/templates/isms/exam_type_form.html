@@ -1,0 +1,21 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+{% if form.instance.pk %}Update{% else %}Create{% endif %} Exam Type
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Exam Type Form</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{% url 'exam_type_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

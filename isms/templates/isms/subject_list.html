@@ -1,0 +1,72 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+Subjects
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Subject List</h5>
+        {% if perms.isms.add_subject %}
+        <a href="{% url 'subject_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Subject
+        </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Courses</th>
+                        <th>Papers</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subject in subjects %}
+                    <tr>
+                        <td>{{ subject.code }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td>
+                            {% for course in subject.courses.all %}
+                            <span class="badge bg-primary">{{ course.code }}</span>
+                            {% endfor %}
+                        </td>
+                        <td>{{ subject.papers.count }}</td>
+                        <td>
+                            {% if subject.is_active %}
+                            <span class="badge bg-success">Active</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if perms.isms.change_subject %}
+                            <a href="{% url 'subject_update' subject.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {% endif %}
+                            {% if perms.isms.delete_subject %}
+                            <a href="{% url 'subject_delete' subject.pk %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No subjects found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'isms/partials/pagination.html' %}
+    </div>
+</div>
+{% endblock %}

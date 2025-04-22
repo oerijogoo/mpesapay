@@ -1,0 +1,120 @@
+{% extends 'generic_detail.html' %}
+
+{% block detail_content %}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th width="30%">Name</th>
+                <td>{{ object.name }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ object.code }}</td>
+            </tr>
+            <tr>
+                <th>Courses</th>
+                <td>
+                    {% for course in object.courses.all %}
+                        <span class="badge bg-primary">{{ course }}</span>
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Total Max Mark</th>
+                <td>{{ object.total_max_mark }}%</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>
+                    {% if object.is_active %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% if object.description %}
+            <tr>
+                <th>Description</th>
+                <td>{{ object.description }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<h5 class="mt-4 mb-3">Papers</h5>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Weight</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paper in object.papers.all %}
+            <tr>
+                <td>{{ paper.name }}</td>
+                <td>{{ paper.code }}</td>
+                <td>{{ paper.max_mark_weight }}%</td>
+                <td>
+                    {% if paper.is_active %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No papers added yet</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if object.gradings.all %}
+<h5 class="mt-4 mb-3">Grading Systems</h5>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Grading System</th>
+                <th>Pass Mark</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grading in object.gradings.all %}
+            <tr>
+                <td>{{ grading.grading_system }}</td>
+                <td>{{ grading.pass_mark }}%</td>
+                <td>
+                    <a href="{% url 'subjectgrading_edit' grading.pk %}" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="{% url 'subjectgrading_delete' grading.pk %}" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block detail_actions %}
+<a href="{% url 'subjectgrading_add' %}?subject={{ object.pk }}" class="btn btn-outline-primary w-100 mb-2">
+    <i class="bi bi-plus-circle"></i> Add Grading
+</a>
+{{ block.super }}
+{% endblock %}

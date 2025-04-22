@@ -1,8 +1,0 @@
-{% extends 'sms/base.html' %}
-
-{% block content %}
-
-<h1>Fee Payment Successful!</h1>
-<a href="{% url 'student_fee_account' fee_accounts.0.student.id %}">Back to Fee Account</a>
-
-{% endblock %}

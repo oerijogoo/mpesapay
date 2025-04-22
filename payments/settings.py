@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'cart',
     'payment',
     'mathfilters',
-    'account',
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
@@ -60,9 +59,6 @@ INSTALLED_APPS = [
     'reports',
     'accounting',
     'search',
-    'sms',
-    'csms',
-    'csms.templatetags',
     'rest_framework',
     'hospital',
     'django_select2',
@@ -71,6 +67,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django.contrib.humanize',
     'django_filters',
+    'isms',
 
 
 
@@ -216,6 +213,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Authentication settings
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'isms:dashboard'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 # settings.py

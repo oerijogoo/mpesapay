@@ -1,0 +1,119 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+{% if form.instance.pk %}Update{% else %}Create{% endif %} Subject
+{% endblock %}
+
+{% block content %}
+<div class="dual-view">
+    <div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Subject Form</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    {% if not form.instance.pk %}
+                    <h5>Papers</h5>
+                    {{ paper_formset.management_form }}
+                    {% for form in paper_formset %}
+                        <div class="paper-form">
+                            {{ form.as_p }}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'subject_list' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if form.instance.pk %}
+    <div>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>Papers</h5>
+                {% if perms.isms.add_paper %}
+                <a href="{% url 'paper_create' form.instance.pk %}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus"></i> Add Paper
+                </a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Weight</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for paper in form.instance.papers.all %}
+                            <tr>
+                                <td>{{ paper.code }}</td>
+                                <td>{{ paper.name }}</td>
+                                <td>{{ paper.max_weight }}%</td>
+                                <td>
+                                    {% if perms.isms.change_paper %}
+                                    <a href="{% url 'paper_update' paper.pk %}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {% endif %}
+                                    {% if perms.isms.delete_paper %}
+                                    <a href="{% url 'paper_delete' paper.pk %}" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No papers found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-info">
+                                <td colspan="2">Total Weight</td>
+                                <td>{{ form.instance.total_max_weight|default:"0" }}%</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .dual-view {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .paper-form {
+        border: 1px solid #eee;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+</style>
+
+<script>
+    // You might want to add some JavaScript to dynamically add more paper forms if needed
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add any dynamic form handling here
+    });
+</script>
+{% endblock %}

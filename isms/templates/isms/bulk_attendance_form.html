@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+Bulk Attendance
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Bulk Attendance Form</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Record Attendance</button>
+            <a href="{% url 'attendance_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

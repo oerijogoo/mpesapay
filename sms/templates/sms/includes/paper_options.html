@@ -1,8 +1,0 @@
-<!--templates/sms/includes/paper_options.html-->
-{% for paper in papers %}
-<option value="{{ paper.id }}" data-max-mark="{{ paper.max_mark }}">
-    {{ paper.name }} (Max: {{ paper.max_mark }})
-</option>
-{% empty %}
-<option value="">-- Select a subject first --</option>
-{% endfor %}

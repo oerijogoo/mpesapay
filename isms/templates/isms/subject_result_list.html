@@ -1,0 +1,121 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+Subject Results
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Subject Result List</h5>
+        {% if perms.isms.add_subjectresult %}
+        <a href="{% url 'subject_result_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Subject Result
+        </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form method="get" class="row g-2">
+                    <div class="col-md-6">
+                        <select name="class_subject_id" class="form-select">
+                            <option value="">All Subjects</option>
+                            {% for class_subject in class_subjects %}
+                            <option value="{{ class_subject.id }}" {% if request.GET.class_subject_id == class_subject.id|stringformat:"s" %}selected{% endif %}>
+                                {{ class_subject.subject.name }} ({{ class_subject.class_info.name }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="exam_id" class="form-select">
+                            <option value="">All Exams</option>
+                            {% for exam in exams %}
+                            <option value="{{ exam.id }}" {% if request.GET.exam_id == exam.id|stringformat:"s" %}selected{% endif %}>
+                                {{ exam.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="student_id" class="form-select">
+                            <option value="">All Students</option>
+                            {% for student in students %}
+                            <option value="{{ student.id }}" {% if request.GET.student_id == student.id|stringformat:"s" %}selected{% endif %}>
+                                {{ student.get_full_name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="{% url 'subject_result_list' %}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Class</th>
+                        <th>Subject</th>
+                        <th>Exam</th>
+                        <th>Total Marks</th>
+                        <th>Average</th>
+                        <th>Grade</th>
+                        <th>Position</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in subject_results %}
+                    <tr>
+                        <td>{{ result.student.get_full_name }}</td>
+                        <td>{{ result.class_subject.class_info.name }}</td>
+                        <td>{{ result.class_subject.subject.name }}</td>
+                        <td>{{ result.exam.name }}</td>
+                        <td>{{ result.total_marks }}</td>
+                        <td>{{ result.average }}</td>
+                        <td>
+                            {% if result.grade %}
+                            <span class="badge bg-primary">{{ result.grade.name }}</span>
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if result.position %}
+                            {{ result.position }}
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if perms.isms.change_subjectresult %}
+                            <a href="{% url 'subject_result_update' result.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {% endif %}
+                            {% if perms.isms.delete_subjectresult %}
+                            <a href="{% url 'subject_result_delete' result.pk %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9" class="text-center">No subject results found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'isms/partials/pagination.html' %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+Student Details: {{ student.get_full_name }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Student Information</h5>
+            </div>
+            <div class="card-body text-center">
+                {% if student.photo %}
+                <img src="{{ student.photo.url }}" alt="{{ student.get_full_name }}" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px; margin: 0 auto;">
+                    <i class="fas fa-user fa-4x text-secondary"></i>
+                </div>
+                {% endif %}
+
+                <h4>{{ student.get_full_name }}</h4>
+                <p class="text-muted">{{ student.admission_number }}</p>
+
+                <div class="text-start">
+                    <p><strong>Gender:</strong> {{ student.get_gender_display }}</p>
+                    <p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
+                    <p><strong>Admission Date:</strong> {{ student.admission_date }}</p>
+                    <p><strong>Current Class:</strong>
+                        {% if student.current_class %}
+                        {{ student.current_class.name }}
+                        {% else %}
+                        Not enrolled
+                        {% endif %}
+                    </p>
+                    <p><strong>Status:</strong>
+                        {% if student.is_active %}
+                        <span class="badge bg-success">Active</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                {% if perms.isms.change_student %}
+                <a href="{% url 'student_update' student.pk %}" class="btn btn-warning btn-sm mt-2">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Academic History</h5>
+            </div>
+            <div class="card-body">
+                {% if enrollments %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Academic Year</th>
+                                <th>Enrollment Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in enrollments %}
+                            <tr>
+                                <td>{{ enrollment.class_info.name }}</td>
+                                <td>{{ enrollment.class_info.academic_year.name }}</td>
+                                <td>{{ enrollment.enrollment_date }}</td>
+                                <td>
+                                    {% if enrollment.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No enrollment history found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Recent Results</h5>
+            </div>
+            <div class="card-body">
+                {% if results %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Exam</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                                <th>Position</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results %}
+                            <tr>
+                                <td>{{ result.class_subject.subject.name }}</td>
+                                <td>{{ result.exam.name }}</td>
+                                <td>{{ result.total_marks }}</td>
+                                <td>
+                                    {% if result.grade %}
+                                    <span class="badge bg-primary">{{ result.grade.name }}</span>
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if result.position %}
+                                    {{ result.position }}
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'subject_result_list' %}?student_id={{ student.pk }}" class="btn btn-sm btn-primary mt-2">
+                    View All Results
+                </a>
+                {% else %}
+                <p class="text-muted">No results found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

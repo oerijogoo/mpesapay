@@ -1,0 +1,140 @@
+{% extends 'generic_detail.html' %}
+
+{% block detail_content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th width="30%">Student</th>
+                        <td>{{ object.student }}</td>
+                    </tr>
+                    <tr>
+                        <th>Class Group</th>
+                        <td>{{ object.class_group }}</td>
+                    </tr>
+                    <tr>
+                        <th>Semester</th>
+                        <td>{{ object.semester }}</td>
+                    </tr>
+                    <tr>
+                        <th>Overall Grade</th>
+                        <td>
+                            {% if object.overall_grade %}
+                                <span class="badge bg-primary">{{ object.overall_grade }}</span>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Overall Position</th>
+                        <td>
+                            {% if object.overall_position %}
+                                {{ object.overall_position|ordinal }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Class Position</th>
+                        <td>
+                            {% if object.class_position %}
+                                {{ object.class_position|ordinal }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date Created</th>
+                        <td>{{ object.date_created }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created By</th>
+                        <td>{{ object.created_by }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0">Remarks</h6>
+            </div>
+            <div class="card-body">
+                {% if object.remarks %}
+                    {{ object.remarks|linebreaks }}
+                {% else %}
+                    <p class="text-muted">No remarks added</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if object.comments.all %}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">Comments</h6>
+        <span class="badge bg-light text-dark">{{ object.comments.count }}</span>
+    </div>
+    <div class="card-body">
+        {% for comment in object.comments.all %}
+        <div class="card mb-3">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <strong>{{ comment.get_comment_type_display }}</strong>
+                <small class="text-muted">{{ comment.date_commented }}</small>
+            </div>
+            <div class="card-body">
+                <p>{{ comment.comment }}</p>
+                <div class="text-end">
+                    <small class="text-muted">- {{ comment.commented_by }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<h5 class="mb-3">Subject Performance</h5>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- You would populate this with actual subject performance data -->
+            <tr>
+                <td>Mathematics</td>
+                <td>85%</td>
+                <td>A</td>
+                <td>Excellent performance</td>
+            </tr>
+            <tr>
+                <td>English</td>
+                <td>78%</td>
+                <td>B+</td>
+                <td>Good effort</td>
+            </tr>
+            <!-- Add more subjects as needed -->
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block detail_actions %}
+<a href="{% url 'reportcomment_add' %}?report_card={{ object.pk }}" class="btn btn-outline-primary w-100 mb-2">
+    <i class="bi bi-plus-circle"></i> Add Comment
+</a>
+{{ block.super }}
+{% endblock %}

@@ -1,0 +1,387 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+{% if student %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>My Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        {% if student.photo %}
+                        <img src="{{ student.photo.url }}" alt="{{ student.get_full_name }}" class="img-fluid rounded-circle mb-2" style="width: 100px; height: 100px; object-fit: cover;">
+                        {% else %}
+                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mb-2" style="width: 100px; height: 100px; margin: 0 auto;">
+                            <i class="fas fa-user fa-3x text-secondary"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <h4>{{ student.get_full_name }}</h4>
+                        <p><strong>Admission No.:</strong> {{ student.admission_number }}</p>
+                        <p><strong>Current Class:</strong>
+                            {% if student.current_class %}
+                            {{ student.current_class.name }}
+                            {% else %}
+                            Not enrolled
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Recent Results</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_results %}
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Exam</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in recent_results %}
+                            <tr>
+                                <td>{{ result.class_subject.subject.name }}</td>
+                                <td>{{ result.exam.name }}</td>
+                                <td>{{ result.total_marks }}</td>
+                                <td>
+                                    {% if result.grade %}
+                                    <span class="badge bg-primary">{{ result.grade.name }}</span>
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'subject_result_list' %}?student_id={{ student.pk }}" class="btn btn-sm btn-primary mt-2">
+                    View All Results
+                </a>
+                {% else %}
+                <p class="text-muted">No recent results found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Recent Attendance</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_attendances %}
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attendance in recent_attendances %}
+                            <tr>
+                                <td>{{ attendance.date }}</td>
+                                <td>{{ attendance.class_subject.subject.name }}</td>
+                                <td>
+                                    {% if attendance.status == 'P' %}
+                                    <span class="badge bg-success">Present</span>
+                                    {% elif attendance.status == 'A' %}
+                                    <span class="badge bg-danger">Absent</span>
+                                    {% elif attendance.status == 'L' %}
+                                    <span class="badge bg-warning text-dark">Late</span>
+                                    {% else %}
+                                    <span class="badge bg-info">Excused</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ attendance.remarks|default:"-" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'attendance_list' %}?student_id={{ student.pk }}" class="btn btn-sm btn-primary mt-2">
+                    View All Attendance
+                </a>
+                {% else %}
+                <p class="text-muted">No recent attendance records found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% elif staff %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>My Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        {% if staff.photo %}
+                        <img src="{{ staff.photo.url }}" alt="{{ staff.get_full_name }}" class="img-fluid rounded-circle mb-2" style="width: 100px; height: 100px; object-fit: cover;">
+                        {% else %}
+                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mb-2" style="width: 100px; height: 100px; margin: 0 auto;">
+                            <i class="fas fa-user fa-3x text-secondary"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <h4>{{ staff.get_full_name }}</h4>
+                        <p><strong>Staff ID:</strong> {{ staff.staff_id }}</p>
+                        <p><strong>Department:</strong>
+                            {% if staff.department %}
+                            {{ staff.department.name }}
+                            {% else %}
+                            Not assigned
+                            {% endif %}
+                        </p>
+                        <p><strong>Role:</strong>
+                            {% if staff.is_teaching_staff %}
+                            Teaching Staff
+                            {% else %}
+                            Non-Teaching Staff
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if staff.is_teaching_staff %}
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Teaching Assignments</h5>
+            </div>
+            <div class="card-body">
+                {% if class_subjects %}
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Semester</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cs in class_subjects %}
+                            <tr>
+                                <td>{{ cs.class_info.name }}</td>
+                                <td>{{ cs.subject.name }}</td>
+                                <td>{{ cs.semester.name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'class_subject_list' %}" class="btn btn-sm btn-primary mt-2">
+                    View All Assignments
+                </a>
+                {% else %}
+                <p class="text-muted">No teaching assignments found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if staff.is_teaching_staff %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Upcoming Exams</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_exams %}
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Exam</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for exam in recent_exams %}
+                            <tr>
+                                <td>{{ exam.exam.name }}</td>
+                                <td>{{ exam.class_subject.subject.name }}</td>
+                                <td>{{ exam.exam_date }}</td>
+                                <td>{{ exam.start_time }} - {{ exam.end_time }}</td>
+                                <td>{{ exam.venue }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'exam_schedule_list' %}" class="btn btn-sm btn-primary mt-2">
+                    View All Exam Schedules
+                </a>
+                {% else %}
+                <p class="text-muted">No upcoming exams found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% else %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Students</h5>
+                        <h2 class="mb-0">{{ total_students }}</h2>
+                    </div>
+                    <i class="fas fa-user-graduate fa-3x"></i>
+                </div>
+                <a href="{% url 'student_list' %}" class="text-white stretched-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Staff</h5>
+                        <h2 class="mb-0">{{ total_staff }}</h2>
+                    </div>
+                    <i class="fas fa-chalkboard-teacher fa-3x"></i>
+                </div>
+                <a href="{% url 'staff_list' %}" class="text-white stretched-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Current AY</h5>
+                        <h2 class="mb-0">
+                            {% if current_academic_year %}
+                            {{ current_academic_year.name }}
+                            {% else %}
+                            Not set
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <i class="fas fa-calendar-alt fa-3x"></i>
+                </div>
+                <a href="{% url 'academic_year_list' %}" class="text-white stretched-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Current Semester</h5>
+                        <h2 class="mb-0">
+                            {% if current_semester %}
+                            {{ current_semester.name }}
+                            {% else %}
+                            Not set
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <i class="fas fa-calendar-week fa-3x"></i>
+                </div>
+                <a href="{% url 'semester_list' %}" class="text-white stretched-link"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Recent Enrollments</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_enrollments %}
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Class</th>
+                                <th>Enrollment Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in recent_enrollments %}
+                            <tr>
+                                <td>{{ enrollment.student.get_full_name }}</td>
+                                <td>{{ enrollment.class_info.name }}</td>
+                                <td>{{ enrollment.enrollment_date }}</td>
+                                <td>
+                                    {% if enrollment.is_active %}
+                                    <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'enrollment_list' %}" class="btn btn-sm btn-primary mt-2">
+                    View All Enrollments
+                </a>
+                {% else %}
+                <p class="text-muted">No recent enrollments found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
