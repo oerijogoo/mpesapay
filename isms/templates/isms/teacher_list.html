@@ -1,0 +1,60 @@
+{% extends "isms/generic_list.html" %}
+
+{% block card_title %}Teachers{% endblock %}
+{% block create_url %}{% url 'isms:teacher_create' %}{% endblock %}
+
+{% block filters %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form method="get">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.search }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Teacher ID</th>
+    <th>Name</th>
+    <th>Qualification</th>
+    <th>Specialization</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for teacher in object_list %}
+<tr>
+    <td>{{ teacher.teacher_id }}</td>
+    <td>{{ teacher.user.get_full_name }}</td>
+    <td>{{ teacher.qualification }}</td>
+    <td>{{ teacher.specialization }}</td>
+    <td>
+        {% if teacher.is_active %}
+        <span class="badge bg-success">Active</span>
+        {% else %}
+        <span class="badge bg-danger">Inactive</span>
+        {% endif %}
+    </td>
+    <td>
+        <div class="btn-group btn-group-sm">
+            <a href="{% url 'isms:teacher_detail' teacher.pk %}" class="btn btn-info">
+                <i class="bi bi-eye"></i>
+            </a>
+            <a href="{% url 'isms:teacher_update' teacher.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="6" class="text-center">No teachers found</td>
+</tr>
+{% endfor %}
+{% endblock %}

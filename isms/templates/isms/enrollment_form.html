@@ -10,12 +10,101 @@
         <h5>Enrollment Form</h5>
     </div>
     <div class="card-body">
-        <form method="post">
+        <form method="post" id="enrollment-form">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group">
+                {{ form.class_info.label_tag }}
+                {{ form.class_info }}
+                {% if form.class_info.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.class_info.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.student.label_tag }}
+                {{ form.student }}
+                {% if form.student.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.student.errors }}
+                    </div>
+                {% endif %}
+                <small class="form-text text-muted">Select a class first to see available students</small>
+            </div>
+
+            <div class="form-group">
+                {{ form.enrollment_date.label_tag }}
+                {{ form.enrollment_date }}
+                {% if form.enrollment_date.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.enrollment_date.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('#id_class_info').change(function() {
+    var classId = $(this).val();
+    var studentSelect = $('#id_student');
+    var isEditing = {% if form.instance.pk %}true{% else %}false{% endif %};
+
+    if (classId) {
+        studentSelect.prop('disabled', true);
+        studentSelect.html('<option value="">Loading students...</option>');
+
+        $.ajax({
+            url: "{% url 'get_students_by_class' %}",
+            data: {
+                'class_id': classId,
+                'editing': isEditing
+            },
+            success: function(data) {
+                studentSelect.empty();
+                if (data.length === 0) {
+                    studentSelect.append(
+                        $('<option></option>')
+                            .val('')
+                            .text('No available students')
+                    );
+                } else {
+                    studentSelect.append(
+                        $('<option></option>')
+                            .val('')
+                            .text('--------- Select a student ---------')
+                    );
+                    $.each(data, function(index, student) {
+                        studentSelect.append(
+                            $('<option></option>')
+                                .val(student.id)
+                                .text(student.name + ' (' + student.admission_number + ')')
+                        );
+                    });
+                }
+                studentSelect.prop('disabled', false);
+            },
+            error: function() {
+                studentSelect.html('<option value="">Error loading students</option>');
+                studentSelect.prop('disabled', false);
+            }
+        });
+    } else {
+        studentSelect.empty().prop('disabled', true);
+    }
+});
+</script>
+
+<style>
+/* Optional: Add some spacing between form elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+</style>
 {% endblock %}

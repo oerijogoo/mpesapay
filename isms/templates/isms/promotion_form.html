@@ -1,21 +1,7 @@
-{% extends 'base.html' %}
+{% extends "isms/generic_form.html" %}
 
-{% block header %}
-{% if form.instance.pk %}Update{% else %}Create{% endif %} Promotion
+{% block form_title %}
+    {% if form.instance.pk %}Edit Promotion{% else %}Create Promotion{% endif %}
 {% endblock %}
 
-{% block content %}
-<div class="card">
-    <div class="card-header">
-        <h5>Promotion Form</h5>
-    </div>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="{% url 'promotion_list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-</div>
-{% endblock %}
+{% block cancel_url %}{% url 'isms:promotion_list' %}{% endblock %}

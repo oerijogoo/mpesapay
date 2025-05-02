@@ -1,119 +1,241 @@
-{% extends 'isms/base.html' %}
-
-{% block header %}
-{% if form.instance.pk %}Update{% else %}Create{% endif %} Subject
-{% endblock %}
+{% extends "isms/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="dual-view">
-    <div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5>Subject Form</h5>
-            </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-
-                    {% if not form.instance.pk %}
-                    <h5>Papers</h5>
-                    {{ paper_formset.management_form }}
-                    {% for form in paper_formset %}
-                        <div class="paper-form">
-                            {{ form.as_p }}
-                        </div>
-                    {% endfor %}
-                    {% endif %}
-
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="{% url 'subject_list' %}" class="btn btn-secondary">Cancel</a>
-                </form>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+            {% if form.instance.pk %}Edit Subject{% else %}Create New Subject{% endif %}
+        </h5>
     </div>
+    <div class="card-body">
+        <form method="post" id="subject-form">
+            {% csrf_token %}
 
-    {% if form.instance.pk %}
-    <div>
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5>Papers</h5>
-                {% if perms.isms.add_paper %}
-                <a href="{% url 'paper_create' form.instance.pk %}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> Add Paper
-                </a>
-                {% endif %}
+            <!-- Subject fields -->
+            <div class="row">
+                <div class="col-md-6">{{ form.name|as_crispy_field }}</div>
+                <div class="col-md-6">{{ form.code|as_crispy_field }}</div>
             </div>
-            <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">{{ form.is_core|as_crispy_field }}</div>
+                <div class="col-md-6">{{ form.is_active|as_crispy_field }}</div>
+            </div>
+            {{ form.description|as_crispy_field }}
+            {{ form.class_levels|as_crispy_field }}
+
+            <!-- Papers formset -->
+            <h5 class="mt-4">Papers</h5>
+            <div id="papers-formset">
+                {{ papers_formset.management_form }}
+                <div id="total-weight-display" class="text-end mb-3 text-success">Total Weight: 0%</div>
+
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
+                    <table class="table table-bordered" id="papers-table">
+                        <thead class="table-light">
                             <tr>
-                                <th>Code</th>
                                 <th>Name</th>
-                                <th>Weight</th>
-                                <th>Actions</th>
+                                <th>Code</th>
+                                <th>Weight (%)</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {% for paper in form.instance.papers.all %}
-                            <tr>
-                                <td>{{ paper.code }}</td>
-                                <td>{{ paper.name }}</td>
-                                <td>{{ paper.max_weight }}%</td>
-                                <td>
-                                    {% if perms.isms.change_paper %}
-                                    <a href="{% url 'paper_update' paper.pk %}" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    {% endif %}
-                                    {% if perms.isms.delete_paper %}
-                                    <a href="{% url 'paper_delete' paper.pk %}" class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                        <tbody id="papers-tbody">
+                            {% for form in papers_formset %}
+                            <tr class="paper-form">
+                                {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+                                <td>{{ form.name|as_crispy_field }}</td>
+                                <td>{{ form.code|as_crispy_field }}</td>
+                                <td>{{ form.weight|as_crispy_field }}</td>
+                                <td class="align-middle">
+                                    {% if form.instance.pk %}
+                                        {{ form.DELETE|as_crispy_field }}
+                                    {% else %}
+                                        {% if forloop.first %}
+                                            <!-- No delete button for first form -->
+                                        {% else %}
+                                            <button type="button" class="btn btn-sm btn-danger remove-paper">
+                                                <i class="bi bi-trash"></i> Remove
+                                            </button>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="4" class="text-center">No papers found</td>
-                            </tr>
                             {% endfor %}
                         </tbody>
-                        <tfoot>
-                            <tr class="table-info">
-                                <td colspan="2">Total Weight</td>
-                                <td>{{ form.instance.total_max_weight|default:"0" }}%</td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
+
+                <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="add-paper">
+                    <i class="bi bi-plus"></i> Add Paper
+                </button>
             </div>
-        </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'isms:subject_list' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Subject</button>
+            </div>
+        </form>
     </div>
-    {% endif %}
 </div>
 
-<style>
-    .dual-view {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
+<!-- Hidden empty form template -->
+<template id="empty-form-template">
+    <tr class="paper-form">
+        <td>
+            <div class="form-group">
+                <input type="text" name="papers-__prefix__-name" class="textinput textInput form-control" required>
+                <input type="hidden" name="papers-__prefix__-id" id="id_papers-__prefix__-id">
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <input type="text" name="papers-__prefix__-code" class="textinput textInput form-control" required>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <input type="number" name="papers-__prefix__-weight" class="numberinput form-control" min="1" max="100" required>
+            </div>
+        </td>
+        <td class="align-middle">
+            <button type="button" class="btn btn-sm btn-danger remove-paper">
+                <i class="bi bi-trash"></i> Remove
+            </button>
+        </td>
+    </tr>
+</template>
+{% endblock %}
 
-    .paper-form {
-        border: 1px solid #eee;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-    }
-</style>
-
+{% block extra_js %}
 <script>
-    // You might want to add some JavaScript to dynamically add more paper forms if needed
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add any dynamic form handling here
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements more safely
+    const totalFormsInput = document.getElementById('id_papers-TOTAL_FORMS');
+    const addButton = document.getElementById('add-paper');
+    const formContainer = document.getElementById('papers-tbody');
+    const emptyFormTemplate = document.getElementById('empty-form-template');
+
+    // Check all required elements exist
+    if (!totalFormsInput || !addButton || !formContainer || !emptyFormTemplate) {
+        console.error('Required elements not found');
+        return;
+    }
+
+    // Add paper function
+    addButton.addEventListener('click', function() {
+        const formCount = parseInt(totalFormsInput.value);
+        const newRow = emptyFormTemplate.content.cloneNode(true);
+
+        // Update all placeholders safely
+        walkDOM(newRow, (node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                ['name', 'id', 'for'].forEach(attr => {
+                    if (node.hasAttribute(attr)) {
+                        const value = node.getAttribute(attr)
+                            .replace(/__prefix__/g, formCount);
+                        node.setAttribute(attr, value);
+                    }
+                });
+
+                if (node.tagName === 'LABEL') {
+                    const htmlFor = node.getAttribute('for');
+                    if (htmlFor) {
+                        node.setAttribute('for', htmlFor.replace(/__prefix__/g, formCount));
+                    }
+                }
+            }
+        });
+
+        formContainer.appendChild(newRow);
+        totalFormsInput.value = formCount + 1;
+        updateTotalWeightDisplay();
     });
+
+    // Helper function to traverse DOM
+    function walkDOM(node, func) {
+        func(node);
+        node = node.firstChild;
+        while (node) {
+            walkDOM(node, func);
+            node = node.nextSibling;
+        }
+    }
+
+    // Remove paper function
+    formContainer.addEventListener('click', function(e) {
+        if (e.target.closest('.remove-paper')) {
+            e.preventDefault();
+            const row = e.target.closest('tr');
+
+            // Mark for deletion if this is an existing form
+            const deleteInput = row.querySelector('input[name*="-DELETE"]');
+            if (deleteInput) {
+                deleteInput.value = 'on';
+                row.style.display = 'none';
+            } else {
+                row.remove();
+            }
+
+            updateFormIndices();
+            updateTotalWeightDisplay();
+        }
+    });
+
+    // Update form indices
+    function updateFormIndices() {
+        const forms = formContainer.querySelectorAll('tr.paper-form:not([style*="display: none"])');
+        forms.forEach((form, index) => {
+            walkDOM(form, (node) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    ['name', 'id', 'for'].forEach(attr => {
+                        if (node.hasAttribute(attr)) {
+                            const value = node.getAttribute(attr)
+                                .replace(/papers-\d+-/, `papers-${index}-`);
+                            node.setAttribute(attr, value);
+                        }
+                    });
+                }
+            });
+        });
+        totalFormsInput.value = forms.length;
+    }
+
+    // Weight calculation functions remain the same...
+    function calculateTotalWeight() {
+        let total = 0;
+        document.querySelectorAll('input[id$="-weight"]').forEach(input => {
+            if (input.value && !input.closest('tr').querySelector('input[name$="-DELETE"]:checked')) {
+                total += parseFloat(input.value) || 0;
+            }
+        });
+        return total;
+    }
+
+    function updateTotalWeightDisplay() {
+        const total = calculateTotalWeight();
+        const display = document.getElementById('total-weight-display');
+        if (display) {
+            display.textContent = `Total Weight: ${total}%`;
+            display.className = total > 100 ? 'text-end mb-3 text-danger' : 'text-end mb-3 text-success';
+        }
+    }
+
+    // Initialize
+    updateTotalWeightDisplay();
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.matches('input[id$="-weight"]')) {
+            updateTotalWeightDisplay();
+        }
+    });
+
+    document.getElementById('subject-form').addEventListener('submit', function(e) {
+        const totalWeight = calculateTotalWeight();
+        if (totalWeight > 100) {
+            e.preventDefault();
+            alert(`Total weight cannot exceed 100%. Current total: ${totalWeight}%`);
+        }
+    });
+});
 </script>
 {% endblock %}

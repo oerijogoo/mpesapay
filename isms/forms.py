@@ -1,45 +1,106 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import *
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column, Fieldset, Div
 from django.core.exceptions import ValidationError
-from django.forms import inlineformset_factory
-from .models import (
-    School, AcademicYear, Semester, Department, Course, Subject, Paper,
-    GradeScale, Grade, SubjectGradeScale, ClassLevel, Class, Student,
-    Staff, ClassSubject, Enrollment, Attendance, ExamType, Exam,
-    ExamSchedule, ExamResult, SubjectResult, Promotion, ReportComment,
-    Notification
-)
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from cloudinary.forms import CloudinaryFileField
+from django.utils import timezone
+import datetime
 
 
-class SchoolForm(forms.ModelForm):
-    logo = CloudinaryFileField(
-        required=False,
-        options={
-            'folder': 'isms/school_logos',
-            'tags': ['school_logo'],
-            'resource_type': 'image'
-        }
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    password1 = forms.CharField(
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+    )
+    password2 = forms.CharField(
+        label="Password confirmation",
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        strip=False,
     )
 
     class Meta:
-        model = School
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'user_type', 'phone')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('email', css_class='col-md-6'),
+                Column('user_type', css_class='col-md-6'),
+            ),
+            Row(
+                Column('first_name', css_class='col-md-6'),
+                Column('last_name', css_class='col-md-6'),
+            ),
+            Row(
+                Column('phone', css_class='col-md-6'),
+                Column('profile_picture', css_class='col-md-6'),
+            ),
+            Row(
+                Column('password1', css_class='col-md-6'),
+                Column('password2', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Create Account', css_class='btn-primary')
+        )
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'user_type', 'phone', 'profile_picture', 'is_active')
+
+
+class SchoolConfigForm(forms.ModelForm):
+    class Meta:
+        model = SchoolConfig
         fields = '__all__'
         widgets = {
-            'established_date': forms.DateInput(attrs={'type': 'date'}),
             'address': forms.Textarea(attrs={'rows': 3}),
+            'motto': forms.TextInput(attrs={'placeholder': 'School motto or slogan'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'School Information',
+                Row(
+                    Column('name', css_class='col-md-6'),
+                    Column('motto', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('logo', css_class='col-md-6'),
+                    Column('current_academic_year', css_class='col-md-6'),
+                ),
+                'address',
+                Row(
+                    Column('phone', css_class='col-md-4'),
+                    Column('email', css_class='col-md-4'),
+                    Column('website', css_class='col-md-4'),
+                ),
+            ),
+            Fieldset(
+                'ID Prefixes',
+                Row(
+                    Column('student_id_prefix', css_class='col-md-4'),
+                    Column('teacher_id_prefix', css_class='col-md-4'),
+                    Column('staff_id_prefix', css_class='col-md-4'),
+                ),
+            ),
+            Submit('submit', 'Save Configuration', css_class='btn-primary')
+        )
 
 
 class AcademicYearForm(forms.ModelForm):
     class Meta:
         model = AcademicYear
         fields = '__all__'
-        widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'end_date': forms.DateInput(attrs={'type': 'date'}),
-        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -51,15 +112,26 @@ class AcademicYearForm(forms.ModelForm):
 
         return cleaned_data
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('is_current', css_class='col-md-6'),
+            ),
+            Row(
+                Column('start_date', css_class='col-md-6'),
+                Column('end_date', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Academic Year', css_class='btn-primary')
+        )
+
 
 class SemesterForm(forms.ModelForm):
     class Meta:
         model = Semester
         fields = '__all__'
-        widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'end_date': forms.DateInput(attrs={'type': 'date'}),
-        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -67,131 +139,53 @@ class SemesterForm(forms.ModelForm):
         end_date = cleaned_data.get('end_date')
         academic_year = cleaned_data.get('academic_year')
 
-        if start_date and end_date:
-            if start_date >= end_date:
-                raise ValidationError("End date must be after start date")
+        if start_date and end_date and start_date >= end_date:
+            raise ValidationError("End date must be after start date")
 
-            if academic_year:
-                if start_date < academic_year.start_date or end_date > academic_year.end_date:
-                    raise ValidationError("Semester dates must be within the academic year dates")
-
-        return cleaned_data
-
-
-class DepartmentForm(forms.ModelForm):
-    class Meta:
-        model = Department
-        fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
-
-
-class CourseForm(forms.ModelForm):
-    class Meta:
-        model = Course
-        fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
-
-
-class SubjectForm(forms.ModelForm):
-    courses = forms.ModelMultipleChoiceField(
-        queryset=Course.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False
-    )
-
-    class Meta:
-        model = Subject
-        fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
-
-
-class PaperForm(forms.ModelForm):
-    class Meta:
-        model = Paper
-        fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if 'subject' in self.fields:
-            self.fields['subject'].queryset = Subject.objects.filter(is_active=True)
-
-    def clean_max_weight(self):
-        max_weight = self.cleaned_data.get('max_weight')
-        subject = self.cleaned_data.get('subject')
-
-        if subject and max_weight:
-            existing_papers = subject.papers.exclude(pk=self.instance.pk if self.instance else None)
-            total_weight = sum(paper.max_weight for paper in existing_papers) + max_weight
-
-            if total_weight > 100:
-                raise ValidationError(
-                    f"Adding this paper would exceed 100% total weight. "
-                    f"Current total is {total_weight - max_weight}%"
-                )
-
-        return max_weight
-
-
-# Formset for Papers
-PaperFormSet = inlineformset_factory(
-    Subject, Paper, form=PaperForm,
-    fields=['name', 'code', 'max_weight', 'description'],
-    extra=1, can_delete=True
-)
-
-
-class GradeScaleForm(forms.ModelForm):
-    class Meta:
-        model = GradeScale
-        fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
-
-
-class GradeForm(forms.ModelForm):
-    class Meta:
-        model = Grade
-        fields = '__all__'
-
-    def clean(self):
-        cleaned_data = super().clean()
-        min_mark = cleaned_data.get('min_mark')
-        max_mark = cleaned_data.get('max_mark')
-
-        if min_mark is not None and max_mark is not None and min_mark >= max_mark:
-            raise ValidationError("Minimum mark must be less than maximum mark")
+        if academic_year and start_date and end_date:
+            if start_date < academic_year.start_date or end_date > academic_year.end_date:
+                raise ValidationError("Semester dates must be within academic year dates")
 
         return cleaned_data
 
-
-class SubjectGradeScaleForm(forms.ModelForm):
-    class Meta:
-        model = SubjectGradeScale
-        fields = '__all__'
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'subject' in self.fields:
-            self.fields['subject'].queryset = Subject.objects.filter(is_active=True)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('academic_year', css_class='col-md-6'),
+                Column('name', css_class='col-md-6'),
+            ),
+            Row(
+                Column('start_date', css_class='col-md-6'),
+                Column('end_date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('is_current', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Semester', css_class='btn-primary')
+        )
 
 
 class ClassLevelForm(forms.ModelForm):
     class Meta:
         model = ClassLevel
         fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('code', css_class='col-md-6'),
+            ),
+            Row(
+                Column('order', css_class='col-md-6'),
+            ),
+            'description',
+            Submit('submit', 'Save Class Level', css_class='btn-primary')
+        )
 
 
 class ClassForm(forms.ModelForm):
@@ -201,33 +195,148 @@ class ClassForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'course' in self.fields:
-            self.fields['course'].queryset = Course.objects.filter(is_active=True)
-        if 'academic_year' in self.fields:
-            self.fields['academic_year'].queryset = AcademicYear.objects.filter(is_current=True)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('class_level', css_class='col-md-6'),
+                Column('name', css_class='col-md-6'),
+            ),
+            Row(
+                Column('code', css_class='col-md-6'),
+                Column('capacity', css_class='col-md-6'),
+            ),
+            Row(
+                Column('class_teacher', css_class='col-md-6'),
+                Column('is_active', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Class', css_class='btn-primary')
+        )
 
 
-class UserCreationFormExtended(UserCreationForm):
-    email = forms.EmailField(required=True)
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
-
-
-class StudentForm(forms.ModelForm):
-    photo = CloudinaryFileField(
-        required=False,
-        options={
-            'folder': 'isms/student_photos',
-            'tags': ['student_photo'],
-            'resource_type': 'image'
-        }
+class SubjectForm(forms.ModelForm):
+    class_levels = forms.ModelMultipleChoiceField(
+        queryset=ClassLevel.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
     )
 
     class Meta:
+        model = Subject
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('code', css_class='col-md-6'),
+            ),
+            Row(
+                Column('is_core', css_class='col-md-6'),
+                Column('is_active', css_class='col-md-6'),
+            ),
+            'description',
+            'class_levels',
+            Submit('submit', 'Save Subject', css_class='btn-primary')
+        )
+
+
+class PaperForm(forms.ModelForm):
+    class Meta:
+        model = Paper
+        fields = ['name', 'code', 'weight']
+        widgets = {
+            'weight': forms.NumberInput(attrs={'min': 1, 'max': 100})
+        }
+
+    def clean_weight(self):
+        weight = self.cleaned_data.get('weight')
+        if weight is None:
+            raise forms.ValidationError("Weight is required")
+        if not (1 <= weight <= 100):
+            raise forms.ValidationError("Weight must be between 1 and 100")
+        return weight
+
+
+class GradingSystemForm(forms.ModelForm):
+    class Meta:
+        model = GradingSystem
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('is_default', css_class='col-md-6'),
+            ),
+            'description',
+            Submit('submit', 'Save Grading System', css_class='btn-primary')
+        )
+
+
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model = Grade
+        fields = '__all__'
+
+    def clean(self):
+        cleaned_data = super().clean()
+        min_score = cleaned_data.get('min_score')
+        max_score = cleaned_data.get('max_score')
+
+        if min_score and max_score and min_score >= max_score:
+            raise ValidationError("Minimum score must be less than maximum score")
+
+        return cleaned_data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('grading_system', css_class='col-md-6'),
+                Column('name', css_class='col-md-6'),
+            ),
+            Row(
+                Column('min_score', css_class='col-md-6'),
+                Column('max_score', css_class='col-md-6'),
+            ),
+            Row(
+                Column('points', css_class='col-md-6'),
+                Column('remark', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Grade', css_class='btn-primary')
+        )
+
+
+class SubjectGradingForm(forms.ModelForm):
+    class Meta:
+        model = SubjectGrading
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('subject', css_class='col-md-6'),
+                Column('grading_system', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Subject Grading', css_class='btn-primary')
+        )
+
+
+class StudentForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
+    class Meta:
         model = Student
-        exclude = ['user']
+        exclude = ('user', 'student_id')
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
             'admission_date': forms.DateInput(attrs={'type': 'date'}),
@@ -236,33 +345,311 @@ class StudentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'current_class' in self.fields:
-            self.fields['current_class'].queryset = Class.objects.filter(is_active=True)
+        if self.instance and self.instance.user:
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'User Information',
+                Row(
+                    Column('email', css_class='col-md-6'),
+                    Column('phone', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('first_name', css_class='col-md-6'),
+                    Column('last_name', css_class='col-md-6'),
+                ),
+            ),
+            Fieldset(
+                'Student Information',
+                Row(
+                    Column('admission_date', css_class='col-md-6'),
+                    Column('current_class', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('date_of_birth', css_class='col-md-6'),
+                    Column('gender', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('address', css_class='col-md-6'),
+                    Column('city', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('state', css_class='col-md-6'),
+                    Column('country', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('blood_group', css_class='col-md-6'),
+                    Column('religion', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('is_active', css_class='col-md-6'),
+                ),
+            ),
+            Submit('submit', 'Save Student', css_class='btn-primary')
+        )
+
+    def save(self, commit=True):
+        student = super().save(commit=False)
+
+        if not student.user_id:
+            user = User.objects.create_user(
+                email=self.cleaned_data['email'],
+                first_name=self.cleaned_data['first_name'],
+                last_name=self.cleaned_data['last_name'],
+                user_type='STUDENT',
+                phone=self.cleaned_data.get('phone', ''),
+            )
+            student.user = user
+        else:
+            user = student.user
+            user.email = self.cleaned_data['email']
+            user.first_name = self.cleaned_data['first_name']
+            user.last_name = self.cleaned_data['last_name']
+            user.phone = self.cleaned_data.get('phone', '')
+            user.save()
+
+        if commit:
+            student.save()
+
+        return student
 
 
-class StaffForm(forms.ModelForm):
-    photo = CloudinaryFileField(
-        required=False,
-        options={
-            'folder': 'isms/staff_photos',
-            'tags': ['staff_photo'],
-            'resource_type': 'image'
-        }
-    )
+class TeacherForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
 
     class Meta:
-        model = Staff
-        exclude = ['user']
+        model = Teacher
+        exclude = ('user', 'teacher_id')
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
             'joining_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.user:
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'User Information',
+                Row(
+                    Column('email', css_class='col-md-6'),
+                    Column('phone', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('first_name', css_class='col-md-6'),
+                    Column('last_name', css_class='col-md-6'),
+                ),
+            ),
+            Fieldset(
+                'Teacher Information',
+                Row(
+                    Column('date_of_birth', css_class='col-md-6'),
+                    Column('gender', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('qualification', css_class='col-md-6'),
+                    Column('specialization', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('joining_date', css_class='col-md-6'),
+                    Column('is_active', css_class='col-md-6'),
+                ),
+                'subjects',
+            ),
+            Submit('submit', 'Save Teacher', css_class='btn-primary')
+        )
+
+    def save(self, commit=True):
+        teacher = super().save(commit=False)
+
+        if not teacher.user_id:
+            user = User.objects.create_user(
+                email=self.cleaned_data['email'],
+                first_name=self.cleaned_data['first_name'],
+                last_name=self.cleaned_data['last_name'],
+                user_type='TEACHER',
+                phone=self.cleaned_data.get('phone', ''),
+            )
+            teacher.user = user
+        else:
+            user = teacher.user
+            user.email = self.cleaned_data['email']
+            user.first_name = self.cleaned_data['first_name']
+            user.last_name = self.cleaned_data['last_name']
+            user.phone = self.cleaned_data.get('phone', '')
+            user.save()
+
+        if commit:
+            teacher.save()
+            self.save_m2m()
+
+        return teacher
+
+
+class StaffForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
+    class Meta:
+        model = Staff
+        exclude = ('user', 'staff_id')
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'joining_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.user:
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'User Information',
+                Row(
+                    Column('email', css_class='col-md-6'),
+                    Column('phone', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('first_name', css_class='col-md-6'),
+                    Column('last_name', css_class='col-md-6'),
+                ),
+            ),
+            Fieldset(
+                'Staff Information',
+                Row(
+                    Column('date_of_birth', css_class='col-md-6'),
+                    Column('gender', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('department', css_class='col-md-6'),
+                    Column('position', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('joining_date', css_class='col-md-6'),
+                    Column('is_active', css_class='col-md-6'),
+                ),
+            ),
+            Submit('submit', 'Save Staff', css_class='btn-primary')
+        )
+
+    def save(self, commit=True):
+        staff = super().save(commit=False)
+
+        if not staff.user_id:
+            user = User.objects.create_user(
+                email=self.cleaned_data['email'],
+                first_name=self.cleaned_data['first_name'],
+                last_name=self.cleaned_data['last_name'],
+                user_type='STAFF',
+                phone=self.cleaned_data.get('phone', ''),
+            )
+            staff.user = user
+        else:
+            user = staff.user
+            user.email = self.cleaned_data['email']
+            user.first_name = self.cleaned_data['first_name']
+            user.last_name = self.cleaned_data['last_name']
+            user.phone = self.cleaned_data.get('phone', '')
+            user.save()
+
+        if commit:
+            staff.save()
+
+        return staff
+
+
+class ParentForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
+    class Meta:
+        model = Parent
+        exclude = ('user',)
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
             'address': forms.Textarea(attrs={'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'department' in self.fields:
-            self.fields['department'].queryset = Department.objects.filter(is_active=True)
+        if self.instance and self.instance.user:
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'User Information',
+                Row(
+                    Column('email', css_class='col-md-6'),
+                    Column('phone', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('first_name', css_class='col-md-6'),
+                    Column('last_name', css_class='col-md-6'),
+                ),
+            ),
+            Fieldset(
+                'Parent Information',
+                Row(
+                    Column('occupation', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('address', css_class='col-md-6'),
+                    Column('city', css_class='col-md-6'),
+                ),
+                Row(
+                    Column('state', css_class='col-md-6'),
+                    Column('country', css_class='col-md-6'),
+                ),
+                'students',
+            ),
+            Submit('submit', 'Save Parent', css_class='btn-primary')
+        )
+
+    def save(self, commit=True):
+        parent = super().save(commit=False)
+
+        if not parent.user_id:
+            user = User.objects.create_user(
+                email=self.cleaned_data['email'],
+                first_name=self.cleaned_data['first_name'],
+                last_name=self.cleaned_data['last_name'],
+                user_type='PARENT',
+                phone=self.cleaned_data.get('phone', ''),
+            )
+            parent.user = user
+        else:
+            user = parent.user
+            user.email = self.cleaned_data['email']
+            user.first_name = self.cleaned_data['first_name']
+            user.last_name = self.cleaned_data['last_name']
+            user.phone = self.cleaned_data.get('phone', '')
+            user.save()
+
+        if commit:
+            parent.save()
+            self.save_m2m()
+
+        return parent
 
 
 class ClassSubjectForm(forms.ModelForm):
@@ -272,30 +659,18 @@ class ClassSubjectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'class_info' in self.fields:
-            self.fields['class_info'].queryset = Class.objects.filter(is_active=True)
-        if 'subject' in self.fields:
-            self.fields['subject'].queryset = Subject.objects.filter(is_active=True)
-        if 'teacher' in self.fields:
-            self.fields['teacher'].queryset = Staff.objects.filter(is_active=True, is_teaching_staff=True)
-        if 'semester' in self.fields:
-            self.fields['semester'].queryset = Semester.objects.filter(is_current=True)
-
-
-class EnrollmentForm(forms.ModelForm):
-    class Meta:
-        model = Enrollment
-        fields = '__all__'
-        widgets = {
-            'enrollment_date': forms.DateInput(attrs={'type': 'date'}),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if 'student' in self.fields:
-            self.fields['student'].queryset = Student.objects.filter(is_active=True)
-        if 'class_info' in self.fields:
-            self.fields['class_info'].queryset = Class.objects.filter(is_active=True)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('class_info', css_class='col-md-6'),
+                Column('subject', css_class='col-md-6'),
+            ),
+            Row(
+                Column('teacher', css_class='col-md-6'),
+                Column('academic_year', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Class Subject', css_class='btn-primary')
+        )
 
 
 class AttendanceForm(forms.ModelForm):
@@ -304,24 +679,40 @@ class AttendanceForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
-            'remarks': forms.TextInput(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'student' in self.fields:
-            self.fields['student'].queryset = Student.objects.filter(is_active=True)
-        if 'class_subject' in self.fields:
-            self.fields['class_subject'].queryset = ClassSubject.objects.filter(is_active=True)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('student', css_class='col-md-6'),
+                Column('date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('status', css_class='col-md-6'),
+                Column('remark', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Attendance', css_class='btn-primary')
+        )
 
 
 class ExamTypeForm(forms.ModelForm):
     class Meta:
         model = ExamType
         fields = '__all__'
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('weight', css_class='col-md-6'),
+            ),
+            'description',
+            Submit('submit', 'Save Exam Type', css_class='btn-primary')
+        )
 
 
 class ExamForm(forms.ModelForm):
@@ -331,7 +722,6 @@ class ExamForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
-            'description': forms.Textarea(attrs={'rows': 3}),
         }
 
     def clean(self):
@@ -339,55 +729,37 @@ class ExamForm(forms.ModelForm):
         start_date = cleaned_data.get('start_date')
         end_date = cleaned_data.get('end_date')
         academic_year = cleaned_data.get('academic_year')
-        semester = cleaned_data.get('semester')
 
-        if start_date and end_date:
-            if start_date >= end_date:
-                raise ValidationError("End date must be after start date")
+        if start_date and end_date and start_date > end_date:
+            raise ValidationError("End date must be after start date")
 
-            if academic_year:
-                if start_date < academic_year.start_date or end_date > academic_year.end_date:
-                    raise ValidationError("Exam dates must be within the academic year dates")
-
-            if semester:
-                if start_date < semester.start_date or end_date > semester.end_date:
-                    raise ValidationError("Exam dates must be within the semester dates")
+        if academic_year and start_date and end_date:
+            if start_date < academic_year.start_date or end_date > academic_year.end_date:
+                raise ValidationError("Exam dates must be within academic year dates")
 
         return cleaned_data
-
-
-class ExamScheduleForm(forms.ModelForm):
-    class Meta:
-        model = ExamSchedule
-        fields = '__all__'
-        widgets = {
-            'exam_date': forms.DateInput(attrs={'type': 'date'}),
-            'start_time': forms.TimeInput(attrs={'type': 'time'}),
-            'end_time': forms.TimeInput(attrs={'type': 'time'}),
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'class_subject' in self.fields:
-            self.fields['class_subject'].queryset = ClassSubject.objects.filter(is_active=True)
-        if 'paper' in self.fields and 'subject' in self.data:
-            try:
-                subject_id = int(self.data.get('subject'))
-                self.fields['paper'].queryset = Paper.objects.filter(subject_id=subject_id)
-            except (ValueError, TypeError):
-                pass
-        elif self.instance.pk:
-            self.fields['paper'].queryset = self.instance.class_subject.subject.papers.all()
-
-    def clean(self):
-        cleaned_data = super().clean()
-        start_time = cleaned_data.get('start_time')
-        end_time = cleaned_data.get('end_time')
-
-        if start_time and end_time and start_time >= end_time:
-            raise ValidationError("End time must be after start time")
-
-        return cleaned_data
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('exam_type', css_class='col-md-6'),
+            ),
+            Row(
+                Column('academic_year', css_class='col-md-6'),
+                Column('semester', css_class='col-md-6'),
+            ),
+            Row(
+                Column('start_date', css_class='col-md-6'),
+                Column('end_date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('is_active', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Exam', css_class='btn-primary')
+        )
 
 
 class ExamResultForm(forms.ModelForm):
@@ -397,48 +769,107 @@ class ExamResultForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'student' in self.fields:
-            self.fields['student'].queryset = Student.objects.filter(is_active=True)
-        if 'exam_schedule' in self.fields:
-            self.fields['exam_schedule'].queryset = ExamSchedule.objects.all()
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('exam', css_class='col-md-6'),
+                Column('student', css_class='col-md-6'),
+            ),
+            Row(
+                Column('subject', css_class='col-md-6'),
+                Column('paper', css_class='col-md-6'),
+            ),
+            Row(
+                Column('marks', css_class='col-md-6'),
+                Column('grade', css_class='col-md-6'),
+            ),
+            'remark',
+            Submit('submit', 'Save Exam Result', css_class='btn-primary')
+        )
 
-    def clean_marks_obtained(self):
-        marks_obtained = self.cleaned_data.get('marks_obtained')
-        exam_schedule = self.cleaned_data.get('exam_schedule')
 
-        if exam_schedule and marks_obtained:
-            if marks_obtained > exam_schedule.max_marks:
-                raise ValidationError(
-                    f"Marks obtained cannot exceed maximum marks ({exam_schedule.max_marks})"
-                )
-
-        return marks_obtained
-
-
-class SubjectResultForm(forms.ModelForm):
+class FeeTypeForm(forms.ModelForm):
     class Meta:
-        model = SubjectResult
+        model = FeeType
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'student' in self.fields:
-            self.fields['student'].queryset = Student.objects.filter(is_active=True)
-        if 'class_subject' in self.fields:
-            self.fields['class_subject'].queryset = ClassSubject.objects.filter(is_active=True)
-        if 'exam' in self.fields:
-            self.fields['exam'].queryset = Exam.objects.all()
-        if 'grade' in self.fields and 'class_subject' in self.data:
-            try:
-                class_subject_id = int(self.data.get('class_subject'))
-                subject = ClassSubject.objects.get(pk=class_subject_id).subject
-                if hasattr(subject, 'grade_scale'):
-                    self.fields['grade'].queryset = subject.grade_scale.grade_scale.grades.all()
-            except (ValueError, TypeError, ClassSubject.DoesNotExist):
-                pass
-        elif self.instance.pk:
-            if hasattr(self.instance.class_subject.subject, 'grade_scale'):
-                self.fields['grade'].queryset = self.instance.class_subject.subject.grade_scale.grade_scale.grades.all()
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='col-md-6'),
+                Column('code', css_class='col-md-6'),
+            ),
+            Row(
+                Column('amount', css_class='col-md-6'),
+                Column('is_recurring', css_class='col-md-6'),
+            ),
+            Row(
+                Column('frequency', css_class='col-md-6'),
+                Column('is_active', css_class='col-md-6'),
+            ),
+            'description',
+            Submit('submit', 'Save Fee Type', css_class='btn-primary')
+        )
+
+
+class FeeStructureForm(forms.ModelForm):
+    class Meta:
+        model = FeeStructure
+        fields = '__all__'
+        widgets = {
+            'due_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('fee_type', css_class='col-md-6'),
+                Column('class_level', css_class='col-md-6'),
+            ),
+            Row(
+                Column('academic_year', css_class='col-md-6'),
+                Column('amount', css_class='col-md-6'),
+            ),
+            Row(
+                Column('due_date', css_class='col-md-6'),
+                Column('is_active', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Fee Structure', css_class='btn-primary')
+        )
+
+
+class FeePaymentForm(forms.ModelForm):
+    class Meta:
+        model = FeePayment
+        fields = '__all__'
+        widgets = {
+            'payment_date': forms.DateInput(attrs={'type': 'date'}),
+            'remarks': forms.Textarea(attrs={'rows': 3}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('student', css_class='col-md-6'),
+                Column('fee_structure', css_class='col-md-6'),
+            ),
+            Row(
+                Column('amount_paid', css_class='col-md-6'),
+                Column('payment_date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('payment_method', css_class='col-md-6'),
+                Column('transaction_id', css_class='col-md-6'),
+            ),
+            'remarks',
+            Submit('submit', 'Save Fee Payment', css_class='btn-primary')
+        )
 
 
 class PromotionForm(forms.ModelForm):
@@ -446,19 +877,8 @@ class PromotionForm(forms.ModelForm):
         model = Promotion
         fields = '__all__'
         widgets = {
-            'promotion_date': forms.DateInput(attrs={'type': 'date'}),
+            'date': forms.DateInput(attrs={'type': 'date'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if 'student' in self.fields:
-            self.fields['student'].queryset = Student.objects.filter(is_active=True)
-        if 'from_class' in self.fields:
-            self.fields['from_class'].queryset = Class.objects.filter(is_active=True)
-        if 'to_class' in self.fields:
-            self.fields['to_class'].queryset = Class.objects.filter(is_active=True)
-        if 'academic_year' in self.fields:
-            self.fields['academic_year'].queryset = AcademicYear.objects.filter(is_current=True)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -470,62 +890,200 @@ class PromotionForm(forms.ModelForm):
 
         return cleaned_data
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('student', css_class='col-md-6'),
+                Column('academic_year', css_class='col-md-6'),
+            ),
+            Row(
+                Column('from_class', css_class='col-md-6'),
+                Column('to_class', css_class='col-md-6'),
+            ),
+            Row(
+                Column('date', css_class='col-md-6'),
+            ),
+            'remarks',
+            Submit('submit', 'Save Promotion', css_class='btn-primary')
+        )
 
-class ReportCommentForm(forms.ModelForm):
+
+class TimetableForm(forms.ModelForm):
     class Meta:
-        model = ReportComment
+        model = Timetable
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('class_info', css_class='col-md-6'),
+                Column('subject', css_class='col-md-6'),
+            ),
+            Row(
+                Column('teacher', css_class='col-md-6'),
+                Column('academic_year', css_class='col-md-6'),
+            ),
+            Row(
+                Column('day', css_class='col-md-6'),
+                Column('room', css_class='col-md-6'),
+            ),
+            Row(
+                Column('start_time', css_class='col-md-6'),
+                Column('end_time', css_class='col-md-6'),
+            ),
+            Row(
+                Column('is_active', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Timetable', css_class='btn-primary')
+        )
+
+
+class NoticeForm(forms.ModelForm):
+    class Meta:
+        model = Notice
         fields = '__all__'
         widgets = {
-            'comment': forms.Textarea(attrs={'rows': 3}),
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'content': forms.Textarea(attrs={'rows': 5}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        if start_date and end_date and start_date > end_date:
+            raise ValidationError("End date must be after start date")
+
+        return cleaned_data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'title',
+            'content',
+            Row(
+                Column('audience', css_class='col-md-6'),
+                Column('is_active', css_class='col-md-6'),
+            ),
+            Row(
+                Column('start_date', css_class='col-md-6'),
+                Column('end_date', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Notice', css_class='btn-primary')
+        )
+
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = '__all__'
+        widgets = {
+            'start_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'description': forms.Textarea(attrs={'rows': 5}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        if start_date and end_date and start_date > end_date:
+            raise ValidationError("End date must be after start date")
+
+        return cleaned_data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'title',
+            'description',
+            Row(
+                Column('start_date', css_class='col-md-6'),
+                Column('end_date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('location', css_class='col-md-6'),
+                Column('audience', css_class='col-md-6'),
+            ),
+            Row(
+                Column('is_active', css_class='col-md-6'),
+            ),
+            Submit('submit', 'Save Event', css_class='btn-primary')
+        )
+
+
+class LibraryBookForm(forms.ModelForm):
+    class Meta:
+        model = LibraryBook
+        fields = '__all__'
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 5}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'class_info' in self.fields:
-            self.fields['class_info'].queryset = Class.objects.filter(is_active=True)
-        if 'student' in self.fields:
-            self.fields['student'].queryset = Student.objects.filter(is_active=True)
-        if 'semester' in self.fields:
-            self.fields['semester'].queryset = Semester.objects.filter(is_active=True)
-        if 'created_by' in self.fields:
-            self.fields['created_by'].queryset = Staff.objects.filter(is_active=True)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('title', css_class='col-md-6'),
+                Column('author', css_class='col-md-6'),
+            ),
+            Row(
+                Column('isbn', css_class='col-md-6'),
+                Column('publisher', css_class='col-md-6'),
+            ),
+            Row(
+                Column('edition', css_class='col-md-6'),
+                Column('category', css_class='col-md-6'),
+            ),
+            Row(
+                Column('quantity', css_class='col-md-6'),
+                Column('cover_image', css_class='col-md-6'),
+            ),
+            'description',
+            Submit('submit', 'Save Book', css_class='btn-primary')
+        )
 
 
-class NotificationForm(forms.ModelForm):
+class BookIssueForm(forms.ModelForm):
     class Meta:
-        model = Notification
+        model = BookIssue
         fields = '__all__'
         widgets = {
-            'message': forms.Textarea(attrs={'rows': 3}),
+            'issue_date': forms.DateInput(attrs={'type': 'date'}),
+            'due_date': forms.DateInput(attrs={'type': 'date'}),
+            'return_date': forms.DateInput(attrs={'type': 'date'}),
+            'remarks': forms.Textarea(attrs={'rows': 3}),
         }
-
-
-# Custom form for bulk actions
-class BulkStudentEnrollmentForm(forms.Form):
-    class_info = forms.ModelChoiceField(queryset=Class.objects.filter(is_active=True))
-    students = forms.ModelMultipleChoiceField(
-        queryset=Student.objects.filter(is_active=True),
-        widget=forms.SelectMultiple(attrs={'size': 20}))
-    enrollment_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-
-
-class BulkAttendanceForm(forms.Form):
-    class_subject = forms.ModelChoiceField(queryset=ClassSubject.objects.filter(is_active=True))
-    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    status = forms.ChoiceField(choices=Attendance.STATUS_CHOICES, initial='P')
-    students = forms.ModelMultipleChoiceField(
-        queryset=Student.objects.none(),
-        widget=forms.CheckboxSelectMultiple
-    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'class_subject' in self.data:
-            try:
-                class_subject_id = int(self.data.get('class_subject'))
-                class_info = ClassSubject.objects.get(pk=class_subject_id).class_info
-                self.fields['students'].queryset = class_info.enrollment_set.filter(
-                    is_active=True
-                ).values_list('student', flat=True)
-            except (ValueError, TypeError, ClassSubject.DoesNotExist):
-                pass
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('book', css_class='col-md-6'),
+                Column('issued_to', css_class='col-md-6'),
+            ),
+            Row(
+                Column('issue_date', css_class='col-md-6'),
+                Column('due_date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('return_date', css_class='col-md-6'),
+                Column('status', css_class='col-md-6'),
+            ),
+            Row(
+                Column('fine_amount', css_class='col-md-6'),
+            ),
+            'remarks',
+            Submit('submit', 'Save Book Issue', css_class='btn-primary')
+        )

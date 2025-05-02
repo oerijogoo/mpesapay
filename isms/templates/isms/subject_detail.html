@@ -1,120 +1,99 @@
-{% extends 'generic_detail.html' %}
+{% extends "isms/generic_detail.html" %}
+
+{% block detail_title %}Subject: {{ object.name }}{% endblock %}
+{% block update_url %}{% url 'isms:subject_update' object.pk %}{% endblock %}
+{% block delete_url %}{% url 'isms:subject_delete' object.pk %}{% endblock %}
 
 {% block detail_content %}
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <tbody>
-            <tr>
-                <th width="30%">Name</th>
-                <td>{{ object.name }}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>{{ object.code }}</td>
-            </tr>
-            <tr>
-                <th>Courses</th>
-                <td>
-                    {% for course in object.courses.all %}
-                        <span class="badge bg-primary">{{ course }}</span>
-                    {% empty %}
-                        -
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h6>Basic Information</h6>
+        <dl class="row">
+            <dt class="col-sm-4">Code:</dt>
+            <dd class="col-sm-8">{{ object.code }}</dd>
+
+            <dt class="col-sm-4">Core Subject:</dt>
+            <dd class="col-sm-8">
+                {% if object.is_core %}
+                <span class="badge bg-success">Yes</span>
+                {% else %}
+                <span class="badge bg-secondary">No</span>
+                {% endif %}
+            </dd>
+
+            <dt class="col-sm-4">Active:</dt>
+            <dd class="col-sm-8">
+                {% if object.is_active %}
+                <span class="badge bg-success">Active</span>
+                {% else %}
+                <span class="badge bg-danger">Inactive</span>
+                {% endif %}
+            </dd>
+
+            <dt class="col-sm-4">Description:</dt>
+            <dd class="col-sm-8">{{ object.description|default:"-" }}</dd>
+        </dl>
+    </div>
+
+    <div class="col-md-6">
+        <h6>Class Levels</h6>
+        {% if object.class_levels.all %}
+        <div class="d-flex flex-wrap gap-2">
+            {% for level in object.class_levels.all %}
+            <span class="badge bg-primary">{{ level.name }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted">Not assigned to any class levels</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+        <h6 class="mb-0">Papers</h6>
+    </div>
+    <div class="card-body">
+        {% if object.paper_set.all %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Weight</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paper in object.paper_set.all %}
+                    <tr>
+                        <td>{{ paper.name }}</td>
+                        <td>{{ paper.code }}</td>
+                        <td>{{ paper.weight }}%</td>
+                        <td>
+                            <a href="{% url 'isms:paper_update' paper.pk %}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'isms:paper_delete' paper.pk %}" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
                     {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <th>Total Max Mark</th>
-                <td>{{ object.total_max_mark }}%</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>
-                    {% if object.is_active %}
-                        <span class="badge bg-success">Active</span>
-                    {% else %}
-                        <span class="badge bg-secondary">Inactive</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% if object.description %}
-            <tr>
-                <th>Description</th>
-                <td>{{ object.description }}</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
+                </tbody>
+                <tfoot>
+                    <tr class="table-info">
+                        <td colspan="2" class="text-end"><strong>Total Weight:</strong></td>
+                        <td>{{ object.get_total_weight }}%</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No papers defined for this subject</p>
+        {% endif %}
+    </div>
 </div>
-
-<h5 class="mt-4 mb-3">Papers</h5>
-<div class="table-responsive">
-    <table class="table table-bordered table-hover">
-        <thead class="table-light">
-            <tr>
-                <th>Name</th>
-                <th>Code</th>
-                <th>Weight</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for paper in object.papers.all %}
-            <tr>
-                <td>{{ paper.name }}</td>
-                <td>{{ paper.code }}</td>
-                <td>{{ paper.max_mark_weight }}%</td>
-                <td>
-                    {% if paper.is_active %}
-                        <span class="badge bg-success">Active</span>
-                    {% else %}
-                        <span class="badge bg-secondary">Inactive</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4" class="text-center">No papers added yet</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-{% if object.gradings.all %}
-<h5 class="mt-4 mb-3">Grading Systems</h5>
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <thead class="table-light">
-            <tr>
-                <th>Grading System</th>
-                <th>Pass Mark</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for grading in object.gradings.all %}
-            <tr>
-                <td>{{ grading.grading_system }}</td>
-                <td>{{ grading.pass_mark }}%</td>
-                <td>
-                    <a href="{% url 'subjectgrading_edit' grading.pk %}" class="btn btn-sm btn-outline-primary">
-                        <i class="bi bi-pencil"></i>
-                    </a>
-                    <a href="{% url 'subjectgrading_delete' grading.pk %}" class="btn btn-sm btn-outline-danger">
-                        <i class="bi bi-trash"></i>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-{% endblock %}
-
-{% block detail_actions %}
-<a href="{% url 'subjectgrading_add' %}?subject={{ object.pk }}" class="btn btn-outline-primary w-100 mb-2">
-    <i class="bi bi-plus-circle"></i> Add Grading
-</a>
-{{ block.super }}
 {% endblock %}

@@ -214,9 +214,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication settings
-LOGIN_URL = 'login'
+AUTH_USER_MODEL = 'isms.User'
 LOGIN_REDIRECT_URL = 'isms:dashboard'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'isms:login'
+LOGIN_URL = 'isms:login'    # <-- ADD this line
+
 
 
 # settings.py

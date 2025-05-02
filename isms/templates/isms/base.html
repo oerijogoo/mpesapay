@@ -1,426 +1,170 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}ISMS{% endblock %}</title>
-    <!-- Bootstrap CSS -->
+    <title>{% block title %}Institute School Management System{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-        }
-
-        body {
-            font-size: calc(14px + 0.3vw);
-            background-color: #f8f9fa;
-        }
-
-        .sidebar {
-            background-color: var(--secondary-color);
-            color: white;
-            min-height: 100vh;
-        }
-
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            padding: 0.5rem 1rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar .nav-link i {
-            margin-right: 0.5rem;
-            width: 1.2em;
-            text-align: center;
-        }
-
-        .main-content {
-            padding-top: 1rem;
-        }
-
-        .card {
-            border-radius: 0.5rem;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            margin-bottom: 1.5rem;
-        }
-
-        .card-header {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 0.5rem 0.5rem 0 0 !important;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .table th {
-            background-color: var(--light-color);
-            white-space: nowrap;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-danger {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-        .dual-view {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .dual-view > div {
-            flex: 1 1 45%;
-            min-width: 300px;
-        }
-
-        @media (max-width: 768px) {
-            .dual-view > div {
-                flex: 1 1 100%;
-            }
-        }
-
-        .logo-img {
-            max-height: 60px;
-            width: auto;
-        }
-
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-                <div class="text-center my-3">
-                    {% if school %}
-                        {% if school.logo %}
-                            <img src="{{ school.logo.url }}" alt="{{ school.name }}" class="logo-img mb-2">
-                        {% endif %}
-                        <h5 class="text-white">{{ school.name }}</h5>
-                    {% endif %}
-                </div>
-
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
-                    </li>
-
-                    {% if perms.isms.view_student or perms.isms.view_staff %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'student' in request.resolver_match.url_name or 'staff' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#peopleCollapse">
-                            <i class="fas fa-users"></i> People <i class="fas fa-chevron-down float-end mt-1"></i>
-                        </a>
-                        <div class="collapse show" id="peopleCollapse">
-                            <ul class="nav flex-column ms-4">
-                                {% if perms.isms.view_student %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'student' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'student_list' %}">
-                                        <i class="fas fa-user-graduate"></i> Students
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_staff %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'staff' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'staff_list' %}">
-                                        <i class="fas fa-chalkboard-teacher"></i> Staff
-                                    </a>
-                                </li>
-                                {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'isms:dashboard' %}">ISMS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if request.user.user_type == 'ADMIN' %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Academics
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'isms:academic_year_list' %}">Academic Years</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:semester_list' %}">Semesters</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:class_level_list' %}">Class Levels</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:class_list' %}">Classes</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:subject_list' %}">Subjects</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:paper_list' %}">Papers</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:grading_system_list' %}">Grading Systems</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:subject_grading_list' %}">Subject Grading</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:class_subject_list' %}">Class Subjects</a></li>
                             </ul>
-                        </div>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_academicyear or perms.isms.view_class or perms.isms.view_subject %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'academic' in request.resolver_match.url_name or 'class' in request.resolver_match.url_name or 'subject' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#academicsCollapse">
-                            <i class="fas fa-book-open"></i> Academics <i class="fas fa-chevron-down float-end mt-1"></i>
-                        </a>
-                        <div class="collapse show" id="academicsCollapse">
-                            <ul class="nav flex-column ms-4">
-                                {% if perms.isms.view_academicyear %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'academic_year' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'academic_year_list' %}">
-                                        <i class="fas fa-calendar-alt"></i> Academic Years
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_semester %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'semester' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'semester_list' %}">
-                                        <i class="fas fa-calendar-week"></i> Semesters
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_class %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'class' in request.resolver_match.url_name and 'class_subject' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'class_list' %}">
-                                        <i class="fas fa-school"></i> Classes
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_subject %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'subject' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'subject_list' %}">
-                                        <i class="fas fa-book"></i> Subjects
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_classsubject %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'class_subject' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'class_subject_list' %}">
-                                        <i class="fas fa-tasks"></i> Class Subjects
-                                    </a>
-                                </li>
-                                {% endif %}
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                People
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'isms:student_list' %}">Students</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:teacher_list' %}">Teachers</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:staff_list' %}">Staff</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:parent_list' %}">Parents</a></li>
                             </ul>
-                        </div>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_exam or perms.isms.view_examresult %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'exam' in request.resolver_match.url_name or 'result' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#examsCollapse">
-                            <i class="fas fa-clipboard-check"></i> Exams & Results <i class="fas fa-chevron-down float-end mt-1"></i>
-                        </a>
-                        <div class="collapse show" id="examsCollapse">
-                            <ul class="nav flex-column ms-4">
-                                {% if perms.isms.view_exam %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'exam' in request.resolver_match.url_name and 'schedule' not in request.resolver_match.url_name and 'result' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'exam_list' %}">
-                                        <i class="fas fa-file-alt"></i> Exams
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_examschedule %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'schedule' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'exam_schedule_list' %}">
-                                        <i class="fas fa-calendar-day"></i> Exam Schedules
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_examresult %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'exam_result' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'exam_result_list' %}">
-                                        <i class="fas fa-poll"></i> Exam Results
-                                    </a>
-                                </li>
-                                {% endif %}
-                                {% if perms.isms.view_subjectresult %}
-                                <li class="nav-item">
-                                    <a class="nav-link {% if 'subject_result' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'subject_result_list' %}">
-                                        <i class="fas fa-poll-h"></i> Subject Results
-                                    </a>
-                                </li>
-                                {% endif %}
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Records
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'isms:attendance_list' %}">Attendance</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:exam_list' %}">Exams</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:exam_result_list' %}">Exam Results</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:promotion_list' %}">Promotions</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:timetable_list' %}">Timetables</a></li>
                             </ul>
-                        </div>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_attendance %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'attendance' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'attendance_list' %}">
-                            <i class="fas fa-clipboard-list"></i> Attendance
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_enrollment %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'enrollment' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'enrollment_list' %}">
-                            <i class="fas fa-user-plus"></i> Enrollments
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_promotion %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'promotion' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'promotion_list' %}">
-                            <i class="fas fa-level-up-alt"></i> Promotions
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_reportcomment %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'report_comment' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'report_comment_list' %}">
-                            <i class="fas fa-comment-alt"></i> Report Comments
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if perms.isms.view_notification %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'notification' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'notification_list' %}">
-                            <i class="fas fa-bell"></i> Notifications
-                        </a>
-                    </li>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Finance
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'isms:fee_type_list' %}">Fee Types</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:fee_structure_list' %}">Fee Structures</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:fee_payment_list' %}">Fee Payments</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Library
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'isms:library_book_list' %}">Books</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:book_issue_list' %}">Book Issues</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Communications
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'isms:notice_list' %}">Notices</a></li>
+                                <li><a class="dropdown-item" href="{% url 'isms:event_list' %}">Events</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:reports' %}">Reports</a>
+                        </li>
+                    {% elif request.user.user_type == 'TEACHER' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:timetable_list' %}">My Timetable</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:attendance_list' %}">Attendance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:exam_result_list' %}">Exam Results</a>
+                        </li>
+                    {% elif request.user.user_type == 'STUDENT' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:timetable_list' %}">My Timetable</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:exam_result_list' %}">My Results</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:library_book_list' %}">Library</a>
+                        </li>
+                    {% elif request.user.user_type == 'PARENT' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:student_list' %}">My Children</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:exam_result_list' %}">Results</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:attendance_list' %}">Attendance</a>
+                        </li>
+                    {% elif request.user.user_type == 'STAFF' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:library_book_list' %}">Library</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'isms:notice_list' %}">Notices</a>
+                        </li>
                     {% endif %}
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> {{ request.user.get_full_name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'isms:dashboard' %}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'isms:logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">{% block header %}{% endblock %}</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                                {% if user.is_authenticated %}
-                                    {% if user.student %}
-                                        <img src="{{ user.student.photo.url }}" alt="Profile" class="profile-img me-2">
-                                        <span>{{ user.student.get_full_name }}</span>
-                                    {% elif user.staff %}
-                                        <img src="{{ user.staff.photo.url }}" alt="Profile" class="profile-img me-2">
-                                        <span>{{ user.staff.get_full_name }}</span>
-                                    {% else %}
-                                        <span>{{ user.username }}</span>
-                                    {% endif %}
-                                {% endif %}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                                <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                {% if messages %}
-                <div class="mb-3">
-                    {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-
-                {% block content %}{% endblock %}
-            </main>
         </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
     </div>
 
-    <!-- Bootstrap JS -->
+    <footer class="mt-5 py-3 bg-light">
+        <div class="container text-center">
+            <p class="mb-0">Institute School Management System &copy; {% now "Y" %}</p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        // Activate tooltips
-        $(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip()
-        });
-
-        // AJAX for dynamic dropdowns
-        $(document).ready(function() {
-            // Papers dropdown based on subject selection
-            $("select[name='subject']").change(function() {
-                var subjectId = $(this).val();
-                var paperSelect = $("select[name='paper']");
-
-                if (subjectId) {
-                    $.ajax({
-                        url: "{% url 'get_papers_for_subject' %}",
-                        data: { subject_id: subjectId },
-                        success: function(data) {
-                            paperSelect.empty();
-                            paperSelect.append('<option value="">---------</option>');
-                            $.each(data, function(index, paper) {
-                                paperSelect.append(
-                                    $('<option></option>').val(paper.id).text(paper.name + ' (' + paper.code + ')')
-                                );
-                            });
-                        }
-                    });
-                } else {
-                    paperSelect.empty();
-                    paperSelect.append('<option value="">---------</option>');
-                }
-            });
-
-            // Students dropdown based on class selection
-            $("select[name='class_info']").change(function() {
-                var classId = $(this).val();
-                var studentSelect = $("select[name='student']");
-
-                if (classId) {
-                    $.ajax({
-                        url: "{% url 'get_students_for_class' %}",
-                        data: { class_id: classId },
-                        success: function(data) {
-                            studentSelect.empty();
-                            studentSelect.append('<option value="">---------</option>');
-                            $.each(data, function(index, student) {
-                                studentSelect.append(
-                                    $('<option></option>').val(student.id).text(student.name + ' (' + student.admission_number + ')')
-                                );
-                            });
-                        }
-                    });
-                } else {
-                    studentSelect.empty();
-                    studentSelect.append('<option value="">---------</option>');
-                }
-            });
-
-            // Subjects dropdown based on class selection
-            $("select[name='class_info']").change(function() {
-                var classId = $(this).val();
-                var subjectSelect = $("select[name='class_subject']");
-
-                if (classId) {
-                    $.ajax({
-                        url: "{% url 'get_subjects_for_class' %}",
-                        data: { class_id: classId },
-                        success: function(data) {
-                            subjectSelect.empty();
-                            subjectSelect.append('<option value="">---------</option>');
-                            $.each(data, function(index, subject) {
-                                subjectSelect.append(
-                                    $('<option></option>').val(subject.id).text(subject.name + ' (' + subject.code + ')')
-                                );
-                            });
-                        }
-                    });
-                } else {
-                    subjectSelect.empty();
-                    subjectSelect.append('<option value="">---------</option>');
-                }
-            });
-        });
-    </script>
-
     {% block extra_js %}{% endblock %}
 </body>
 </html>

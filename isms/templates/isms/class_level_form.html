@@ -1,21 +1,7 @@
-{% extends 'isms/base.html' %}
+{% extends "isms/generic_form.html" %}
 
-{% block header %}
-{% if form.instance.pk %}Update{% else %}Create{% endif %} Class Level
+{% block form_title %}
+    {% if form.instance.pk %}Edit Class Level{% else %}Create Class Level{% endif %}
 {% endblock %}
 
-{% block content %}
-<div class="card">
-    <div class="card-header">
-        <h5>Class Level Form</h5>
-    </div>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="{% url 'class_level_list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-</div>
-{% endblock %}
+{% block cancel_url %}{% url 'isms:class_level_list' %}{% endblock %}

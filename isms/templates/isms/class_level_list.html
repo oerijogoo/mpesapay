@@ -1,72 +1,37 @@
-{% extends 'isms/base.html' %}
+{% extends "isms/generic_list.html" %}
 
-{% block header %}
-Class Levels
+{% block card_title %}Class Levels{% endblock %}
+{% block create_url %}{% url 'isms:class_level_create' %}{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Order</th>
+    <th>Actions</th>
+</tr>
 {% endblock %}
 
-{% block content %}
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5>Class Level List</h5>
-        {% if perms.isms.add_classlevel %}
-        <a href="{% url 'class_level_create' %}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add Class Level
-        </a>
-        {% endif %}
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Next Level</th>
-                        <th>Final Level</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for level in class_levels %}
-                    <tr>
-                        <td>{{ level.code }}</td>
-                        <td>{{ level.name }}</td>
-                        <td>
-                            {% if level.next_level %}
-                            {{ level.next_level.name }}
-                            {% else %}
-                            None
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if level.is_final_level %}
-                            <span class="badge bg-success">Yes</span>
-                            {% else %}
-                            <span class="badge bg-secondary">No</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if perms.isms.change_classlevel %}
-                            <a href="{% url 'class_level_update' level.pk %}" class="btn btn-sm btn-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            {% endif %}
-                            {% if perms.isms.delete_classlevel %}
-                            <a href="{% url 'class_level_delete' level.pk %}" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center">No class levels found</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+{% block table_body %}
+{% for level in object_list %}
+<tr>
+    <td>{{ level.name }}</td>
+    <td>{{ level.code }}</td>
+    <td>{{ level.order }}</td>
+    <td>
+        <div class="btn-group btn-group-sm">
+            <a href="{% url 'isms:class_level_update' level.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{% url 'isms:class_level_delete' level.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+            </a>
         </div>
-        {% include 'isms/partials/pagination.html' %}
-    </div>
-</div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="4" class="text-center">No class levels found</td>
+</tr>
+{% endfor %}
 {% endblock %}

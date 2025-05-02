@@ -1,21 +1,19 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
 from . import views
+from django.contrib.auth import views as auth_views
+
+app_name = 'isms'
 
 urlpatterns = [
-    # Authentication URLs
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    # Authentication
+    path('login/', auth_views.LoginView.as_view(template_name='isms/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_change.html'),
-         name='password_change'),
-    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
-         name='password_change_done'),
 
     # Dashboard
-    path('', views.DashboardView.as_view(), name='dashboard'),
+    path('', views.dashboard, name='dashboard'),
 
-    # School
-    path('school/', views.SchoolView.as_view(), name='school_view'),
+    # School Config
+    path('school-config/', views.SchoolConfigUpdateView.as_view(), name='school_config'),
 
     # Academic Year
     path('academic-years/', views.AcademicYearListView.as_view(), name='academic_year_list'),
@@ -29,49 +27,6 @@ urlpatterns = [
     path('semesters/<int:pk>/edit/', views.SemesterUpdateView.as_view(), name='semester_update'),
     path('semesters/<int:pk>/delete/', views.SemesterDeleteView.as_view(), name='semester_delete'),
 
-    # Department
-    path('departments/', views.DepartmentListView.as_view(), name='department_list'),
-    path('departments/add/', views.DepartmentCreateView.as_view(), name='department_create'),
-    path('departments/<int:pk>/edit/', views.DepartmentUpdateView.as_view(), name='department_update'),
-    path('departments/<int:pk>/delete/', views.DepartmentDeleteView.as_view(), name='department_delete'),
-
-    # Course
-    path('courses/', views.CourseListView.as_view(), name='course_list'),
-    path('courses/add/', views.CourseCreateView.as_view(), name='course_create'),
-    path('courses/<int:pk>/edit/', views.CourseUpdateView.as_view(), name='course_update'),
-    path('courses/<int:pk>/delete/', views.CourseDeleteView.as_view(), name='course_delete'),
-
-    # Subject
-    path('subjects/', views.SubjectListView.as_view(), name='subject_list'),
-    path('subjects/add/', views.SubjectCreateView.as_view(), name='subject_create'),
-    path('subjects/<int:pk>/edit/', views.SubjectUpdateView.as_view(), name='subject_update'),
-    path('subjects/<int:pk>/delete/', views.SubjectDeleteView.as_view(), name='subject_delete'),
-
-    # Paper
-    path('subjects/<int:subject_pk>/papers/add/', views.PaperCreateView.as_view(), name='paper_create'),
-    path('papers/<int:pk>/edit/', views.PaperUpdateView.as_view(), name='paper_update'),
-    path('papers/<int:pk>/delete/', views.PaperDeleteView.as_view(), name='paper_delete'),
-
-    # Grade Scale
-    path('grade-scales/', views.GradeScaleListView.as_view(), name='grade_scale_list'),
-    path('grade-scales/add/', views.GradeScaleCreateView.as_view(), name='grade_scale_create'),
-    path('grade-scales/<int:pk>/edit/', views.GradeScaleUpdateView.as_view(), name='grade_scale_update'),
-    path('grade-scales/<int:pk>/delete/', views.GradeScaleDeleteView.as_view(), name='grade_scale_delete'),
-
-    # Grade
-    path('grades/', views.GradeListView.as_view(), name='grade_list'),
-    path('grades/add/', views.GradeCreateView.as_view(), name='grade_create'),
-    path('grades/<int:pk>/edit/', views.GradeUpdateView.as_view(), name='grade_update'),
-    path('grades/<int:pk>/delete/', views.GradeDeleteView.as_view(), name='grade_delete'),
-
-    # Subject Grade Scale
-    path('subjects/<int:pk>/grade-scale/', views.SubjectGradeScaleCreateView.as_view(),
-         name='subject_grade_scale_create'),
-    path('subject-grade-scales/<int:pk>/edit/', views.SubjectGradeScaleUpdateView.as_view(),
-         name='subject_grade_scale_update'),
-    path('subject-grade-scales/<int:pk>/delete/', views.SubjectGradeScaleDeleteView.as_view(),
-         name='subject_grade_scale_delete'),
-
     # Class Level
     path('class-levels/', views.ClassLevelListView.as_view(), name='class_level_list'),
     path('class-levels/add/', views.ClassLevelCreateView.as_view(), name='class_level_create'),
@@ -84,12 +39,50 @@ urlpatterns = [
     path('classes/<int:pk>/edit/', views.ClassUpdateView.as_view(), name='class_update'),
     path('classes/<int:pk>/delete/', views.ClassDeleteView.as_view(), name='class_delete'),
 
+    # Subject URLs
+    path('subjects/', views.SubjectListView.as_view(), name='subject_list'),
+    path('subjects/add/', views.SubjectCreateView.as_view(), name='subject_create'),
+    path('subjects/<int:pk>/', views.SubjectDetailView.as_view(), name='subject_detail'),
+    path('subjects/<int:pk>/update/', views.SubjectUpdateView.as_view(), name='subject_update'),
+    path('subjects/<int:pk>/delete/', views.SubjectDeleteView.as_view(), name='subject_delete'),
+
+    # Paper
+    path('papers/', views.PaperListView.as_view(), name='paper_list'),
+    path('papers/add/', views.PaperCreateView.as_view(), name='paper_create'),
+    path('papers/<int:pk>/edit/', views.PaperUpdateView.as_view(), name='paper_update'),
+    path('papers/<int:pk>/delete/', views.PaperDeleteView.as_view(), name='paper_delete'),
+
+    # Grading System
+    path('grading-systems/', views.GradingSystemListView.as_view(), name='grading_system_list'),
+    path('grading-systems/add/', views.GradingSystemCreateView.as_view(), name='grading_system_create'),
+    path('grading-systems/<int:pk>/edit/', views.GradingSystemUpdateView.as_view(), name='grading_system_update'),
+    path('grading-systems/<int:pk>/delete/', views.GradingSystemDeleteView.as_view(), name='grading_system_delete'),
+
+    # Grade
+    path('grades/', views.GradeListView.as_view(), name='grade_list'),
+    path('grades/add/', views.GradeCreateView.as_view(), name='grade_create'),
+    path('grades/<int:pk>/edit/', views.GradeUpdateView.as_view(), name='grade_update'),
+    path('grades/<int:pk>/delete/', views.GradeDeleteView.as_view(), name='grade_delete'),
+
+    # Subject Grading
+    path('subject-gradings/', views.SubjectGradingListView.as_view(), name='subject_grading_list'),
+    path('subject-gradings/add/', views.SubjectGradingCreateView.as_view(), name='subject_grading_create'),
+    path('subject-gradings/<int:pk>/edit/', views.SubjectGradingUpdateView.as_view(), name='subject_grading_update'),
+    path('subject-gradings/<int:pk>/delete/', views.SubjectGradingDeleteView.as_view(), name='subject_grading_delete'),
+
     # Student
     path('students/', views.StudentListView.as_view(), name='student_list'),
     path('students/add/', views.StudentCreateView.as_view(), name='student_create'),
     path('students/<int:pk>/', views.StudentDetailView.as_view(), name='student_detail'),
     path('students/<int:pk>/edit/', views.StudentUpdateView.as_view(), name='student_update'),
     path('students/<int:pk>/delete/', views.StudentDeleteView.as_view(), name='student_delete'),
+
+    # Teacher
+    path('teachers/', views.TeacherListView.as_view(), name='teacher_list'),
+    path('teachers/add/', views.TeacherCreateView.as_view(), name='teacher_create'),
+    path('teachers/<int:pk>/', views.TeacherDetailView.as_view(), name='teacher_detail'),
+    path('teachers/<int:pk>/edit/', views.TeacherUpdateView.as_view(), name='teacher_update'),
+    path('teachers/<int:pk>/delete/', views.TeacherDeleteView.as_view(), name='teacher_delete'),
 
     # Staff
     path('staff/', views.StaffListView.as_view(), name='staff_list'),
@@ -98,25 +91,25 @@ urlpatterns = [
     path('staff/<int:pk>/edit/', views.StaffUpdateView.as_view(), name='staff_update'),
     path('staff/<int:pk>/delete/', views.StaffDeleteView.as_view(), name='staff_delete'),
 
+    # Parent
+    path('parents/', views.ParentListView.as_view(), name='parent_list'),
+    path('parents/add/', views.ParentCreateView.as_view(), name='parent_create'),
+    path('parents/<int:pk>/', views.ParentDetailView.as_view(), name='parent_detail'),
+    path('parents/<int:pk>/edit/', views.ParentUpdateView.as_view(), name='parent_update'),
+    path('parents/<int:pk>/delete/', views.ParentDeleteView.as_view(), name='parent_delete'),
+
     # Class Subject
     path('class-subjects/', views.ClassSubjectListView.as_view(), name='class_subject_list'),
     path('class-subjects/add/', views.ClassSubjectCreateView.as_view(), name='class_subject_create'),
     path('class-subjects/<int:pk>/edit/', views.ClassSubjectUpdateView.as_view(), name='class_subject_update'),
     path('class-subjects/<int:pk>/delete/', views.ClassSubjectDeleteView.as_view(), name='class_subject_delete'),
 
-    # Enrollment
-    path('enrollments/', views.EnrollmentListView.as_view(), name='enrollment_list'),
-    path('enrollments/add/', views.EnrollmentCreateView.as_view(), name='enrollment_create'),
-    path('enrollments/bulk/', views.BulkEnrollmentView.as_view(), name='bulk_enrollment'),
-    path('enrollments/<int:pk>/edit/', views.EnrollmentUpdateView.as_view(), name='enrollment_update'),
-    path('enrollments/<int:pk>/delete/', views.EnrollmentDeleteView.as_view(), name='enrollment_delete'),
-
     # Attendance
     path('attendance/', views.AttendanceListView.as_view(), name='attendance_list'),
     path('attendance/add/', views.AttendanceCreateView.as_view(), name='attendance_create'),
-    path('attendance/bulk/', views.BulkAttendanceView.as_view(), name='bulk_attendance'),
     path('attendance/<int:pk>/edit/', views.AttendanceUpdateView.as_view(), name='attendance_update'),
     path('attendance/<int:pk>/delete/', views.AttendanceDeleteView.as_view(), name='attendance_delete'),
+    path('attendance/bulk/', views.bulk_attendance, name='bulk_attendance'),
 
     # Exam Type
     path('exam-types/', views.ExamTypeListView.as_view(), name='exam_type_list'),
@@ -127,51 +120,81 @@ urlpatterns = [
     # Exam
     path('exams/', views.ExamListView.as_view(), name='exam_list'),
     path('exams/add/', views.ExamCreateView.as_view(), name='exam_create'),
+    path('exams/<int:pk>/', views.ExamDetailView.as_view(), name='exam_detail'),
     path('exams/<int:pk>/edit/', views.ExamUpdateView.as_view(), name='exam_update'),
     path('exams/<int:pk>/delete/', views.ExamDeleteView.as_view(), name='exam_delete'),
-
-    # Exam Schedule
-    path('exam-schedules/', views.ExamScheduleListView.as_view(), name='exam_schedule_list'),
-    path('exam-schedules/add/', views.ExamScheduleCreateView.as_view(), name='exam_schedule_create'),
-    path('exam-schedules/<int:pk>/edit/', views.ExamScheduleUpdateView.as_view(), name='exam_schedule_update'),
-    path('exam-schedules/<int:pk>/delete/', views.ExamScheduleDeleteView.as_view(), name='exam_schedule_delete'),
 
     # Exam Result
     path('exam-results/', views.ExamResultListView.as_view(), name='exam_result_list'),
     path('exam-results/add/', views.ExamResultCreateView.as_view(), name='exam_result_create'),
     path('exam-results/<int:pk>/edit/', views.ExamResultUpdateView.as_view(), name='exam_result_update'),
     path('exam-results/<int:pk>/delete/', views.ExamResultDeleteView.as_view(), name='exam_result_delete'),
+    path('exam-results/bulk/', views.bulk_exam_result, name='bulk_exam_result'),
 
-    # Subject Result
-    path('subject-results/', views.SubjectResultListView.as_view(), name='subject_result_list'),
-    path('subject-results/add/', views.SubjectResultCreateView.as_view(), name='subject_result_create'),
-    path('subject-results/<int:pk>/edit/', views.SubjectResultUpdateView.as_view(), name='subject_result_update'),
-    path('subject-results/<int:pk>/delete/', views.SubjectResultDeleteView.as_view(), name='subject_result_delete'),
+    # Fee Type
+    path('fee-types/', views.FeeTypeListView.as_view(), name='fee_type_list'),
+    path('fee-types/add/', views.FeeTypeCreateView.as_view(), name='fee_type_create'),
+    path('fee-types/<int:pk>/edit/', views.FeeTypeUpdateView.as_view(), name='fee_type_update'),
+    path('fee-types/<int:pk>/delete/', views.FeeTypeDeleteView.as_view(), name='fee_type_delete'),
+
+    # Fee Structure
+    path('fee-structures/', views.FeeStructureListView.as_view(), name='fee_structure_list'),
+    path('fee-structures/add/', views.FeeStructureCreateView.as_view(), name='fee_structure_create'),
+    path('fee-structures/<int:pk>/edit/', views.FeeStructureUpdateView.as_view(), name='fee_structure_update'),
+    path('fee-structures/<int:pk>/delete/', views.FeeStructureDeleteView.as_view(), name='fee_structure_delete'),
+
+    # Fee Payment
+    path('fee-payments/', views.FeePaymentListView.as_view(), name='fee_payment_list'),
+    path('fee-payments/add/', views.FeePaymentCreateView.as_view(), name='fee_payment_create'),
+    path('fee-payments/<int:pk>/', views.FeePaymentDetailView.as_view(), name='fee_payment_detail'),
+    path('fee-payments/<int:pk>/edit/', views.FeePaymentUpdateView.as_view(), name='fee_payment_update'),
+    path('fee-payments/<int:pk>/delete/', views.FeePaymentDeleteView.as_view(), name='fee_payment_delete'),
+    path('fee-payments/<int:pk>/receipt/', views.fee_payment_receipt, name='fee_payment_receipt'),
 
     # Promotion
     path('promotions/', views.PromotionListView.as_view(), name='promotion_list'),
     path('promotions/add/', views.PromotionCreateView.as_view(), name='promotion_create'),
     path('promotions/<int:pk>/edit/', views.PromotionUpdateView.as_view(), name='promotion_update'),
     path('promotions/<int:pk>/delete/', views.PromotionDeleteView.as_view(), name='promotion_delete'),
+    path('promotions/bulk/', views.bulk_promotion, name='bulk_promotion'),
 
-    # Report Comment
-    path('report-comments/', views.ReportCommentListView.as_view(), name='report_comment_list'),
-    path('report-comments/add/', views.ReportCommentCreateView.as_view(), name='report_comment_create'),
-    path('report-comments/<int:pk>/edit/', views.ReportCommentUpdateView.as_view(), name='report_comment_update'),
-    path('report-comments/<int:pk>/delete/', views.ReportCommentDeleteView.as_view(), name='report_comment_delete'),
+    # Timetable
+    path('timetables/', views.TimetableListView.as_view(), name='timetable_list'),
+    path('timetables/add/', views.TimetableCreateView.as_view(), name='timetable_create'),
+    path('timetables/<int:pk>/edit/', views.TimetableUpdateView.as_view(), name='timetable_update'),
+    path('timetables/<int:pk>/delete/', views.TimetableDeleteView.as_view(), name='timetable_delete'),
 
-    # Notification
-    path('notifications/', views.NotificationListView.as_view(), name='notification_list'),
-    path('notifications/add/', views.NotificationCreateView.as_view(), name='notification_create'),
-    path('notifications/<int:pk>/', views.NotificationDetailView.as_view(), name='notification_detail'),
-    path('notifications/<int:pk>/edit/', views.NotificationUpdateView.as_view(), name='notification_update'),
-    path('notifications/<int:pk>/delete/', views.NotificationDeleteView.as_view(), name='notification_delete'),
+    # Notice
+    path('notices/', views.NoticeListView.as_view(), name='notice_list'),
+    path('notices/add/', views.NoticeCreateView.as_view(), name='notice_create'),
+    path('notices/<int:pk>/', views.NoticeDetailView.as_view(), name='notice_detail'),
+    path('notices/<int:pk>/edit/', views.NoticeUpdateView.as_view(), name='notice_update'),
+    path('notices/<int:pk>/delete/', views.NoticeDeleteView.as_view(), name='notice_delete'),
 
-    # AJAX URLs
-    path('ajax/get-papers-for-subject/', views.get_papers_for_subject, name='get_papers_for_subject'),
-    path('ajax/get-students-for-class/', views.get_students_for_class, name='get_students_for_class'),
-    path('ajax/get-subjects-for-class/', views.get_subjects_for_class, name='get_subjects_for_class'),
-    path('ajax/get-subject-for-class-subject/', views.get_subject_for_class_subject,
-         name='get_subject_for_class_subject'),
-    path('ajax/get-grade-scale-for-subject/', views.get_grade_scale_for_subject, name='get_grade_scale_for_subject'),
+    # Event
+    path('events/', views.EventListView.as_view(), name='event_list'),
+    path('events/add/', views.EventCreateView.as_view(), name='event_create'),
+    path('events/<int:pk>/', views.EventDetailView.as_view(), name='event_detail'),
+    path('events/<int:pk>/edit/', views.EventUpdateView.as_view(), name='event_update'),
+    path('events/<int:pk>/delete/', views.EventDeleteView.as_view(), name='event_delete'),
+
+    # Library Book
+    path('library-books/', views.LibraryBookListView.as_view(), name='library_book_list'),
+    path('library-books/add/', views.LibraryBookCreateView.as_view(), name='library_book_create'),
+    path('library-books/<int:pk>/', views.LibraryBookDetailView.as_view(), name='library_book_detail'),
+    path('library-books/<int:pk>/edit/', views.LibraryBookUpdateView.as_view(), name='library_book_update'),
+    path('library-books/<int:pk>/delete/', views.LibraryBookDeleteView.as_view(), name='library_book_delete'),
+
+    # Book Issue
+    path('book-issues/', views.BookIssueListView.as_view(), name='book_issue_list'),
+    path('book-issues/add/', views.BookIssueCreateView.as_view(), name='book_issue_create'),
+    path('book-issues/<int:pk>/edit/', views.BookIssueUpdateView.as_view(), name='book_issue_update'),
+    path('book-issues/<int:pk>/delete/', views.BookIssueDeleteView.as_view(), name='book_issue_delete'),
+
+    # Reports
+    path('reports/', views.reports, name='reports'),
+    path('reports/attendance/', views.attendance_report, name='attendance_report'),
+    path('reports/exam-results/', views.exam_results_report, name='exam_results_report'),
+    path('reports/fee-collection/', views.fee_collection_report, name='fee_collection_report'),
+    path('reports/student-progress/<int:student_id>/', views.student_progress_report, name='student_progress_report'),
 ]

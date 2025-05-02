@@ -1,21 +1,7 @@
-{% extends 'isms/base.html' %}
+{% extends "isms/generic_form.html" %}
 
-{% block header %}
-{% if form.instance.pk %}Update{% else %}Create{% endif %} Academic Year
+{% block form_title %}
+    {% if form.instance.pk %}Edit Academic Year{% else %}Create Academic Year{% endif %}
 {% endblock %}
 
-{% block content %}
-<div class="card">
-    <div class="card-header">
-        <h5>Academic Year Form</h5>
-    </div>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="{% url 'academic_year_list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-</div>
-{% endblock %}
+{% block cancel_url %}{% url 'isms:academic_year_list' %}{% endblock %}
