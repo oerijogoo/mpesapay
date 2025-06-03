@@ -1,0 +1,152 @@
+{% extends "cleaning/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section position-relative">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6 text-white">
+                <h1 class="display-4 fw-bold mb-4">Professional Cleaning Services</h1>
+                <p class="lead mb-4">{{ site_settings.motto }}</p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'services' %}" class="btn btn-primary btn-lg px-4">Our Services</a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg px-4">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-overlay"></div>
+</section>
+
+<!-- Services Section -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Our Services</h2>
+            <p class="text-muted">We offer a wide range of professional cleaning services</p>
+        </div>
+        <div class="row g-4">
+            {% for category in featured_categories %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        {% if category.icon_class %}
+                        <div class="icon-box mx-auto mb-4">
+                            <i class="{{ category.icon_class }} fa-3x text-primary"></i>
+                        </div>
+                        {% endif %}
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        <p class="card-text text-muted">{{ category.description|truncatewords:20 }}</p>
+                        <a href="{% url 'services' %}#{{ category.slug }}" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'services' %}" class="btn btn-primary px-4">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Services -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Featured Services</h2>
+            <p class="text-muted">Our most popular cleaning solutions</p>
+        </div>
+        <div class="row g-4">
+            {% for service in featured_services %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                    <img src="{{ service.cover_image.url }}" class="card-img-top" alt="{{ service.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service.name }}</h5>
+                        <p class="card-text text-muted">{{ service.short_description|truncatewords:20 }}</p>
+                        <a href="{% url 'service_detail' service.slug %}" class="btn btn-sm btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">What Our Clients Say</h2>
+            <p class="text-muted">Hear from our satisfied customers</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="owl-carousel testimonial-carousel">
+                    {% for testimonial in testimonials %}
+                    <div class="testimonial-item p-4 bg-white rounded shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if testimonial.image %}
+                            <img src="{{ testimonial.image.url }}" class="rounded-circle me-3" width="60" height="60" alt="{{ testimonial.client_name }}">
+                            {% endif %}
+                            <div>
+                                <h6 class="mb-0">{{ testimonial.client_name }}</h6>
+                                <small class="text-muted">{{ testimonial.client_title }}</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">{{ testimonial.content }}</p>
+                        <div class="mt-3 text-warning">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= testimonial.rating %}
+                                    <i class="fas fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mb-3 mb-lg-0">
+                <h3 class="fw-bold mb-2">Ready to transform your space?</h3>
+                <p class="mb-0">Contact us today for a free estimate and consultation.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'contact' %}" class="btn btn-light btn-lg px-4">Get a Free Quote</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize testimonial carousel
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.testimonial-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: false,
+            dots: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 2
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

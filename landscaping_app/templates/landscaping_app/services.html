@@ -1,0 +1,50 @@
+<!-- landscaping_app/templates/landscaping_app/services.html -->
+{% extends 'landscaping_app/base.html' %}
+{% load static cloudinary %}
+
+{% block title %}Our Services{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold">Our Landscaping Services</h1>
+            <p class="lead">Professional services to enhance your outdoor space</p>
+        </div>
+
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100 hover-effect">
+                    <div class="row g-0 h-100">
+                        <div class="col-md-5">
+                            <img src="{{ service.featured_image.url }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ service.name }}">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-box bg-success bg-opacity-10 text-success rounded-circle me-3">
+                                        <i class="{{ service.icon }}"></i>
+                                    </div>
+                                    <h3 class="h5 mb-0">{{ service.name }}</h3>
+                                </div>
+                                <p class="card-text">{{ service.description }}</p>
+                                <a href="{% url 'landscaping_app:service_detail' service.id %}" class="btn btn-outline-success mt-3">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Not sure which service you need?</h2>
+        <p class="lead mb-4">Our experts can assess your property and recommend the perfect solutions.</p>
+        <a href="{% url 'landscaping_app:contact' %}" class="btn btn-success btn-lg">Contact Us Today</a>
+    </div>
+</section>
+{% endblock %}

@@ -68,6 +68,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_filters',
     'isms',
+    'cleaning',
+    'services',
+    'landscaping_app',
 
 
 

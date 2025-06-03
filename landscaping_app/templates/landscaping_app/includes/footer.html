@@ -1,0 +1,42 @@
+<!-- landscaping_app/templates/landscaping_app/includes/footer.html -->
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5>{{ site_settings.business_name }}</h5>
+                <p>{{ site_settings.motto }}</p>
+                <div class="social-icons mt-3">
+                    {% if site_settings.facebook_url %}
+                        <a href="{{ site_settings.facebook_url }}" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                    {% endif %}
+                    {% if site_settings.twitter_url %}
+                        <a href="{{ site_settings.twitter_url }}" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                    {% endif %}
+                    {% if site_settings.instagram_url %}
+                        <a href="{{ site_settings.instagram_url }}" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'landscaping_app:index' %}" class="text-white">Home</a></li>
+                    <li><a href="{% url 'landscaping_app:services' %}" class="text-white">Services</a></li>
+                    <li><a href="{% url 'landscaping_app:gallery' %}" class="text-white">Gallery</a></li>
+                    <li><a href="{% url 'landscaping_app:about' %}" class="text-white">About Us</a></li>
+                    <li><a href="{% url 'landscaping_app:contact' %}" class="text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h5>Contact Us</h5>
+                <p><i class="fas fa-map-marker-alt me-2"></i> {{ site_settings.address }}</p>
+                <p><i class="fas fa-phone me-2"></i> {{ site_settings.phone }}</p>
+                <p><i class="fas fa-envelope me-2"></i> {{ site_settings.email }}</p>
+            </div>
+        </div>
+        <hr class="my-4 bg-light">
+        <div class="text-center">
+            <p class="mb-0">&copy; {% now "Y" %} {{ site_settings.business_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

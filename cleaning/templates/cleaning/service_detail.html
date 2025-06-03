@@ -1,0 +1,120 @@
+{% extends "cleaning/base.html" %}
+{% load static %}
+
+{% block title %}{{ service.name }} - {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>{{ service.name }}</h1>
+        <ul class="breadcrumb">
+            <li><a href="{% url 'cleaning:home' %}">Home</a></li>
+            <li><a href="{% url 'cleaning:services' %}">Services</a></li>
+            <li><a href="{% url 'cleaning:services_by_category' service.category.slug %}">{{ service.category.name }}</a></li>
+            <li>{{ service.name }}</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Service Detail Section -->
+<section class="section service-detail">
+    <div class="container">
+        <div class="service-detail-grid">
+            <div class="service-main">
+                <div class="service-image">
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                </div>
+
+                <div class="service-content">
+                    <h2>{{ service.name }}</h2>
+                    {% if service.price %}
+                    <div class="service-price">Starting at ${{ service.price }}</div>
+                    {% endif %}
+
+                    <div class="service-description">
+                        {{ service.description|linebreaks }}
+                    </div>
+
+                    <a href="{% url 'cleaning:contact' %}" class="btn btn-primary">Book This Service</a>
+                </div>
+            </div>
+
+            <div class="service-sidebar">
+                <div class="sidebar-widget">
+                    <h3>Service Category</h3>
+                    <ul class="service-categories">
+                        <li>
+                            <a href="{% url 'cleaning:services_by_category' service.category.slug %}">
+                                <i class="{{ service.category.icon_class|default:'fas fa-broom' }}"></i>
+                                {{ service.category.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                {% if related_services %}
+                <div class="sidebar-widget">
+                    <h3>Related Services</h3>
+                    <div class="related-services">
+                        {% for related_service in related_services %}
+                        <div class="related-service">
+                            <a href="{% url 'cleaning:service_detail' related_service.slug %}">
+                                <img src="{{ related_service.image.url }}" alt="{{ related_service.name }}">
+                                <h4>{{ related_service.name }}</h4>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="sidebar-widget">
+                    <h3>Quick Contact</h3>
+                    <div class="quick-contact">
+                        <p>Have questions about this service?</p>
+                        <a href="{% url 'cleaning:contact' %}" class="btn btn-outline">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Preview Section -->
+<section class="section gallery-preview bg-light">
+    <div class="container">
+        <div class="section-header">
+            <h2>{{ service.name }} Gallery</h2>
+            <p>See examples of our work</p>
+        </div>
+
+        <div class="gallery-grid">
+            {% for image in service.gallery_images.all|slice:":6" %}
+            <div class="gallery-item">
+                <img src="{{ image.image.url }}" alt="{{ image.caption|default:service.name }}">
+                <div class="gallery-overlay">
+                    <a href="{{ image.image.url }}" class="gallery-view" data-fancybox="gallery">
+                        <i class="fas fa-search-plus"></i>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No gallery images available for this service yet.</p>
+            {% endfor %}
+        </div>
+
+        {% if service.gallery_images.count > 6 %}
+        <div class="text-center mt-4">
+            <a href="{% url 'cleaning:gallery_by_service' service.slug %}" class="btn btn-outline">View Full Gallery</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Fancybox for image gallery -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+{% endblock %}

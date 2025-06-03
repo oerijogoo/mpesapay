@@ -1,0 +1,66 @@
+<!-- landscaping_app/templates/landscaping_app/about.html -->
+{% extends 'landscaping_app/base.html' %}
+{% load static cloudinary %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h1 class="display-5 fw-bold mb-4">About {{ site_settings.business_name }}</h1>
+                <div class="about-content">
+                    {{ site_settings.about_us|linebreaks }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                {% if site_settings.logo %}
+                <div class="about-logo-box bg-white p-4 shadow-sm text-center">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.business_name }}" class="img-fluid" style="max-height: 300px;">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our Team</h2>
+            <p class="lead">Meet the professionals behind our success</p>
+        </div>
+
+        <div class="row g-4">
+            {% for member in team_members %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100 hover-effect">
+                    <div class="card-img-top overflow-hidden" style="height: 250px;">
+                        <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="img-fluid w-100 h-100 object-fit-cover">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-1">{{ member.name }}</h5>
+                        <p class="text-success small mb-3">{{ member.position }}</p>
+                        <p class="card-text small">{{ member.bio|truncatewords:20 }}</p>
+                        <div class="social-links mt-3">
+                            {% if member.facebook_url %}
+                            <a href="{{ member.facebook_url }}" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
+                            {% endif %}
+                            {% if member.twitter_url %}
+                            <a href="{{ member.twitter_url }}" class="text-dark me-2"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                            {% if member.linkedin_url %}
+                            <a href="{{ member.linkedin_url }}" class="text-dark"><i class="fab fa-linkedin-in"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'landscaping_app/includes/testimonials.html' %}
+{% endblock %}
