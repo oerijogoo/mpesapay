@@ -1,0 +1,65 @@
+<!-- landscaping_app/templates/landscaping_app/gallery.html -->
+{% extends 'landscaping_app/base.html' %}
+{% load static cloudinary %}
+
+{% block title %}Our Gallery{% endblock %}
+
+{% block extra_css %}
+<style>
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        height: 300px;
+    }
+    .gallery-item img {
+        transition: transform 0.5s ease;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+    .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 15px;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:hover .gallery-caption {
+        transform: translateY(0);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold">Our Project Gallery</h1>
+            <p class="lead">See our transformation work</p>
+        </div>
+
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-md-6 col-lg-4">
+                <div class="gallery-item shadow-sm">
+                    <img src="{{ project.after_image.url }}" alt="{{ project.title }}">
+                    <div class="gallery-caption">
+                        <h5 class="mb-1">{{ project.title }}</h5>
+                        <p class="small mb-0">{{ project.service.name }}</p>
+                        <p class="small mb-0">{{ project.date_completed|date:"F Y" }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

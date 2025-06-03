@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.title }} - {{ site_settings.site_name|default:"Cleaning Services" }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{{ service.title }}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'service_list' %}">Services</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ service.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section class="service-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="service-main">
+                    <div class="service-gallery">
+                        <div class="main-image">
+                            <img src="{{ service.featured_image.url }}" alt="{{ service.title }}" class="img-fluid">
+                        </div>
+
+                        {% if service.images.all %}
+                        <div class="thumbnail-images">
+                            {% for image in service.images.all %}
+                            <div class="thumbnail">
+                                <img src="{{ image.image.url }}" alt="{{ image.caption|default:service.title }}" class="img-fluid">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="service-content">
+                        <h2 class="service-title">{{ service.title }}</h2>
+                        {% if service.price %}
+                        <div class="service-price">Starting at ${{ service.price }}</div>
+                        {% endif %}
+
+                        <div class="service-description">
+                            {{ service.description|linebreaks }}
+                        </div>
+
+                        <div class="service-cta">
+                            <a href="{% url 'contact' %}?service={{ service.title }}" class="btn btn-primary">
+                                <i class="fas fa-calendar-alt mr-2"></i> Book This Service
+                            </a>
+                            {% if site_settings.phone %}
+                            <a href="tel:{{ site_settings.phone }}" class="btn btn-outline-primary">
+                                <i class="fas fa-phone-alt mr-2"></i> Call Now
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="service-sidebar">
+                    <div class="sidebar-widget booking-widget">
+                        <h3 class="widget-title">Book This Service</h3>
+                        <p>Ready to schedule your {{ service.title }} service? Contact us today!</p>
+                        <a href="{% url 'contact' %}?service={{ service.title }}" class="btn btn-block btn-primary">
+                            <i class="fas fa-envelope mr-2"></i> Get a Quote
+                        </a>
+                        {% if site_settings.phone %}
+                        <a href="tel:{{ site_settings.phone }}" class="btn btn-block btn-secondary">
+                            <i class="fas fa-phone-alt mr-2"></i> Call Now
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="sidebar-widget related-services">
+                        <h3 class="widget-title">Related Services</h3>
+                        <div class="related-services-list">
+                            {% for related_service in related_services %}
+                            <div class="related-service">
+                                <a href="{% url 'service_detail' related_service.slug %}">
+                                    <img src="{{ related_service.featured_image.url }}" alt="{{ related_service.title }}" class="img-fluid">
+                                    <h4>{{ related_service.title }}</h4>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Thumbnail image click handler
+    const thumbnails = document.querySelectorAll('.thumbnail img');
+    const mainImage = document.querySelector('.main-image img');
+
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            mainImage.src = this.src;
+        });
+    });
+});
+</script>
+{% endblock %}

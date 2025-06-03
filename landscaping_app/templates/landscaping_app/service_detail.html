@@ -1,0 +1,58 @@
+<!-- landscaping_app/templates/landscaping_app/service_detail.html -->
+{% extends 'landscaping_app/base.html' %}
+{% load static cloudinary %}
+
+{% block title %}{{ service.name }}{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'landscaping_app:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'landscaping_app:services' %}">Services</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ service.name }}</li>
+            </ol>
+        </nav>
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="icon-box bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="{{ service.icon }} fa-2x"></i>
+                </div>
+                <h1 class="display-6 fw-bold">{{ service.name }}</h1>
+                <p class="lead">{{ service.description }}</p>
+                <a href="{% url 'landscaping_app:contact' %}" class="btn btn-success btn-lg mt-3">Get a Free Quote</a>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ service.featured_image.url }}" alt="{{ service.name }}" class="img-fluid rounded shadow">
+            </div>
+        </div>
+
+        {% if related_projects %}
+        <div class="mt-5">
+            <h2 class="mb-4">Our {{ service.name }} Projects</h2>
+            <div class="row g-4">
+                {% for project in related_projects %}
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0 shadow-sm hover-effect">
+                        <div class="card-img-top position-relative overflow-hidden" style="height: 200px;">
+                            <img src="{{ project.after_image.url }}" alt="{{ project.title }}" class="img-fluid w-100 h-100 object-fit-cover">
+                            <div class="project-overlay d-flex align-items-center justify-content-center">
+                                <div class="text-center text-white">
+                                    <h5 class="mb-1">{{ project.title }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'landscaping_app:gallery' %}" class="btn btn-outline-success">View More Projects</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

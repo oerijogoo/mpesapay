@@ -1,0 +1,48 @@
+<!-- landscaping_app/templates/landscaping_app/includes/testimonials.html -->
+{% load static cloudinary %}
+<section class="py-5 bg-success text-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title text-white">What Our Clients Say</h2>
+            <p class="lead">Hear from our satisfied customers</p>
+        </div>
+
+        <div class="row g-4">
+            {% for testimonial in testimonials %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 bg-success bg-opacity-10 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex mb-3">
+                            <div class="me-3">
+                                {% if testimonial.photo %}
+                                <img src="{{ testimonial.photo.url }}" alt="{{ testimonial.client_name }}" class="rounded-circle" width="60" height="60">
+                                {% else %}
+                                <div class="bg-success bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h5 class="mb-1">{{ testimonial.client_name }}</h5>
+                                {% if testimonial.client_title %}
+                                <p class="small mb-0">{{ testimonial.client_title }}</p>
+                                {% endif %}
+                                <div class="rating mt-1">
+                                    {% for i in "12345" %}
+                                    {% if forloop.counter <= testimonial.rating %}
+                                    <i class="fas fa-star text-warning"></i>
+                                    {% else %}
+                                    <i class="far fa-star text-warning"></i>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-text">"{{ testimonial.content }}"</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

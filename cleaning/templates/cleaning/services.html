@@ -1,0 +1,64 @@
+{% extends "cleaning/base.html" %}
+{% load static %}
+
+{% block title %}Our Services - {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Our Services</h1>
+        <ul class="breadcrumb">
+            <li><a href="{% url 'cleaning:home' %}">Home</a></li>
+            <li>Services</li>
+            {% if selected_category %}
+            <li>{{ selected_category|title }}</li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="section services-page">
+    <div class="container">
+        <div class="services-filter">
+            <ul>
+                <li><a href="{% url 'cleaning:services' %}" class="{% if not selected_category %}active{% endif %}">All Services</a></li>
+                {% for category in categories %}
+                <li><a href="{% url 'cleaning:services_by_category' category.slug %}" class="{% if selected_category == category.slug %}active{% endif %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                    <div class="service-category">{{ service.category.name }}</div>
+                </div>
+                <div class="service-content">
+                    <h3>{{ service.name }}</h3>
+                    <p>{{ service.short_description }}</p>
+                    {% if service.price %}
+                    <div class="service-price">From ${{ service.price }}</div>
+                    {% endif %}
+                    <a href="{% url 'cleaning:service_detail' service.slug %}" class="btn btn-outline">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section bg-primary">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Don't See What You Need?</h2>
+            <p>We offer custom cleaning solutions tailored to your specific requirements.</p>
+            <a href="{% url 'cleaning:contact' %}" class="btn btn-light">Contact Us for Custom Services</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

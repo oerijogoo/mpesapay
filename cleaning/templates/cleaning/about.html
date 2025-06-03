@@ -1,0 +1,142 @@
+{% extends "cleaning/base.html" %}
+{% load static %}
+
+{% block title %}About Us - {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>About Us</h1>
+        <ul class="breadcrumb">
+            <li><a href="{% url 'cleaning:home' %}">Home</a></li>
+            <li>About Us</li>
+        </ul>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section about-page">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                {{ site_settings.about_us|linebreaks }}
+
+                <div class="about-features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Professional Team</h3>
+                        <p>Our cleaners are trained, vetted, and insured professionals.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Quality Service</h3>
+                        <p>We use premium cleaning products and equipment for best results.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Satisfaction Guarantee</h3>
+                        <p>If you're not happy, we'll come back and fix it at no extra cost.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-image">
+                {% if site_settings.logo %}
+                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="section team-section bg-light">
+    <div class="container">
+        <div class="section-header">
+            <h2>Why Choose Us</h2>
+            <p>What makes us different from other cleaning services</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Experienced Professionals</h3>
+                <p>Our team has years of experience in providing top-notch cleaning services.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Eco-Friendly Products</h3>
+                <p>We use environmentally friendly cleaning products that are safe for your family and pets.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Flexible Scheduling</h3>
+                <p>We work around your schedule to provide service when it's most convenient for you.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Fully Insured</h3>
+                <p>You're protected in the rare case of accidents or damages during service.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>What Our Clients Say</h2>
+            <p>Hear from our satisfied customers</p>
+        </div>
+
+        <div class="testimonials-slider">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="rating">
+                        {% for i in "12345" %}
+                        <i class="fas fa-star{% if forloop.counter > testimonial.rating %}-o{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                    <p>"{{ testimonial.content }}"</p>
+                </div>
+                <div class="testimonial-author">
+                    {% if testimonial.image %}
+                    <img src="{{ testimonial.image.url }}" alt="{{ testimonial.client_name }}">
+                    {% endif %}
+                    <div class="author-info">
+                        <h4>{{ testimonial.client_name }}</h4>
+                        {% if testimonial.client_title %}<span>{{ testimonial.client_title }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section bg-primary">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Experience the Difference?</h2>
+            <p>Contact us today to schedule your cleaning service.</p>
+            <a href="{% url 'cleaning:contact' %}" class="btn btn-light">Get Started</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

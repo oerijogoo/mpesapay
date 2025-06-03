@@ -1,0 +1,68 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3 class="footer-title">About Us</h3>
+                {% if site_settings.logo %}
+                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="footer-logo">
+                {% endif %}
+                <p>{{ site_settings.about_us|default:"Professional cleaning services for your home and business."|truncatewords:30 }}</p>
+
+                <div class="social-links">
+                    {% if site_settings.facebook_url %}
+                    <a href="{{ site_settings.facebook_url }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    {% endif %}
+                    {% if site_settings.twitter_url %}
+                    <a href="{{ site_settings.twitter_url }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                    {% endif %}
+                    {% if site_settings.instagram_url %}
+                    <a href="{{ site_settings.instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                    {% endif %}
+                    {% if site_settings.linkedin_url %}
+                    <a href="{{ site_settings.linkedin_url }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="footer-section links">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'service_list' %}">Services</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section services">
+                <h3 class="footer-title">Our Services</h3>
+                <ul>
+                    {% for category in service_categories %}
+                    <li><a href="{% url 'service_list_by_category' category.slug %}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="footer-section contact">
+                <h3 class="footer-title">Contact Us</h3>
+                <ul>
+                    {% if site_settings.address %}
+                    <li><i class="fas fa-map-marker-alt"></i> {{ site_settings.address }}</li>
+                    {% endif %}
+                    {% if site_settings.phone %}
+                    <li><i class="fas fa-phone"></i> {{ site_settings.phone }}</li>
+                    {% endif %}
+                    {% if site_settings.email %}
+                    <li><i class="fas fa-envelope"></i> {{ site_settings.email }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <p>&copy; {% now "Y" %} {{ site_settings.site_name|default:"Cleaning Services" }}. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
