@@ -105,8 +105,8 @@
     <div class="container hero-content position-relative text-white py-5">
         <div class="row min-vh-75 align-items-center">
             <div class="col-lg-8">
-                <h1 class="display-4 fw-bold mb-4">{{ site_settings.business_name }}</h1>
-                <p class="lead mb-4">
+                <h1 class="display-3 display-md-2 display-lg-1 fw-bold mb-2 mb-md-3">{{ site_settings.business_name }}</h1>
+                <p class="fs-5 fs-md-4 mb-3 mb-md-4">
                     {% with first_hero=hero_images|first %}
                         {{ first_hero.caption|default:site_settings.motto }}
                     {% endwith %}
