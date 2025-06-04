@@ -1,0 +1,91 @@
+{% extends 'isms/base.html' %}
+
+{% block header %}
+Exam Results
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Exam Result List</h5>
+        {% if perms.isms.add_examresult %}
+        <a href="{% url 'exam_result_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add Exam Result
+        </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form method="get" class="row g-2">
+                    <div class="col-md-8">
+                        <select name="exam_schedule_id" class="form-select">
+                            <option value="">All Exam Schedules</option>
+                            {% for schedule in exam_schedules %}
+                            <option value="{{ schedule.id }}" {% if request.GET.exam_schedule_id == schedule.id|stringformat:"s" %}selected{% endif %}>
+                                {{ schedule.exam.name }} - {{ schedule.class_subject.subject.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="{% url 'exam_result_list' %}" class="btn btn-secondary">Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Exam</th>
+                        <th>Student</th>
+                        <th>Subject</th>
+                        <th>Paper</th>
+                        <th>Marks Obtained</th>
+                        <th>Percentage</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in exam_results %}
+                    <tr>
+                        <td>{{ result.exam_schedule.exam.name }}</td>
+                        <td>{{ result.student.get_full_name }}</td>
+                        <td>{{ result.exam_schedule.class_subject.subject.name }}</td>
+                        <td>
+                            {% if result.exam_schedule.paper %}
+                            {{ result.exam_schedule.paper.name }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>{{ result.marks_obtained }} / {{ result.exam_schedule.max_marks }}</td>
+                        <td>{{ result.percentage|floatformat:2 }}%</td>
+                        <td>
+                            {% if perms.isms.change_examresult %}
+                            <a href="{% url 'exam_result_update' result.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {% endif %}
+                            {% if perms.isms.delete_examresult %}
+                            <a href="{% url 'exam_result_delete' result.pk %}" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No exam results found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'isms/partials/pagination.html' %}
+    </div>
+</div>
+{% endblock %}

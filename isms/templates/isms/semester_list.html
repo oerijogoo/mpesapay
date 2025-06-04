@@ -1,0 +1,47 @@
+{% extends "isms/generic_list.html" %}
+
+{% block card_title %}Semesters{% endblock %}
+{% block create_url %}{% url 'isms:semester_create' %}{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Academic Year</th>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Current</th>
+    <th>Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for semester in object_list %}
+<tr>
+    <td>{{ semester.academic_year }}</td>
+    <td>{{ semester.name }}</td>
+    <td>{{ semester.start_date }}</td>
+    <td>{{ semester.end_date }}</td>
+    <td>
+        {% if semester.is_current %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        <div class="btn-group btn-group-sm">
+            <a href="{% url 'isms:semester_update' semester.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{% url 'isms:semester_delete' semester.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="6" class="text-center">No semesters found</td>
+</tr>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- templates/hospital/login.html -->
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't have an account? <a href="{% url 'patient_register' %}">Register as Patient</a></p>
+  <p>Are you a doctor or staff? <a href="{% url 'admin:index' %}">Login via Admin</a></p>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends "./base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <main class="pt-5">
+        <div class="row g-3 align-items-center flex-nowrap flex-sm-wrap">
+
+            <!-- Product Image -->
+            <div class="col-4 col-sm-6 col-md-5 text-center">
+                <img class="img-fluid" alt="{{ product.title }}"
+                     src="{{ product.image.url }}"
+                     style="width: 100%; max-height: 200px; object-fit: contain;">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-8 col-sm-6 col-md-7">
+                <h1 class="h6 mb-2">{{ product.title }}</h1>
+                <strong>{{ product.brand }}</strong>
+
+                <hr class="my-2">
+
+                <p class="small">{{ product.description }}</p>
+
+                <!-- Product Price and Quantity -->
+                <div class="border rounded">
+                    <!-- Price -->
+                    <div class="border-bottom p-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Price</span>
+                            {% if product.stock > 0 %}
+                                {% if product.discount_percentage > 0 %}
+                                    <span>
+                                        <span class="text-muted" style="text-decoration: line-through;">Kshs. {{ product.price }}</span>
+                                        <span class="h6 fw-bold text-danger">Kshs. {{ product.get_discounted_price }}</span>
+                                        <small class="text-success">({{ product.discount_percentage }}% off)</small>
+                                    </span>
+                                {% else %}
+                                    <span class="h6 fw-bold">Kshs. {{ product.price }}</span>
+                                {% endif %}
+                            {% else %}
+                                <span class="h6 fw-bold">Kshs. {{ product.price }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Quantity and Add to Cart -->
+                    <div class="p-2">
+                        <div class="row g-2 align-items-center">
+                            <!-- Quantity Dropdown -->
+                            <div class="col-6">
+                                <label for="select" class="form-label small">Qty</label>
+                                <select id="select" class="form-select form-select-sm">
+                                    {% for i in quantity_range %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% empty %}
+                                        <option value="0" disabled>Out of Stock</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Stock Available -->
+                            <div class="col-6">
+                                <span class="small text-muted">Stock Available: {{ product.stock }}</span>
+                            </div>
+
+                            <!-- Add to Cart Button -->
+                            <div class="col-12 text-end mt-2">
+                                <button type="button" id="add-button" value="{{ product.id }}"
+                                        class="btn btn-secondary btn-sm w-100" {% if product.stock == 0 %} disabled {% endif %}>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Notification Area -->
+                        <div id="stock-notification" class="alert alert-danger mt-2" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- JavaScript -->
+<script>
+    $(document).ready(function() {
+        let stockAvailable = {{ product.stock }}; // Track remaining stock
+        const quantitySelect = $('#select');
+        const addButton = $('#add-button');
+        const notificationContainer = $('#stock-notification');
+
+        // Disable button if out of stock
+        if (stockAvailable === 0) {
+            addButton.prop('disabled', true);
+        }
+
+        // Function to show and hide notification after 6 seconds
+        function showNotification(message) {
+            notificationContainer.text(message).show();
+            setTimeout(() => {
+                notificationContainer.hide();
+            }, 6000); // Hide after 6 seconds
+        }
+
+        // Handle quantity selection changes
+        quantitySelect.on('change', function() {
+            const selectedQuantity = parseInt($(this).val());
+            if (selectedQuantity > stockAvailable) {
+                addButton.prop('disabled', true);
+                showNotification('Not enough stock available for the selected quantity.');
+            } else {
+                addButton.prop('disabled', false);
+                notificationContainer.hide();
+            }
+        });
+
+        // Add to Cart functionality
+        $(document).on('click', '#add-button', function(e) {
+            e.preventDefault();
+
+            const selectedQuantity = parseInt($('#select option:selected').val());
+
+            if (selectedQuantity > stockAvailable) {
+                showNotification('Not enough stock available. Please adjust the quantity.');
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart-add" %}',
+                data: {
+                    product_id: $('#add-button').val(),
+                    product_quantity: selectedQuantity,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json) {
+                    if (json.error) {
+                        showNotification(json.error);
+                    } else {
+                        document.getElementById('cart-qty').textContent = json.qty;
+
+                        // Decrease stock count
+                        stockAvailable -= selectedQuantity;
+
+                        // Notify user and disable button if stock reaches 0
+                        if (stockAvailable <= 0) {
+                            stockAvailable = 0;
+                            addButton.prop('disabled', true);
+                            showNotification('No more stock available.');
+                        } else {
+                            notificationContainer.hide();
+                        }
+                    }
+                },
+                error: function(xhr, errmsh, err) {
+                    console.error("Error adding product to cart:", errmsh);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

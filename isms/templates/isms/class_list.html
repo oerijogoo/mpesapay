@@ -1,0 +1,49 @@
+{% extends "isms/generic_list.html" %}
+
+{% block card_title %}Classes{% endblock %}
+{% block create_url %}{% url 'isms:class_create' %}{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Class Level</th>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Capacity</th>
+    <th>Class Teacher</th>
+    <th>Active</th>
+    <th>Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for class in object_list %}
+<tr>
+    <td>{{ class.class_level }}</td>
+    <td>{{ class.name }}</td>
+    <td>{{ class.code }}</td>
+    <td>{{ class.capacity }}</td>
+    <td>{{ class.class_teacher|default:"-" }}</td>
+    <td>
+        {% if class.is_active %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        <div class="btn-group btn-group-sm">
+            <a href="{% url 'isms:class_update' class.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{% url 'isms:class_delete' class.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center">No classes found</td>
+</tr>
+{% endfor %}
+{% endblock %}

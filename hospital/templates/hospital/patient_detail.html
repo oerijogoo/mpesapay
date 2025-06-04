@@ -1,0 +1,34 @@
+
+
+{% extends 'hospital/base.html' %}
+
+{% block content %}<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+</head>
+<body>
+    <h1>{{ patient }}</h1>
+    <p>Age: {{ patient.age }}</p>
+    <p>Gender: {{ patient.gender }}</p>
+    <p>Branch: {{ patient.branch.name }}</p>
+    <h2>Admissions</h2>
+    <ul>
+        {% for admission in patient.admission_set.all %}
+            <li>
+                {{ admission.ward.name }} (Bed {{ admission.bed.bed_number }}) - {{ admission.admission_date }}
+                {% if admission.discharge_date %}
+                    (Discharged on {{ admission.discharge_date }})
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'admit_patient' patient.id %}">Admit Patient</a>
+    <p><a href="{% url 'home' %}">Go to Home</a></p>
+</body>
+</html>
+
+{% endblock %}

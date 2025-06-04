@@ -1,0 +1,9 @@
+<!-- templates/hospital/doctor_dashboard.html -->
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+  <h1>Doctor Dashboard</h1>
+  <p>Welcome, Dr. {{ request.user.doctor }}!</p>
+  <a href="{% url 'doctor_book_appointment' %}">Book Follow-Up</a>
+  <a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

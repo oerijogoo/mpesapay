@@ -1,0 +1,61 @@
+{% extends "isms/generic_list.html" %}
+
+{% block card_title %}Subjects{% endblock %}
+{% block create_url %}{% url 'isms:subject_create' %}{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Class Levels</th>
+    <th>Papers</th>
+    <th>Core</th>
+    <th>Active</th>
+    <th>Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for subject in object_list %}
+<tr>
+    <td>{{ subject.name }}</td>
+    <td>{{ subject.code }}</td>
+    <td>
+        {% for level in subject.class_levels.all %}
+        <span class="badge bg-primary">{{ level.name }}</span>
+        {% endfor %}
+    </td>
+    <td>
+        {% for paper in subject.paper_set.all %}
+        <span class="badge bg-secondary">{{ paper.name }} ({{ paper.weight }}%)</span>
+        {% endfor %}
+    </td>
+    <td>
+        {% if subject.is_core %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        {% if subject.is_active %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        <a href="{% url 'isms:subject_update' subject.pk %}" class="btn btn-sm btn-primary">
+            <i class="bi bi-pencil"></i>
+        </a>
+        <a href="{% url 'isms:subject_delete' subject.pk %}" class="btn btn-sm btn-danger">
+            <i class="bi bi-trash"></i>
+        </a>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center">No subjects found</td>
+</tr>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "isms/generic_form.html" %}
+
+{% block form_title %}
+    {% if form.instance.pk %}Edit Fee Structure{% else %}Create Fee Structure{% endif %}
+{% endblock %}
+
+{% block cancel_url %}{% url 'isms:fee_structure_list' %}{% endblock %}

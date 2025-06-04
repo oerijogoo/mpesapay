@@ -1,0 +1,45 @@
+{% extends "isms/generic_list.html" %}
+
+{% block card_title %}Academic Years{% endblock %}
+{% block create_url %}{% url 'isms:academic_year_create' %}{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Current</th>
+    <th>Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for year in object_list %}
+<tr>
+    <td>{{ year.name }}</td>
+    <td>{{ year.start_date }}</td>
+    <td>{{ year.end_date }}</td>
+    <td>
+        {% if year.is_current %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        <div class="btn-group btn-group-sm">
+            <a href="{% url 'isms:academic_year_update' year.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{% url 'isms:academic_year_delete' year.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="5" class="text-center">No academic years found</td>
+</tr>
+{% endfor %}
+{% endblock %}

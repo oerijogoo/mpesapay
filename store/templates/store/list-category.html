@@ -1,0 +1,147 @@
+<!--store/list-category.html-->
+{% extends "./base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="pt-5">
+    <div class="container">
+        <!-- Category Name -->
+        <h1 class="h5 text-capitalize">{{ category.name }}</h1>
+        <hr>
+
+        <!-- Responsive Product Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <!-- Product Image with Label -->
+                        <td class="text-center position-relative">
+                            <div class="position-relative d-inline-block" style="width: 100px; height: 100px;">
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.title }}"
+                                    class="img-fluid rounded"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                {% if product.label != 'N' and product.stock > 0 %}
+                                <span
+                                    class="badge position-absolute top-50 start-50 translate-middle bg-warning text-dark text-uppercase">
+                                    {% if product.label == 'P' %} Popular {% endif %}
+                                    {% if product.label == 'S' %} Special Offer {% endif %}
+                                    {% if product.label == 'D' %} New {% endif %}
+                                    {% if product.label == 'L' %} Low Stock {% endif %}
+                                </span>
+                                {% elif product.stock == 0 %}
+                                <span
+                                    class="badge position-absolute top-50 start-50 translate-middle bg-danger text-white text-uppercase">
+                                    Out of Stock
+                                </span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <!-- Product Details -->
+                        <td>
+                            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
+                                <h1 class="h6">{{ product.title }}</h1>
+                            </a>
+                        </td>
+                        <!-- Product Price -->
+                        <td>
+                        {% if product.discount_percentage > 0 %}
+                            <span style="text-decoration: line-through;">Kshs. {{ product.price }}</span><br>
+                            <span style="font-weight: bold; color: #d9534f;">Kshs. {{ product.get_discounted_price }}</span>
+                            <small style="color: #5cb85c;">({{ product.discount_percentage }}% off)</small>
+                        {% else %}
+                            <span style="font-weight: bold;">Kshs. {{ product.price }}</span>
+                        {% endif %}
+                        </td>
+                        <!-- Actions -->
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-sm"
+                                onclick="window.location.href='{{ product.get_absolute_url }}'">
+                                View Details
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-success btn-sm add-to-cart-button"
+                                data-index="{{ product.id }}"
+                                {% if product.stock == 0 %} disabled {% endif %}>
+                                Add to Cart
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">
+                            No products available in this category.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- Toast Container -->
+<div id="toast-message" class="toast position-fixed bottom-0 end-0 p-3" style="z-index: 1050;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="me-auto">Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Function to show toast
+    function showToast(message, type) {
+        $('#toast-message .toast-body').text(message);
+
+        if (type === 'success') {
+            $('#toast-message').removeClass('bg-danger').addClass('bg-success');
+        } else if (type === 'danger') {
+            $('#toast-message').removeClass('bg-success').addClass('bg-danger');
+        }
+
+        var toast = new bootstrap.Toast($('#toast-message')[0], { delay: 3000 });
+        toast.show();
+    }
+
+    $(document).on('click', '.add-to-cart-button', function(e) {
+        e.preventDefault();
+
+        var productId = $(this).data('index');
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart-add" %}',
+            data: {
+                action: 'post',
+                product_id: productId,
+                product_quantity: 1,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(json) {
+                showToast('Product added to cart successfully!', 'success');
+                $('#cart-qty').text(json.qty);
+            },
+            error: function(xhr) {
+                let message = xhr.responseJSON?.error || 'An error occurred. Please try again.';
+                showToast(message, 'danger');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

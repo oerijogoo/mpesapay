@@ -1,0 +1,27 @@
+{% extends "isms/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Exam Results Report</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form.exam|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.class_info|as_crispy_field }}
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'isms:reports' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Generate Report</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

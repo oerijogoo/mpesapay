@@ -1,0 +1,7 @@
+{% extends "isms/generic_form.html" %}
+
+{% block form_title %}
+    {% if form.instance.pk %}Edit Book Issue{% else %}Create Book Issue{% endif %}
+{% endblock %}
+
+{% block cancel_url %}{% url 'isms:book_issue_list' %}{% endblock %}

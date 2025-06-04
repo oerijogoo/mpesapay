@@ -1,0 +1,8 @@
+{% block content %}
+<div class="container">
+    <h1>Thank You!</h1>
+    <p>Your order has been placed successfully.</p>
+    <h3>Total Paid: KES {{ paid_amount }}</h3>
+    <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% endblock %}

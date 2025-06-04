@@ -1,0 +1,172 @@
+{% extends 'members/base.html' %}
+
+{% block content %}
+
+<style>
+    /* Base font sizes */
+    h3 {
+        font-size: 2rem; /* Default size for larger screens */
+    }
+    .text-primary {
+        font-size: 1.5rem; /* Header size */
+    }
+    .dataTables_info {
+        font-size: 1rem; /* Info text size */
+    }
+    .table th, .table td {
+        font-size: 1rem; /* Table text size */
+    }
+
+    /* Responsive font sizes */
+    @media (max-width: 1200px) {
+        h3 {
+            font-size: 1.75rem; /* Slightly smaller on medium screens */
+        }
+        .text-primary {
+            font-size: 1.25rem; /* Slightly smaller */
+        }
+        .dataTables_info {
+            font-size: 0.9rem; /* Smaller info text */
+        }
+        .table th, .table td {
+            font-size: 0.9rem; /* Smaller table text */
+        }
+    }
+
+    @media (max-width: 768px) {
+        h3 {
+            font-size: 1.5rem; /* Smaller on small screens */
+        }
+        .text-primary {
+            font-size: 1rem; /* Smaller */
+        }
+        .dataTables_info {
+            font-size: 0.8rem; /* Even smaller info text */
+        }
+        .table th, .table td {
+            font-size: 0.8rem; /* Even smaller table text */
+        }
+    }
+
+    @media (max-width: 576px) {
+        h3 {
+            font-size: 1.25rem; /* Smallest on extra small screens */
+        }
+        .text-primary {
+            font-size: 0.9rem; /* Smallest */
+        }
+        .dataTables_info {
+            font-size: 0.7rem; /* Smallest info text */
+        }
+        .table th, .table td {
+            font-size: 0.7rem; /* Smallest table text */
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <h3><a href="{% url "members:create" %}">Create member +</a></h3>
+    <h3 class="text-dark mb-4">Members</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 font-weight-bold">Members Info</p>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-12 col-md-6 text-nowrap">
+                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                        <label>Show&nbsp;
+                            <select class="form-control form-control-sm custom-select custom-select-sm">
+                                <option value="10" selected="">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>&nbsp;
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="text-md-right dataTables_filter" id="dataTable_filter">
+                        <label>
+                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" name="search">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table dataTable my-0">
+                    <thead>
+                        <tr>
+                            <th>Mem. num</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Address</th>
+                            <th>Member since</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'members:member_detail' mem_number=member.mem_number %}">{{ member.mem_number }}</a>
+                            </td>
+                            <td>{{ member.first_name }} {{ member.last_name }}</td>
+                            <td>{{ member.contact }}</td>
+                            <td>{{ member.address }}</td>
+                            <td>{{ member.date_created|date:"Y-m-d" }}</td>
+                            <td>{{ member.get_status_display }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">No members found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>Mem. num</strong></td>
+                            <td><strong>Name</strong></td>
+                            <td><strong>Contact</strong></td>
+                            <td><strong>Address</strong></td>
+                            <td><strong>Member since</strong></td>
+                            <td><strong>Status</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 align-self-center">
+                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing {{ members.count }} member(s).</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                        <ul class="pagination">
+                            {% if members.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ members.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for num in members.paginator.page_range %}
+                                <li class="page-item {% if members.number == num %}active{% endif %}">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endfor %}
+                            {% if members.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ members.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "isms/generic_form.html" %}
+
+{% block form_title %}
+    {% if form.instance.pk %}Edit Exam Result{% else %}Create Exam Result{% endif %}
+{% endblock %}
+
+{% block cancel_url %}{% url 'isms:exam_result_list' %}{% endblock %}

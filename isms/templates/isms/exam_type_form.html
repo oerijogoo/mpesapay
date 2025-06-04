@@ -1,0 +1,7 @@
+{% extends "isms/generic_form.html" %}
+
+{% block form_title %}
+    {% if form.instance.pk %}Edit Exam Type{% else %}Create Exam Type{% endif %}
+{% endblock %}
+
+{% block cancel_url %}{% url 'isms:exam_type_list' %}{% endblock %}

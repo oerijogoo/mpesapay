@@ -1,0 +1,7 @@
+{% extends "isms/generic_form.html" %}
+
+{% block form_title %}
+    {% if form.instance.pk %}Edit Class Level{% else %}Create Class Level{% endif %}
+{% endblock %}
+
+{% block cancel_url %}{% url 'isms:class_level_list' %}{% endblock %}

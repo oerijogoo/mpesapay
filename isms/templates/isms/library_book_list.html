@@ -1,0 +1,82 @@
+{% extends "isms/generic_list.html" %}
+
+{% block card_title %}Library Books{% endblock %}
+{% block create_url %}{% url 'isms:library_book_create' %}{% endblock %}
+
+{% block filters %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form method="get">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.search }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form method="get">
+            <div class="input-group">
+                <select name="category" class="form-select">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if request.GET.category == category %}selected{% endif %}>
+                        {{ category }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-secondary" type="submit">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block table_head %}
+<tr>
+    <th>Cover</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>ISBN</th>
+    <th>Category</th>
+    <th>Available</th>
+    <th>Actions</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for book in object_list %}
+<tr>
+    <td>
+        {% if book.cover_image %}
+        <img src="{{ book.cover_image.url }}" class="img-thumbnail" width="50" alt="{{ book.title }}">
+        {% else %}
+        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 50px; height: 70px;">
+            <i class="bi bi-book"></i>
+        </div>
+        {% endif %}
+    </td>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.isbn }}</td>
+    <td>{{ book.category }}</td>
+    <td>{{ book.available }} of {{ book.quantity }}</td>
+    <td>
+        <div class="btn-group btn-group-sm">
+            <a href="{% url 'isms:library_book_detail' book.pk %}" class="btn btn-info">
+                <i class="bi bi-eye"></i>
+            </a>
+            <a href="{% url 'isms:library_book_update' book.pk %}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{% url 'isms:book_issue_create' %}?book={{ book.pk }}" class="btn btn-success">
+                <i class="bi bi-journal-plus"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center">No books found</td>
+</tr>
+{% endfor %}
+{% endblock %}

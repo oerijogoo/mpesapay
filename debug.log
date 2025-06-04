@@ -1,0 +1,1753 @@
+INFO 2025-06-01 09:56:58,766 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 09:59:39,725 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-01 09:59:44,141 basehttp "GET /admin/ HTTP/1.1" 200 51539
+INFO 2025-06-01 09:59:48,034 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+INFO 2025-06-01 09:59:48,164 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+INFO 2025-06-01 09:59:48,456 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-06-01 09:59:48,507 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+INFO 2025-06-01 09:59:48,537 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+INFO 2025-06-01 09:59:48,540 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+INFO 2025-06-01 09:59:48,557 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+WARNING 2025-06-01 09:59:49,005 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 09:59:51,397 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+INFO 2025-06-01 09:59:52,761 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+INFO 2025-06-01 10:02:00,183 basehttp "GET /isms HTTP/1.1" 301 0
+INFO 2025-06-01 10:02:04,993 basehttp "GET /isms/ HTTP/1.1" 200 11914
+ERROR 2025-06-01 10:02:16,771 log Internal Server Error: /isms/students/add/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/mixins.py", line 135, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/generic/edit.py", line 180, in get
+    return super().get(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/generic/edit.py", line 144, in get
+    return self.render_to_response(self.get_context_data())
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/generic/edit.py", line 74, in get_context_data
+    kwargs["form"] = self.get_form()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/generic/edit.py", line 39, in get_form
+    return form_class(**self.get_form_kwargs())
+  File "/home/ronald/PycharmProjects/mpesapay/isms/forms.py", line 348, in __init__
+    if self.instance and self.instance.user:
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/fields/related_descriptors.py", line 246, in __get__
+    raise self.RelatedObjectDoesNotExist(
+isms.models.Student.user.RelatedObjectDoesNotExist: Student has no user.
+ERROR 2025-06-01 10:02:16,774 basehttp "GET /isms/students/add/ HTTP/1.1" 500 115971
+INFO 2025-06-01 10:02:31,987 basehttp "GET /isms/class-levels/ HTTP/1.1" 200 7986
+INFO 2025-06-01 10:24:24,972 autoreload /home/ronald/PycharmProjects/mpesapay/payments/settings.py changed, reloading.
+INFO 2025-06-01 10:25:16,839 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 10:34:35,312 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning_app/admin.py changed, reloading.
+INFO 2025-06-01 10:34:48,937 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 11:10:23,364 autoreload /home/ronald/PycharmProjects/mpesapay/payments/urls.py changed, reloading.
+INFO 2025-06-01 11:10:37,016 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 11:16:05,096 basehttp "GET /cleaning HTTP/1.1" 301 0
+ERROR 2025-06-01 11:16:33,877 log Internal Server Error: /cleaning/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 161, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: cleaning_app/base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: cleaning_app/base.html
+ERROR 2025-06-01 11:16:33,879 basehttp "GET /cleaning/ HTTP/1.1" 500 154003
+ERROR 2025-06-01 11:25:07,415 log Internal Server Error: /cleaning/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 505, in parse
+    compile_func = self.tags[command]
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 507, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 568, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 15: 'static'. Did you forget to register or load this tag?
+ERROR 2025-06-01 11:25:07,435 basehttp "GET /cleaning/ HTTP/1.1" 500 204275
+ERROR 2025-06-01 11:41:55,769 log Internal Server Error: /cleaning/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 505, in parse
+    compile_func = self.tags[command]
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 507, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 568, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 15: 'static'. Did you forget to register or load this tag?
+ERROR 2025-06-01 11:41:55,780 basehttp "GET /cleaning/ HTTP/1.1" 500 204275
+INFO 2025-06-01 12:31:19,045 basehttp "GET /cleaning/ HTTP/1.1" 200 13392
+WARNING 2025-06-01 12:31:22,513 basehttp "GET /static/images/why-choose-us.jpg HTTP/1.1" 404 1932
+WARNING 2025-06-01 12:31:22,515 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:31:22,516 basehttp "GET /static/images/hero-image.jpg HTTP/1.1" 404 1923
+WARNING 2025-06-01 12:31:22,518 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+WARNING 2025-06-01 12:31:28,426 basehttp "GET /static/images/favicon.ico HTTP/1.1" 404 1914
+INFO 2025-06-01 12:32:30,977 basehttp "GET /cleaning/ HTTP/1.1" 200 13392
+WARNING 2025-06-01 12:32:31,293 basehttp "GET /static/images/hero-image.jpg HTTP/1.1" 404 1923
+WARNING 2025-06-01 12:32:31,293 basehttp "GET /static/images/why-choose-us.jpg HTTP/1.1" 404 1932
+WARNING 2025-06-01 12:32:31,297 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:32:31,308 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:32:38,793 basehttp "GET /cleaning/about/ HTTP/1.1" 200 14427
+WARNING 2025-06-01 12:32:39,184 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:32:39,202 basehttp "GET /static/images/about-us.jpg HTTP/1.1" 404 1917
+WARNING 2025-06-01 12:32:39,210 basehttp "GET /static/images/our-mission.jpg HTTP/1.1" 404 1926
+WARNING 2025-06-01 12:32:39,221 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:33:48,448 basehttp "GET /cleaning/blog/ HTTP/1.1" 200 8393
+WARNING 2025-06-01 12:33:48,553 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:33:48,553 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:34:57,975 basehttp "GET /cleaning/about/ HTTP/1.1" 200 14427
+WARNING 2025-06-01 12:34:58,084 basehttp "GET /static/images/about-us.jpg HTTP/1.1" 404 1917
+WARNING 2025-06-01 12:34:58,084 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:34:58,085 basehttp "GET /static/images/our-mission.jpg HTTP/1.1" 404 1926
+WARNING 2025-06-01 12:34:58,089 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:35:07,395 basehttp "GET /cleaning/blog/ HTTP/1.1" 200 8393
+WARNING 2025-06-01 12:35:07,459 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+WARNING 2025-06-01 12:35:07,460 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+INFO 2025-06-01 12:36:03,602 basehttp "GET /admin/ HTTP/1.1" 200 65132
+INFO 2025-06-01 12:36:04,005 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:04,101 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:04,126 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:04,128 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+WARNING 2025-06-01 12:36:04,359 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:36:04,457 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:04,471 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:04,525 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:05,442 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+INFO 2025-06-01 12:36:05,447 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-06-01 12:37:31,145 basehttp "GET /admin/cleaning_app/servicecategory/ HTTP/1.1" 200 28056
+INFO 2025-06-01 12:37:31,284 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+INFO 2025-06-01 12:37:31,292 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-06-01 12:37:31,300 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 5682
+INFO 2025-06-01 12:37:31,302 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-06-01 12:37:31,312 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-06-01 12:37:31,314 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8943
+INFO 2025-06-01 12:37:31,370 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+WARNING 2025-06-01 12:37:31,378 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:37:31,383 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-06-01 12:37:31,438 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+INFO 2025-06-01 12:37:31,463 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+INFO 2025-06-01 12:37:35,882 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:37:45,392 basehttp "GET /admin/cleaning_app/servicecategory/add/ HTTP/1.1" 200 33143
+WARNING 2025-06-01 12:37:45,464 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:37:45,479 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-06-01 12:37:45,480 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-06-01 12:37:45,492 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+INFO 2025-06-01 12:37:46,293 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:39:14,308 basehttp "POST /admin/cleaning_app/servicecategory/add/ HTTP/1.1" 302 0
+INFO 2025-06-01 12:39:18,683 basehttp "GET /admin/cleaning_app/servicecategory/ HTTP/1.1" 200 33069
+WARNING 2025-06-01 12:39:18,730 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:39:19,823 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:39:32,559 basehttp "GET /admin/cleaning_app/servicecategory/add/ HTTP/1.1" 200 33143
+WARNING 2025-06-01 12:39:32,599 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:39:33,435 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:40:22,163 basehttp "POST /admin/cleaning_app/servicecategory/add/ HTTP/1.1" 302 0
+INFO 2025-06-01 12:40:26,702 basehttp "GET /admin/cleaning_app/servicecategory/ HTTP/1.1" 200 33729
+WARNING 2025-06-01 12:40:26,741 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:40:27,376 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:41:29,371 basehttp "GET /admin/cleaning_app/service/ HTTP/1.1" 200 29240
+WARNING 2025-06-01 12:41:29,410 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:41:30,190 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:41:51,052 basehttp "GET /admin/cleaning_app/service/add/ HTTP/1.1" 200 46458
+WARNING 2025-06-01 12:41:51,093 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:41:51,119 basehttp "GET /static/admin/js/inlines.js HTTP/1.1" 200 15526
+INFO 2025-06-01 12:41:51,134 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-06-01 12:41:51,144 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-01 12:41:51,184 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-06-01 12:41:52,101 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:47:41,207 basehttp "POST /admin/cleaning_app/service/add/ HTTP/1.1" 200 46842
+WARNING 2025-06-01 12:47:45,265 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:47:45,884 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:48:21,774 basehttp "POST /admin/cleaning_app/service/add/ HTTP/1.1" 302 0
+INFO 2025-06-01 12:48:28,402 basehttp "GET /admin/cleaning_app/service/ HTTP/1.1" 200 35089
+WARNING 2025-06-01 12:48:28,622 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:48:29,617 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:49:20,587 basehttp "GET /cleaning/ HTTP/1.1" 200 15790
+WARNING 2025-06-01 12:49:21,523 basehttp "GET /static/images/why-choose-us.jpg HTTP/1.1" 404 1932
+WARNING 2025-06-01 12:49:21,523 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:49:21,525 basehttp "GET /static/images/hero-image.jpg HTTP/1.1" 404 1923
+WARNING 2025-06-01 12:49:22,449 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:50:17,906 basehttp "GET /cleaning/service/edge-cutting/ HTTP/1.1" 200 12064
+WARNING 2025-06-01 12:50:18,687 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:50:18,702 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:50:50,713 basehttp "GET /cleaning/services/fence-treaming/ HTTP/1.1" 200 8833
+WARNING 2025-06-01 12:50:50,822 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+WARNING 2025-06-01 12:50:50,826 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+INFO 2025-06-01 12:51:12,514 basehttp "GET /cleaning/service/edge-cutting/ HTTP/1.1" 200 12064
+WARNING 2025-06-01 12:51:12,571 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:51:12,582 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:51:33,296 basehttp "GET /cleaning/ HTTP/1.1" 200 15790
+WARNING 2025-06-01 12:51:33,487 basehttp "GET /static/images/hero-image.jpg HTTP/1.1" 404 1923
+WARNING 2025-06-01 12:51:33,505 basehttp "GET /static/images/why-choose-us.jpg HTTP/1.1" 404 1932
+WARNING 2025-06-01 12:51:33,510 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:51:33,513 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 12:52:36,107 basehttp "GET /admin/cleaning_app/blogpost/ HTTP/1.1" 200 29677
+WARNING 2025-06-01 12:52:36,467 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:52:37,436 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:52:52,438 basehttp "GET /admin/cleaning_app/blogpost/add/ HTTP/1.1" 200 37387
+WARNING 2025-06-01 12:52:52,617 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:52:53,398 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:54:43,709 basehttp "POST /admin/cleaning_app/blogpost/add/ HTTP/1.1" 302 0
+INFO 2025-06-01 12:54:49,946 basehttp "GET /admin/cleaning_app/blogpost/ HTTP/1.1" 200 34570
+INFO 2025-06-01 12:54:50,166 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-01 12:54:50,194 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-06-01 12:54:50,201 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+WARNING 2025-06-01 12:54:50,262 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 12:54:50,289 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:54:50,353 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:54:50,390 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:54:50,391 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-01 12:54:51,161 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 12:55:08,542 basehttp "GET /cleaning/blog/ HTTP/1.1" 200 9476
+WARNING 2025-06-01 12:55:08,727 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+WARNING 2025-06-01 12:55:08,729 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+INFO 2025-06-01 12:56:05,536 basehttp "GET /cleaning/contact/ HTTP/1.1" 200 15312
+WARNING 2025-06-01 12:56:05,615 basehttp "GET /static/css/styles.css HTTP/1.1" 404 1902
+WARNING 2025-06-01 12:56:05,618 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-01 14:29:35,795 autoreload /home/ronald/PycharmProjects/mpesapay/payments/settings.py changed, reloading.
+INFO 2025-06-01 14:30:37,080 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 14:32:41,072 autoreload /home/ronald/PycharmProjects/mpesapay/services/models.py changed, reloading.
+INFO 2025-06-01 14:33:22,189 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 14:36:35,970 autoreload /home/ronald/PycharmProjects/mpesapay/services/admin.py changed, reloading.
+INFO 2025-06-01 14:36:51,223 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 14:40:59,173 autoreload /home/ronald/PycharmProjects/mpesapay/payments/urls.py changed, reloading.
+INFO 2025-06-01 14:41:29,188 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 15:34:04,238 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 15:36:07,745 autoreload Watching for file changes with StatReloader
+INFO 2025-06-01 16:01:32,804 basehttp "GET /admin/cleaning_app/blogpost/ HTTP/1.1" 200 37057
+INFO 2025-06-01 16:01:34,660 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:34,921 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:34,952 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,284 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,543 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,577 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,694 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,818 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,834 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,885 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,910 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,968 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:36,981 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:37,073 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:37,185 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:37,197 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:01:37,271 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:37,382 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+WARNING 2025-06-01 16:01:37,394 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:01:40,258 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+INFO 2025-06-01 16:01:40,261 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+WARNING 2025-06-01 16:01:40,616 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:01:48,097 basehttp "GET /clean HTTP/1.1" 301 0
+INFO 2025-06-01 16:01:53,040 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:01:53,679 basehttp "GET /static/js/main.js HTTP/1.1" 200 2070
+INFO 2025-06-01 16:01:53,810 basehttp "GET /static/css/style.css HTTP/1.1" 200 59
+WARNING 2025-06-01 16:01:59,707 log Not Found: /favicon.ico
+WARNING 2025-06-01 16:01:59,710 basehttp "GET /favicon.ico HTTP/1.1" 404 4360
+INFO 2025-06-01 16:04:14,869 basehttp "GET /admin/ HTTP/1.1" 200 80350
+WARNING 2025-06-01 16:04:15,236 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:04:34,039 basehttp "GET /admin/services/businessinfo/ HTTP/1.1" 200 30304
+WARNING 2025-06-01 16:04:34,092 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:04:35,078 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:04:46,054 basehttp "GET /admin/services/businessinfo/add/ HTTP/1.1" 200 40412
+WARNING 2025-06-01 16:04:46,098 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:04:46,111 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:04:46,151 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:04:46,189 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:04:47,218 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:11:23,259 basehttp "POST /admin/services/businessinfo/add/ HTTP/1.1" 200 40990
+WARNING 2025-06-01 16:11:23,712 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:11:24,427 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:14:55,135 basehttp "POST /admin/services/businessinfo/add/ HTTP/1.1" 200 41054
+WARNING 2025-06-01 16:14:55,762 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:14:56,223 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:18:10,081 basehttp "POST /admin/services/businessinfo/add/ HTTP/1.1" 302 0
+INFO 2025-06-01 16:18:13,823 basehttp "GET /admin/services/businessinfo/ HTTP/1.1" 200 33021
+WARNING 2025-06-01 16:18:13,943 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:18:14,485 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:19:24,578 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:19:34,321 basehttp "GET /clean/contact/ HTTP/1.1" 200 13611
+INFO 2025-06-01 16:19:46,183 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:20:14,638 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:20:18,985 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:20:21,692 basehttp "GET /clean/about/ HTTP/1.1" 200 12712
+INFO 2025-06-01 16:20:28,224 basehttp "GET /clean/services/ HTTP/1.1" 200 7578
+INFO 2025-06-01 16:20:35,757 basehttp "GET /clean/gallery/ HTTP/1.1" 200 8158
+INFO 2025-06-01 16:20:39,769 basehttp "GET /clean/contact/ HTTP/1.1" 200 13611
+INFO 2025-06-01 16:20:51,209 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:21:10,623 basehttp "GET /admin/services/businessinfo/1/change/ HTTP/1.1" 200 41825
+WARNING 2025-06-01 16:21:10,737 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:21:11,371 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:22:20,893 basehttp "POST /admin/services/businessinfo/1/change/ HTTP/1.1" 302 0
+INFO 2025-06-01 16:22:25,733 basehttp "GET /admin/services/businessinfo/ HTTP/1.1" 200 33023
+WARNING 2025-06-01 16:22:25,777 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:22:26,366 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:22:34,958 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:22:39,995 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:23:20,307 basehttp "GET /clean/services/ HTTP/1.1" 200 7578
+INFO 2025-06-01 16:23:25,997 basehttp "GET /clean/services/ HTTP/1.1" 200 7578
+INFO 2025-06-01 16:23:32,145 basehttp "GET /clean/services/ HTTP/1.1" 200 7578
+INFO 2025-06-01 16:23:44,366 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:24:16,486 basehttp "GET /clean/gallery/ HTTP/1.1" 200 8158
+INFO 2025-06-01 16:25:18,615 basehttp "GET /admin/services/servicecategory/ HTTP/1.1" 200 30331
+WARNING 2025-06-01 16:25:18,652 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:25:19,290 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:25:25,966 basehttp "GET /admin/services/servicecategory/add/ HTTP/1.1" 200 34961
+WARNING 2025-06-01 16:25:26,002 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:25:26,816 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:26:26,619 basehttp "POST /admin/services/servicecategory/add/ HTTP/1.1" 302 0
+INFO 2025-06-01 16:26:30,256 basehttp "GET /admin/services/servicecategory/ HTTP/1.1" 200 33224
+WARNING 2025-06-01 16:26:30,336 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:26:30,939 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-01 16:26:42,275 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:26:50,505 basehttp "GET /clean/services/ HTTP/1.1" 200 7578
+INFO 2025-06-01 16:27:16,865 basehttp "GET /clean/gallery/ HTTP/1.1" 200 8158
+INFO 2025-06-01 16:27:19,819 basehttp "GET /clean/contact/ HTTP/1.1" 200 13611
+INFO 2025-06-01 16:27:34,655 basehttp "GET /clean/services/ HTTP/1.1" 200 7578
+INFO 2025-06-01 16:28:49,614 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:28:49,673 basehttp "GET /static/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-01 16:29:08,695 basehttp "GET /clean/contact/ HTTP/1.1" 200 13611
+INFO 2025-06-01 16:33:42,412 basehttp "GET /clean/about/ HTTP/1.1" 200 12712
+INFO 2025-06-01 16:33:45,706 basehttp "GET /clean/ HTTP/1.1" 200 9708
+INFO 2025-06-01 16:36:23,691 basehttp "GET /admin/services/businessinfo/ HTTP/1.1" 200 32431
+WARNING 2025-06-01 16:36:23,745 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-01 16:36:24,373 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 06:37:17,631 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 06:40:29,556 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 06:43:31,820 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 06:54:18,643 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 06:58:59,975 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 07:03:02,518 autoreload /home/ronald/PycharmProjects/mpesapay/services/models.py changed, reloading.
+INFO 2025-06-02 07:03:34,386 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 07:20:03,137 autoreload /home/ronald/PycharmProjects/mpesapay/services/models.py changed, reloading.
+INFO 2025-06-02 07:20:12,082 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 07:22:44,863 autoreload /home/ronald/PycharmProjects/mpesapay/services/admin.py changed, reloading.
+INFO 2025-06-02 07:22:52,336 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 07:47:08,046 autoreload /home/ronald/PycharmProjects/mpesapay/accounting/migrations/0001_initial.py changed, reloading.
+INFO 2025-06-02 07:47:18,432 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 07:54:51,503 basehttp "GET /admin/services/businessinfo/ HTTP/1.1" 302 0
+INFO 2025-06-02 07:54:54,339 basehttp "GET /admin/login/?next=/admin/services/businessinfo/ HTTP/1.1" 200 3012
+INFO 2025-06-02 07:54:57,900 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-02 07:54:57,925 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-06-02 07:54:57,935 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-06-02 07:54:58,254 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+WARNING 2025-06-02 07:54:58,587 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 07:54:58,701 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-06-02 07:54:58,701 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-02 07:55:00,589 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+WARNING 2025-06-02 07:55:02,079 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 07:55:35,584 basehttp "POST /admin/login/?next=/admin/services/businessinfo/ HTTP/1.1" 302 0
+WARNING 2025-06-02 07:55:36,677 log Not Found: /admin/services/businessinfo/
+WARNING 2025-06-02 07:55:36,678 basehttp "GET /admin/services/businessinfo/ HTTP/1.1" 404 10671
+WARNING 2025-06-02 07:55:36,948 log Not Found: /favicon.ico
+WARNING 2025-06-02 07:55:36,949 basehttp "GET /favicon.ico HTTP/1.1" 404 4360
+WARNING 2025-06-02 07:55:59,390 log Not Found: /admin/clean
+WARNING 2025-06-02 07:55:59,391 basehttp "GET /admin/clean HTTP/1.1" 404 10620
+ERROR 2025-06-02 07:56:12,455 log Internal Server Error: /clean/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: home.html
+ERROR 2025-06-02 07:56:12,463 basehttp "GET /clean/ HTTP/1.1" 500 98741
+INFO 2025-06-02 08:00:13,531 autoreload /home/ronald/PycharmProjects/mpesapay/services/views.py changed, reloading.
+INFO 2025-06-02 08:00:25,726 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-02 08:00:48,192 log Internal Server Error: /clean/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: home.html
+ERROR 2025-06-02 08:00:48,194 basehttp "GET /clean/ HTTP/1.1" 500 98741
+INFO 2025-06-02 08:01:26,109 autoreload /home/ronald/PycharmProjects/mpesapay/services/views.py changed, reloading.
+INFO 2025-06-02 08:01:29,504 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-02 08:02:31,432 log Internal Server Error: /clean/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 197, in render
+    template = context.template.engine.select_template(template_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 212, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: includes/navbar.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: includes/navbar.html
+ERROR 2025-06-02 08:02:31,448 basehttp "GET /clean/ HTTP/1.1" 500 157408
+ERROR 2025-06-02 08:04:01,950 log Internal Server Error: /clean/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 197, in render
+    template = context.template.engine.select_template(template_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 212, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: includes/messages.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: includes/messages.html
+ERROR 2025-06-02 08:04:01,952 basehttp "GET /clean/ HTTP/1.1" 500 157443
+ERROR 2025-06-02 08:04:55,351 log Internal Server Error: /clean/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 208, in render
+    return template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 177, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'service_list' not found. 'service_list' is not a valid view function or pattern name.
+ERROR 2025-06-02 08:04:55,359 basehttp "GET /clean/ HTTP/1.1" 500 182789
+INFO 2025-06-02 08:06:42,692 basehttp "GET /clean/ HTTP/1.1" 200 4251
+INFO 2025-06-02 08:06:43,496 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-02 08:06:43,703 basehttp "GET /static/js/script.js HTTP/1.1" 200 1959
+INFO 2025-06-02 08:08:19,377 basehttp "GET /clean/ HTTP/1.1" 200 4265
+WARNING 2025-06-02 08:08:19,612 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:08:19,613 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:08:31,433 basehttp "GET /clean/ HTTP/1.1" 200 4265
+WARNING 2025-06-02 08:08:31,568 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:08:31,572 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:08:44,777 basehttp "GET /clean/ HTTP/1.1" 200 4265
+WARNING 2025-06-02 08:08:44,840 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+WARNING 2025-06-02 08:08:44,842 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+INFO 2025-06-02 08:08:54,314 basehttp "GET /clean/about/ HTTP/1.1" 200 4604
+WARNING 2025-06-02 08:08:54,494 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+WARNING 2025-06-02 08:08:54,498 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+INFO 2025-06-02 08:09:19,028 basehttp "GET /clean/contact/ HTTP/1.1" 200 10177
+WARNING 2025-06-02 08:09:19,083 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+WARNING 2025-06-02 08:09:19,084 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+INFO 2025-06-02 08:09:34,311 basehttp "GET /clean/ HTTP/1.1" 200 4265
+WARNING 2025-06-02 08:09:34,412 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:09:34,418 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:10:08,685 basehttp "GET /clean/ HTTP/1.1" 200 4265
+WARNING 2025-06-02 08:10:08,881 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:10:08,906 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:10:13,196 basehttp "GET /admin/ HTTP/1.1" 200 75252
+WARNING 2025-06-02 08:10:13,693 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:10:16,208 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:10:16,694 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:34,593 basehttp "GET /admin/services/sitesetting/ HTTP/1.1" 200 32429
+INFO 2025-06-02 08:11:34,869 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,018 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,022 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,023 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,025 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,029 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,038 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,135 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,195 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+WARNING 2025-06-02 08:11:35,204 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:11:35,218 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:11:35,532 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:12:51,823 basehttp "GET /admin/services/testimonial/ HTTP/1.1" 200 30302
+WARNING 2025-06-02 08:12:51,865 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:12:53,466 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:13:01,290 basehttp "GET /admin/ HTTP/1.1" 200 75252
+WARNING 2025-06-02 08:13:01,380 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:13:25,545 basehttp "GET /admin/services/sitesetting/ HTTP/1.1" 200 32429
+WARNING 2025-06-02 08:13:25,588 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:13:26,580 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:13:44,760 basehttp "GET /admin/services/sitesetting/1/change/ HTTP/1.1" 200 42170
+WARNING 2025-06-02 08:13:44,806 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:13:44,811 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:13:44,818 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:13:44,866 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:13:46,354 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:19:53,228 basehttp "POST /admin/services/sitesetting/1/change/ HTTP/1.1" 302 0
+INFO 2025-06-02 08:19:57,541 basehttp "GET /admin/services/sitesetting/ HTTP/1.1" 200 33015
+WARNING 2025-06-02 08:19:59,263 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:19:59,412 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:20:25,193 basehttp "GET /clean/ HTTP/1.1" 200 4737
+WARNING 2025-06-02 08:20:26,043 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:20:26,043 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:21:42,562 basehttp "GET /clean/ HTTP/1.1" 200 4737
+WARNING 2025-06-02 08:21:42,808 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+WARNING 2025-06-02 08:21:42,820 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+INFO 2025-06-02 08:21:49,879 basehttp "GET /clean/about/ HTTP/1.1" 200 5053
+WARNING 2025-06-02 08:21:49,959 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:21:49,962 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:23:13,911 basehttp "GET /admin/services/servicecategory/ HTTP/1.1" 200 30338
+WARNING 2025-06-02 08:23:14,149 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:23:15,238 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:23:23,414 basehttp "GET /admin/services/servicecategory/add/ HTTP/1.1" 200 36079
+WARNING 2025-06-02 08:23:23,549 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:23:24,509 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:24:32,871 basehttp "POST /admin/services/servicecategory/add/ HTTP/1.1" 302 0
+INFO 2025-06-02 08:24:37,101 basehttp "GET /admin/services/servicecategory/add/ HTTP/1.1" 200 36711
+WARNING 2025-06-02 08:24:37,139 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:24:38,164 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:25:38,365 basehttp "POST /admin/services/servicecategory/add/ HTTP/1.1" 302 0
+INFO 2025-06-02 08:25:43,304 basehttp "GET /admin/services/servicecategory/ HTTP/1.1" 200 34989
+WARNING 2025-06-02 08:25:43,431 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:25:43,452 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-06-02 08:25:44,385 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:25:58,577 basehttp "GET /admin/services/service/ HTTP/1.1" 200 32478
+WARNING 2025-06-02 08:25:58,746 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:25:59,446 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:26:08,986 basehttp "GET /admin/services/service/add/ HTTP/1.1" 200 49399
+WARNING 2025-06-02 08:26:09,022 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:26:09,122 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-06-02 08:26:09,143 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-06-02 08:26:09,155 basehttp "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-06-02 08:26:09,191 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-06-02 08:26:09,778 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:27:31,553 basehttp "POST /admin/services/service/add/ HTTP/1.1" 302 0
+INFO 2025-06-02 08:27:37,630 basehttp "GET /admin/services/service/ HTTP/1.1" 200 37980
+WARNING 2025-06-02 08:27:37,735 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 08:27:38,424 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 08:27:48,114 basehttp "GET /clean/about/ HTTP/1.1" 200 5053
+WARNING 2025-06-02 08:27:48,197 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+WARNING 2025-06-02 08:27:48,199 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+INFO 2025-06-02 08:27:59,118 basehttp "GET /clean/services/ HTTP/1.1" 200 3777
+WARNING 2025-06-02 08:27:59,339 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:27:59,343 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:28:11,733 basehttp "GET /clean/services/ HTTP/1.1" 200 3777
+WARNING 2025-06-02 08:28:11,775 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+WARNING 2025-06-02 08:28:11,782 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+INFO 2025-06-02 08:28:18,795 basehttp "GET /clean/services/ HTTP/1.1" 200 3777
+WARNING 2025-06-02 08:28:18,881 basehttp "GET /static/services/js/script.js HTTP/1.1" 404 1923
+WARNING 2025-06-02 08:28:18,883 basehttp "GET /static/services/css/style.css HTTP/1.1" 404 1926
+INFO 2025-06-02 08:41:45,407 autoreload /home/ronald/PycharmProjects/mpesapay/payments/settings.py changed, reloading.
+INFO 2025-06-02 08:41:58,411 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 08:42:50,174 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/models.py changed, reloading.
+INFO 2025-06-02 08:43:10,678 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 08:43:52,850 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/admin.py changed, reloading.
+INFO 2025-06-02 08:44:01,245 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 09:06:52,296 autoreload /home/ronald/PycharmProjects/mpesapay/payments/settings.py changed, reloading.
+INFO 2025-06-02 09:07:08,226 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 09:22:16,220 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-02 09:23:03,251 log Internal Server Error: /clean/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 505, in parse
+    compile_func = self.tags[command]
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 507, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 568, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 18: 'static'. Did you forget to register or load this tag?
+ERROR 2025-06-02 09:23:03,272 basehttp "GET /clean/ HTTP/1.1" 500 211556
+INFO 2025-06-02 09:25:30,328 basehttp "GET /clean/ HTTP/1.1" 200 7126
+INFO 2025-06-02 09:25:40,937 basehttp "GET /static/cleaning/css/style.css HTTP/1.1" 200 3568
+INFO 2025-06-02 09:25:40,938 basehttp "GET /static/cleaning/js/main.js HTTP/1.1" 200 2665
+INFO 2025-06-02 09:26:12,787 basehttp "GET /clean/services/ HTTP/1.1" 200 5137
+INFO 2025-06-02 09:26:25,633 basehttp "GET /clean/about/ HTTP/1.1" 200 6372
+INFO 2025-06-02 09:26:29,147 basehttp "GET /clean/gallery/ HTTP/1.1" 200 4753
+INFO 2025-06-02 09:26:35,438 basehttp "GET /clean/contact/ HTTP/1.1" 200 10066
+INFO 2025-06-02 09:27:19,138 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-02 09:27:22,491 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2990
+WARNING 2025-06-02 09:27:48,284 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 09:28:27,621 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-02 09:28:31,135 basehttp "GET /admin/ HTTP/1.1" 200 63434
+WARNING 2025-06-02 09:28:31,181 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 09:28:53,085 basehttp "GET /admin/cleaning/sitesetting/ HTTP/1.1" 200 26726
+WARNING 2025-06-02 09:28:53,477 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 09:28:53,906 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 09:29:58,165 basehttp "GET /admin/cleaning/sitesetting/add/ HTTP/1.1" 200 39187
+WARNING 2025-06-02 09:29:58,266 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 09:29:58,888 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 09:33:40,772 basehttp "POST /admin/cleaning/sitesetting/add/ HTTP/1.1" 302 0
+INFO 2025-06-02 09:33:44,376 basehttp "GET /admin/cleaning/sitesetting/ HTTP/1.1" 200 29430
+WARNING 2025-06-02 09:33:45,110 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 09:33:45,994 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 09:34:27,210 basehttp "GET /clean/ HTTP/1.1" 200 7126
+INFO 2025-06-02 09:34:28,161 basehttp "GET /static/cleaning/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-02 09:34:28,173 basehttp "GET /static/cleaning/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-02 09:35:27,270 basehttp "GET /clean/ HTTP/1.1" 200 7126
+INFO 2025-06-02 10:42:44,969 autoreload Watching for file changes with StatReloader
+WARNING 2025-06-02 11:02:01,743 log Not Found: /favicon.ico
+WARNING 2025-06-02 11:02:02,051 basehttp "GET /favicon.ico HTTP/1.1" 404 4251
+INFO 2025-06-02 11:02:11,692 basehttp "GET /admin/cleaning/sitesetting/ HTTP/1.1" 200 28847
+WARNING 2025-06-02 11:02:18,556 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 11:08:11,069 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/models.py changed, reloading.
+INFO 2025-06-02 11:08:26,484 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 11:09:16,315 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/admin.py changed, reloading.
+INFO 2025-06-02 11:09:19,951 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 11:16:50,202 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/views.py changed, reloading.
+INFO 2025-06-02 11:16:56,826 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 11:17:21,734 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/urls.py changed, reloading.
+INFO 2025-06-02 11:17:27,012 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 11:42:28,660 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 11:42:50,814 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-02 11:42:53,613 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2990
+INFO 2025-06-02 11:42:54,250 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-02 11:42:54,270 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-06-02 11:42:54,283 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-06-02 11:42:54,426 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:42:54,438 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:42:54,588 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+WARNING 2025-06-02 11:42:55,011 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 11:42:55,928 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+INFO 2025-06-02 11:43:52,492 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-02 11:44:01,357 basehttp "GET /admin/ HTTP/1.1" 200 61888
+WARNING 2025-06-02 11:44:01,679 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 11:44:01,751 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:44:01,783 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,393 basehttp "GET /admin/cleaning/sitesetting/ HTTP/1.1" 200 26258
+INFO 2025-06-02 11:45:06,473 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,506 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,507 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,550 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,620 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,656 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,692 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 304 0
+WARNING 2025-06-02 11:45:06,697 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 11:45:06,723 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,751 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:06,760 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:07,181 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 11:45:45,407 basehttp "GET /admin/cleaning/sitesetting/add/ HTTP/1.1" 200 37105
+WARNING 2025-06-02 11:45:45,457 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 11:45:45,531 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:45,548 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:45,577 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-02 11:45:46,182 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 11:47:31,810 basehttp "POST /admin/cleaning/sitesetting/add/ HTTP/1.1" 302 0
+INFO 2025-06-02 11:47:36,984 basehttp "GET /admin/cleaning/sitesetting/ HTTP/1.1" 200 29814
+WARNING 2025-06-02 11:47:37,073 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-02 11:47:37,784 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-02 11:47:54,549 basehttp "GET /clean/ HTTP/1.1" 200 6884
+INFO 2025-06-02 11:47:55,067 basehttp "GET /static/cleaning/css/style.css HTTP/1.1" 200 17558
+INFO 2025-06-02 11:47:55,120 basehttp "GET /static/cleaning/js/main.js HTTP/1.1" 200 3323
+INFO 2025-06-02 11:48:11,011 basehttp "GET /clean/gallery/ HTTP/1.1" 200 5160
+INFO 2025-06-02 11:48:19,542 basehttp "GET /clean/services/ HTTP/1.1" 200 5331
+INFO 2025-06-02 11:48:26,768 basehttp "GET /clean/gallery/ HTTP/1.1" 200 5160
+INFO 2025-06-02 11:48:29,084 basehttp "GET /clean/about/ HTTP/1.1" 200 8102
+INFO 2025-06-02 11:48:31,505 basehttp "GET /clean/contact/ HTTP/1.1" 200 8198
+INFO 2025-06-02 11:48:41,012 basehttp "GET /clean/ HTTP/1.1" 200 6884
+INFO 2025-06-02 12:31:39,275 autoreload /home/ronald/PycharmProjects/mpesapay/payments/urls.py changed, reloading.
+INFO 2025-06-02 12:31:42,084 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 12:38:32,472 basehttp "GET /clean/ HTTP/1.1" 200 6884
+INFO 2025-06-02 12:38:33,527 basehttp "GET /static/cleaning/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-02 12:38:34,160 basehttp "GET /static/cleaning/js/main.js HTTP/1.1" 304 0
+ERROR 2025-06-02 12:38:53,144 log Internal Server Error: /cleaning/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/mpesapay/services/views.py", line 21, in home
+    return render(request, 'home.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: home.html
+ERROR 2025-06-02 12:38:53,148 basehttp "GET /cleaning/ HTTP/1.1" 500 100149
+INFO 2025-06-02 12:40:10,198 autoreload /home/ronald/PycharmProjects/mpesapay/services/views.py changed, reloading.
+INFO 2025-06-02 12:40:22,269 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-02 12:41:45,113 log Internal Server Error: /cleaning/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 161, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/mpesapay/services/views.py", line 21, in home
+    return render(request, 'services/home.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: base.html
+ERROR 2025-06-02 12:41:45,117 basehttp "GET /cleaning/ HTTP/1.1" 500 156297
+INFO 2025-06-02 12:44:06,308 basehttp "GET /cleaning/ HTTP/1.1" 200 6787
+INFO 2025-06-02 12:44:06,634 basehttp "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-06-02 12:44:06,695 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+WARNING 2025-06-02 12:44:06,696 basehttp "GET /static/js/transitions.js HTTP/1.1" 404 1911
+WARNING 2025-06-02 12:44:06,705 basehttp "GET /static/css/animations.css HTTP/1.1" 404 1914
+WARNING 2025-06-02 12:44:06,709 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-02 12:52:28,897 autoreload /home/ronald/PycharmProjects/mpesapay/services/views.py changed, reloading.
+INFO 2025-06-02 12:52:38,119 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-02 12:54:37,068 log Internal Server Error: /cleaning/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 269, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "aws-0-us-west-1.pooler.supabase.com" (52.8.172.168), port 6543 failed: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/mpesapay/services/views.py", line 21, in home
+    return render(request, 'home.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 173, in render
+    with context.bind_template(self):
+  File "/usr/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/context.py", line 254, in bind_template
+    updates.update(processor(self.request))
+  File "/home/ronald/PycharmProjects/mpesapay/cart/context_processors.py", line 5, in cart
+    return {'cart':Cart(request)}
+  File "/home/ronald/PycharmProjects/mpesapay/cart/cart.py", line 10, in __init__
+    cart = self.session.get('session_key')
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 68, in get
+    return self._session.get(key, default)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1560, in execute_sql
+    cursor = self.connection.cursor()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 329, in cursor
+    return self._cursor()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 305, in _cursor
+    self.ensure_connection()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 269, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "aws-0-us-west-1.pooler.supabase.com" (52.8.172.168), port 6543 failed: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+ERROR 2025-06-02 12:54:37,097 basehttp "GET /cleaning/ HTTP/1.1" 500 235758
+INFO 2025-06-02 12:56:07,024 autoreload Watching for file changes with StatReloader
+INFO 2025-06-02 12:56:32,290 basehttp "GET /cleaning/ HTTP/1.1" 200 6787
+WARNING 2025-06-02 12:56:33,327 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+WARNING 2025-06-02 12:56:33,328 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+WARNING 2025-06-02 12:56:33,328 basehttp "GET /static/js/transitions.js HTTP/1.1" 404 1911
+WARNING 2025-06-02 12:56:33,331 basehttp "GET /static/css/animations.css HTTP/1.1" 404 1914
+INFO 2025-06-02 13:15:49,518 basehttp "GET /cleaning/ HTTP/1.1" 200 6787
+WARNING 2025-06-02 13:15:50,726 basehttp "GET /static/js/transitions.js HTTP/1.1" 404 1911
+WARNING 2025-06-02 13:15:50,726 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+WARNING 2025-06-02 13:15:50,728 basehttp "GET /static/css/animations.css HTTP/1.1" 404 1914
+WARNING 2025-06-02 13:15:50,731 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-02 13:16:07,475 basehttp "GET /cleaning/ HTTP/1.1" 200 6787
+WARNING 2025-06-02 13:16:07,562 basehttp "GET /static/css/animations.css HTTP/1.1" 404 1914
+WARNING 2025-06-02 13:16:07,583 basehttp "GET /static/js/transitions.js HTTP/1.1" 404 1911
+WARNING 2025-06-02 13:16:07,585 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+WARNING 2025-06-02 13:16:07,587 basehttp "GET /static/js/main.js HTTP/1.1" 404 1890
+INFO 2025-06-02 13:19:03,997 basehttp "GET /cleaning/ HTTP/1.1" 200 6823
+INFO 2025-06-02 13:19:04,097 basehttp "GET /static/services/css/animations.css HTTP/1.1" 200 1292
+INFO 2025-06-02 13:19:04,101 basehttp "GET /static/services/js/main.js HTTP/1.1" 200 4145
+INFO 2025-06-02 13:19:04,103 basehttp "GET /static/services/js/transitions.js HTTP/1.1" 200 2771
+INFO 2025-06-02 13:19:04,113 basehttp "GET /static/services/css/style.css HTTP/1.1" 200 18126
+WARNING 2025-06-02 13:19:04,134 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+WARNING 2025-06-02 13:19:04,269 basehttp "GET /static/services/images/hero-bg.jpg HTTP/1.1" 404 1941
+WARNING 2025-06-02 13:19:04,270 basehttp "GET /static/services/images/cta-bg.jpg HTTP/1.1" 404 1938
+INFO 2025-06-02 13:19:29,811 basehttp "GET /cleaning/ HTTP/1.1" 200 6823
+WARNING 2025-06-02 13:19:29,909 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+INFO 2025-06-02 13:19:29,924 basehttp "GET /static/services/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-02 13:19:29,944 basehttp "GET /static/services/js/transitions.js HTTP/1.1" 304 0
+INFO 2025-06-02 13:19:37,532 basehttp "GET /cleaning/about/ HTTP/1.1" 200 8677
+INFO 2025-06-02 13:19:37,948 basehttp "GET /static/services/css/style.css HTTP/1.1" 304 0
+WARNING 2025-06-02 13:19:37,994 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+INFO 2025-06-02 13:19:38,010 basehttp "GET /static/services/css/animations.css HTTP/1.1" 304 0
+INFO 2025-06-02 13:20:08,340 basehttp "GET /cleaning/ HTTP/1.1" 200 6823
+INFO 2025-06-02 13:20:08,383 basehttp "GET /static/services/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-02 13:20:08,392 basehttp "GET /static/services/js/transitions.js HTTP/1.1" 304 0
+WARNING 2025-06-02 13:20:08,395 basehttp "GET /static/images/about.jpg HTTP/1.1" 404 1908
+INFO 2025-06-03 06:10:38,773 autoreload Watching for file changes with StatReloader
+INFO 2025-06-03 06:13:58,610 basehttp "GET /admin/cleaning/sitesetting/ HTTP/1.1" 200 35407
+INFO 2025-06-03 06:14:03,225 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,248 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,259 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,261 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,332 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,333 basehttp "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,342 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,380 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:14:03,452 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,526 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,810 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,836 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:03,941 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:04,167 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:04,525 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+WARNING 2025-06-03 06:14:04,534 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:14:05,414 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:05,478 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:05,492 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:06,738 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:06,739 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+WARNING 2025-06-03 06:14:12,240 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:14:29,477 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 32462
+WARNING 2025-06-03 06:14:29,770 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:14:30,560 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:14:38,978 basehttp "GET /admin/landscaping_app/sitesetting/add/ HTTP/1.1" 200 42755
+WARNING 2025-06-03 06:14:39,490 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:14:39,508 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:39,546 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:39,570 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-06-03 06:14:40,181 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:39:30,669 autoreload Watching for file changes with StatReloader
+INFO 2025-06-03 06:45:53,007 basehttp "GET /admin/landscaping_app/sitesetting/add/ HTTP/1.1" 200 42755
+WARNING 2025-06-03 06:45:57,852 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+WARNING 2025-06-03 06:46:03,556 log Not Found: /favicon.ico
+WARNING 2025-06-03 06:46:03,558 basehttp "GET /favicon.ico HTTP/1.1" 404 4472
+INFO 2025-06-03 06:48:05,799 basehttp "POST /admin/landscaping_app/sitesetting/add/ HTTP/1.1" 302 0
+INFO 2025-06-03 06:48:14,183 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 36029
+WARNING 2025-06-03 06:48:16,437 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:48:16,860 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:48:37,092 basehttp "GET /admin/landscaping_app/service/ HTTP/1.1" 200 32837
+WARNING 2025-06-03 06:48:37,189 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:48:37,889 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:48:48,864 basehttp "GET /admin/landscaping_app/service/add/ HTTP/1.1" 200 37390
+WARNING 2025-06-03 06:48:48,912 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:48:49,634 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:50:23,697 basehttp "POST /admin/landscaping_app/service/add/ HTTP/1.1" 302 0
+INFO 2025-06-03 06:50:28,408 basehttp "GET /admin/landscaping_app/service/ HTTP/1.1" 200 36888
+WARNING 2025-06-03 06:50:28,497 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:50:29,158 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:50:55,806 basehttp "GET /admin/landscaping_app/project/ HTTP/1.1" 200 33873
+WARNING 2025-06-03 06:50:55,871 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:50:56,636 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:51:07,793 basehttp "GET /admin/landscaping_app/project/add/ HTTP/1.1" 200 40275
+WARNING 2025-06-03 06:51:07,923 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:51:07,989 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-06-03 06:51:07,993 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-06-03 06:51:08,014 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 8466
+INFO 2025-06-03 06:51:08,037 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-06-03 06:51:08,134 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-06-03 06:51:08,671 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:52:16,387 basehttp "GET /static/jazzmin/img/calendar-icons.svg HTTP/1.1" 200 1094
+INFO 2025-06-03 06:52:32,116 basehttp "POST /admin/landscaping_app/project/add/ HTTP/1.1" 302 0
+INFO 2025-06-03 06:52:37,685 basehttp "GET /admin/landscaping_app/project/ HTTP/1.1" 200 38370
+WARNING 2025-06-03 06:52:37,738 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:52:38,459 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:52:57,074 basehttp "GET /admin/landscaping_app/teammember/ HTTP/1.1" 200 32863
+WARNING 2025-06-03 06:52:57,119 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:52:57,925 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:53:05,037 basehttp "GET /admin/landscaping_app/teammember/add/ HTTP/1.1" 200 39781
+WARNING 2025-06-03 06:53:05,074 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:53:05,855 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:53:57,623 basehttp "POST /admin/landscaping_app/teammember/add/ HTTP/1.1" 302 0
+INFO 2025-06-03 06:54:03,583 basehttp "GET /admin/landscaping_app/teammember/ HTTP/1.1" 200 37345
+WARNING 2025-06-03 06:54:03,749 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:54:04,510 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:54:27,052 basehttp "GET /admin/landscaping_app/testimonial/ HTTP/1.1" 200 34031
+WARNING 2025-06-03 06:54:27,095 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:54:27,843 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:54:34,887 basehttp "GET /admin/landscaping_app/testimonial/add/ HTTP/1.1" 200 38018
+WARNING 2025-06-03 06:54:34,934 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:54:35,862 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:55:18,317 basehttp "POST /admin/landscaping_app/testimonial/add/ HTTP/1.1" 302 0
+INFO 2025-06-03 06:55:23,668 basehttp "GET /admin/landscaping_app/testimonial/ HTTP/1.1" 200 39102
+WARNING 2025-06-03 06:55:23,795 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:55:24,538 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:55:36,252 basehttp "GET /admin/landscaping_app/contactmessage/ HTTP/1.1" 200 33879
+WARNING 2025-06-03 06:55:36,298 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:55:37,089 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:55:45,455 basehttp "GET /admin/landscaping_app/contactmessage/add/ HTTP/1.1" 200 38776
+WARNING 2025-06-03 06:55:45,493 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:55:46,222 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:57:03,504 basehttp "POST /admin/landscaping_app/contactmessage/add/ HTTP/1.1" 302 0
+INFO 2025-06-03 06:57:11,151 basehttp "GET /admin/landscaping_app/contactmessage/ HTTP/1.1" 200 39257
+WARNING 2025-06-03 06:57:11,287 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 1908
+INFO 2025-06-03 06:57:12,936 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-03 06:58:21,963 basehttp "GET /landscaping HTTP/1.1" 301 0
+ERROR 2025-06-03 06:58:40,339 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 197, in render
+    template = context.template.engine.select_template(template_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 212, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: landscaping_app/includes/testimonials.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/mpesapay/landscaping_app/views.py", line 22, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: landscaping_app/includes/testimonials.html
+ERROR 2025-06-03 06:58:40,341 basehttp "GET /landscaping/ HTTP/1.1" 500 184840
+INFO 2025-06-03 07:01:52,025 basehttp "GET /landscaping/ HTTP/1.1" 200 10969
+INFO 2025-06-03 07:01:53,088 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 200 1785
+INFO 2025-06-03 07:01:53,089 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 200 1905
+WARNING 2025-06-03 07:01:53,553 basehttp "GET /static/landscaping_app/images/hero-bg.jpg HTTP/1.1" 404 1962
+INFO 2025-06-03 07:02:47,507 basehttp "GET /landscaping/services/ HTTP/1.1" 200 6441
+INFO 2025-06-03 07:03:03,462 basehttp "GET /landscaping/gallery/ HTTP/1.1" 200 6006
+INFO 2025-06-03 07:03:08,983 basehttp "GET /landscaping/about/ HTTP/1.1" 200 7326
+INFO 2025-06-03 07:03:19,654 basehttp "GET /landscaping/contact/ HTTP/1.1" 200 8866
+INFO 2025-06-03 07:03:45,442 basehttp "GET /landscaping/ HTTP/1.1" 200 10969
+INFO 2025-06-03 07:04:09,504 basehttp "GET /landscaping/services/1/ HTTP/1.1" 200 6964
+INFO 2025-06-03 07:04:32,790 basehttp "GET /landscaping/ HTTP/1.1" 200 10969
+INFO 2025-06-03 07:09:51,739 autoreload /home/ronald/PycharmProjects/mpesapay/cleaning/__init__.py changed, reloading.
+INFO 2025-06-03 07:10:09,714 autoreload Watching for file changes with StatReloader
+INFO 2025-06-03 07:15:06,424 basehttp "GET /landscaping/gallery/ HTTP/1.1" 200 6006
+INFO 2025-06-03 07:15:06,807 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-03 07:15:06,922 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-03 07:16:32,738 basehttp "GET /landscaping/services/ HTTP/1.1" 200 6441
+INFO 2025-06-03 07:23:02,692 autoreload /home/ronald/PycharmProjects/mpesapay/payments/settings.py changed, reloading.
+INFO 2025-06-03 07:23:12,052 autoreload Watching for file changes with StatReloader
+INFO 2025-06-04 06:12:50,554 autoreload Watching for file changes with StatReloader
+INFO 2025-06-04 06:18:46,109 autoreload /home/ronald/PycharmProjects/mpesapay/landscaping_app/models.py changed, reloading.
+INFO 2025-06-04 06:18:55,823 autoreload Watching for file changes with StatReloader
+INFO 2025-06-04 06:20:01,067 autoreload /home/ronald/PycharmProjects/mpesapay/landscaping_app/admin.py changed, reloading.
+INFO 2025-06-04 06:20:07,734 autoreload Watching for file changes with StatReloader
+INFO 2025-06-04 06:21:46,144 autoreload /home/ronald/PycharmProjects/mpesapay/landscaping_app/views.py changed, reloading.
+INFO 2025-06-04 06:21:48,035 autoreload Watching for file changes with StatReloader
+INFO 2025-06-04 06:31:55,167 basehttp "GET /admin/ HTTP/1.1" 200 91631
+WARNING 2025-06-04 06:31:55,374 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:31:55,379 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:31:55,381 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,386 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:31:55,387 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,395 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,450 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:31:55,450 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,688 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:31:55,690 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,749 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:31:55,751 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,785 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:31:55,794 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:31:55,921 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:31:55,922 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:32:07,170 basehttp "GET /landscaping/ HTTP/1.1" 200 17408
+WARNING 2025-06-04 06:32:07,627 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:32:07,630 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:32:07,701 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 06:32:07,702 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:32:12,008 log Not Found: /favicon.ico
+WARNING 2025-06-04 06:32:12,010 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:08,603 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:33:08,603 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+INFO 2025-06-04 06:33:26,013 basehttp "GET /admin/ HTTP/1.1" 200 91620
+WARNING 2025-06-04 06:33:26,059 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:33:26,074 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:33:26,061 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,079 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:33:26,082 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:33:26,085 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:33:26,088 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:33:26,088 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,092 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:33:26,093 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,094 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,094 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,094 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,119 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:33:26,122 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,123 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:26,206 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:33:26,207 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+INFO 2025-06-04 06:33:46,272 basehttp "GET /admin/landscaping_app/heroimage/ HTTP/1.1" 200 34352
+WARNING 2025-06-04 06:33:46,409 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:33:46,414 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,425 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:33:46,431 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:33:46,434 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:33:46,436 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:33:46,439 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,439 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,442 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,443 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,459 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:33:46,462 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,486 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:33:46,486 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,493 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:33:46,494 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,511 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:33:46,512 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,538 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:33:46,538 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,554 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:33:46,557 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:33:46,562 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,561 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:33:46,564 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,559 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:33:46,565 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,561 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,580 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:33:46,585 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,584 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:33:46,587 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,594 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:33:46,594 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,611 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 06:33:46,612 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:33:46,616 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:33:46,616 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:33:47,516 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:34:26,864 basehttp "GET /admin/landscaping_app/heroimage/add/ HTTP/1.1" 200 39656
+WARNING 2025-06-04 06:34:26,894 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:34:26,895 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,901 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:34:26,904 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:34:26,907 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:34:26,914 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:34:26,918 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:34:26,922 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,920 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,921 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,921 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,919 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,930 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:34:26,933 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:34:26,935 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:34:26,939 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,938 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,938 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:34:26,942 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,941 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,949 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:34:26,952 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:34:26,952 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,955 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,962 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:34:26,962 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,978 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 06:34:26,978 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:26,989 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 06:34:26,990 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:27,002 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:34:27,003 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:27,011 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:34:27,012 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:34:27,013 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:27,014 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:27,028 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:34:27,030 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:34:27,031 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:27,031 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:34:27,078 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 06:34:27,085 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:34:31,403 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:38:48,328 basehttp "POST /admin/landscaping_app/heroimage/add/ HTTP/1.1" 302 0
+INFO 2025-06-04 06:38:54,507 basehttp "GET /admin/landscaping_app/heroimage/add/ HTTP/1.1" 200 40287
+WARNING 2025-06-04 06:38:54,691 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:38:54,695 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,751 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:38:54,755 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:38:54,758 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:38:54,761 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:38:54,765 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:38:54,767 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,767 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,769 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,770 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,770 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,782 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:38:54,783 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,788 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:38:54,791 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:38:54,793 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:38:54,795 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:38:54,796 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:38:54,797 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,799 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,798 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,798 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,798 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,816 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:38:54,821 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 06:38:54,822 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,822 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,835 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 06:38:54,836 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,869 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:38:54,870 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,875 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:38:54,876 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,888 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:38:54,891 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:38:54,892 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,896 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,899 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:38:54,900 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:38:54,908 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 06:38:54,908 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:38:55,402 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:40:44,702 basehttp "POST /admin/landscaping_app/heroimage/add/ HTTP/1.1" 302 0
+INFO 2025-06-04 06:40:54,894 basehttp "GET /admin/landscaping_app/heroimage/add/ HTTP/1.1" 200 40277
+WARNING 2025-06-04 06:40:54,924 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:40:54,925 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,931 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:40:54,933 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:40:54,936 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:40:54,943 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,942 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,942 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,941 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:40:54,948 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,957 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:40:54,959 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:40:54,961 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:40:54,963 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:40:54,964 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,965 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,965 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,966 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,973 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:40:54,975 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:40:54,977 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:40:54,979 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:40:54,981 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,981 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,982 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,983 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,991 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 06:40:54,994 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 06:40:54,995 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:54,996 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:55,005 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:40:55,005 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:55,045 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:40:55,045 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:55,050 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:40:55,051 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:55,062 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:40:55,065 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:40:55,066 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:55,070 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:40:55,077 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 06:40:55,077 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:40:58,187 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:41:10,148 basehttp "GET /landscaping/ HTTP/1.1" 200 17648
+WARNING 2025-06-04 06:41:10,182 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:41:10,182 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:41:10,245 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 06:41:10,249 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:46:31,519 basehttp "GET /landscaping/services/ HTTP/1.1" 200 7913
+WARNING 2025-06-04 06:46:31,595 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:46:31,596 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:46:31,624 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:46:31,626 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 06:46:31,627 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:46:31,629 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+INFO 2025-06-04 06:46:45,661 basehttp "GET /landscaping/ HTTP/1.1" 200 17648
+WARNING 2025-06-04 06:46:45,715 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:46:45,718 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:46:45,734 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 06:46:45,735 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:53:17,237 basehttp "GET /admin/landscaping_app/heroimage/ HTTP/1.1" 200 39749
+WARNING 2025-06-04 06:53:17,312 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:53:17,316 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,324 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:53:17,326 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:53:17,331 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:53:17,333 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:53:17,337 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,336 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,335 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:53:17,341 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,342 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,345 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:53:17,346 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,347 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,384 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:53:17,384 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,447 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:53:17,450 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,487 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:53:17,492 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,510 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:53:17,520 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:53:17,522 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,528 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,588 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:53:17,590 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,631 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:53:17,632 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,694 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:53:17,695 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,747 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:53:17,756 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:53:17,758 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,762 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,802 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:53:17,806 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 06:53:17,808 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:17,809 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:53:21,599 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:53:48,731 basehttp "GET /admin/landscaping_app/heroimage/2/change/ HTTP/1.1" 200 40554
+WARNING 2025-06-04 06:53:48,791 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:53:48,791 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,802 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:53:48,803 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,807 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:53:48,809 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:53:48,814 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:53:48,816 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:53:48,817 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,817 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,820 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,823 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,829 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:53:48,830 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,848 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:53:48,849 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,852 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:53:48,855 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:53:48,856 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:53:48,858 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,859 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,859 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,873 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:53:48,875 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:53:48,882 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,881 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:53:48,877 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 06:53:48,883 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,884 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,885 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:48,957 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 06:53:48,958 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:49,061 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:53:49,064 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:49,148 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:53:49,151 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:49,172 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:53:49,187 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:53:49,188 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:49,197 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:49,215 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:53:49,215 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:53:49,219 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 06:53:49,220 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:53:49,597 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:56:18,535 basehttp "POST /admin/landscaping_app/heroimage/2/change/ HTTP/1.1" 302 0
+INFO 2025-06-04 06:56:22,263 basehttp "GET /admin/landscaping_app/heroimage/ HTTP/1.1" 200 40334
+WARNING 2025-06-04 06:56:22,837 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:56:22,844 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,869 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:56:22,871 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,932 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:56:22,937 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:56:22,955 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,940 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:56:22,954 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:56:22,959 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,958 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,943 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:56:22,963 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,963 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:22,993 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:56:22,997 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:56:23,002 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:56:23,006 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:56:23,011 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:56:23,013 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,014 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,015 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,017 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,018 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,031 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:56:23,032 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,044 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:56:23,048 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:56:23,051 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:56:23,058 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,059 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,060 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,220 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:56:23,228 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,276 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:56:23,277 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,305 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:56:23,308 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,316 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:56:23,317 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,329 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:56:23,330 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:23,380 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 06:56:23,381 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:56:26,577 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:56:41,608 basehttp "GET /admin/landscaping_app/heroimage/1/change/ HTTP/1.1" 200 40574
+WARNING 2025-06-04 06:56:41,808 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:56:41,808 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,925 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:56:41,927 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,939 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:56:41,943 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:56:41,949 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:56:41,951 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:56:41,958 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,955 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,957 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,957 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,953 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:56:41,962 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,970 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:56:41,971 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,976 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:56:41,978 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:56:41,981 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:56:41,983 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:56:41,983 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,984 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,984 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,985 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,991 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:56:41,993 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 06:56:41,995 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:41,996 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,010 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 06:56:42,012 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:56:42,013 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,014 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,061 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:56:42,061 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,066 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:56:42,066 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,070 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:56:42,071 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,076 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:56:42,077 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:56:42,081 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 06:56:42,081 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:56:42,791 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:58:13,557 basehttp "POST /admin/landscaping_app/heroimage/1/change/ HTTP/1.1" 302 0
+INFO 2025-06-04 06:58:16,652 basehttp "GET /admin/landscaping_app/heroimage/add/ HTTP/1.1" 200 40280
+WARNING 2025-06-04 06:58:16,757 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 06:58:16,760 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,769 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 06:58:16,770 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,777 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 06:58:16,777 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,780 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 06:58:16,787 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 06:58:16,788 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 06:58:16,790 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 06:58:16,791 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 06:58:16,794 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,792 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,792 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,796 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,797 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,807 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 06:58:16,814 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,810 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 06:58:16,812 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 06:58:16,815 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,809 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 06:58:16,817 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,814 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 06:58:16,816 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,819 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,828 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 06:58:16,828 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,836 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 06:58:16,836 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,870 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 06:58:16,871 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,881 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 06:58:16,882 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,896 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 06:58:16,897 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,902 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 06:58:16,902 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,914 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 06:58:16,916 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 06:58:16,917 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:58:16,918 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 06:58:17,405 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 06:59:38,720 basehttp "GET /landscaping/ HTTP/1.1" 200 17648
+WARNING 2025-06-04 06:59:40,032 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 06:59:40,035 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 06:59:40,037 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 06:59:40,037 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179

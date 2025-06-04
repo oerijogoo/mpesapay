@@ -1,0 +1,231 @@
+{% include "store/base.html" %}
+{% load static %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .order-form, .cart-summary {
+        flex: 1;
+        min-width: 300px; /* Minimum width for responsive design */
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    h3, h4 {
+        color: #007bff;
+    }
+
+    hr {
+        border: 1px solid #007bff;
+        margin: 20px 0;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        padding: 10px;
+        width: 100%;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 10px 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    #change-message {
+        display: none;
+        color: #28a745;
+        margin-top: 10px;
+    }
+
+    .payment-method {
+        margin-top: 20px;
+    }
+</style>
+
+{% block content %}
+<div class="container">
+    <div class="order-form">
+        <form method="POST" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <h3>Complete Your Order</h3>
+            <p>Please enter relevant information below</p>
+            <hr>
+            <div class="form-group">
+                {{ shipping_form.full_name.label_tag }}
+                {{ shipping_form.full_name }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    value="{{ request.user.email|default:'' }}"
+                    placeholder="Email"
+                    required
+                >
+            </div>
+            <div class="form-group">
+                {{ shipping_form.address1.label_tag }}
+                {{ shipping_form.address1 }}
+            </div>
+            <div class="form-group">
+                {{ shipping_form.address2.label_tag }}
+                {{ shipping_form.address2 }}
+            </div>
+            <div class="form-group">
+                {{ shipping_form.city.label_tag }}
+                {{ shipping_form.city }}
+            </div>
+            <div class="form-group">
+                {{ shipping_form.state_name.label_tag }}
+                {{ shipping_form.state_name }}
+            </div>
+            <div class="form-group">
+                {{ shipping_form.zipcode.label_tag }}
+                {{ shipping_form.zipcode }}
+            </div>
+
+            <hr>
+            <button id="complete-order-btn" type="submit" class="btn btn-primary mt-3" disabled>Complete Order</button>
+        </form>
+    </div>
+
+    <div class="cart-summary">
+        <h4>Cart Summary</h4>
+        <ul class="list-group">
+            {% for item in cart %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ item.product.title }} (x{{ item.qty }})</span>
+                    <span>KES {{ item.price|floatformat:2 }}</span>
+                </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between font-weight-bold">
+                <span>Total</span>
+                <span>KES <span id="total">{{ total|floatformat:2 }}</span></span>
+            </li>
+        </ul>
+
+        <div class="payment-method">
+            <h4>Payment Method</h4>
+            <div class="form-group">
+                <label for="payment-method">Choose Payment Method</label>
+                <select id="payment-method" class="form-control" name="payment_method" required>
+                    <option value="cash">Cash Payment</option>
+                    <option value="mpesa">M-Pesa</option>
+                </select>
+            </div>
+
+            <!-- Cash Payment Section -->
+            <div class="form-group" id="cash-payment-container">
+                <label for="cash_payment">Cash Payment</label>
+                <input
+                    type="number"
+                    id="cash_payment"
+                    name="cash_payment"
+                    class="form-control"
+                    placeholder="Enter cash payment"
+                    required
+                >
+                <small id="change-message" class="text-success mt-2"></small>
+            </div>
+
+            <!-- M-Pesa Payments Section (Initially Hidden) -->
+            <div class="form-group" id="mpesa-payment-container" style="display: none;">
+                <iframe
+                    src="{% url 'payment' %}"
+                    width="100%"
+                    height="500px"
+                    frameborder="0"
+                    id="mpesa-payment-iframe">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const totalAmount = parseFloat(document.getElementById('total').textContent);
+        const cashInput = document.getElementById('cash_payment');
+        const completeOrderBtn = document.getElementById('complete-order-btn');
+        const changeMessage = document.getElementById('change-message');
+        const paymentMethodSelect = document.getElementById('payment-method');
+        const cashPaymentContainer = document.getElementById('cash-payment-container');
+        const mpesaPaymentContainer = document.getElementById('mpesa-payment-container');
+
+        cashInput.addEventListener('input', () => {
+            const cashPayment = parseFloat(cashInput.value);
+
+            if (isNaN(cashPayment) || cashPayment < totalAmount) {
+                completeOrderBtn.disabled = true;
+                changeMessage.style.display = 'none';
+            } else {
+                completeOrderBtn.disabled = false;
+
+                if (cashPayment > totalAmount) {
+                    const change = cashPayment - totalAmount;
+                    changeMessage.textContent = `Change to be returned: KES ${change.toFixed(2)}`;
+                    changeMessage.style.display = 'block';
+                } else {
+                    changeMessage.style.display = 'none';
+                }
+            }
+        });
+
+        // Handle payment method selection
+        paymentMethodSelect.addEventListener('change', () => {
+            if (paymentMethodSelect.value === 'mpesa') {
+                cashPaymentContainer.style.display = 'none';
+                mpesaPaymentContainer.style.display = 'block';
+                completeOrderBtn.disabled = false;
+            } else {
+                cashPaymentContainer.style.display = 'block';
+                mpesaPaymentContainer.style.display = 'none';
+                completeOrderBtn.disabled = true;
+            }
+        });
+    });
+</script>
+{% endblock %}

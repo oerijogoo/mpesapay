@@ -1,0 +1,100 @@
+{% extends 'savings/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-info text-center">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <h2 class="text-center mb-4">Savings Account Management</h2>
+
+  <div class="row g-4">
+    <div class="col-12 col-md-6">
+      <div class="p-3 border rounded shadow-sm">
+        <h4 class="text-primary">Operations</h4>
+        <ul class="list-unstyled mt-3">
+          <li class="mb-2">
+            <a href="{% url 'savings:withdraw' %}" class="text-decoration-none text-dark">Withdraw</a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'savings:deposit' %}" class="text-decoration-none text-dark">Deposit</a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'savings:get_savings_account' %}" class="text-decoration-none text-dark">de|activate</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="p-3 border rounded shadow-sm">
+        <h4 class="text-primary">Transactions</h4>
+        <ul class="list-unstyled mt-3">
+          <li class="mb-2">
+            <a href="{% url 'savings:transactions' %}" class="text-decoration-none text-dark">All Deposit Transactions</a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'savings:transaction' %}" class="text-decoration-none text-dark">Single Account Deposit Transactions</a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'savings:withdraw_transactions' %}" class="text-decoration-none text-dark">All Withdraw Transactions</a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'savings:withdraw_transaction' %}" class="text-decoration-none text-dark">Single Account Withdraw Transactions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Adjust font sizes dynamically */
+  h2 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+
+  a {
+    font-size: 1.2rem;
+  }
+
+  /* Responsive font scaling */
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    h4 {
+      font-size: 1.3rem;
+    }
+
+    a {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+    }
+
+    a {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+{% endblock %}

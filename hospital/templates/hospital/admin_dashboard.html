@@ -1,0 +1,9 @@
+<!-- templates/hospital/admin_dashboard.html -->
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+  <p>Welcome, {{ request.user }}!</p>
+  <a href="{% url 'admin:index' %}">Admin Panel</a>
+  <a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "isms/generic_detail.html" %}
+
+{% block detail_title %}Subject: {{ object.name }}{% endblock %}
+{% block update_url %}{% url 'isms:subject_update' object.pk %}{% endblock %}
+{% block delete_url %}{% url 'isms:subject_delete' object.pk %}{% endblock %}
+
+{% block detail_content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h6>Basic Information</h6>
+        <dl class="row">
+            <dt class="col-sm-4">Code:</dt>
+            <dd class="col-sm-8">{{ object.code }}</dd>
+
+            <dt class="col-sm-4">Core Subject:</dt>
+            <dd class="col-sm-8">
+                {% if object.is_core %}
+                <span class="badge bg-success">Yes</span>
+                {% else %}
+                <span class="badge bg-secondary">No</span>
+                {% endif %}
+            </dd>
+
+            <dt class="col-sm-4">Active:</dt>
+            <dd class="col-sm-8">
+                {% if object.is_active %}
+                <span class="badge bg-success">Active</span>
+                {% else %}
+                <span class="badge bg-danger">Inactive</span>
+                {% endif %}
+            </dd>
+
+            <dt class="col-sm-4">Description:</dt>
+            <dd class="col-sm-8">{{ object.description|default:"-" }}</dd>
+        </dl>
+    </div>
+
+    <div class="col-md-6">
+        <h6>Class Levels</h6>
+        {% if object.class_levels.all %}
+        <div class="d-flex flex-wrap gap-2">
+            {% for level in object.class_levels.all %}
+            <span class="badge bg-primary">{{ level.name }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted">Not assigned to any class levels</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+        <h6 class="mb-0">Papers</h6>
+    </div>
+    <div class="card-body">
+        {% if object.paper_set.all %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Weight</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paper in object.paper_set.all %}
+                    <tr>
+                        <td>{{ paper.name }}</td>
+                        <td>{{ paper.code }}</td>
+                        <td>{{ paper.weight }}%</td>
+                        <td>
+                            <a href="{% url 'isms:paper_update' paper.pk %}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'isms:paper_delete' paper.pk %}" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="table-info">
+                        <td colspan="2" class="text-end"><strong>Total Weight:</strong></td>
+                        <td>{{ object.get_total_weight }}%</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No papers defined for this subject</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
