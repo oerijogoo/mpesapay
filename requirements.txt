@@ -29,3 +29,4 @@ django-import-export
 django_extensions
 plotly
 django-filter
+whitenoise
