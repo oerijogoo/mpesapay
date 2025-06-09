@@ -1,7 +1,0 @@
-{% extends "isms/generic_form.html" %}
-
-{% block form_title %}
-    {% if form.instance.pk %}Edit Promotion{% else %}Create Promotion{% endif %}
-{% endblock %}
-
-{% block cancel_url %}{% url 'isms:promotion_list' %}{% endblock %}

@@ -1,7 +1,0 @@
-{% extends "isms/generic_form.html" %}
-
-{% block form_title %}
-    {% if form.instance.pk %}Edit Grading System{% else %}Create Grading System{% endif %}
-{% endblock %}
-
-{% block cancel_url %}{% url 'isms:grading_system_list' %}{% endblock %}

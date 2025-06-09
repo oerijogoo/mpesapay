@@ -42,34 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap5',
-    'mpesa_express',
-    'store',
-    'cart',
-    'payment',
     'mathfilters',
     'crispy_forms',
     'crispy_bootstrap5',
     'widget_tweaks',
     'cloudinary',
     #cooperative project
-    'members',
-    'savings',
-    'loans',
-    'shares',
-    'reports',
-    'accounting',
-    'search',
     'rest_framework',
-    'hospital',
     'django_select2',
-    'accounts',
     'import_export',
     'django_extensions',
     'django.contrib.humanize',
     'django_filters',
-    'isms',
-    'cleaning',
-    'services',
     'landscaping_app',
 
 
@@ -105,8 +89,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'store.views.categories', #updated
-                'cart.context_processors.cart',
+
 
             ],
         },
@@ -220,10 +203,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication settings
-AUTH_USER_MODEL = 'isms.User'
-LOGIN_REDIRECT_URL = 'isms:dashboard'
-LOGOUT_REDIRECT_URL = 'isms:login'
-LOGIN_URL = 'isms:login'    # <-- ADD this line
+# AUTH_USER_MODEL = 'isms.User'
+# LOGIN_REDIRECT_URL = 'isms:dashboard'
+# LOGOUT_REDIRECT_URL = 'isms:login'
+# LOGIN_URL = 'isms:login'    # <-- ADD this line
 
 
 

@@ -21,12 +21,8 @@ cloudinary
 dj_database_url
 django-jazzmin
 djangorestframework
-weasyprint
-pandas
-pydyf
 django_select2
 django-import-export
 django_extensions
-plotly
 django-filter
 whitenoise

@@ -25,31 +25,8 @@ from landscaping_app.landscaping_admin import landscaping_admin_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mpesa/', include('mpesa_express.urls')),
-    path('', include('store.urls')),
-    path('cart/', include('cart.urls')),
-    path('payment/', include('payment.urls')),
-    path('savings/', include('savings.urls')),
-    path('loans/', include('loans.urls')),
-    path('shares/', include('shares.urls')),
-    path('members/', include('members.urls')),
-    # path('accounting/', include('accounting.urls')),
-    path('reports/', include('reports.urls')),
-    path('search/', include('search.urls')),
-    # path('accounts/', include('django.contrib.auth.urls')),
-    path('hospital/', include('hospital.urls')),
-    path('isms/', include('isms.urls')),
-    path('clean/', include('cleaning.urls')),
-    path('cleaning/', include('services.urls')),
     path('landscaping/', include('landscaping_app.urls')),
     path("landscaping-admin/", landscaping_admin_site.urls),
-    # path('accounts/login/', auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
-    # path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    # path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    # path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    # path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

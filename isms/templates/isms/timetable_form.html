@@ -1,7 +1,0 @@
-{% extends "isms/generic_form.html" %}
-
-{% block form_title %}
-    {% if form.instance.pk %}Edit Timetable Entry{% else %}Create Timetable Entry{% endif %}
-{% endblock %}
-
-{% block cancel_url %}{% url 'isms:timetable_list' %}{% endblock %}

@@ -3021,3 +3021,185 @@ WARNING 2025-06-09 13:24:09,010 basehttp "GET /landscaping-admin/jkiihik HTTP/1.
 INFO 2025-06-09 13:25:02,595 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28250
 WARNING 2025-06-09 13:25:02,642 log Not Found: /static/https:/your-cdn.com/logo.png
 WARNING 2025-06-09 13:25:02,643 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 16:27:07,999 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 16:32:27,962 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 16:32:56,465 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 16:35:26,033 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 16:35:58,642 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 16:47:12,818 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 16:47:34,422 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 16:54:03,108 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 16:54:23,671 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 16:57:13,377 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 16:57:52,415 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 17:01:16,535 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 17:04:09,033 log Internal Server Error: /landscaping-admin/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "auth_user" does not exist
+LINE 1: ...user"."is_active", "auth_user"."date_joined" FROM "auth_user...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 261, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapper_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/decorators/cache.py", line 62, in _wrapper_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 230, in inner
+    if not self.has_permission(request):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 203, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 266, in inner
+    self._setup()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 419, in _setup
+    self._wrapped = self._setupfunc()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 25, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 11, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 198, in get_user
+    user = backend.get_user(user_id)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/backends.py", line 161, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "auth_user" does not exist
+LINE 1: ...user"."is_active", "auth_user"."date_joined" FROM "auth_user...
+                                                             ^
+
+ERROR 2025-06-09 17:04:10,286 basehttp "GET /landscaping-admin/ HTTP/1.1" 500 145
+WARNING 2025-06-09 17:04:15,619 log Not Found: /favicon.ico
+WARNING 2025-06-09 17:04:15,620 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-06-09 17:04:44,509 basehttp "GET /landscaping HTTP/1.1" 301 0
+ERROR 2025-06-09 17:04:48,616 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 173, in render
+    with context.bind_template(self):
+  File "/usr/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/context.py", line 251, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 116, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 116, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/module_loading.py", line 15, in cached_import
+    module = import_module(module_path)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 961, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'store'
+ERROR 2025-06-09 17:04:49,760 basehttp "GET /landscaping/ HTTP/1.1" 500 145
+INFO 2025-06-09 17:08:40,578 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 17:09:16,915 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 17:09:28,909 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 17:11:38,076 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 173, in render
+    with context.bind_template(self):
+  File "/usr/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/context.py", line 251, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 116, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/engine.py", line 116, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/module_loading.py", line 15, in cached_import
+    module = import_module(module_path)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 961, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'store'
+ERROR 2025-06-09 17:11:38,379 basehttp "GET /landscaping/ HTTP/1.1" 500 145
+INFO 2025-06-09 17:17:01,593 autoreload /home/ronald/Desktop/zabj/payments/settings.py changed, reloading.
+INFO 2025-06-09 17:17:53,330 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 17:19:02,201 basehttp "GET /landscaping/ HTTP/1.1" 200 18808
+INFO 2025-06-09 17:19:05,034 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 200 2897
+INFO 2025-06-09 17:19:07,521 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 200 1785
+WARNING 2025-06-09 17:19:10,308 log Not Found: /static/landscaping_app/images/hero-bg.jpg
+WARNING 2025-06-09 17:19:10,313 basehttp "GET /static/landscaping_app/images/hero-bg.jpg HTTP/1.1" 404 179
+INFO 2025-06-09 17:29:58,104 basehttp "GET /landscaping/ HTTP/1.1" 200 18808
+INFO 2025-06-09 17:30:18,955 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 304 0
+WARNING 2025-06-09 17:30:19,431 log Not Found: /static/landscaping_app/images/hero-bg.jpg
+WARNING 2025-06-09 17:30:19,434 basehttp "GET /static/landscaping_app/images/hero-bg.jpg HTTP/1.1" 404 179
+INFO 2025-06-09 17:30:20,207 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 304 0
+WARNING 2025-06-09 17:31:49,475 log Not Found: /favicon.ico
+WARNING 2025-06-09 17:31:49,598 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-06-09 17:35:51,878 basehttp "GET /landscaping/gallery/ HTTP/1.1" 200 7580
+INFO 2025-06-09 17:35:58,450 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-09 17:35:59,300 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 304 0

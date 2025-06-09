@@ -1,7 +1,0 @@
-{% extends "isms/generic_form.html" %}
-
-{% block form_title %}
-    {% if form.instance.pk %}Edit Fee Payment{% else %}Create Fee Payment{% endif %}
-{% endblock %}
-
-{% block cancel_url %}{% url 'isms:fee_payment_list' %}{% endblock %}

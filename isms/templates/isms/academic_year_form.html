@@ -1,7 +1,0 @@
-{% extends "isms/generic_form.html" %}
-
-{% block form_title %}
-    {% if form.instance.pk %}Edit Academic Year{% else %}Create Academic Year{% endif %}
-{% endblock %}
-
-{% block cancel_url %}{% url 'isms:academic_year_list' %}{% endblock %}
