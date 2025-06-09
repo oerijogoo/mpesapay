@@ -276,15 +276,26 @@ EMAIL_HOST_PASSWORD = 'tfnm helr ktfx lnwt'  # Use an app password if 2-Step Ver
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 JAZZMIN_SETTINGS = {
-    "theme": "minty",  # Try another like 'cosmo', 'flatly', etc.
+    "theme": "minty",
     "site_title": "Landscaping Admin",
     "site_header": "Landscaping Admin",
     "site_brand": "Landscaping",
-    "site_logo": "https://your-cdn.com/logo.png",  # Cloudinary URL
+    "site_logo": "https://your-cdn.com/logo.png",
     "welcome_sign": "Welcome to Landscaping Admin",
     "copyright": "Landscaping Ltd.",
     "navigation_expanded": True,
-    "order_with_respect_to": ["landscaping_app"],
+
+    "order_with_respect_to": [
+        "landscaping_app.SiteSetting",
+        "landscaping_app.HeroImage",
+        "landscaping_app.Service",
+        "landscaping_app.Project",
+        "landscaping_app.Testimonial",
+        "landscaping_app.TeamMember",
+        "landscaping_app.ContactMessage",
+
+    ],
+
     "icons": {
         "landscaping_app.SiteSetting": "fas fa-cog",
         "landscaping_app.Service": "fas fa-leaf",
@@ -295,4 +306,5 @@ JAZZMIN_SETTINGS = {
         "landscaping_app.HeroImage": "fas fa-image",
     },
 }
+
 
