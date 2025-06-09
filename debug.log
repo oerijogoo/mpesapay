@@ -3203,3 +3203,484 @@ WARNING 2025-06-09 17:31:49,598 basehttp "GET /favicon.ico HTTP/1.1" 404 179
 INFO 2025-06-09 17:35:51,878 basehttp "GET /landscaping/gallery/ HTTP/1.1" 200 7580
 INFO 2025-06-09 17:35:58,450 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 304 0
 INFO 2025-06-09 17:35:59,300 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-09 20:11:02,135 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 20:11:49,284 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-09 20:11:49,679 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3058
+WARNING 2025-06-09 20:11:50,700 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:11:50,702 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+ERROR 2025-06-09 20:11:55,219 log Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/defaulttags.py", line 541, in render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [motto] in None
+ERROR 2025-06-09 20:11:55,469 basehttp "GET / HTTP/1.1" 500 145
+WARNING 2025-06-09 20:11:56,092 log Not Found: /favicon.ico
+WARNING 2025-06-09 20:11:56,095 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-06-09 20:12:05,831 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-09 20:12:05,844 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3058
+WARNING 2025-06-09 20:12:05,910 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:12:05,916 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 20:12:09,764 log Not Found: /landscaping/
+WARNING 2025-06-09 20:12:09,766 basehttp "GET /landscaping/ HTTP/1.1" 404 179
+INFO 2025-06-09 20:12:52,981 autoreload /home/ronald/Desktop/zabj/payments/urls.py changed, reloading.
+INFO 2025-06-09 20:13:12,302 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 20:13:43,351 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/defaulttags.py", line 541, in render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [motto] in None
+ERROR 2025-06-09 20:13:43,362 basehttp "GET /landscaping/ HTTP/1.1" 500 145
+ERROR 2025-06-09 20:16:33,544 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/defaulttags.py", line 541, in render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [motto] in None
+ERROR 2025-06-09 20:16:33,659 basehttp "GET /landscaping/ HTTP/1.1" 500 145
+INFO 2025-06-09 20:16:44,566 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-09 20:16:44,698 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3058
+WARNING 2025-06-09 20:16:45,787 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:16:45,788 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 20:16:49,723 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:16:49,724 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 20:17:19,315 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-09 20:17:23,008 basehttp "GET /admin/ HTTP/1.1" 200 23435
+WARNING 2025-06-09 20:17:23,204 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:17:23,205 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 20:17:44,511 basehttp "GET /admin/ HTTP/1.1" 200 23435
+WARNING 2025-06-09 20:17:50,383 log Not Found: /
+WARNING 2025-06-09 20:17:50,383 basehttp "GET / HTTP/1.1" 404 179
+INFO 2025-06-09 20:18:02,502 basehttp "GET /admin/ HTTP/1.1" 200 23435
+WARNING 2025-06-09 20:18:02,554 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:18:02,554 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+ERROR 2025-06-09 20:18:55,781 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/defaulttags.py", line 541, in render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [motto] in None
+ERROR 2025-06-09 20:18:55,790 basehttp "GET /landscaping/ HTTP/1.1" 500 145
+INFO 2025-06-09 20:19:09,281 basehttp "GET /landscaping/services/ HTTP/1.1" 200 5263
+INFO 2025-06-09 20:19:09,846 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 200 2897
+INFO 2025-06-09 20:19:09,881 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 200 1785
+ERROR 2025-06-09 20:19:22,505 log Internal Server Error: /landscaping/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'motto'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/zabj/landscaping_app/views.py", line 23, in index
+    return render(request, 'landscaping_app/index.html', context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/defaulttags.py", line 541, in render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [motto] in None
+ERROR 2025-06-09 20:19:22,510 basehttp "GET /landscaping/ HTTP/1.1" 500 145
+INFO 2025-06-09 20:20:21,804 basehttp "GET /landscaping/gallery/ HTTP/1.1" 200 5590
+INFO 2025-06-09 20:20:21,938 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-09 20:20:21,944 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-09 20:20:30,376 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 14756
+WARNING 2025-06-09 20:20:30,744 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:20:30,747 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 20:20:30,835 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 200 89795
+INFO 2025-06-09 20:20:30,842 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 200 125266
+INFO 2025-06-09 20:20:32,897 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-09 20:21:01,916 basehttp "GET /admin/landscaping_app/sitesetting/add/ HTTP/1.1" 200 25049
+WARNING 2025-06-09 20:21:01,946 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:21:01,948 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 20:21:01,992 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-06-09 20:21:02,114 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-06-09 20:21:02,281 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+INFO 2025-06-09 20:21:02,667 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-09 20:23:37,516 basehttp "POST /admin/landscaping_app/sitesetting/add/ HTTP/1.1" 302 0
+INFO 2025-06-09 20:23:40,333 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 18339
+INFO 2025-06-09 20:23:40,380 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 304 0
+INFO 2025-06-09 20:23:40,381 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 304 0
+WARNING 2025-06-09 20:23:40,392 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:23:40,393 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 20:23:41,819 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-09 20:23:50,422 basehttp "GET /landscaping/gallery/ HTTP/1.1" 200 6415
+INFO 2025-06-09 20:23:50,447 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-09 20:23:50,452 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-09 20:23:56,766 basehttp "GET /landscaping/ HTTP/1.1" 200 10481
+WARNING 2025-06-09 20:23:56,918 log Not Found: /static/landscaping_app/images/hero-bg.jpg
+WARNING 2025-06-09 20:23:56,921 basehttp "GET /static/landscaping_app/images/hero-bg.jpg HTTP/1.1" 404 179
+INFO 2025-06-09 20:24:39,356 autoreload /home/ronald/Desktop/zabj/payments/urls.py changed, reloading.
+INFO 2025-06-09 20:24:48,094 autoreload Watching for file changes with StatReloader
+WARNING 2025-06-09 20:25:41,241 log Not Found: /landscaping/
+WARNING 2025-06-09 20:25:41,243 basehttp "GET /landscaping/ HTTP/1.1" 404 179
+WARNING 2025-06-09 20:25:48,622 log Not Found: /
+WARNING 2025-06-09 20:25:48,623 basehttp "GET / HTTP/1.1" 404 179
+INFO 2025-06-09 20:26:00,406 basehttp "GET /admin/ HTTP/1.1" 200 24607
+WARNING 2025-06-09 20:26:00,517 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 20:26:00,519 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 20:26:05,936 log Not Found: /
+WARNING 2025-06-09 20:26:05,936 basehttp "GET / HTTP/1.1" 404 179
+INFO 2025-06-09 20:26:46,411 autoreload /home/ronald/Desktop/zabj/payments/urls.py changed, reloading.
+INFO 2025-06-09 20:26:51,395 autoreload Watching for file changes with StatReloader
