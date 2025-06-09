@@ -1856,3 +1856,1168 @@ WARNING 2025-06-04 13:27:19,809 log Not Found: /static/landscaping_app/css/style
 WARNING 2025-06-04 13:27:19,810 log Not Found: /static/landscaping_app/js/main.js
 WARNING 2025-06-04 13:27:19,812 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
 WARNING 2025-06-04 13:27:19,812 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:41:45,777 basehttp "GET /admin/ HTTP/1.1" 200 91554
+WARNING 2025-06-04 13:41:46,943 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:41:46,944 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,634 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:41:47,637 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,801 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:41:47,816 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:41:47,813 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:41:47,817 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:41:47,822 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,820 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:41:47,822 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,823 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,824 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,807 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:41:47,827 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:47,865 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:41:50,616 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:41:50,619 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+INFO 2025-06-04 13:42:15,074 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 35946
+WARNING 2025-06-04 13:42:15,294 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:42:15,300 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,358 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:42:15,361 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:42:15,362 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:42:15,367 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:42:15,368 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,368 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,369 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,370 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,391 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:42:15,393 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:42:15,396 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:42:15,396 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,398 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,398 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,408 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:42:15,408 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,412 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:42:15,413 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,494 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:42:15,511 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:42:15,515 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:42:15,522 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,525 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,526 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,555 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:42:15,558 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,566 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:42:15,569 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:42:15,570 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,570 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,579 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:42:15,582 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:42:15,583 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,584 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:15,590 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 13:42:15,591 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:42:17,948 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 13:42:28,685 basehttp "GET /admin/landscaping_app/sitesetting/1/change/ HTTP/1.1" 200 44853
+WARNING 2025-06-04 13:42:28,753 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:42:28,756 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,786 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:42:28,802 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,823 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:42:28,824 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,830 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:42:28,834 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:42:28,837 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:42:28,840 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:42:28,842 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:42:28,846 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,847 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,847 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,848 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,852 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,862 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:42:28,864 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:42:28,866 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:42:28,873 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,867 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:42:28,869 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,868 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:42:28,875 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,875 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,880 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,892 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 13:42:28,892 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,912 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 13:42:28,913 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,939 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:42:28,940 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,954 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:42:28,955 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,962 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:42:28,964 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:42:28,965 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,965 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:28,973 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:42:28,973 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:42:29,023 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 13:42:29,027 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:42:32,960 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 13:49:07,648 basehttp "POST /admin/landscaping_app/sitesetting/1/change/ HTTP/1.1" 302 0
+INFO 2025-06-04 13:49:30,842 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 36549
+WARNING 2025-06-04 13:49:32,752 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:49:32,754 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:32,758 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:49:32,759 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:32,763 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:49:32,766 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:32,860 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:49:32,863 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:49:32,883 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:32,879 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:49:32,877 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:49:32,894 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:32,889 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:32,897 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,023 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:49:33,029 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,104 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:49:33,107 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:49:33,109 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,111 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:49:33,115 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,118 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,133 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:49:33,134 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,137 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:49:33,137 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,141 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:49:33,142 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,154 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:49:33,155 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,171 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:49:33,172 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,201 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:49:33,202 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,236 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:49:33,236 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:49:33,243 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 13:49:33,243 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:49:40,604 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 13:53:14,708 basehttp "GET /admin/landscaping_app/sitesetting/1/change/ HTTP/1.1" 200 44859
+WARNING 2025-06-04 13:53:14,736 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:53:14,740 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:53:14,742 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:53:14,746 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:53:14,749 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:53:14,753 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,753 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,752 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,755 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,755 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,809 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:53:14,809 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,825 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:53:14,825 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,830 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:53:14,831 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,839 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:53:14,842 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:53:14,845 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:53:14,846 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:53:14,848 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,848 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,862 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 13:53:14,849 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,849 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,863 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,866 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:53:14,868 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,914 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 13:53:14,915 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,920 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:53:14,921 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,944 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:53:14,944 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,948 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:53:14,948 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,956 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:53:14,958 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:53:14,959 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:14,960 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:53:15,008 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 13:53:15,009 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:53:16,948 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 13:54:22,690 basehttp "POST /admin/landscaping_app/sitesetting/1/change/ HTTP/1.1" 302 0
+INFO 2025-06-04 13:54:29,488 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 36550
+WARNING 2025-06-04 13:54:29,523 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:54:29,525 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:54:29,528 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:54:29,529 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:54:29,534 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:54:29,535 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,536 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,536 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,537 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,538 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,549 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:54:29,551 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:54:29,552 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:54:29,553 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:54:29,555 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:54:29,562 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,557 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,561 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,557 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,563 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,569 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:54:29,569 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,572 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:54:29,573 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,575 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:54:29,576 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,585 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:54:29,586 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,603 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:54:29,604 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,616 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:54:29,617 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,625 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:54:29,625 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,633 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:54:29,634 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:29,640 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 13:54:29,640 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:54:38,974 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 13:54:52,832 basehttp "GET /admin/landscaping_app/sitesetting/1/change/ HTTP/1.1" 200 44860
+WARNING 2025-06-04 13:54:52,857 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:54:52,858 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,862 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:54:52,864 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:54:52,866 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:54:52,872 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:54:52,873 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,878 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,879 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,883 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:54:52,887 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:54:52,890 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:54:52,890 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,891 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,892 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,897 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,895 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:54:52,899 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,908 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:54:52,910 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:54:52,911 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:54:52,913 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:54:52,914 log Not Found: /static/admin/js/change_form.js
+WARNING 2025-06-04 13:54:52,915 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,916 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,916 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,919 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,926 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,933 log Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-06-04 13:54:52,935 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:54:52,940 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,941 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,947 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:54:52,948 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,986 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:54:52,988 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,995 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:54:52,997 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:54:52,998 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:52,999 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:54:53,009 log Not Found: /static/jazzmin/js/change_form.js
+WARNING 2025-06-04 13:54:53,010 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:54:57,813 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 13:55:26,870 basehttp "POST /admin/landscaping_app/sitesetting/1/change/ HTTP/1.1" 302 0
+INFO 2025-06-04 13:55:34,295 basehttp "GET /admin/landscaping_app/sitesetting/ HTTP/1.1" 200 36549
+WARNING 2025-06-04 13:55:34,320 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 13:55:34,320 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,337 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 13:55:34,337 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,341 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 13:55:34,342 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,345 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 13:55:34,345 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,351 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 13:55:34,352 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,355 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 13:55:34,357 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,373 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 13:55:34,374 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,380 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 13:55:34,388 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,382 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 13:55:34,389 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,385 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 13:55:34,390 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,387 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 13:55:34,391 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,395 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 13:55:34,397 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,408 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 13:55:34,408 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,426 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 13:55:34,430 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,430 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 13:55:34,432 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,447 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 13:55:34,447 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,454 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 13:55:34,455 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,464 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 13:55:34,465 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 13:55:34,497 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 13:55:34,497 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 13:55:35,203 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-04 14:01:38,050 basehttp "GET /landscaping/ HTTP/1.1" 200 18658
+WARNING 2025-06-04 14:01:38,447 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:01:38,467 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:01:38,465 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:01:38,471 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:02:13,069 basehttp "GET /landscaping/services/ HTTP/1.1" 200 8870
+WARNING 2025-06-04 14:02:13,136 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:02:13,136 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:02:13,140 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:02:13,140 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:02:20,441 basehttp "GET /landscaping/about/ HTTP/1.1" 200 9792
+WARNING 2025-06-04 14:02:20,595 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:02:20,604 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:02:20,605 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:02:20,613 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:05:42,586 basehttp "GET /landscaping/about/ HTTP/1.1" 200 11178
+WARNING 2025-06-04 14:05:42,715 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:05:42,717 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:05:42,720 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:05:42,730 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:09:11,124 basehttp "GET /landscaping/about/ HTTP/1.1" 200 11170
+WARNING 2025-06-04 14:09:12,616 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:09:12,617 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:09:12,619 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:09:12,621 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:09:51,618 basehttp "GET /landscaping/contact/ HTTP/1.1" 200 9942
+WARNING 2025-06-04 14:09:52,202 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:09:52,206 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:09:52,203 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:09:52,213 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+INFO 2025-06-04 14:12:15,397 basehttp "GET /landscaping/contact/ HTTP/1.1" 200 9942
+WARNING 2025-06-04 14:12:15,496 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:12:15,501 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:12:15,499 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:12:15,504 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:12:29,158 basehttp "GET /landscaping/ HTTP/1.1" 200 18658
+WARNING 2025-06-04 14:12:29,251 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:12:29,253 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:12:29,256 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:12:29,259 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:13:06,322 basehttp "GET /landscaping/services/ HTTP/1.1" 200 8870
+WARNING 2025-06-04 14:13:06,413 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:13:06,416 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:13:06,417 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:13:06,420 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:13:20,700 basehttp "GET /landscaping/services/1/ HTTP/1.1" 200 8879
+WARNING 2025-06-04 14:13:20,728 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:13:20,729 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:13:20,746 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:13:20,749 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:18:14,821 basehttp "GET /landscaping/ HTTP/1.1" 200 18658
+WARNING 2025-06-04 14:18:14,887 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:18:14,892 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:18:14,893 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:18:14,896 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+ERROR 2025-06-04 14:21:25,328 log Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 269, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "aws-0-us-west-1.pooler.supabase.com" (54.177.55.191), port 6543 failed: malformed SCRAM message (attribute "r" expected)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 261, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapper_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/decorators/cache.py", line 62, in _wrapper_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 230, in inner
+    if not self.has_permission(request):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 203, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 266, in inner
+    self._setup()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 419, in _setup
+    self._wrapped = self._setupfunc()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 25, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 11, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 191, in get_user
+    user_id = _get_user_session_key(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 60, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 53, in __getitem__
+    return self._session[key]
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1560, in execute_sql
+    cursor = self.connection.cursor()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 329, in cursor
+    return self._cursor()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 305, in _cursor
+    self.ensure_connection()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 269, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "aws-0-us-west-1.pooler.supabase.com" (54.177.55.191), port 6543 failed: malformed SCRAM message (attribute "r" expected)
+
+ERROR 2025-06-04 14:21:25,435 basehttp "GET /admin/ HTTP/1.1" 500 145
+INFO 2025-06-04 14:25:08,284 basehttp "GET /landscaping/ HTTP/1.1" 200 18658
+WARNING 2025-06-04 14:25:08,355 log Not Found: /static/landscaping_app/css/style.css
+WARNING 2025-06-04 14:25:08,356 basehttp "GET /static/landscaping_app/css/style.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:08,369 log Not Found: /static/landscaping_app/js/main.js
+WARNING 2025-06-04 14:25:08,371 basehttp "GET /static/landscaping_app/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:25:41,531 basehttp "GET /admin/ HTTP/1.1" 200 92556
+WARNING 2025-06-04 14:25:41,699 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 14:25:41,713 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 14:25:41,714 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 14:25:41,720 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:41,723 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:41,726 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:41,865 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 14:25:41,865 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:41,969 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 14:25:41,973 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 14:25:41,977 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:41,978 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:41,990 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 14:25:42,002 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 14:25:42,005 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:25:42,006 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:27:05,504 basehttp "GET /admin/landscaping_app/project/ HTTP/1.1" 200 39548
+WARNING 2025-06-04 14:27:05,542 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 14:27:05,544 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 14:27:05,549 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 14:27:05,550 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 14:27:05,553 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 14:27:05,555 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,558 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,560 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,560 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,566 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 14:27:05,570 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 14:27:05,571 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,572 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,573 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,590 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 14:27:05,591 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,596 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 14:27:05,597 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,660 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 14:27:05,661 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,673 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 14:27:05,674 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,683 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 14:27:05,683 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,707 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 14:27:05,710 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 14:27:05,711 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,711 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,719 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 14:27:05,720 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,727 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 14:27:05,728 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,759 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 14:27:05,760 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,766 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 14:27:05,766 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:27:05,781 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 14:27:05,782 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+ERROR 2025-06-04 14:30:28,134 log Internal Server Error: /admin/landscaping_app/project/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 187, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 269, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "aws-0-us-west-1.pooler.supabase.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/options.py", line 688, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapper_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/views/decorators/cache.py", line 62, in _wrapper_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 230, in inner
+    if not self.has_permission(request):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/admin/sites.py", line 203, in has_permission
+    return request.user.is_active and request.user.is_staff
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 266, in inner
+    self._setup()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/functional.py", line 419, in _setup
+    self._wrapped = self._setupfunc()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 25, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/middleware.py", line 11, in get_user
+    request._cached_user = auth.get_user(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 191, in get_user
+    user_id = _get_user_session_key(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/auth/__init__.py", line 60, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 53, in __getitem__
+    return self._session[key]
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/base.py", line 192, in _get_session
+    self._session_cache = self.load()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 42, in load
+    s = self._get_session_from_db()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/sessions/backends/db.py", line 32, in _get_session_from_db
+    return self.model.objects.get(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1560, in execute_sql
+    cursor = self.connection.cursor()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 329, in cursor
+    return self._cursor()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 305, in _cursor
+    self.ensure_connection()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    self.connect()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/base/base.py", line 269, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: could not translate host name "aws-0-us-west-1.pooler.supabase.com" to address: Name or service not known
+
+ERROR 2025-06-04 14:30:28,263 basehttp "GET /admin/landscaping_app/project/ HTTP/1.1" 500 145
+INFO 2025-06-04 14:31:33,850 basehttp "GET /admin/landscaping_app/project/ HTTP/1.1" 200 39548
+WARNING 2025-06-04 14:31:33,878 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-04 14:31:33,878 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,895 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-04 14:31:33,897 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-04 14:31:33,899 log Not Found: /static/vendor/select2/css/select2.min.css
+WARNING 2025-06-04 14:31:33,905 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,901 log Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-06-04 14:31:33,907 log Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-06-04 14:31:33,908 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,911 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,911 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,913 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,922 log Not Found: /static/admin/js/core.js
+WARNING 2025-06-04 14:31:33,922 basehttp "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,925 log Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-06-04 14:31:33,927 log Not Found: /static/admin/js/actions.js
+WARNING 2025-06-04 14:31:33,929 log Not Found: /static/admin/js/urlify.js
+WARNING 2025-06-04 14:31:33,930 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,930 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,932 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,938 log Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-06-04 14:31:33,938 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,941 log Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-06-04 14:31:33,941 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,975 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-04 14:31:33,977 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-04 14:31:33,978 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,978 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,990 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-04 14:31:33,991 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:33,994 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-04 14:31:33,995 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:34,004 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-04 14:31:34,006 log Not Found: /static/vendor/select2/js/select2.min.js
+WARNING 2025-06-04 14:31:34,008 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:34,009 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-04 14:31:34,014 log Not Found: /static/jazzmin/js/change_list.js
+WARNING 2025-06-04 14:31:34,015 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 404 179
+INFO 2025-06-04 14:31:58,995 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-05 06:51:41,423 autoreload Watching for file changes with StatReloader
+INFO 2025-06-05 08:48:13,329 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/landscaping_app/admin.py changed, reloading.
+INFO 2025-06-05 08:48:25,813 autoreload Watching for file changes with StatReloader
+INFO 2025-06-05 09:03:22,176 basehttp "GET /admin/ HTTP/1.1" 200 92064
+WARNING 2025-06-05 09:03:23,427 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-05 09:03:23,430 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-05 09:03:23,437 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-05 09:03:23,439 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-05 09:03:23,444 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-05 09:03:23,445 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,450 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,467 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,470 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,472 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,466 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-05 09:03:23,475 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,858 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-05 09:03:23,859 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:23,862 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-05 09:03:23,863 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-05 09:03:24,491 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-05 09:03:24,493 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+INFO 2025-06-05 13:37:45,224 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/landscaping_app/admin.py changed, reloading.
+INFO 2025-06-05 13:37:57,857 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 11:22:51,255 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 11:24:03,442 basehttp "GET /admin/ HTTP/1.1" 200 92244
+WARNING 2025-06-09 11:24:04,113 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:24:04,121 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:24:04,126 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:04,135 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:04,131 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:24:04,141 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:04,946 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-09 11:24:04,949 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:04,973 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-09 11:24:04,974 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:04,997 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-09 11:24:04,998 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:05,162 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-09 11:24:05,165 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-09 11:24:05,169 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:24:05,167 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+INFO 2025-06-09 11:24:32,433 basehttp "GET /landscaping-admin HTTP/1.1" 301 0
+INFO 2025-06-09 11:32:33,598 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 11:33:23,263 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28683
+WARNING 2025-06-09 11:33:25,981 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:33:25,983 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:26,286 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:33:26,288 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:33:26,291 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-09 11:33:26,291 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:26,294 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:26,297 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-09 11:33:26,298 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:26,299 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:27,494 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-09 11:33:27,496 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:27,578 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:33:27,581 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:33:27,583 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:33:27,589 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:27,585 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:27,591 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:27,748 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-09 11:33:27,758 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:27,756 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-09 11:33:27,763 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:33:30,349 log Not Found: /static/path/to/logo.png
+WARNING 2025-06-09 11:33:30,353 basehttp "GET /static/path/to/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 11:42:09,849 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 11:42:43,905 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 11:44:10,080 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28250
+WARNING 2025-06-09 11:44:15,800 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:44:15,805 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,040 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:44:16,061 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,069 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 11:44:16,071 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:44:16,071 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,073 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-09 11:44:16,073 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,075 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-09 11:44:16,076 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-09 11:44:16,076 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,077 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,077 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:16,116 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-09 11:44:16,126 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:44:17,927 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 11:44:17,929 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 11:48:26,705 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28250
+WARNING 2025-06-09 11:48:27,056 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:48:27,057 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,120 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:48:27,131 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:48:27,133 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,136 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,200 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 11:48:27,201 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-09 11:48:27,206 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,214 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,266 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:48:27,269 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,273 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-09 11:48:27,276 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:48:27,281 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,279 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:48:27,289 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-09 11:48:27,289 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,295 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-09 11:48:27,296 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,296 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:48:27,298 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+INFO 2025-06-09 11:56:50,370 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 11:58:53,345 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28250
+WARNING 2025-06-09 11:58:54,980 log Not Found: /static/vendor/fontawesome-free/css/all.min.css
+WARNING 2025-06-09 11:58:54,981 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:54,986 log Not Found: /static/admin/js/vendor/jquery/jquery.js
+WARNING 2025-06-09 11:58:54,987 log Not Found: /static/vendor/adminlte/css/adminlte.min.css
+WARNING 2025-06-09 11:58:54,989 log Not Found: /static/jazzmin/css/main.css
+WARNING 2025-06-09 11:58:54,996 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:54,990 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 11:58:54,995 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:54,995 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:55,000 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:55,019 log Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+WARNING 2025-06-09 11:58:55,021 log Not Found: /static/vendor/adminlte/js/adminlte.min.js
+WARNING 2025-06-09 11:58:55,024 log Not Found: /static/jazzmin/js/main.js
+WARNING 2025-06-09 11:58:55,026 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:55,026 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 404 179
+WARNING 2025-06-09 11:58:55,030 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 404 179
+INFO 2025-06-09 12:00:07,247 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:00:32,193 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 12:01:11,750 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28250
+INFO 2025-06-09 12:01:11,964 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+INFO 2025-06-09 12:01:12,030 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+INFO 2025-06-09 12:01:12,052 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+INFO 2025-06-09 12:01:12,079 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-06-09 12:01:12,095 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+INFO 2025-06-09 12:01:12,100 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+INFO 2025-06-09 12:01:12,356 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+WARNING 2025-06-09 12:01:12,761 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1944
+INFO 2025-06-09 12:01:15,465 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+INFO 2025-06-09 12:01:15,655 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+INFO 2025-06-09 12:01:56,026 basehttp "GET /landscaping-admin/landscaping_app/contactmessage/ HTTP/1.1" 200 19971
+INFO 2025-06-09 12:01:56,310 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+INFO 2025-06-09 12:01:56,436 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-06-09 12:01:56,449 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 5682
+INFO 2025-06-09 12:01:56,451 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8943
+INFO 2025-06-09 12:01:56,453 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-06-09 12:01:56,460 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-06-09 12:01:56,488 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+WARNING 2025-06-09 12:01:56,513 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1944
+INFO 2025-06-09 12:01:56,750 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-06-09 12:01:57,026 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+INFO 2025-06-09 12:01:57,882 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+INFO 2025-06-09 12:01:58,970 basehttp "GET /landscaping-admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-09 12:02:13,707 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 200 21458
+WARNING 2025-06-09 12:02:13,950 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1944
+INFO 2025-06-09 12:02:14,955 basehttp "GET /landscaping-admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-09 12:05:10,508 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:05:43,812 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 12:07:26,725 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:07:42,899 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 12:10:36,423 log Internal Server Error: /landscaping-admin/landscaping_app/heroimage/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/templatetags/jazzmin.py", line 161, in get_jazzmin_ui_tweaks
+    return get_ui_tweaks()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/settings.py", line 313, in get_ui_tweaks
+    "theme": {"name": theme, "src": static(THEMES[theme])},
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 179, in static
+    return StaticNode.handle_simple(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'vendor/bootswatch/default/bootstrap.min.css'
+ERROR 2025-06-09 12:10:36,786 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 500 145
+WARNING 2025-06-09 12:10:42,514 log Not Found: /favicon.ico
+WARNING 2025-06-09 12:10:42,516 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-06-09 12:14:49,624 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:15:05,053 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 12:16:55,061 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:17:00,748 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 12:18:31,520 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:18:41,153 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 12:36:17,224 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 200 21452
+INFO 2025-06-09 12:36:22,605 basehttp "GET /landscaping-admin/jsi18n/ HTTP/1.1" 200 3343
+WARNING 2025-06-09 12:36:24,802 basehttp "GET /static/https:/your-cdn.com/logo.png HTTP/1.1" 404 1944
+WARNING 2025-06-09 12:36:58,243 basehttp "GET /static/https:/your-cdn.com/logo.png HTTP/1.1" 404 1944
+INFO 2025-06-09 12:40:18,816 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:41:54,977 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 12:53:32,366 log Internal Server Error: /landscaping-admin/landscaping_app/heroimage/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/templatetags/jazzmin.py", line 161, in get_jazzmin_ui_tweaks
+    return get_ui_tweaks()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/settings.py", line 313, in get_ui_tweaks
+    "theme": {"name": theme, "src": static(THEMES[theme])},
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 179, in static
+    return StaticNode.handle_simple(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'vendor/bootswatch/default/bootstrap.min.css'
+ERROR 2025-06-09 12:53:35,399 log Internal Server Error: /landscaping-admin/landscaping_app/heroimage/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/templatetags/jazzmin.py", line 161, in get_jazzmin_ui_tweaks
+    return get_ui_tweaks()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/settings.py", line 313, in get_ui_tweaks
+    "theme": {"name": theme, "src": static(THEMES[theme])},
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 179, in static
+    return StaticNode.handle_simple(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'vendor/bootswatch/default/bootstrap.min.css'
+ERROR 2025-06-09 12:53:35,404 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 500 145
+INFO 2025-06-09 12:57:45,315 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 12:57:59,719 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 12:58:33,705 log Internal Server Error: /landscaping-admin/landscaping_app/heroimage/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/templatetags/jazzmin.py", line 161, in get_jazzmin_ui_tweaks
+    return get_ui_tweaks()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/jazzmin/settings.py", line 313, in get_ui_tweaks
+    "theme": {"name": theme, "src": static(THEMES[theme])},
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 179, in static
+    return StaticNode.handle_simple(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'vendor/bootswatch/default/bootstrap.min.css'
+ERROR 2025-06-09 12:58:33,781 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 500 145
+INFO 2025-06-09 13:18:29,202 autoreload Watching for file changes with StatReloader
+ERROR 2025-06-09 13:19:05,476 log Internal Server Error: /landscaping-admin/landscaping_app/heroimage/
+Traceback (most recent call last):
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 116, in render
+    url = self.url(context)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 113, in url
+    return self.handle_simple(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/templatetags/static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 203, in url
+    return self._url(self.stored_name, name, force)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 182, in _url
+    hashed_name = hashed_name_func(*args)
+  File "/home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/django/contrib/staticfiles/storage.py", line 513, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for '/logo.png'
+ERROR 2025-06-09 13:19:05,501 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 500 145
+INFO 2025-06-09 13:20:56,378 autoreload /home/ronald/Desktop/mpesa Pay 4_6_2025/zab_pro/payments/settings.py changed, reloading.
+INFO 2025-06-09 13:20:58,902 autoreload Watching for file changes with StatReloader
+INFO 2025-06-09 13:21:36,657 basehttp "GET /landscaping-admin/landscaping_app/heroimage/ HTTP/1.1" 200 21466
+INFO 2025-06-09 13:21:37,498 basehttp "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 200 28035
+WARNING 2025-06-09 13:21:37,721 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 13:21:37,722 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+INFO 2025-06-09 13:21:37,801 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 200 21896
+INFO 2025-06-09 13:21:37,920 basehttp "GET /landscaping-admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-09 13:23:46,729 basehttp "GET /landscaping-admin/landscaping_app/heroimage/nuu HTTP/1.1" 301 0
+INFO 2025-06-09 13:23:47,735 basehttp "GET /landscaping-admin/landscaping_app/heroimage/nuu/ HTTP/1.1" 302 0
+INFO 2025-06-09 13:23:48,339 basehttp "GET /landscaping-admin/landscaping_app/heroimage/nuu/change/ HTTP/1.1" 302 0
+INFO 2025-06-09 13:23:51,504 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28802
+WARNING 2025-06-09 13:23:52,223 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 13:23:52,226 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179
+WARNING 2025-06-09 13:24:09,007 log Not Found: /landscaping-admin/jkiihik
+WARNING 2025-06-09 13:24:09,010 basehttp "GET /landscaping-admin/jkiihik HTTP/1.1" 404 179
+INFO 2025-06-09 13:25:02,595 basehttp "GET /landscaping-admin/ HTTP/1.1" 200 28250
+WARNING 2025-06-09 13:25:02,642 log Not Found: /static/https:/your-cdn.com/logo.png
+WARNING 2025-06-09 13:25:02,643 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 179

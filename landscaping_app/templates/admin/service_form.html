@@ -1,0 +1,30 @@
+<!-- templates/landscaping_app/admin/service_form.html -->
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'landscaping_app/css/admin.css' %}">
+<script src="{% static 'landscaping_app/js/admin.js' %}"></script>
+{% endblock %}
+
+{% block field_sets %}
+<div class="service-form-container">
+    {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" with fieldset=fieldset %}
+    {% endfor %}
+
+    <div class="form-row field-featured_image">
+        <div>
+            <label>Preview:</label>
+            <div class="image-preview">
+                {% if original.featured_image %}
+                <img src="{{ original.featured_image.url }}" alt="Service Preview" class="img-fluid">
+                {% else %}
+                <p class="text-muted">No image uploaded</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

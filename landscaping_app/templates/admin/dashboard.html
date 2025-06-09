@@ -1,0 +1,53 @@
+<!-- templates/landscaping_app/admin/dashboard.html -->
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h2>Welcome, {{ request.user.username }}</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Services</h5>
+                    <p class="card-text display-4">{{ stats.services_count }}</p>
+                    <a href="{% url 'landscaping_admin:landscaping_app_service_changelist' %}" class="text-white">Manage</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Projects</h5>
+                    <p class="card-text display-4">{{ stats.projects_count }}</p>
+                    <a href="{% url 'landscaping_admin:landscaping_app_project_changelist' %}" class="text-white">Manage</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Messages</h5>
+                    <p class="card-text display-4">{{ stats.messages_count }}</p>
+                    <a href="{% url 'landscaping_admin:landscaping_app_contactmessage_changelist' %}" class="text-white">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-actions mt-4">
+        <h4>Quick Actions</h4>
+        <div class="list-group">
+            <a href="{% url 'landscaping_admin:landscaping_app_sitesetting_change' site_settings.id %}" class="list-group-item list-group-item-action">
+                Update Site Settings
+            </a>
+            <a href="{% url 'landscaping_admin:landscaping_app_service_add' %}" class="list-group-item list-group-item-action">
+                Add New Service
+            </a>
+            <a href="{% url 'landscaping_admin:landscaping_app_project_add' %}" class="list-group-item list-group-item-action">
+                Add New Project
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

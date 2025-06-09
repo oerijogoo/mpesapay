@@ -1,0 +1,36 @@
+<!-- templates/landscaping_app/admin/settings_form.html -->
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'landscaping_app/css/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="settings-form-container">
+    <div class="row">
+        <div class="col-md-8">
+            {{ block.super }}
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Preview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="logo-preview mb-3">
+                        {% if original.logo %}
+                        <img src="{{ original.logo.url }}" alt="Logo Preview" class="img-fluid">
+                        {% else %}
+                        <p class="text-muted">No logo uploaded</p>
+                        {% endif %}
+                    </div>
+                    <h4>{{ original.business_name }}</h4>
+                    <p class="text-muted">{{ original.motto }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

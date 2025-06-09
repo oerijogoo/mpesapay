@@ -1,0 +1,28 @@
+/* static/landscaping_app/css/admin.css */
+.admin-dashboard .card {
+    transition: all 0.3s ease;
+}
+
+.admin-dashboard .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.settings-form-container .logo-preview {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.service-form-container .image-preview {
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+/* Customize the Django admin look */
+#header {
+    background-color: #28a745;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background-color: #218838;
+}

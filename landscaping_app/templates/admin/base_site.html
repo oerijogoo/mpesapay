@@ -1,0 +1,41 @@
+<!-- templates/admin/base_site.html -->
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_settings.business_name }} Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        {% if site_settings.logo %}
+        <img src="{{ site_settings.logo.url }}" height="40px" style="margin-right: 10px; vertical-align: middle;">
+        {% endif %}
+        {{ site_settings.business_name }} Administration
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+{% if site_settings %}
+<style>
+    :root {
+        --primary: #28a745;
+        --primary-dark: #218838;
+    }
+    #header {
+        background: var(--primary);
+    }
+    .module h2, .module caption, .inline-group h2 {
+        background: var(--primary-dark);
+    }
+    .selector-chosen h2 {
+        background: var(--primary-dark) !important;
+    }
+    input[type=submit], input[type=button], .submit-row input {
+        background: var(--primary);
+    }
+    input[type=submit]:hover, input[type=button]:hover {
+        background: var(--primary-dark);
+    }
+</style>
+{% endif %}
+{% endblock %}

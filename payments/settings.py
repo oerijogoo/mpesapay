@@ -81,6 +81,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ This line
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -209,6 +210,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
@@ -273,16 +276,23 @@ EMAIL_HOST_PASSWORD = 'tfnm helr ktfx lnwt'  # Use an app password if 2-Step Ver
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 JAZZMIN_SETTINGS = {
-    "site_title": "My Admin",
-    "site_header": "My Admin Dashboard",
-    "site_brand": "My Brand",
-    "site_logo": "path/to/logo.png",
-    "welcome_sign": "Welcome to My Admin",
-    "topmenu_links": [
-        {"name": "Home", "url": "/", "new_window": False},
-        {"name": "Docs", "url": "https://docs.djangoproject.com", "new_window": True},
-    ],
-    "nav_sidebar": True,  # Whether to display the sidebar or not
-    "theme": "default",   # You can choose from several built-in themes
+    "theme": "minty",  # Try another like 'cosmo', 'flatly', etc.
+    "site_title": "Landscaping Admin",
+    "site_header": "Landscaping Admin",
+    "site_brand": "Landscaping",
+    "site_logo": "https://your-cdn.com/logo.png",  # Cloudinary URL
+    "welcome_sign": "Welcome to Landscaping Admin",
+    "copyright": "Landscaping Ltd.",
+    "navigation_expanded": True,
+    "order_with_respect_to": ["landscaping_app"],
+    "icons": {
+        "landscaping_app.SiteSetting": "fas fa-cog",
+        "landscaping_app.Service": "fas fa-leaf",
+        "landscaping_app.Project": "fas fa-tools",
+        "landscaping_app.Testimonial": "fas fa-comments",
+        "landscaping_app.TeamMember": "fas fa-users",
+        "landscaping_app.ContactMessage": "fas fa-envelope",
+        "landscaping_app.HeroImage": "fas fa-image",
+    },
 }
 
