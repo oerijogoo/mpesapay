@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['joelandscappers.onrender.com', 'localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['https://joelandscappers.onrender.com']
 
 
 # Application definition
