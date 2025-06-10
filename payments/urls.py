@@ -25,7 +25,7 @@ from landscaping_app.landscaping_admin import landscaping_admin_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('landscaping_app.urls')),
+    path('', include('landscaping_app.urls')),
     path("landscaping-admin/", landscaping_admin_site.urls),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
