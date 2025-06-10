@@ -27,12 +27,17 @@ SECRET_KEY = 'django-insecure-sa)ik2hslcintl4(r)_-u@nsq1m%xw16@o_ye2i34&ze^(c2#f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["joelandscappers.onrender.com", "localhost", "127.0.0.1"]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://joelandscappers.onrender.com",
+ALLOWED_HOSTS = [
+    "joelandscappers.onrender.com",
+    "localhost",
+    "127.0.0.1"
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://joelandscappers.onrender.com"
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 
