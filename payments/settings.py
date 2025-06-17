@@ -67,13 +67,7 @@ INSTALLED_APPS = [
     # 'exams',
     'school',
     # 'staff',
-    # 'teachers',
-    # 'parents',
-    # 'academics',
-    # 'finance',
-    # 'reports',
-    # 'non_teaching_staff',
-    # 'reports.apps.ReportsConfig',
+
 
 
 

@@ -12026,3 +12026,9 @@ INFO 2025-06-17 19:32:56,835 autoreload /home/ronald/Desktop/kibet/school/urls.p
 INFO 2025-06-17 19:33:08,392 autoreload Watching for file changes with StatReloader
 INFO 2025-06-17 19:38:11,406 autoreload /home/ronald/Desktop/kibet/school/urls.py changed, reloading.
 INFO 2025-06-17 19:38:22,700 autoreload Watching for file changes with StatReloader
+INFO 2025-06-17 23:12:13,446 autoreload Watching for file changes with StatReloader
+INFO 2025-06-17 23:15:48,668 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-17 23:17:07,780 autoreload Watching for file changes with StatReloader
+INFO 2025-06-17 23:18:54,671 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-17 23:19:45,123 autoreload Watching for file changes with StatReloader
+INFO 2025-06-17 23:20:54,416 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
