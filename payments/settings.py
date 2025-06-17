@@ -32,10 +32,15 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1"
 ]
+# settings.py
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://myschool-hy05.onrender.com"
+    "https://myschool-hy05.onrender.com",
 ]
+
+
+
+
 
 # Application definition
 
