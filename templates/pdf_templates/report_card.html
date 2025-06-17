@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Card - {{ report_card.student.user.get_full_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 80px;
+        }
+        .header h1 {
+            margin: 5px 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .student-info {
+            margin-bottom: 20px;
+        }
+        .student-info table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-info th, .student-info td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .marks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .marks-table th, .marks-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .marks-table th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: right;
+        }
+        .signature {
+            margin-top: 50px;
+            border-top: 1px solid #000;
+            width: 200px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        {% if school.logo %}
+        <img src="{{ school.logo.url }}" alt="{{ school.name }} Logo">
+        {% endif %}
+        <h1>{{ school.name }}</h1>
+        <p>{{ school.location }}</p>
+        <p>{{ school.motto }}</p>
+        <h2>REPORT CARD</h2>
+        <p>{{ report_card.term }} - {{ report_card.term.session }}</p>
+    </div>
+
+    <div class="student-info">
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <td>{{ report_card.student.user.get_full_name }}</td>
+                <th>Admission No.</th>
+                <td>{{ report_card.student.admission_number }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{ report_card.student.current_class }}</td>
+                <th>Term</th>
+                <td>{{ report_card.term }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="marks-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Position</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.subject }}</td>
+                <td>{{ item.marks }}</td>
+                <td>{{ item.grade }}</td>
+                <td>{{ item.position }}</td>
+                <td>{{ item.teacher_comment }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="remarks">
+        <p><strong>Class Teacher's Remarks:</strong> {{ report_card.remarks }}</p>
+    </div>
+
+    <div class="footer">
+        <p>Date: {{ report_card.date_created|date:"d/m/Y" }}</p>
+        <div class="signature">
+            <p>Head Teacher</p>
+        </div>
+    </div>
+</body>
+</html>

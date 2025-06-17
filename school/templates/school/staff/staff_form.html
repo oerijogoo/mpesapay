@@ -1,0 +1,100 @@
+{% extends 'school/base.html' %}
+
+{% block title %}{% if staff_form.instance.pk %}Edit{% else %}Add{% endif %} Staff{% endblock %}
+{% block heading %}{% if staff_form.instance.pk %}Edit{% else %}Add{% endif %} Staff{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-person-badge"></i> {% if staff_form.instance.pk %}Edit{% else %}Add{% endif %} Staff</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h6 class="mb-3">Personal Information</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_first_name" class="form-label">First Name</label>
+                            {{ user_form.first_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_last_name" class="form-label">Last Name</label>
+                            {{ user_form.last_name }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_username" class="form-label">Username</label>
+                            {{ user_form.username }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ user_form.email }}
+                        </div>
+                    </div>
+
+                    {% if not staff_form.instance.pk %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_password1" class="form-label">Password</label>
+                            {{ user_form.password1 }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_password2" class="form-label">Confirm Password</label>
+                            {{ user_form.password2 }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <hr class="my-4">
+                    <h6 class="mb-3">Staff Details</h6>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_staff_id" class="form-label">Staff ID</label>
+                            {{ staff_form.staff_id }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_type" class="form-label">Staff Type</label>
+                            {{ staff_form.type }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_phone" class="form-label">Phone</label>
+                            {{ staff_form.phone }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_photo" class="form-label">Photo</label>
+                            {{ staff_form.photo }}
+                            {% if staff_form.instance.photo %}
+                                <div class="mt-2">
+                                    <img src="{{ staff_form.instance.photo.url }}" alt="Current photo" style="max-height: 100px;">
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="photo-clear" id="photo-clear_id">
+                                        <label class="form-check-label" for="photo-clear_id">Remove photo</label>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_address" class="form-label">Address</label>
+                        {{ staff_form.address }}
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'school:staff_list' %}" class="btn btn-secondary me-md-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

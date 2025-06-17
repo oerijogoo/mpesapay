@@ -1,0 +1,78 @@
+<!-- templates/core/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- Hero Section -->
+            <div class="hero-section text-center py-5 bg-light">
+                {% if school_settings and school_settings.logo %}
+                    <img src="{{ school_settings.logo.url }}" alt="{{ school_settings.school_name }}" class="img-fluid mb-4" style="max-height: 150px;">
+                {% endif %}
+                <h1 class="display-4">{% if school_settings %}{{ school_settings.school_name }}{% else %}School Management System{% endif %}</h1>
+                <p class="lead">{% if school_settings %}{{ school_settings.motto }}{% else %}Excellence in Education{% endif %}</p>
+
+                {% if not user.is_authenticated %}
+                    <div class="mt-4">
+                        <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg mx-2">Login</a>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary btn-lg mx-2">Register</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Features Section -->
+            <div class="row my-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-graduate fa-3x mb-3 text-primary"></i>
+                            <h3>Student Management</h3>
+                            <p>Comprehensive student records, attendance tracking, and performance monitoring.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chalkboard-teacher fa-3x mb-3 text-primary"></i>
+                            <h3>Teacher Portal</h3>
+                            <p>Tools for teachers to manage classes, record marks, and track student progress.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-file-alt fa-3x mb-3 text-primary"></i>
+                            <h3>Reporting</h3>
+                            <p>Generate detailed reports, transcripts, and academic performance analysis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="row my-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">About Our School</h2>
+                            {% if school_settings and school_settings.about %}
+                                <p>{{ school_settings.about }}</p>
+                            {% else %}
+                                <p>Information about the school will appear here once configured by the administrator.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

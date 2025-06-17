@@ -1,0 +1,69 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Student Reports{% endblock %}
+{% block heading %}Student Reports{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-people-fill"></i> Student Reports</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Admission No.</th>
+                        <th>Class</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            {% if student.photo %}
+                                <img src="{{ student.photo.url }}" class="avatar" alt="{{ student.user.get_full_name }}">
+                            {% else %}
+                                <img src="{% static 'images/default-avatar.png' %}" class="avatar" alt="{{ student.user.get_full_name }}">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'student_detail' student.pk %}">{{ student.user.get_full_name }}</a>
+                        </td>
+                        <td>{{ student.admission_number }}</td>
+                        <td>{{ student.current_class|default:"-" }}</td>
+                        <td>
+                            {% if student.is_active %}
+                                <span class="badge bg-success">Active</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-file-earmark-text"></i> Report
+                                </a>
+                                <a href="#" class="btn btn-outline-success">
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No students found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

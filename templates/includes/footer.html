@@ -1,0 +1,24 @@
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row text-muted">
+            <div class="col-6 text-start">
+                <p class="mb-0">
+                    <strong>{{ school_info.name|default:"School Name" }}</strong> &copy; {% now "Y" %}
+                </p>
+            </div>
+            <div class="col-6 text-end">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="#">Contact: {{ school_info.phone|default:"+254 XXX XXX XXX" }}</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="#">Email: {{ school_info.email|default:"info@school.com" }}</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="#">Location: {{ school_info.location|default:"Nairobi, Kenya" }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

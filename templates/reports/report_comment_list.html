@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Report Comments{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Report Comments</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{% url 'reports:report_comment_create' %}" class="btn btn-sm btn-outline-primary">
+            <i class="fas fa-plus me-1"></i> Add Comment
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Academic Year</th>
+                        <th>Term</th>
+                        <th>Class</th>
+                        <th>Type</th>
+                        <th>Comment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                    <tr>
+                        <td>{{ comment.academic_year }}</td>
+                        <td>{{ comment.term }}</td>
+                        <td>{{ comment.class_name }}</td>
+                        <td>
+                            {% if comment.is_for_good_performance %}
+                                <span class="badge bg-success">Good</span>
+                            {% else %}
+                                <span class="badge bg-warning">Needs Improvement</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ comment.comment|truncatewords:5 }}</td>
+                        <td>
+                            <a href="{% url 'reports:report_comment_update' comment.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'reports:report_comment_delete' comment.pk %}" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No comments found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

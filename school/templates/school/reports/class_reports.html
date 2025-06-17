@@ -1,0 +1,51 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Class Reports{% endblock %}
+{% block heading %}Class Reports{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-people-fill"></i> Class Reports</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Class</th>
+                        <th>Code</th>
+                        <th>Students</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for class in classes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ class.name }}</td>
+                        <td>{{ class.code }}</td>
+                        <td>{{ class.student_set.count }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-file-earmark-text"></i> Report
+                                </a>
+                                <a href="#" class="btn btn-outline-success">
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No classes found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

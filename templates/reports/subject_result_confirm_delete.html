@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Subject Result{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Delete Subject Result</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <p>Are you sure you want to delete result for "{{ subject_result.subject }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="{% url 'reports:report_detail' subject_result.report_card.pk %}" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'school/base.html' %}
+
+{% block title %}{{ exam.name }} Marks{% endblock %}
+{% block heading %}{{ exam.name }} - Marks{% endblock %}
+
+{% block actions %}
+<div class="btn-group">
+    <a href="#" class="btn btn-sm btn-primary">
+        <i class="bi bi-upload"></i> Import Marks
+    </a>
+    <a href="#" class="btn btn-sm btn-success">
+        <i class="bi bi-download"></i> Export Marks
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-list-check"></i> {{ exam.name }} - {{ exam.term.academic_year }} {{ exam.term.get_term_display }}</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Student</th>
+                        <th>Admission No.</th>
+                        <th>Class</th>
+                        {% for subject in subjects %}
+                            <th>{{ subject.code }}</th>
+                        {% endfor %}
+                        <th>Total</th>
+                        <th>Average</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student, marks in student_marks.items %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <a href="{% url 'student_detail' student.pk %}">
+                                {{ student.user.get_full_name }}
+                            </a>
+                        </td>
+                        <td>{{ student.admission_number }}</td>
+                        <td>{{ student.current_class }}</td>
+
+                        {% for subject in subjects %}
+                            <td>
+                                {% if marks|get_item:subject.pk %}
+                                    {{ marks|get_item:subject.pk }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+
+                        <td>{{ marks.total|default:"-" }}</td>
+                        <td>{{ marks.average|default:"-" }}</td>
+                        <td>{{ marks.grade|default:"-" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="{{ subjects|length|add:6 }}" class="text-center">No marks recorded yet</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

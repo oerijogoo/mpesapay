@@ -1,0 +1,66 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Payments{% endblock %}
+{% block heading %}Payment Records{% endblock %}
+
+{% block actions %}
+<a href="{% url 'payment_add' %}" class="btn btn-sm btn-primary">
+    <i class="bi bi-plus-circle"></i> Add Payment
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-cash-coin"></i> Payment Records</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Receipt No.</th>
+                        <th>Student</th>
+                        <th>Term</th>
+                        <th>Class</th>
+                        <th>Amount (KES)</th>
+                        <th>Method</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ payment.transaction_date|date:"d/m/Y" }}</td>
+                        <td>{{ payment.receipt_number }}</td>
+                        <td>
+                            <a href="{% url 'student_detail' payment.student.pk %}">
+                                {{ payment.student.user.get_full_name }}
+                            </a>
+                        </td>
+                        <td>{{ payment.fee_structure.term }}</td>
+                        <td>{{ payment.fee_structure.class_level }}</td>
+                        <td>{{ payment.amount_paid }}</td>
+                        <td>{{ payment.get_payment_method_display }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-printer"></i> Receipt
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9" class="text-center">No payment records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

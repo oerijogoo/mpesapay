@@ -1,0 +1,73 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Academic Years{% endblock %}
+{% block heading %}Academic Years{% endblock %}
+
+{% block actions %}
+<a href="{% url 'school:academic_year_add' %}" class="btn btn-sm btn-primary">
+    <i class="bi bi-plus-circle"></i> Add Year
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-calendar-range"></i> Academic Years</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Terms</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for year in years %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ year.name }}</td>
+                        <td>{{ year.start_date|date:"d/m/Y" }}</td>
+                        <td>{{ year.end_date|date:"d/m/Y" }}</td>
+                        <td>
+                            {% for term in year.term_set.all %}
+                                <span class="badge bg-secondary">{{ term.get_term_display }}</span>
+                            {% empty %}
+                                No terms
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if year.is_active %}
+                                <span class="badge bg-success">Active</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{% url 'school:academic_year_edit' year.pk %}" class="btn btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="{% url 'school:term_add' %}?year={{ year.pk }}" class="btn btn-outline-info">
+                                    <i class="bi bi-plus-lg"></i> Term
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No academic years found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

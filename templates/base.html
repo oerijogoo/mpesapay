@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kenya Primary School Management{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+
+        body {
+            font-size: 0.9rem;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background-color: var(--secondary-color);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 8px;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 12px 20px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table th {
+            background-color: var(--light-color);
+            white-space: nowrap;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.85rem;
+            }
+
+            .sidebar {
+                min-height: auto;
+                margin-bottom: 20px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-dark" id="sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        {% with config=SchoolConfig.objects.first %}
+                            {% if config and config.school_logo %}
+                                <img src="{{ config.school_logo.url }}" alt="School Logo" style="max-height: 80px; max-width: 100%;">
+                            {% else %}
+                                <h5 class="text-white">School Logo</h5>
+                            {% endif %}
+                        {% endwith %}
+                        <h6 class="text-white mt-2">
+                            {% with config=SchoolConfig.objects.first %}
+                                {{ config.school_name|default:"School Name" }}
+                            {% endwith %}
+                        </h6>
+                    </div>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+
+                        <!-- Academic -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'academic' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#academicMenu">
+                                <i class="bi bi-journal-bookmark"></i> Academic
+                            </a>
+                            <div class="collapse {% if 'academic' in request.resolver_match.url_name %}show{% endif %}" id="academicMenu">
+                                <ul class="nav flex-column ps-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'academic_years' %}active{% endif %}" href="{% url 'academic_years' %}">
+                                            <i class="bi bi-calendar-range"></i> Academic Years
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'terms' %}active{% endif %}" href="{% url 'terms' %}">
+                                            <i class="bi bi-calendar-week"></i> Terms
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'classes' %}active{% endif %}" href="{% url 'classes' %}">
+                                            <i class="bi bi-people-fill"></i> Classes
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'subjects' %}active{% endif %}" href="{% url 'subjects' %}">
+                                            <i class="bi bi-book"></i> Subjects
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- People -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'staff' in request.resolver_match.url_name or 'student' in request.resolver_match.url_name or 'parent' in request.resolver_match.url_name %}active{% endif %}" data-bs-toggle="collapse" href="#peopleMenu">
+                                <i class="bi bi-people"></i> People
+                            </a>
+                            <div class="collapse {% if 'staff' in request.resolver_match.url_name or 'student' in request.resolver_match.url_name or 'parent' in request.resolver_match.url_name %}show{% endif %}" id="peopleMenu">
+                                <ul class="nav flex-column ps-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'staff_list' %}active{% endif %}" href="{% url 'staff_list' %}">
+                                            <i class="bi bi-person-badge"></i> Staff
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'students' %}active{% endif %}" href="{% url 'students' %}">
+                                            <i class="bi bi-person-video2"></i> Students
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'parents' %}active{% endif %}" href="{% url 'parents' %}">
+                                            <i class="bi bi-person-arms-up"></i> Parents
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Examination -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'exam' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'exams' %}">
+                                <i class="bi bi-clipboard-data"></i> Examinations
+                            </a>
+                        </li>
+
+                        <!-- Finance -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'fee' in request.resolver_match.url_name or 'payment' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'fee_structures' %}">
+                                <i class="bi bi-cash-stack"></i> Finance
+                            </a>
+                        </li>
+
+                        <!-- Reports -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'report' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'student_reports' %}">
+                                <i class="bi bi-graph-up"></i> Reports
+                            </a>
+                        </li>
+
+                        <!-- Settings -->
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'school_config' %}active{% endif %}" href="{% url 'school_config' %}">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h4">{% block heading %}{% endblock %}</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        {% block actions %}{% endblock %}
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i> {{ request.user.get_full_name }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'password_change' %}"><i class="bi bi-key"></i> Change Password</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

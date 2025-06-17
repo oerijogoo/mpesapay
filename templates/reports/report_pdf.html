@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Report Card - {{ report.student.user.get_full_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .school-motto {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .report-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        .student-info {
+            margin-bottom: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .summary {
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .signature {
+            margin-top: 60px;
+            border-top: 1px solid #000;
+            width: 200px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        {% if school.logo %}
+        <img src="{{ school.logo.url }}" alt="School Logo" style="height: 80px;">
+        {% endif %}
+        <div class="school-name">{{ school.name }}</div>
+        <div class="school-motto">{{ school.motto }}</div>
+        <div>P.O. Box {{ school.address }}, {{ school.phone }}, {{ school.email }}</div>
+    </div>
+
+    <div class="report-title">REPORT CARD</div>
+
+    <div class="student-info">
+        <table class="table">
+            <tr>
+                <th>Student Name:</th>
+                <td>{{ report.student.user.get_full_name }}</td>
+                <th>Admission No:</th>
+                <td>{{ report.student.admission_number }}</td>
+            </tr>
+            <tr>
+                <th>Academic Year:</th>
+                <td>{{ report.academic_year }}</td>
+                <th>Term:</th>
+                <td>{{ report.term }}</td>
+            </tr>
+            <tr>
+                <th>Class:</th>
+                <td>{{ report.class_name }}</td>
+                <th>Date:</th>
+                <td>{{ report.date_created|date:"F j, Y" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="performance">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Exam</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in subject_results %}
+                <tr>
+                    <td>{{ result.subject }}</td>
+                    <td>{{ result.exam }}</td>
+                    <td>{{ result.marks }}</td>
+                    <td>{{ result.grade }}</td>
+                    <td>{{ result.remarks|default:"-" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="summary">
+        <table class="table">
+            <tr>
+                <th>Total Marks:</th>
+                <td>{{ total_marks }}</td>
+                <th>Average:</th>
+                <td>{{ average|floatformat:2 }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="remarks">
+        <h4>Remarks:</h4>
+        <p>{{ report.remarks|default:"No remarks provided." }}</p>
+
+        <h4>Class Teacher's Comment:</h4>
+        <p>{{ comment|default:"No comment provided." }}</p>
+    </div>
+
+    <div class="footer">
+        <div style="float: left; width: 45%; text-align: center;">
+            <div class="signature"></div>
+            <div>Class Teacher's Signature</div>
+        </div>
+        <div style="float: right; width: 45%; text-align: center;">
+            <div class="signature"></div>
+            <div>Head Teacher's Signature</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</body>
+</html>

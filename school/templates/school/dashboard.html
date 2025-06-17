@@ -1,0 +1,184 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+{% block heading %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- School Info Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+                <i class="bi bi-building me-2"></i>
+                <h6 class="mb-0">School Information</h6>
+            </div>
+            <div class="card-body">
+                {% with config=SchoolConfig.objects.first %}
+                    {% if config %}
+                        <div class="text-center mb-3">
+                            {% if config.school_logo %}
+                                <img src="{{ config.school_logo.url }}" alt="School Logo" style="max-height: 80px; max-width: 100%;" class="mb-2">
+                            {% endif %}
+                            <h5>{{ config.school_name }}</h5>
+                            <p class="text-muted mb-1">{{ config.motto }}</p>
+                            <small class="text-muted">{{ config.location }}</small>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Current Academic Year
+                                <span class="badge bg-primary rounded-pill">{{ config.current_academic_year|default:"Not set" }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Current Term
+                                <span class="badge bg-primary rounded-pill">{{ config.current_term|default:"Not set" }}</span>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <div class="alert alert-warning">School configuration not set</div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+                <i class="bi bi-people-fill me-2"></i>
+                <h6 class="mb-0">Students</h6>
+            </div>
+            <div class="card-body text-center">
+                <h1 class="display-5">{{ stats.students }}</h1>
+                <p class="text-muted">Total Students</p>
+                <a href="{% url 'school:students' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+                <i class="bi bi-person-badge me-2"></i>
+                <h6 class="mb-0">Staff</h6>
+            </div>
+            <div class="card-body text-center">
+                <h1 class="display-5">{{ stats.staff }}</h1>
+                <p class="text-muted">Total Staff</p>
+                <a href="{% url 'school:staff_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+                <i class="bi bi-person-arms-up me-2"></i>
+                <h6 class="mb-0">Parents</h6>
+            </div>
+            <div class="card-body text-center">
+                <h1 class="display-5">{{ stats.parents }}</h1>
+                <p class="text-muted">Total Parents</p>
+                <a href="{% url 'school:parents' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Students -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-people-fill me-2"></i> Recent Students</h6>
+                <a href="{% url 'school:students' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Admission No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in recent_students %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="{% url 'school:student_detail' student.pk %}">
+                                        {% if student.photo %}
+                                            <img src="{{ student.photo.url }}" class="avatar me-2" alt="{{ student.user.get_full_name }}">
+                                        {% else %}
+                                            <img src="{% static 'images/default-avatar.png' %}" class="avatar me-2" alt="{{ student.user.get_full_name }}">
+                                        {% endif %}
+                                        {{ student.user.get_full_name }}
+                                    </a>
+                                </td>
+                                <td>{{ student.current_class }}</td>
+                                <td>{{ student.admission_number }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No students found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Staff -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-person-badge me-2"></i> Recent Staff</h6>
+                <a href="{% url 'school:staff_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Staff ID</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for staff in recent_staff %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="{% url 'school:staff_detail' staff.pk %}">
+                                        {% if staff.photo %}
+                                            <img src="{{ staff.photo.url }}" class="avatar me-2" alt="{{ staff.user.get_full_name }}">
+                                        {% else %}
+                                            <img src="{% static 'images/default-avatar.png' %}" class="avatar me-2" alt="{{ staff.user.get_full_name }}">
+                                        {% endif %}
+                                        {{ staff.user.get_full_name }}
+                                    </a>
+                                </td>
+                                <td>{{ staff.staff_id }}</td>
+                                <td><span class="badge bg-{% if staff.type == 'TEACHING' %}primary{% else %}secondary{% endif %}">{{ staff.get_type_display }}</span></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No staff found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

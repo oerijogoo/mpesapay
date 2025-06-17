@@ -1,0 +1,131 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}{{ staff.user.get_full_name }}{% endblock %}
+{% block heading %}Staff Details{% endblock %}
+
+{% block actions %}
+<div class="btn-group">
+    <a href="{% url 'school:staff_edit' staff.pk %}" class="btn btn-sm btn-primary">
+        <i class="bi bi-pencil"></i> Edit
+    </a>
+    <a href="#" class="btn btn-sm btn-outline-danger">
+        <i class="bi bi-trash"></i> Delete
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                {% if staff.photo %}
+                    <img src="{{ staff.photo.url }}" alt="{{ staff.user.get_full_name }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <img src="{% static 'images/default-avatar.png' %}" alt="{{ staff.user.get_full_name }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% endif %}
+                <h4>{{ staff.user.get_full_name }}</h4>
+                <p class="text-muted mb-1">{{ staff.staff_id }}</p>
+                <p class="text-muted">{{ staff.get_type_display }}</p>
+
+                <div class="d-flex justify-content-center mb-2">
+                    <span class="badge bg-{% if staff.is_active %}success{% else %}secondary{% endif %}">
+                        {% if staff.is_active %}Active{% else %}Inactive{% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-info-circle"></i> Basic Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Email:</div>
+                    <div class="col-6">{{ staff.user.email|default:"-" }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Phone:</div>
+                    <div class="col-6">{{ staff.phone|default:"-" }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Date Joined:</div>
+                    <div class="col-6">{{ staff.date_joined|date:"d/m/Y" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 fw-bold">Status:</div>
+                    <div class="col-6">
+                        {% if staff.is_active %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-geo-alt"></i> Contact Information</h6>
+            </div>
+            <div class="card-body">
+                <address>
+                    {{ staff.address|linebreaks|default:"No address provided" }}
+                </address>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#profile">Profile</a>
+                    </li>
+                    {% if staff.type == 'TEACHING' %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#subjects">Subjects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#classes">Classes</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="profile">
+                        <h5 class="mb-3">Staff Profile</h5>
+                        <!-- Profile content here -->
+                        <div class="alert alert-info">
+                            Staff profile details will be displayed here
+                        </div>
+                    </div>
+
+                    {% if staff.type == 'TEACHING' %}
+                    <div class="tab-pane fade" id="subjects">
+                        <h5 class="mb-3">Assigned Subjects</h5>
+                        <!-- Subjects content here -->
+                        <div class="alert alert-info">
+                            Assigned subjects will be displayed here
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="classes">
+                        <h5 class="mb-3">Class Teacher</h5>
+                        <!-- Classes content here -->
+                        <div class="alert alert-info">
+                            Class teacher assignments will be displayed here
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand navbar-light navbar-bg">
+    <a class="sidebar-toggle">
+        <i class="hamburger align-self-center"></i>
+    </a>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                    <i class="fas fa-cog"></i>
+                </a>
+
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" class="avatar img-fluid rounded-circle me-1" alt="Profile" />
+                    {% else %}
+                        <img src="{% static 'img/avatar.png' %}" class="avatar img-fluid rounded-circle me-1" alt="Profile" />
+                    {% endif %}
+                    <span class="text-dark">{{ user.get_full_name|default:user.username }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user me-2"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt me-2"></i> Log out</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

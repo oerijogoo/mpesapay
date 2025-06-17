@@ -1,0 +1,106 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}{{ parent.user.get_full_name }}{% endblock %}
+{% block heading %}Parent Details{% endblock %}
+
+{% block actions %}
+<div class="btn-group">
+    <a href="{% url 'school:parent_edit' parent.pk %}" class="btn btn-sm btn-primary">
+        <i class="bi bi-pencil"></i> Edit
+    </a>
+    <a href="#" class="btn btn-sm btn-outline-danger">
+        <i class="bi bi-trash"></i> Delete
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                {% if parent.photo %}
+                    <img src="{{ parent.photo.url }}" alt="{{ parent.user.get_full_name }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <img src="{% static 'images/default-avatar.png' %}" alt="{{ parent.user.get_full_name }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% endif %}
+                <h4>{{ parent.user.get_full_name }}</h4>
+                <p class="text-muted">{{ parent.occupation|default:"Parent/Guardian" }}</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-info-circle"></i> Contact Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Email:</div>
+                    <div class="col-6">{{ parent.user.email|default:"-" }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Phone:</div>
+                    <div class="col-6">{{ parent.phone|default:"-" }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6 fw-bold">Address:</div>
+                    <div class="col-6">{{ parent.address|linebreaks|default:"-" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-people-fill"></i> Children</h6>
+            </div>
+            <div class="card-body">
+                {% if parent.student_set.all %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Photo</th>
+                                    <th>Name</th>
+                                    <th>Admission No.</th>
+                                    <th>Class</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in parent.student_set.all %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>
+                                        {% if student.photo %}
+                                            <img src="{{ student.photo.url }}" class="avatar" alt="{{ student.user.get_full_name }}">
+                                        {% else %}
+                                            <img src="{% static 'images/default-avatar.png' %}" class="avatar" alt="{{ student.user.get_full_name }}">
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'school:student_detail' student.pk %}">{{ student.user.get_full_name }}</a>
+                                    </td>
+                                    <td>{{ student.admission_number }}</td>
+                                    <td>{{ student.current_class|default:"-" }}</td>
+                                    <td>
+                                        <a href="{% url 'school:student_detail' student.pk %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info mb-0">No children assigned</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

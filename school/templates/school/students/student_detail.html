@@ -1,0 +1,141 @@
+{% extends 'school/base.html' %}
+{% load static %}
+
+{% block title %}{{ student.user.get_full_name }}{% endblock %}
+{% block heading %}Student Details{% endblock %}
+
+{% block actions %}
+<div class="btn-group">
+    <a href="{% url 'school:student_edit' student.pk %}" class="btn btn-sm btn-primary">
+        <i class="bi bi-pencil"></i> Edit
+    </a>
+    <a href="#" class="btn btn-sm btn-outline-danger">
+        <i class="bi bi-trash"></i> Delete
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                {% if student.photo %}
+                    <img src="{{ student.photo.url }}" alt="{{ student.user.get_full_name }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <img src="{% static 'images/default-avatar.png' %}" alt="{{ student.user.get_full_name }}" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% endif %}
+                <h4>{{ student.user.get_full_name }}</h4>
+                <p class="text-muted mb-1">{{ student.admission_number }}</p>
+                <p class="text-muted">{{ student.current_class|default:"No class assigned" }}</p>
+
+                <div class="d-flex justify-content-center mb-2">
+                    <span class="badge bg-{% if student.gender == 'M' %}primary{% else %}danger{% endif %}">
+                        {{ student.get_gender_display }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-info-circle"></i> Basic Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Date of Birth:</div>
+                    <div class="col-6">{{ student.date_of_birth|date:"d/m/Y"|default:"-" }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Age:</div>
+                    <div class="col-6">{{ student.age|default:"-" }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6 fw-bold">Status:</div>
+                    <div class="col-6">
+                        {% if student.is_active %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 fw-bold">Admission Date:</div>
+                    <div class="col-6">{{ student.admission_date|date:"d/m/Y" }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-people-fill"></i> Parents/Guardians</h6>
+            </div>
+            <div class="card-body">
+                {% if student.parents.all %}
+                    <ul class="list-group list-group-flush">
+                        {% for parent in student.parents.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <h6 class="mb-1">{{ parent.user.get_full_name }}</h6>
+                                <small class="text-muted">{{ parent.phone }}</small>
+                            </div>
+                            <a href="{% url 'school:parent_detail' parent.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="alert alert-info mb-0">No parents/guardians assigned</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#academic">Academic</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#exams">Exams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#fees">Fees</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="academic">
+                        <h5 class="mb-3">Academic Progress</h5>
+                        <!-- Academic content here -->
+                        <div class="alert alert-info">
+                            Academic records will be displayed here
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="exams">
+                        <h5 class="mb-3">Exam Results</h5>
+                        <!-- Exam content here -->
+                        <div class="alert alert-info">
+                            Exam results will be displayed here
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="fees">
+                        <h5 class="mb-3">Fee Payments</h5>
+                        <!-- Fee content here -->
+                        <div class="alert alert-info">
+                            Fee payment history will be displayed here
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

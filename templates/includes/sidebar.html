@@ -1,0 +1,78 @@
+<nav id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        {% if school_info.logo %}
+            <img src="{{ school_info.logo.url }}" alt="School Logo" class="school-logo img-fluid">
+        {% else %}
+            <div class="school-logo-placeholder">
+                <i class="fas fa-school"></i>
+            </div>
+        {% endif %}
+        <h3>{{ school_info.name|default:"School Name" }}</h3>
+        <p>{{ school_info.motto|default:"School Motto" }}</p>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="{% url 'dashboard:home' %}"><i class="fas fa-home"></i> Dashboard</a>
+        </li>
+
+        <!-- Academics -->
+        <li>
+            <a href="#academicsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-book"></i> Academics
+            </a>
+            <ul class="collapse list-unstyled" id="academicsSubmenu">
+                <li><a href="{% url 'academics:classes' %}"><i class="fas fa-chalkboard"></i> Classes</a></li>
+                <li><a href="{% url 'academics:subjects' %}"><i class="fas fa-book-open"></i> Subjects</a></li>
+                <li><a href="{% url 'academics:exam_results' %}"><i class="fas fa-clipboard-list"></i> Exam Results</a></li>
+                <li><a href="{% url 'academics:grading_schemes' %}"><i class="fas fa-percentage"></i> Grading</a></li>
+            </ul>
+        </li>
+
+        <!-- Students -->
+        <li>
+            <a href="{% url 'students:list' %}"><i class="fas fa-users"></i> Students</a>
+        </li>
+
+        <!-- Staff -->
+        <li>
+            <a href="{% url 'staff:list' %}"><i class="fas fa-chalkboard-teacher"></i> Staff</a>
+        </li>
+
+        <!-- Parents -->
+        <li>
+            <a href="{% url 'parents:list' %}"><i class="fas fa-user-friends"></i> Parents</a>
+        </li>
+
+        <!-- Finance -->
+        <li>
+            <a href="{% url 'finance:dashboard' %}"><i class="fas fa-money-bill-wave"></i> Finance</a>
+        </li>
+
+        <!-- Reports -->
+        <li>
+            <a href="#reportsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-file-alt"></i> Reports
+            </a>
+            <ul class="collapse list-unstyled" id="reportsSubmenu">
+                <li><a href="{% url 'reports:student_reports' %}"><i class="fas fa-user-graduate"></i> Student Reports</a></li>
+                <li><a href="{% url 'reports:finance_reports' %}"><i class="fas fa-file-invoice-dollar"></i> Finance Reports</a></li>
+                <li><a href="{% url 'reports:attendance_reports' %}"><i class="fas fa-calendar-check"></i> Attendance</a></li>
+            </ul>
+        </li>
+
+        <!-- Settings -->
+        {% if user.is_superuser or user.is_staff %}
+        <li>
+            <a href="#settingsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <ul class="collapse list-unstyled" id="settingsSubmenu">
+                <li><a href="{% url 'school:settings' %}"><i class="fas fa-school"></i> School Settings</a></li>
+                <li><a href="{% url 'school:academic_years' %}"><i class="fas fa-calendar-alt"></i> Academic Years</a></li>
+                <li><a href="{% url 'users:list' %}"><i class="fas fa-users-cog"></i> User Management</a></li>
+            </ul>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

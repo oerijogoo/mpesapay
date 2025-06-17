@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Site Configuration{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Site Configuration</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.enable_parent_portal.id_for_label }}" class="form-label">Enable Parent Portal</label>
+                        <div class="form-check form-switch">
+                            {{ form.enable_parent_portal }}
+                            <label class="form-check-label" for="{{ form.enable_parent_portal.id_for_label }}"></label>
+                        </div>
+                        {% if form.enable_parent_portal.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.enable_parent_portal.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.enable_student_portal.id_for_label }}" class="form-label">Enable Student Portal</label>
+                        <div class="form-check form-switch">
+                            {{ form.enable_student_portal }}
+                            <label class="form-check-label" for="{{ form.enable_student_portal.id_for_label }}"></label>
+                        </div>
+                        {% if form.enable_student_portal.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.enable_student_portal.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.enable_online_payments.id_for_label }}" class="form-label">Enable Online Payments</label>
+                        <div class="form-check form-switch">
+                            {{ form.enable_online_payments }}
+                            <label class="form-check-label" for="{{ form.enable_online_payments.id_for_label }}"></label>
+                        </div>
+                        {% if form.enable_online_payments.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.enable_online_payments.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-group">
+                    <label for="{{ form.report_header.id_for_label }}" class="form-label">Report Header</label>
+                    {{ form.report_header }}
+                    {% if form.report_header.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.report_header.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-group">
+                    <label for="{{ form.report_footer.id_for_label }}" class="form-label">Report Footer</label>
+                    {{ form.report_footer }}
+                    {% if form.report_footer.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.report_footer.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

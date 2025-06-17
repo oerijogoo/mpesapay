@@ -1,0 +1,53 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Exam Reports{% endblock %}
+{% block heading %}Exam Reports{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-clipboard-data"></i> Exam Reports</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Exam</th>
+                        <th>Academic Year</th>
+                        <th>Term</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exam in exams %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ exam.name }}</td>
+                        <td>{{ exam.term.academic_year }}</td>
+                        <td>{{ exam.term.get_term_display }}</td>
+                        <td>{{ exam.exam_type }}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-file-earmark-text"></i> Report
+                                </a>
+                                <a href="#" class="btn btn-outline-success">
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No exams found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

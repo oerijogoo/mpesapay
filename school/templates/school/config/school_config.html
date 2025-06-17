@@ -1,0 +1,93 @@
+{% extends 'school/base.html' %}
+
+{% block title %}School Configuration{% endblock %}
+{% block heading %}School Configuration{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-gear"></i> School Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_school_name" class="form-label">School Name</label>
+                            {{ form.school_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_motto" class="form-label">Motto</label>
+                            {{ form.motto }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_school_logo" class="form-label">School Logo</label>
+                        {{ form.school_logo }}
+                        {% if form.instance.school_logo %}
+                            <div class="mt-2">
+                                <img src="{{ form.instance.school_logo.url }}" alt="Current logo" style="max-height: 100px;">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="school_logo-clear" id="school_logo-clear_id">
+                                    <label class="form-check-label" for="school_logo-clear_id">Remove logo</label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_location" class="form-label">Location</label>
+                            {{ form.location }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_phone" class="form-label">Phone</label>
+                            {{ form.phone }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_address" class="form-label">Address</label>
+                        {{ form.address }}
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_website" class="form-label">Website</label>
+                            {{ form.website }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_student_prefix" class="form-label">Student Prefix</label>
+                            {{ form.student_prefix }}
+                            <div class="form-text">Prefix for student admission numbers (e.g., STD)</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_current_academic_year" class="form-label">Current Academic Year</label>
+                            {{ form.current_academic_year }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_current_term" class="form-label">Current Term</label>
+                        {{ form.current_term }}
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

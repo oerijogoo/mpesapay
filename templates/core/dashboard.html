@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        {% if current_academic_year and current_term %}
+        <div class="btn-group me-2">
+            <span class="btn btn-sm btn-outline-secondary">{{ current_academic_year }}</span>
+            <span class="btn btn-sm btn-outline-secondary">{{ current_term }}</span>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <!-- Add dashboard widgets here -->
+</div>
+{% endblock %}
