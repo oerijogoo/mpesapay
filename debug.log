@@ -12041,3 +12041,5 @@ INFO 2025-06-17 23:57:54,705 autoreload /home/ronald/Desktop/ritoke/payments/set
 INFO 2025-06-17 23:58:41,164 autoreload Watching for file changes with StatReloader
 INFO 2025-06-18 00:02:45,088 autoreload /home/ronald/Desktop/ritoke/school/views.py changed, reloading.
 INFO 2025-06-18 00:03:37,413 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 00:21:23,836 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-18 00:21:54,466 autoreload Watching for file changes with StatReloader

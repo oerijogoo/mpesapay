@@ -23,6 +23,7 @@
 
                 <form method="post" class="needs-validation" novalidate>
                     {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
                     <div class="mb-3">
                         <label for="id_username" class="form-label">Username</label>
                         <input type="text" name="username" id="id_username" class="form-control" required>

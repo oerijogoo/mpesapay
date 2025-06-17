@@ -6,10 +6,16 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import *
 from .forms import *
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.conf import settings
 
 
 # ==================== Authentication Views ====================
+
+
 def user_login(request):
+    next_url = request.GET.get('next', request.POST.get('next', 'dashboard'))
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -17,10 +23,16 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
+
+            # Safely redirect to `next_url` only if it's a trusted host
+            if url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+                return redirect(next_url)
             return redirect('dashboard')
         else:
             messages.error(request, 'Invalid username or password')
-    return render(request, 'school/auth/login.html')
+
+    return render(request, 'school/auth/login.html', {'next': next_url})
+
 
 
 @login_required

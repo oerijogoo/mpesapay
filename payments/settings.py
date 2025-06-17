@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://myschool-hy05.onrender.com",
+    "https://www.myschool-hy05.onrender.com",  # just in case www is used
 ]
 
 
@@ -128,7 +129,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'payments.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ['https://localhost:8000', 'https://oerimpesa.onrender.com','https://oerimpesa.onrender.com']
 #nbnbnbnmnnn
 import os
 # Database
@@ -240,6 +240,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+
+LOGIN_URL = '/login/'  # this matches your `path('login/', views.user_login, name='login')`
+LOGIN_REDIRECT_URL = '/'  # or whatever page you want after successful login
+LOGOUT_REDIRECT_URL = '/login/'  # optional, where to go after logout
 
 
 # settings.py
