@@ -12226,3 +12226,21 @@ INFO 2025-06-18 10:42:57,605 basehttp code 400, message Bad request version ('.�
 ERROR 2025-06-18 10:42:57,608 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
 INFO 2025-06-18 10:42:57,626 basehttp code 400, message Bad request version ('û\x14')
 ERROR 2025-06-18 10:42:57,627 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 10:57:24,865 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-18 10:57:50,404 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 10:59:30,149 basehttp code 400, message Bad request version ('vªÑÛ\x01')
+ERROR 2025-06-18 10:59:30,150 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 10:59:30,243 basehttp code 400, message Bad request version ('f\x06')
+ERROR 2025-06-18 10:59:30,245 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 10:59:30,249 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x8eª\x13v°Ñø¯Ýý¡wLò÷~\x9dVMmN')
+ERROR 2025-06-18 10:59:30,249 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 10:59:30,566 basehttp code 400, message Bad request version ('!µû\x82\x063±×!\x89\x99¶\x9d´X')
+ERROR 2025-06-18 10:59:30,566 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 11:09:16,708 basehttp "GET / HTTP/1.1" 302 0
+INFO 2025-06-18 11:09:18,265 basehttp "GET /login/?next=/ HTTP/1.1" 200 14213
+INFO 2025-06-18 11:09:42,273 basehttp "POST /login/?next=/ HTTP/1.1" 302 0
+INFO 2025-06-18 11:09:42,486 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 11:18:29,536 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-18 11:19:03,878 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 11:19:23,856 basehttp "GET /terms/ HTTP/1.1" 200 0
+INFO 2025-06-18 11:19:31,398 basehttp "GET /students/ HTTP/1.1" 200 16712
