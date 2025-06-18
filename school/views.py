@@ -27,7 +27,7 @@ def user_login(request):
             # Safely redirect to `next_url` only if it's a trusted host
             if url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
                 return redirect(next_url)
-            return redirect('dashboard')
+            return redirect('school:dashboard')
         else:
             messages.error(request, 'Invalid username or password')
 
@@ -162,7 +162,7 @@ def term_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Term updated successfully')
-            return redirect('terms')
+            return redirect('school:terms')
     else:
         form = TermForm(instance=term)
     return render(request, 'school/academics/term_form.html', {'form': form})
@@ -182,7 +182,7 @@ def class_add(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Class added successfully')
-            return redirect('classes')
+            return redirect('school:classes')
     else:
         form = ClassLevelForm()
     return render(request, 'school/classes/class_form.html', {'form': form})
@@ -196,7 +196,7 @@ def class_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Class updated successfully')
-            return redirect('classes')
+            return redirect('school:classes')
     else:
         form = ClassLevelForm(instance=class_level)
     return render(request, 'school/classes/class_form.html', {'form': form})
@@ -272,7 +272,7 @@ def staff_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'staff updated successfully')
-            return redirect('staff')
+            return redirect('school:staff')
     else:
         form = StaffForm(instance=staff)
     return render(request, 'school/staff/staff_form.html', {'form': form})
@@ -310,7 +310,7 @@ def student_add(request):
             student.save()
             student_form.save_m2m()  # Save many-to-many relationships (parents)
             messages.success(request, 'Student added successfully')
-            return redirect('students')
+            return redirect('school:students')
     else:
         user_form = UserForm()
         student_form = StudentForm()
@@ -334,7 +334,7 @@ def student_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'student updated successfully')
-            return redirect('staff')
+            return redirect('school:staff')
     else:
         form = StudentForm(instance=student)
     return render(request, 'school/students/student_form.html', {'form': form})
@@ -357,7 +357,7 @@ def parent_add(request):
             parent.save()
             parent_form.save_m2m()  # Save many-to-many relationships (students)
             messages.success(request, 'Parent added successfully')
-            return redirect('parents')
+            return redirect('school:parents')
     else:
         user_form = UserForm()
         parent_form = ParentForm()
@@ -381,7 +381,7 @@ def parent_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'parent updated successfully')
-            return redirect('staff')
+            return redirect('school:staff')
     else:
         form = ParentForm(instance=parent)
     return render(request, 'school/parents/parent_form.html', {'form': form})
@@ -401,7 +401,7 @@ def exam_add(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Exam added successfully')
-            return redirect('exams')
+            return redirect('school:exams')
     else:
         form = ExamForm()
     return render(request, 'school/exams/exam_form.html', {'form': form})
@@ -447,7 +447,7 @@ def payment_add(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Payment recorded successfully')
-            return redirect('payments')
+            return redirect('school:payments')
     else:
         form = PaymentForm()
     return render(request, 'school/finance/payment_form.html', {'form': form})

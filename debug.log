@@ -12043,3 +12043,58 @@ INFO 2025-06-18 00:02:45,088 autoreload /home/ronald/Desktop/ritoke/school/views
 INFO 2025-06-18 00:03:37,413 autoreload Watching for file changes with StatReloader
 INFO 2025-06-18 00:21:23,836 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
 INFO 2025-06-18 00:21:54,466 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 08:06:42,522 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 08:14:56,563 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-18 08:14:58,427 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3058
+INFO 2025-06-18 08:14:59,945 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 304 0
+INFO 2025-06-18 08:15:00,004 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 304 0
+INFO 2025-06-18 08:15:00,006 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 304 0
+WARNING 2025-06-18 08:15:01,645 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1843
+INFO 2025-06-18 08:15:03,541 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 304 0
+INFO 2025-06-18 08:15:03,542 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2025-06-18 08:15:04,251 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+WARNING 2025-06-18 08:15:05,010 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1843
+INFO 2025-06-18 08:15:56,877 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-18 08:15:58,058 basehttp "GET /admin/ HTTP/1.1" 200 43009
+WARNING 2025-06-18 08:15:58,184 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1843
+INFO 2025-06-18 08:15:58,197 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 304 0
+INFO 2025-06-18 08:15:58,877 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+INFO 2025-06-18 08:16:14,340 basehttp "GET / HTTP/1.1" 200 17387
+WARNING 2025-06-18 08:16:17,312 log Not Found: /favicon.ico
+WARNING 2025-06-18 08:16:17,321 basehttp "GET /favicon.ico HTTP/1.1" 404 9326
+INFO 2025-06-18 08:16:33,522 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 08:16:52,911 basehttp "GET /students/ HTTP/1.1" 200 15409
+INFO 2025-06-18 08:20:40,026 autoreload /home/ronald/Desktop/ritoke/school/views.py changed, reloading.
+INFO 2025-06-18 08:21:07,747 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 08:44:16,489 autoreload /home/ronald/PycharmProjects/Analyses/.venv/lib/python3.8/site-packages/urllib3/filepost.py changed, reloading.
+INFO 2025-06-18 09:08:59,015 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 09:13:34,043 basehttp "GET /students/add/ HTTP/1.1" 200 17586
+ERROR 2025-06-18 09:20:10,966 log Internal Server Error: /students/add/
+Traceback (most recent call last):
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "/home/ronald/Desktop/ritoke/school/views.py", line 313, in student_add
+    return redirect('students')
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'students' not found. 'students' is not a valid view function or pattern name.
+ERROR 2025-06-18 09:20:11,019 basehttp "POST /students/add/ HTTP/1.1" 500 103832
+INFO 2025-06-18 09:25:10,951 autoreload /home/ronald/Desktop/ritoke/school/views.py changed, reloading.
+INFO 2025-06-18 09:25:33,061 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 09:25:57,279 basehttp "GET /students/add/ HTTP/1.1" 200 17923
+INFO 2025-06-18 09:26:20,204 basehttp "GET /parents/ HTTP/1.1" 200 15260
+INFO 2025-06-18 09:26:27,968 basehttp "GET /parents/add/ HTTP/1.1" 200 17004
+INFO 2025-06-18 09:28:27,904 basehttp "POST /parents/add/ HTTP/1.1" 302 0
+INFO 2025-06-18 09:28:28,208 basehttp "GET /parents/ HTTP/1.1" 200 16735
+INFO 2025-06-18 09:34:31,435 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-18 09:34:51,985 autoreload Watching for file changes with StatReloader
