@@ -166,21 +166,19 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
+     <div class="sidebar" id="sidebar">
         <div class="school-logo-container text-center">
-            {% with config=SchoolConfig.objects.first %}
-                {% if config and config.school_logo %}
-                    <img src="{{ config.school_logo.url }}" alt="School Logo" class="school-logo mb-2">
-                {% else %}
-                    <div class="text-white p-3 bg-primary rounded mb-2">
-                        <i class="bi bi-building" style="font-size: 2rem;"></i>
-                    </div>
-                {% endif %}
-                <h5 class="text-white mb-1">
-                    {{ config.school_name|default:"School Name" }}
-                </h5>
-                <small class="text-white-50">{{ config.motto|default:"School Motto" }}</small>
-            {% endwith %}
+            {% if school_config.school_logo %}
+                <img src="{{ school_config.school_logo.url }}" alt="School Logo" class="school-logo mb-2">
+            {% else %}
+                <div class="text-white p-3 bg-primary rounded mb-2">
+                    <i class="bi bi-building" style="font-size: 2rem;"></i>
+                </div>
+            {% endif %}
+            <h5 class="text-white mb-1">
+                {{ school_config.school_name|default:"School Name" }}
+            </h5>
+            <small class="text-white-50">{{ school_config.motto|default:"School Motto" }}</small>
         </div>
 
         <ul class="nav flex-column px-2">
@@ -278,21 +276,19 @@
     </div>
 
     <!-- Top Navigation -->
-    <nav class="navbar navbar-expand-lg top-navbar">
+    <<nav class="navbar navbar-expand-lg top-navbar">
         <div class="container-fluid">
             <button class="menu-toggle me-3" id="menuToggle">
                 <i class="bi bi-list"></i>
             </button>
 
             <div class="d-flex align-items-center">
-                {% with config=SchoolConfig.objects.first %}
-                    <span class="navbar-brand mb-0 h6 d-none d-md-block">
-                        {{ config.school_name|default:"School Management" }}
-                        {% if config.current_term %}
-                            <small class="text-muted">- {{ config.current_term }}</small>
-                        {% endif %}
-                    </span>
-                {% endwith %}
+                <span class="navbar-brand mb-0 h6 d-none d-md-block">
+                    {{ school_config.school_name|default:"School Management" }}
+                    {% if school_config.current_term %}
+                        <small class="text-muted">- {{ school_config.current_term }}</small>
+                    {% endif %}
+                </span>
             </div>
 
             <div class="collapse navbar-collapse justify-content-end">
@@ -344,22 +340,18 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    {% with config=SchoolConfig.objects.first %}
-                        <p class="mb-0">
-                            {{ config.school_name|default:"School Management System" }} &copy; {% now "Y" %}
-                            {% if config.location %} | {{ config.location }}{% endif %}
-                        </p>
-                    {% endwith %}
+                    <p class="mb-0">
+                        {{ school_config.school_name|default:"School Management System" }} &copy; {% now "Y" %}
+                        {% if school_config.location %} | {{ school_config.location }}{% endif %}
+                    </p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    {% with config=SchoolConfig.objects.first %}
-                        {% if config.phone %}
-                            <span class="me-3"><i class="bi bi-telephone"></i> {{ config.phone }}</span>
-                        {% endif %}
-                        {% if config.email %}
-                            <span><i class="bi bi-envelope"></i> {{ config.email }}</span>
-                        {% endif %}
-                    {% endwith %}
+                    {% if school_config.phone %}
+                        <span class="me-3"><i class="bi bi-telephone"></i> {{ school_config.phone }}</span>
+                    {% endif %}
+                    {% if school_config.email %}
+                        <span><i class="bi bi-envelope"></i> {{ school_config.email }}</span>
+                    {% endif %}
                 </div>
             </div>
         </div>

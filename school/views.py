@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -470,3 +471,13 @@ def class_reports(request):
 def exam_reports(request):
     exams = Exam.objects.all().order_by('-term__academic_year', 'term')
     return render(request, 'school/reports/exam_reports.html', {'exams': exams})
+
+
+# school/views.py
+def test_context(request):
+    from django.template import RequestContext
+    context = RequestContext(request)  # This will include all context processors
+    return JsonResponse({
+        'available_data': list(context.flatten().keys()),
+        'school_config': str(SchoolConfig.load())
+    })

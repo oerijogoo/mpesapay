@@ -12263,3 +12263,428 @@ INFO 2025-06-18 12:01:03,770 basehttp code 400, message Bad request version ('\x
 ERROR 2025-06-18 12:01:03,773 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
 INFO 2025-06-18 12:01:03,785 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03ÀÅ\x17¶&*\x17gB¬*-qÛV§Åvd\x9b&')
 ERROR 2025-06-18 12:01:03,788 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 12:12:40,391 basehttp "GET /favicon.ico HTTP/1.1" 301 0
+INFO 2025-06-18 12:12:40,445 basehttp code 400, message Bad request version ('\x02h2\x08http/1.1\x003\x04ï\x04í\x1a\x1a\x00\x01\x00\x11ì\x04Àz×J#')
+ERROR 2025-06-18 12:12:40,611 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 12:12:40,616 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03T£\x05¿*0¢f`Ô\x0fÈ^ñ!Âz\x8b/\x102,\x86.i]Æÿk\x9doû')
+ERROR 2025-06-18 12:12:40,616 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:22:30,814 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-18 13:22:52,394 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 13:30:46,700 autoreload /home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/contrib/admin/__init__.py changed, reloading.
+INFO 2025-06-18 13:40:16,666 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 13:40:53,633 basehttp "GET /staff/ HTTP/1.1" 302 0
+INFO 2025-06-18 13:40:53,835 basehttp "GET /login/?next=/staff/ HTTP/1.1" 200 14219
+INFO 2025-06-18 13:40:55,011 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+ERROR 2025-06-18 13:40:55,012 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:40:55,033 basehttp code 400, message Bad request version ('üª=Ò5c\x82k¨ý\x06Å«\x11z\x14Ág5ù»\x8fÈXÑ')
+ERROR 2025-06-18 13:40:55,033 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:05,936 basehttp "POST /login/?next=/staff/ HTTP/1.1" 302 0
+INFO 2025-06-18 13:41:06,013 basehttp "GET /staff/ HTTP/1.1" 200 14260
+INFO 2025-06-18 13:41:06,296 basehttp code 400, message Bad request version ('4®')
+ERROR 2025-06-18 13:41:06,297 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:06,318 basehttp code 400, message Bad request version ('²\x10çö\x05¯)\x9d')
+ERROR 2025-06-18 13:41:06,319 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:12,223 basehttp "GET /students/ HTTP/1.1" 200 14264
+INFO 2025-06-18 13:41:12,302 basehttp code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93**\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00-\x00\x02\x01\x01\x00')
+ERROR 2025-06-18 13:41:12,302 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:12,307 basehttp code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sjj\x00\x00\x00\x17\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00#\x00\x00ÿ\x01\x00\x01\x00\x00')
+ERROR 2025-06-18 13:41:12,309 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:14,378 basehttp "GET /parents/ HTTP/1.1" 200 14280
+INFO 2025-06-18 13:41:14,447 basehttp code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06szz\x00\x00\x00')
+ERROR 2025-06-18 13:41:14,449 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:14,454 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+ERROR 2025-06-18 13:41:14,455 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:31,071 basehttp "GET /school-config/ HTTP/1.1" 200 16945
+INFO 2025-06-18 13:41:31,221 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03[-HÎO\x957Áe+{ÁÁF:ØÇ\x13«\x1aÀË\x89&bPÿ$\x80\x87:8')
+ERROR 2025-06-18 13:41:31,224 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:41:31,232 basehttp code 400, message Bad request version ('\x83]ÈÞ5¯8iþµÎáu¹nY§¬\x90\x90\x96Ne+ã\\ú\x7f')
+ERROR 2025-06-18 13:41:31,233 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:43:32,073 basehttp "GET /academic-years/ HTTP/1.1" 200 13774
+INFO 2025-06-18 13:43:32,132 basehttp code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063')
+ERROR 2025-06-18 13:43:32,132 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:43:32,136 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00#\x00\x00\x00-\x00\x02\x01\x01\x00')
+ERROR 2025-06-18 13:43:32,136 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:43:35,029 basehttp "GET /academic-years/add/ HTTP/1.1" 200 15315
+INFO 2025-06-18 13:43:35,415 basehttp code 400, message Bad request version ('¥ª\x8aò±½\x1b¢sD¥_ñäD¦Ê\x10HÙ\x91u\x18\x91mÌ\x15M5\x19\x06w')
+ERROR 2025-06-18 13:43:35,415 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:43:35,420 basehttp code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063jj\x00\x00\x00-\x00\x02\x01\x01\x00\x17\x00\x00\x00\x12\x00\x00\x00+\x00\x07\x06ÚÚ\x03\x04\x03\x03\x00#\x00\x00\x00')
+ERROR 2025-06-18 13:43:35,422 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:44:08,712 basehttp "POST /academic-years/add/ HTTP/1.1" 302 0
+INFO 2025-06-18 13:44:08,820 basehttp "GET /academic-years/ HTTP/1.1" 200 15100
+INFO 2025-06-18 13:44:08,923 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03Æß')
+ERROR 2025-06-18 13:44:08,923 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:44:08,926 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00')
+ERROR 2025-06-18 13:44:08,926 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:44:22,534 basehttp "GET /terms/ HTTP/1.1" 200 0
+INFO 2025-06-18 13:44:22,572 basehttp code 400, message Bad request version ('Ë\x8dÚ')
+ERROR 2025-06-18 13:44:22,572 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:44:22,574 basehttp code 400, message Bad request version ('\x00\x02\x01\x00DÍ\x00\x05\x00\x03\x02h2\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x17\x00\x00\x00-\x00\x02\x01\x01\x00')
+ERROR 2025-06-18 13:44:22,574 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:46:48,975 basehttp code 400, message Bad request version ('Ú\x03}U4ÀÑp\x8a¬')
+ERROR 2025-06-18 13:46:48,976 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:46:48,984 basehttp code 400, message Bad request version ('Ìðâ\x9fÆM\x84þ8TßB]ÈÏùRöc\x86\x81:\x02Þ¥ò')
+ERROR 2025-06-18 13:46:48,985 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:46:58,527 basehttp "GET /admin HTTP/1.1" 301 0
+INFO 2025-06-18 13:46:58,941 basehttp "GET /admin/ HTTP/1.1" 200 35821
+INFO 2025-06-18 13:46:59,433 basehttp "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+INFO 2025-06-18 13:46:59,440 basehttp "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+WARNING 2025-06-18 13:46:59,459 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1898
+INFO 2025-06-18 13:46:59,485 basehttp "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+INFO 2025-06-18 13:46:59,486 basehttp "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+INFO 2025-06-18 13:46:59,495 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-06-18 13:46:59,520 basehttp "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+INFO 2025-06-18 13:46:59,629 basehttp "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+INFO 2025-06-18 13:47:03,026 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+INFO 2025-06-18 13:47:03,058 basehttp "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+WARNING 2025-06-18 13:47:05,928 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1898
+INFO 2025-06-18 13:47:08,719 basehttp "GET /admin/school/term/ HTTP/1.1" 200 19840
+INFO 2025-06-18 13:47:08,805 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-06-18 13:47:08,808 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-06-18 13:47:08,825 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-06-18 13:47:08,827 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-06-18 13:47:08,839 basehttp "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+INFO 2025-06-18 13:47:08,849 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-06-18 13:47:08,864 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-06-18 13:47:08,865 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+WARNING 2025-06-18 13:47:08,911 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1898
+INFO 2025-06-18 13:47:08,912 basehttp "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+INFO 2025-06-18 13:47:08,933 basehttp "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+INFO 2025-06-18 13:47:08,942 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-06-18 13:47:12,433 basehttp "GET /admin/school/term/add/ HTTP/1.1" 200 24589
+WARNING 2025-06-18 13:47:12,483 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1898
+INFO 2025-06-18 13:47:12,486 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-06-18 13:47:12,494 basehttp "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-06-18 13:47:12,495 basehttp "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-06-18 13:47:12,497 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-06-18 13:47:12,528 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-06-18 13:47:12,546 basehttp "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+INFO 2025-06-18 13:47:12,587 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-06-18 13:47:12,597 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-18 13:47:12,607 basehttp "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-06-18 13:47:41,452 basehttp "GET /static/jazzmin/img/calendar-icons.svg HTTP/1.1" 200 1094
+INFO 2025-06-18 13:47:55,601 basehttp "POST /admin/school/term/add/ HTTP/1.1" 302 0
+INFO 2025-06-18 13:47:55,706 basehttp "GET /admin/school/term/ HTTP/1.1" 200 24885
+WARNING 2025-06-18 13:47:55,757 basehttp "GET /static/https%3A/your-cdn.com/logo.png HTTP/1.1" 404 1898
+INFO 2025-06-18 13:47:55,760 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-06-18 13:48:08,805 basehttp "GET /academic-years/ HTTP/1.1" 200 14799
+INFO 2025-06-18 13:48:08,863 basehttp code 400, message Bad request version ("@]\x1b÷70Ðdzé°«\x9bÊ©WOZ>$á\x840\x9f;ßjð\x90v\x82?\x8b]\x95´ÆdT\x02¦\x8fä¯\x9b©ÐüÇ(K\x94«È\x9fpnf'\x99Í\x84\x82")
+ERROR 2025-06-18 13:48:08,863 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:48:08,869 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00')
+ERROR 2025-06-18 13:48:08,869 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:48:42,037 basehttp "GET /school-config/ HTTP/1.1" 200 17028
+INFO 2025-06-18 13:48:42,125 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+ERROR 2025-06-18 13:48:42,125 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:48:42,127 basehttp code 400, message Bad request version ('Bí\x190C\x02F.¼Î\x07\x9c\x86m÷Uä¡S')
+ERROR 2025-06-18 13:48:42,127 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:49:51,170 basehttp "POST /school-config/ HTTP/1.1" 302 0
+INFO 2025-06-18 13:49:51,256 basehttp "GET /school-config/ HTTP/1.1" 200 18409
+INFO 2025-06-18 13:49:52,630 basehttp code 400, message Bad request version ('\x9bL')
+ERROR 2025-06-18 13:49:52,630 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 13:49:52,631 basehttp code 400, message Bad request version ('\x02h2\x08http/1.1\x00\x17\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00ÿ\x01\x00\x01\x00\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00')
+ERROR 2025-06-18 13:49:52,633 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:01:51,467 autoreload /home/ronald/Desktop/ritoke/school/models.py changed, reloading.
+INFO 2025-06-18 14:02:01,001 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:10:03,333 autoreload /home/ronald/Desktop/ritoke/school/models.py changed, reloading.
+INFO 2025-06-18 14:10:11,060 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:10:18,808 autoreload /home/ronald/Desktop/ritoke/school/models.py changed, reloading.
+INFO 2025-06-18 14:10:23,417 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:12:13,486 autoreload /home/ronald/Desktop/ritoke/school/models.py changed, reloading.
+INFO 2025-06-18 14:12:20,376 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:17:18,431 autoreload /home/ronald/Desktop/ritoke/school/models.py changed, reloading.
+INFO 2025-06-18 14:17:23,832 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:18:29,820 autoreload /home/ronald/Desktop/ritoke/school/models.py changed, reloading.
+INFO 2025-06-18 14:18:35,382 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:25:21,766 basehttp "POST /school-config/ HTTP/1.1" 302 0
+INFO 2025-06-18 14:25:23,734 basehttp "POST /school-config/ HTTP/1.1" 302 0
+INFO 2025-06-18 14:25:24,181 basehttp "GET /school-config/ HTTP/1.1" 200 18731
+INFO 2025-06-18 14:25:32,649 basehttp code 400, message Bad request version ('Äì')
+ERROR 2025-06-18 14:25:32,649 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:25:32,666 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00#\x00\x00\x00')
+ERROR 2025-06-18 14:25:32,666 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:27:26,374 basehttp "GET /school-config/ HTTP/1.1" 200 18057
+INFO 2025-06-18 14:27:26,841 basehttp code 400, message Bad request version ('ëÚ4AG')
+ERROR 2025-06-18 14:27:26,842 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:27:26,855 basehttp code 400, message Bad request version ("\x1aÞE±[{þÔ\x9bOON\x18p'}îP\x91ö\x05¾VKµ¿\x9cíw\x1bàß\x00")
+ERROR 2025-06-18 14:27:26,856 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:41:01,379 basehttp "GET /school-config/ HTTP/1.1" 200 18057
+INFO 2025-06-18 14:41:02,042 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00-\x00\x02\x01\x01\x00\x12\x00\x00\x00')
+ERROR 2025-06-18 14:41:02,043 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:41:02,048 basehttp code 400, message Bad request version ('ªÚ5V\x9ct\x9eb©\x8a\x92ù\x01axoDÔ½ÎËEK|cu©?ÿú±Áå¢Iúw¾\x9a:ëú\x8e\x12\x07\x08ÓA}-àÂÍ\x10')
+ERROR 2025-06-18 14:41:02,048 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:41:04,888 basehttp "GET /school-config/ HTTP/1.1" 200 18057
+INFO 2025-06-18 14:41:05,170 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03N*à\x7fÊ\x97U\x7fã:c\x08\x01î\x16IL\x804\x8e\x9fÇ\x86mØ<\x8cY¿ÄÇï')
+ERROR 2025-06-18 14:41:05,170 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:41:05,173 basehttp code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+ERROR 2025-06-18 14:41:05,175 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:44:21,302 autoreload /home/ronald/Desktop/ritoke/school/views.py changed, reloading.
+INFO 2025-06-18 14:44:29,050 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:45:01,841 autoreload /home/ronald/Desktop/ritoke/school/urls.py changed, reloading.
+INFO 2025-06-18 14:45:09,665 autoreload Watching for file changes with StatReloader
+INFO 2025-06-18 14:45:52,093 basehttp "GET /test-context HTTP/1.1" 301 0
+INFO 2025-06-18 14:45:52,198 basehttp "GET /test-context/ HTTP/1.1" 200 80
+INFO 2025-06-18 14:45:54,672 basehttp code 400, message Bad request version ('Ê»zúæÕ\x8a£ót¯ÐH\x18¦ÓC\x83Èÿv,\x82\x8eB\x96\x8e¾Ï*\x8aOn\x96Õ\x13S\x8cÌ\x8cG\x99àjo\x16;\x16å¦üw³3\x89¬)<\x92Ýïí\x93É\x13.[Ú\x03Nüð0\x88V\x9aZèÏG+/\x86\x0ek')
+ERROR 2025-06-18 14:45:54,672 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:45:54,675 basehttp code 400, message Bad request version ('¦´vò%u3äe')
+ERROR 2025-06-18 14:45:54,676 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:47:19,636 basehttp "GET /test-context/ HTTP/1.1" 200 80
+INFO 2025-06-18 14:47:19,756 basehttp code 400, message Bad request version ('¸Ri\x97lüÉ\x9eh#+â&\x10üvq\x00')
+ERROR 2025-06-18 14:47:19,759 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:47:19,765 basehttp code 400, message Bad request version ('±¿V¯\x01^Z³\x93#A³í\x9d|')
+ERROR 2025-06-18 14:47:19,766 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:47:29,950 basehttp "GET /test-context/ HTTP/1.1" 200 80
+INFO 2025-06-18 14:47:30,072 basehttp code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ºº\x00\x00\x00#\x00\x00\x00')
+ERROR 2025-06-18 14:47:30,072 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:47:30,090 basehttp code 400, message Bad request version ('\\frì\x89EÂÇ3\x16{s+¾X\x18_ô:Ü~\x92\x00')
+ERROR 2025-06-18 14:47:30,091 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:47:54,516 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:48:00,360 basehttp code 400, message Bad request version ("\x00\x02\x01\x00ÿ\x01\x00\x01\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x05\x00\x05\x01\x00\x00\x00\x00\x003\x04ï\x04íZZ\x00\x01\x00\x11ì\x04ÀÁ¦_¥\x8c\x12[ÂV\x12¨\x99÷Ð\x7fÚj\x8d!+=·J\x98Âåw3\x94Å\x11aC\x04\x82K.c±[(Îv\x8a©6@rèÂ|\x93D½8\x03¤ëòe×ú,\x9d1Í\x8cæp'\x12¹íÄ!\x16|`b\x8b\x04+PÁ^")
+ERROR 2025-06-18 14:48:00,361 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:48:00,372 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x032²õËÐ^ø\x91÷UHÊ/ö')
+ERROR 2025-06-18 14:48:00,374 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:48:07,180 basehttp "GET /test-context/ HTTP/1.1" 200 80
+INFO 2025-06-18 14:48:07,292 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x1b\x00\x03\x02\x00\x02\x00')
+ERROR 2025-06-18 14:48:07,293 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:48:07,294 basehttp code 400, message Bad request version ('\x976Þ7Î')
+ERROR 2025-06-18 14:48:07,295 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:28,256 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:49:28,727 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01DÍ\x00\x05\x00\x03\x02h2\x00\x12\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00')
+ERROR 2025-06-18 14:49:28,728 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:28,734 basehttp code 400, message Bad request version ('\xad9ñ\\Ñ0\x08\x881?É¸ä\x96ý[)gd¥M')
+ERROR 2025-06-18 14:49:28,735 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:32,238 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:49:32,575 basehttp code 400, message Bad request version ('ab')
+ERROR 2025-06-18 14:49:32,576 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:32,584 basehttp code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063úú\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00')
+ERROR 2025-06-18 14:49:32,585 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:35,170 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:49:35,577 basehttp code 400, message Bad request version ('¡9Û<ìû\x86Ý\x18\x8b\x9dÚT')
+ERROR 2025-06-18 14:49:35,584 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:35,597 basehttp code 400, message Bad request version ('.zÀ|~\x15Î\x19GA·L')
+ERROR 2025-06-18 14:49:35,600 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:37,300 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:49:37,756 basehttp code 400, message Bad request syntax ("\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03È±¢öSN\x01$ñèv\x18·¶ujÿ\x91ë\x8c¡\x95'~>J!Ì0\x8e\x1b\x81 ")
+ERROR 2025-06-18 14:49:37,759 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:37,771 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00#\x00\x00\x00')
+ERROR 2025-06-18 14:49:37,771 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:40,371 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:49:40,788 basehttp code 400, message Bad request version ('3âçÎÀ')
+ERROR 2025-06-18 14:49:40,792 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:49:40,803 basehttp code 400, message Bad request version ('Úº\x92ÎÚ\xadâu(É\x18\x88')
+ERROR 2025-06-18 14:49:40,803 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:51:55,937 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:51:56,122 basehttp code 400, message Bad request version ('5\x08u\x96µUerµ>Ò\x8a½LÌr`*Oñç')
+ERROR 2025-06-18 14:51:56,123 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:51:56,141 basehttp code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sªª\x00\x00\x00')
+ERROR 2025-06-18 14:51:56,142 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:52:00,080 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 14:52:00,151 basehttp code 400, message Bad request version ("Êc\x96ft\x88õÁÆ\x17¤ñ<\x10-s£\x92\x12¼\x11Ñ'|\x1aS\x14\x01Íl@ÈG´¥ØJ/d\x049Ò")
+ERROR 2025-06-18 14:52:00,151 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 14:52:00,153 basehttp code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063')
+ERROR 2025-06-18 14:52:00,153 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:15:43,482 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:15:43,792 basehttp code 400, message Bad request version ('ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sjj\x00\x00\x00-\x00\x02\x01\x01\x00#\x00\x00\x00\x17\x00\x00\x00')
+ERROR 2025-06-18 15:15:43,792 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:15:43,797 basehttp code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+ERROR 2025-06-18 15:15:43,797 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:15:46,565 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:15:46,645 basehttp code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+ERROR 2025-06-18 15:15:46,645 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:15:46,648 basehttp code 400, message Bad request syntax ("\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03à\x82h©\x98wk'¨4\x8bu\x86\x05ýúæjk9")
+ERROR 2025-06-18 15:15:46,648 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:29,265 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:29,351 basehttp code 400, message Bad request version ('<g§Ä¬ï¬:ng7ÆG~î²Ç<\x1a\x8b*c¹pørs\x16û\x7fò\x88\x00')
+ERROR 2025-06-18 15:18:29,352 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:29,358 basehttp code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063**\x00\x00\x00\x17\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x003\x04ï\x04í**\x00\x01\x00\x11ì\x04À%;~')
+ERROR 2025-06-18 15:18:29,359 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:32,081 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:32,129 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03\\\x88Âë\x93\x01/ú\x17\x1b¬gÆ\x17x%\x17_e*.-è¢ô\x81\x9f\x91\x91\x8d\x0f\x9c')
+ERROR 2025-06-18 15:18:32,129 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:32,139 basehttp code 400, message Bad request version ("Q'\x07å¿\x7fwX\x08Ú¯|S\x87¹")
+ERROR 2025-06-18 15:18:32,139 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:33,423 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:33,505 basehttp code 400, message Bad request version ('b\x02Ýª²V¦v{è\x19\x8c2\x9aE\x057%\x07ø\x95')
+ERROR 2025-06-18 15:18:33,505 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:33,509 basehttp code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93')
+ERROR 2025-06-18 15:18:33,510 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:34,399 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:34,450 basehttp code 400, message Bad request version ('µsõdF\x98§ÆV\x14\x965TÅÕsò\x06\x04Ý±\x1aâËN,øáBmmØ¥÷Æ©p*|(n^Ü')
+ERROR 2025-06-18 15:18:34,450 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:34,452 basehttp code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06SÚÚ\x00\x00ÿ\x01\x00\x01\x00\x00-\x00\x02\x01\x01DÍ\x00\x05\x00\x03\x02h2\x00')
+ERROR 2025-06-18 15:18:34,453 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:35,116 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:35,165 basehttp code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03ÄÚð¼\x8díOz\x08iË5IM£7Ç*\x82h\x8f¹\x90ñ')
+ERROR 2025-06-18 15:18:35,165 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:35,167 basehttp code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S')
+ERROR 2025-06-18 15:18:35,167 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:35,761 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:35,809 basehttp code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Súú\x00\x00\x00')
+ERROR 2025-06-18 15:18:35,810 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:35,812 basehttp code 400, message Bad request syntax ("\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03'\x02\x12á¤ä¶\x8d\x9a±ðÌRaÞH")
+ERROR 2025-06-18 15:18:35,812 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:35,899 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:35,981 basehttp code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063êê\x00\x00ÿ\x01\x00\x01\x00\x00\x17\x00\x00\x00+\x00\x07\x06')
+ERROR 2025-06-18 15:18:35,981 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:35,983 basehttp code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93zz\x00\x00\x00')
+ERROR 2025-06-18 15:18:35,984 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:36,118 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:36,196 basehttp code 400, message Bad request version ('\x15\x84Ø\x01ø8øáa¤áIñDXõ\x0fH]\x8b÷TOb0#};\x98ÜØ[\x00ð\x8dÛ')
+ERROR 2025-06-18 15:18:36,197 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:36,200 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03Ç§d\x18w\x8eDJÈ£®\x92çÏqáñY¹\x04À¶')
+ERROR 2025-06-18 15:18:36,200 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:36,609 basehttp "GET / HTTP/1.1" 200 17387
+INFO 2025-06-18 15:18:36,664 basehttp code 400, message Bad request version ('\x8c:¨')
+ERROR 2025-06-18 15:18:36,665 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:18:36,666 basehttp code 400, message Bad request version ('®±û¨W\x14[¥Á')
+ERROR 2025-06-18 15:18:36,666 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:21:26,076 basehttp "GET / HTTP/1.1" 200 17381
+INFO 2025-06-18 15:21:26,128 basehttp code 400, message Bad request version ("43'")
+ERROR 2025-06-18 15:21:26,128 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:21:26,130 basehttp code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+ERROR 2025-06-18 15:21:26,130 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:23:45,685 basehttp "GET / HTTP/1.1" 200 17385
+INFO 2025-06-18 15:23:45,737 basehttp code 400, message Bad request version (':*t=\x93')
+ERROR 2025-06-18 15:23:45,738 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:23:45,740 basehttp code 400, message Bad request version ('ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93êê\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00')
+ERROR 2025-06-18 15:23:45,741 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:28:19,391 basehttp "GET / HTTP/1.1" 200 17306
+INFO 2025-06-18 15:28:19,680 basehttp code 400, message Bad request version ('wæ\x81ËÕW-\x00Yº')
+ERROR 2025-06-18 15:28:19,680 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:28:19,682 basehttp code 400, message Bad request version ('ô\x13E¿6°a¶a<¦û©\x8bAÇZ\x15')
+ERROR 2025-06-18 15:28:19,683 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:31:43,265 basehttp "GET / HTTP/1.1" 200 17456
+INFO 2025-06-18 15:31:44,783 basehttp code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S')
+ERROR 2025-06-18 15:31:44,784 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:31:44,789 basehttp code 400, message Bad request version ('MÀ\x82P')
+ERROR 2025-06-18 15:31:44,789 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-18 15:32:54,810 log Internal Server Error: /classes/
+Traceback (most recent call last):
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/ronald/Desktop/ritoke/school/views.py", line 176, in class_list
+    return render(request, 'school/classes/class_list.html', {'classes': classes})
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'class_add' not found. 'class_add' is not a valid view function or pattern name.
+ERROR 2025-06-18 15:32:54,820 basehttp "GET /classes/ HTTP/1.1" 500 180864
+INFO 2025-06-18 15:32:56,260 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03O\x06\x9a\x94J\x03\x94SÜé§b')
+ERROR 2025-06-18 15:32:56,260 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:32:56,262 basehttp code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Szz\x00\x00\x00')
+ERROR 2025-06-18 15:32:56,263 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:32:58,312 basehttp code 400, message Bad request version (']ÄIüH\x1bÊ>Ü\x82\x9e\x14\x06:ø¡Ââ\x1641Âïõ\x15õ³\x99§\x11®Ý\x00')
+ERROR 2025-06-18 15:32:58,313 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:32:58,317 basehttp code 400, message Bad request version ('\x0fJ>q{í¢')
+ERROR 2025-06-18 15:32:58,319 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-06-18 15:33:00,631 log Internal Server Error: /fees/
+Traceback (most recent call last):
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/ronald/Desktop/ritoke/school/views.py", line 422, in fee_structure_list
+    return render(request, 'school/finance/fee_structure_list.html', {'fee_structures': fee_structures})
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/home/ronald/Desktop/ritoke/.venv/lib/python3.10/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'fee_structure_add' not found. 'fee_structure_add' is not a valid view function or pattern name.
+ERROR 2025-06-18 15:33:00,635 basehttp "GET /fees/ HTTP/1.1" 500 181493
+INFO 2025-06-18 15:33:00,793 basehttp code 400, message Bad request syntax ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03³])4\x01oè\x84\x89^\x00ª)\x9c\x9f')
+ERROR 2025-06-18 15:33:00,793 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:00,795 basehttp code 400, message Bad request version ('\x12Rùn«ïlLë\x19Iù¬\x15^ÓK=«T\x8a')
+ERROR 2025-06-18 15:33:00,795 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:03,251 basehttp code 400, message Bad request version ('«?Õé\x80\x18´n®6\x81Ú\x11P$ìÊE0\x16âû\x87\x00')
+ERROR 2025-06-18 15:33:03,251 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:03,257 basehttp code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ªª\x00\x00\x00')
+ERROR 2025-06-18 15:33:03,259 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:13,046 basehttp "GET /staff/ HTTP/1.1" 200 14329
+INFO 2025-06-18 15:33:13,322 basehttp code 400, message Bad request version ('d`=(ånuôþ')
+ERROR 2025-06-18 15:33:13,323 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:13,325 basehttp code 400, message Bad request version ('d®')
+ERROR 2025-06-18 15:33:13,326 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:38,220 basehttp "GET /students/ HTTP/1.1" 200 14333
+INFO 2025-06-18 15:33:38,336 basehttp code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06SÚÚ\x00\x00\x003\x04ï\x04íºº\x00\x01\x00\x11ì\x04À\xad|Íè|¢\x14\x05[ù\x16ÀèJ#s')
+ERROR 2025-06-18 15:33:38,337 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:33:38,339 basehttp code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ÊÊ\x00\x00\x00\x17\x00\x00\x00')
+ERROR 2025-06-18 15:33:38,339 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-06-18 15:42:47,182 autoreload /home/ronald/Desktop/ritoke/payments/settings.py changed, reloading.
+INFO 2025-06-18 15:42:55,801 autoreload Watching for file changes with StatReloader

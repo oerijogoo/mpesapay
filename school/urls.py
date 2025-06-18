@@ -4,6 +4,9 @@ from . import views
 app_name = 'school'
 
 urlpatterns = [
+
+# school/urls.py
+    path('test-context/', views.test_context, name='test_context'),
     # Dashboard
     path('', views.dashboard, name='dashboard'),
 

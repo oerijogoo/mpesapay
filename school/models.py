@@ -3,27 +3,6 @@ from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-class SchoolConfig(models.Model):
-    school_name = models.CharField(max_length=200)
-    school_logo = CloudinaryField('logo', blank=True, null=True)
-    motto = models.CharField(max_length=200, blank=True)
-    location = models.CharField(max_length=200)
-    address = models.TextField()
-    phone = models.CharField(max_length=20)
-    email = models.EmailField()
-    website = models.URLField(blank=True)
-    student_prefix = models.CharField(max_length=10, default='STD', help_text='Prefix for student registration numbers')
-    current_academic_year = models.ForeignKey('AcademicYear', on_delete=models.SET_NULL, null=True, blank=True)
-    current_term = models.ForeignKey('Term', on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.school_name
-
-    class Meta:
-        verbose_name = "School Configuration"
-        verbose_name_plural = "School Configurations"
-
-
 class AcademicYear(models.Model):
     name = models.CharField(max_length=50)
     start_date = models.DateField()
@@ -32,7 +11,6 @@ class AcademicYear(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Term(models.Model):
     TERM_CHOICES = [
@@ -53,15 +31,43 @@ class Term(models.Model):
     def __str__(self):
         return f"{self.get_term_display()} - {self.academic_year.name}"
 
+class SchoolConfig(models.Model):
+    school_name = models.CharField(max_length=200)
+    school_logo = CloudinaryField('logo', blank=True, null=True)
+    motto = models.CharField(max_length=200, blank=True)
+    location = models.CharField(max_length=200)
+    address = models.TextField()
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    website = models.URLField(blank=True)
+    student_prefix = models.CharField(max_length=10, default='STD', help_text='Prefix for student registration numbers')
+    current_academic_year = models.ForeignKey(AcademicYear, on_delete=models.SET_NULL, null=True, blank=True)
+    current_term = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, blank=True)
+
+    # Singleton pattern implementation
+    def save(self, *args, **kwargs):
+        self.pk = 1  # Force single instance
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return self.school_name
+
+    class Meta:
+        verbose_name = "School Configuration"
+        verbose_name_plural = "School Configurations"
 
 class ClassLevel(models.Model):
-    name = models.CharField(max_length=50)  # e.g., Class 1, Class 2, etc.
+    name = models.CharField(max_length=50)
     code = models.CharField(max_length=10, unique=True)
     next_class = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
-
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
@@ -70,6 +76,8 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 class SubSubject(models.Model):
